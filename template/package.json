@@ -1,5 +1,5 @@
 {
-  "name": "custom-bootstrap-example",
+  "name": "postit",
   "version": "1.0.0",
   "description": "",
   "dependencies": {},
@@ -15,11 +15,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/treyhunner/custom-bootstrap-example.git"
+    "url": "https://github.com/jattoabdul/andela-bootcamp-postit.git"
   },
   "author": "",
   "bugs": {
-    "url": "https://github.com/treyhunner/custom-bootstrap-example/issues"
+    "url": "https://github.com/jattoabdul/andela-bootcamp-postit.git/issues"
   },
-  "homepage": "https://github.com/treyhunner/custom-bootstrap-example"
+  "homepage": "https://github.com/jattoabdul/andela-bootcamp-postit"
 }
