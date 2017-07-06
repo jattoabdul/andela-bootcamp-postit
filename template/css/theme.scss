@@ -1,0 +1,222 @@
+// Custom CSS
+
+#loginContainer {
+  background: $loginbackground;
+  color: $textColor;
+  .loginArea {
+    max-width: 75rem;
+    margin: 2% auto;
+    .col-md-6 {
+      padding: 1rem;
+      border-radius: 5px;
+      height: 75vh;
+      min-height: 50rem;
+      .half-capsuleL {
+        border-top-left-radius: 2rem !important;
+        background: $loginAd;
+        border-bottom-left-radius: 2rem !important;
+        margin-right: -4px !important;
+        cursor: pointer;
+      }
+      .half-capsuleR {
+        border-top-right-radius: 2rem !important;
+        background: #33b5e5;
+        border-bottom-right-radius: 2rem !important;
+        margin-left: 0 !important;
+        cursor: pointer;
+      }
+      .small-capsule {
+        padding: 5px 12px;
+        font-size: 1rem;
+        text-transform: capitalize;
+        cursor: pointer;
+        margin-top: 2rem;
+        border-radius: 2px;
+        border: 0;
+        color: #fff!important;
+        white-space: normal!important;
+      }
+    }
+    .col-md-6:first-child {
+      background: $loginAd;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      padding: 15% 2rem 3rem;
+      .app_logo {
+        font-size: 4rem;
+        position: absolute;
+        top: 0;
+        left: 3rem;
+      }
+      .app_logo i {
+        margin-right: 1rem;
+      }
+      .app-tagLine {
+        text-align: center;
+      }
+      i.x-large-logo {
+        font-size: 13rem;
+        display: block;
+        text-align: center;
+        margin-bottom: 1rem;
+        margin-top: 3rem;
+      }
+      .quickstart {
+        margin-top: 3rem;
+        padding-bottom: 1rem;
+        p {
+          font-weight: 500;
+          font-size: 1.8rem;
+          padding-left: 1.5rem;
+        }
+        ul {
+          padding-left: 3.5rem;
+        }
+      }
+    }
+    .col-md-6:nth-child(2) {
+      background: $loginFormSide;
+      padding-top: 2rem;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      padding: 1rem 2rem 3rem 3rem;
+      .forms {
+        padding-top: 10%;
+        #goSignIn,
+        #goSignUp {
+          margin-right: 1rem;
+          font-size: 1.7rem;
+          cursor: pointer;
+        }
+        #goSignIn.inactive,
+        #goSignUp.inactive {
+          color: #808080 !important;
+        }
+        form#SignUpForm {
+          padding-top: 3rem;
+          padding-bottom: 3rem;
+          label {
+            display: inline-block;
+            max-width: 100%;
+            margin-bottom: 5px;
+            font-weight: normal;
+            text-transform: capitalize;
+          }
+          .form-control {
+            background: transparent;
+            color: white;
+          }
+          button[type="submit"] {
+            background: $loginAd;
+            color: white;
+            border-radius: 2rem;
+            padding: 7px 2.5rem;
+            font-size: 1.7rem;
+            margin-right: 2rem;
+          }
+          button[type="submit"]+a {
+            font-size: 1.4rem;
+            border-bottom: 1px solid;
+            color: white;
+            cursor: pointer;
+          }
+          button[type="submit"]+a:hover {
+            color: #808080;
+          }
+        }
+      }
+    }
+  }
+}
+
+#board {
+  background: #2a9d8f;
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: 0; // width: 100%;
+  aside#sidemenu {
+    height: 100vh;
+    overflow-y: auto;
+    background: $loginFormSide;
+    color: $textColor;
+    padding: 0 2.5rem;
+    #userProfile {
+      padding: 2rem 0.5rem;
+      img {
+        width: 10rem;
+        border-radius: 50%;
+        margin: auto;
+        display: block;
+      }
+      .user_displayName {
+        text-align: center
+      }
+      span.user_username {
+        text-align: center;
+        display: block;
+        color: #EEEEEE;
+      }
+    }
+    .groups {
+      a {
+        color: $textColor;
+        font-weight: 300;
+        h4 {
+          padding-left: 1rem;
+          font-weight: 400
+        }
+        i.fa {
+          margin-left: 0.5rem;
+        }
+      }
+      li {
+        list-style-type: square;
+      }
+    }
+    .starred-groups {
+      margin-top: 35%;
+    }
+  }
+  main {
+    padding: 0;
+    nav.navbar.navbar-default {
+      background-color: rgba(231, 111, 81, 0);
+      border-color: transparent;
+      border-radius: 0;
+      border-bottom: 2px solid #009688;
+      .form-control {
+        background: transparent;
+        color: white;
+        border: 0;
+        border-bottom: 2px solid white;
+        border-radius: 0;
+      }
+      .form-control::-moz-placeholder {
+        color: $textColor;
+      }
+      button, button:hover {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.03);
+        font-size: 2rem;
+        border-color: rgba(204, 204, 204, 0.04);
+        padding-left: 0;
+      }
+
+      .navbar-header {
+        margin-left: 35%;
+        a.navbar-brand {
+          color: $textColor;
+          font-size: 4rem;
+          margin-top: -10px;
+        }
+      }
+    }
+  }
+}
+
+.right-align {
+  text-align: right;
+}

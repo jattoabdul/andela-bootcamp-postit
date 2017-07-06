@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>PostIt</title>
+
+  <!--css entry point-->
+  <link href="public/css/app.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body id="loginContainer">
+
+<div class="container">
+  <div class="row loginArea">
+    <div class="col-md-6">
+      <h3 class="app_logo"><i class="fa fa-bullhorn"> </i>POSTiT</h3>
+      <h4 class="app-tagLine">
+        You Dont Have to Shout, Just <span>PostIt</span>
+      </h4>
+      <i class="fa fa-bullhorn x-large-logo"></i>
+      <div class="quickstart">
+        <p>QUICK START</p>
+        <ul>
+          <li>Create an Account</li>
+          <li>Create a Message Board</li>
+          <li>Add Members to Board</li>
+          <li>Just PostIt</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="right-align">
+        <button class="btn small-capsule half-capsuleL primary-color">Sign Up</button>
+        <button class="btn small-capsule half-capsuleR info-color">Sign In</button>
+      </div>
+      <div class="forms">
+        <span id="goSignUp">Sign Up</span>
+        <span id="goSignIn" class="inactive">Sign In</span>
+
+        <form id="SignUpForm">
+          <div class="form-group">
+            <label for="fullname_signup">FULL NAME</label>
+            <input type="email" class="form-control" id="fullname_signup" placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label for="email_signup">Email</label>
+            <input type="email" class="form-control" id="email_signup" placeholder="Your email goes here">
+          </div>
+          <div class="form-group">
+            <label for="password_signup">Password</label>
+            <input type="password" class="form-control" id="password_signup" placeholder="Password">
+          </div>
+          <div class="checkbox" style="padding-bottom: 1rem;">
+            <label>
+              <input type="checkbox"> &nbsp; I agree to the <a href="#">Terms of Service</a>
+            </label>
+          </div>
+          <button type="submit" class="btn btn primary-color capsule-full">Sign Up</button> <a href="#!">I&rsquo;m already a member</a>
+        </form>
+        <form id="SignInForm" class="hide">
+          <div class="spacer"></div>
+          <div class="form-group">
+            <label for="email_login">Email</label>
+            <input type="email" class="form-control" id="email_login" placeholder="Your email goes here">
+          </div>
+          <div class="form-group">
+            <label for="password_login">Password</label>
+            <input type="password" class="form-control" id="password_login" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn primary-color capsule-full">Sign In</button>
+          <a href="#!">I&rsquo;m not a member</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container -->
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script src="public/js/app.js"></script>
+<!--<script src="js/main.js"></script>-->
+</body>
+</html>

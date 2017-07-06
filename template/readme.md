@@ -1,14 +1,32 @@
-# Setting up Gulp, Bower, Bootstrap Sass, & FontAwesome for my Templates
-# Andela Boot Camp LOS24 PostIt Project Templates
+Customizing a Bootstrap SASS build with Bower
+=============================================
 
-## Installation
+This project demonstrates an example of customizing a Bootstrap SASS build.  This sample project uses Bower to install Bootstrap and Gulp to build the CSS with gulp-sass.
 
-1. Clone this repo.
-2. cd into the template (current directory) and run `npm install` (make sure you already have node and gulp-cli installed in your globals)
-2. cd into the template (current directory) and run `bower install` (make sure you already have bower installed in your globals)
-3. Run `gulp` and it will pull in all dependencies and compile. (to run gulp in development - run "gulp watch")
-4. Open the index file inside public folder in your browser.
-5. to make changes to the styles, check style.scss in resources folder
+To build the CSS, run `gulp`:
+
+    $ gulp
+
+Once you have built the CSS, open `index.html` in your web browser to view the customized Bootstrap template.
+
+To customize the build further, modify the variables in the `css/variables.scss` file.
+
+Before Customizing
+------------------
+
+![screenshot before customizations](screenshots/before.png?raw=true)
 
 
-#Author: Aminujatto Abdulqahhar
+After Customizing
+-----------------
+
+![screenshot after customizations](screenshots/after.png?raw=true)
+
+Notice the 16px Calibri font and the weird color customizations?
+
+Copying
+-------
+
+To the extent possible under law, the author has dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
+
+CC0 Public Domain Dedication license: http://creativecommons.org/publicdomain/zero/1.0/

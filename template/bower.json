@@ -1,11 +1,9 @@
 {
-  "name": "post-it",
-  "version": "1.0.0",
-  "homepage": "https://github.com/jattoabdul/andela-bootcamp-posit",
+  "name": "custom-bootstrap-example",
   "authors": [
-    "Abdulqahhar Aminujatto <jattoade@gmail.com>"
+    "Trey Hunner <trey@treyhunner.com>"
   ],
-  "license": "MIT",
+  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -14,7 +12,6 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass-official": "~3.3.3",
-    "fontawesome": "~4.3.0"
+    "bootstrap-sass": "~3.3.3"
   }
 }
