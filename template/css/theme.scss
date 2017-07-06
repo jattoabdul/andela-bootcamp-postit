@@ -143,7 +143,7 @@ body {padding:50px;}
     overflow-y: auto;
     background: $loginFormSide;
     color: $textColor;
-    padding: 0 2.5rem;
+    padding: 0 2rem;
     #userProfile {
       padding: 2rem 0.5rem;
       img {
@@ -162,6 +162,7 @@ body {padding:50px;}
       }
     }
     .groups {
+      padding-left: 1rem;
       a {
         color: $textColor;
         font-weight: 300;
@@ -188,6 +189,13 @@ body {padding:50px;}
       border-color: transparent;
       border-radius: 0;
       border-bottom: 2px solid #009688;
+      a.icon-container {
+        color: white;
+        padding: 1.5rem 3rem;
+        i.fa {
+          font-size: 3rem;
+        }
+      }
       .form-control {
         background: transparent;
         color: white;
@@ -195,23 +203,123 @@ body {padding:50px;}
         border-bottom: 2px solid white;
         border-radius: 0;
       }
-      .form-control::-moz-placeholder {
+      .form-control::placeholder {
         color: $textColor;
       }
-      button, button:hover {
+      button,
+      button:hover {
         color: #fff;
         background-color: rgba(255, 255, 255, 0.03);
         font-size: 2rem;
         border-color: rgba(204, 204, 204, 0.04);
         padding-left: 0;
       }
-
       .navbar-header {
-        margin-left: 35%;
+        margin-left: 30%;
         a.navbar-brand {
           color: $textColor;
           font-size: 4rem;
           margin-top: -10px;
+        }
+      }
+    }
+    #main_board {
+      aside#user_scroll {
+        background: #264653;
+        border-left: 2px solid #2a9d8f;
+        border-right: 2px solid #d8d1d1;
+        margin-left: 1.5rem;
+        margin-top: -2rem;
+        height: 92vh;
+        overflow-y: scroll;
+        padding: 1rem 0 2rem;
+        ul {
+          padding: 0;
+        }
+        li {
+          list-style-type: none;
+          a {
+            img {
+              width: 6rem;
+              height: 6rem;
+              border-radius: 50%;
+              border: 2px solid #2a9d8f;
+              display: block;
+              margin: 1rem auto;
+            }
+          }
+        }
+      }
+      #board_area {
+        width: 89.66667%;
+        .chats {
+          max-height: 90vh;
+          overflow-y: auto;
+          .chat {
+            max-width: 60%;
+            font-size: 2rem;
+            min-width: 45%;
+            margin-top: 2rem;
+            img {
+              border-radius: 50%;
+              width: 6.5rem;
+            }
+            .chatbox {
+              background: white;
+              border-top-right-radius: 3rem;
+              border-bottom-right-radius: 1rem;
+              border-bottom-left-radius: 3rem;
+              border-top-left-radius: 0rem;
+              margin-left: 7rem;
+              padding: 1rem 0.5rem 1rem 1rem;
+            }
+          }
+          .someoneChat.chat {
+            float: left;
+            img {
+              float: left;
+            }
+          }
+          .myChat.chat {
+            float: right;
+            img {
+              float: right;
+            }
+            .chatbox {
+              margin-left: 0;
+              margin-right: 7rem;
+              border-top-left-radius: 3rem;
+              border-bottom-left-radius: 1rem;
+              border-bottom-right-radius: 3rem;
+              border-top-right-radius: 1rem;
+            }
+          }
+        }
+        #message-sender {
+          position: fixed;
+          bottom: -0.5rem;
+          width: 75%;
+          margin-left: -1.5%;
+          .form-group {
+            padding-right: 0;
+            .form-control {
+              border: 2px solid #264653;
+              line-height: 5rem;
+              height: 5rem;
+              font-size: 2rem;
+              padding: 2px 1rem;
+              border-top-right-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+          }
+          button.btn {
+            height: 5rem;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            font-size: 2rem;
+            background: #264653;
+            color: white;
+          }
         }
       }
     }
