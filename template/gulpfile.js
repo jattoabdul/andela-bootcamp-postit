@@ -6,6 +6,7 @@ var uglify = require('gulp-uglifyjs');
 var config = {
   bowerDir: './bower_components',
   publicDir: './public',
+  sassPath: './css',
 };
 
 gulp.task('fonts', function() {
@@ -13,6 +14,13 @@ gulp.task('fonts', function() {
     config.bowerDir + '/bootstrap-sass/assets/fonts/**/*',
   ])
   .pipe(gulp.dest(config.publicDir + '/fonts'));
+});
+
+gulp.task('icons', function() {
+  return gulp.src([
+    config.bowerDir + '/font-awesome/fonts/**/*',
+  ])
+      .pipe(gulp.dest(config.publicDir + '/fonts'));
 });
 
 gulp.task('js', function() {
@@ -38,4 +46,9 @@ gulp.task('css', function() {
   .pipe(gulp.dest(config.publicDir + '/css'));
 });
 
-gulp.task('default', ['css', 'js', 'fonts']);
+// Rerun the task when a file changes
+gulp.task('watch', function() {
+  gulp.watch(config.sassPath + '/**/*.scss', ['css']);
+});
+
+gulp.task('default', ['css', 'js', 'fonts', 'icons']);
