@@ -2,14 +2,28 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,700,300);
 $font-family-base: 'Raleway', sans-serif;
 
+/*
+* add custom icon
+* (ionicons)
+*/
+
+
 // Import bootstrap and fontawesome
 @import "bootstrap";
 @import "font-awesome";
 
-// Bootstrap Starter Template Styles
+// Importing lib
+@import 'libs/vars';
+@import 'libs/functions';
+@import 'libs/mixins';
+
+// Import Base
+
+// Import Component
+
+// Import Layout
+
+// Custom Styles
 body {padding-top: 50px;}
-
-
-
 
 
