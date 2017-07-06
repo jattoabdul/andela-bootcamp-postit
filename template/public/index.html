@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>PostIt</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <h3 class="app_logo"><i class="icon ion-speakerphone"> </i>POSTiT</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <h4>
+            You Dont Have to Shout, Just <span>PostIt</span>
+          </h4>
+          <p class="center-align">
+            <i class="icon ion-speakerphone x-large-logo"></i>
+          </p>
+          <p>QUICK START</p>
+          <ul>
+            <li>Create an Account</li>
+            <li>Create a Message Board</li>
+            <li>Add Members to Board</li>
+            <li>Just PostIt</li>
+          </ul>
+        </div>
+
+        <div class="col-md-6">
+          <div class="right-align">
+            <button class="btn small-capsule half-capsuleL primary-color">Sign Up</button>
+            <button class="btn small-capsule half-capsuleR info-color">Sign In</button>
+          </div>
+          <div class="forms">
+            <span id="goSignIn">Sign In</span>
+            <span id="goSignUp" class="inactive">Sign Up</span>
+
+            <form id="SignUpForm">
+              <div class="form-group">
+                <label for="fullname_signup">FULL NAME</label>
+                <input type="email" class="form-control" id="fullname_signup" placeholder="Enter your full name">
+              </div>
+              <div class="form-group">
+                <label for="email_signup">Email</label>
+                <input type="email" class="form-control" id="email_signup" placeholder="Your email goes here">
+              </div>
+              <div class="form-group">
+                <label for="password_signup">Password</label>
+                <input type="password" class="form-control" id="password_signup" placeholder="Password">
+              </div>
+              <div class="checkbox" style="padding-bottom: 1rem;">
+                <label>
+                  <input type="checkbox"> &nbsp; I agree to the <a href="#">Terms of Service</a>
+                </label>
+              </div>
+              <button type="submit" class="btn btn primary-color capsule-full">Sign Up</button> <a href="#!" style="font-size:0.9rem;border-bottom:1px solid">I&rsquo;m already a member</a>
+            </form>
+            <form id="SignInForm" class="hide">
+              <div class="spacer"></div>
+              <div class="form-group">
+                <label for="email_login">Email</label>
+                <input type="email" class="form-control" id="email_login" placeholder="Your email goes here">
+              </div>
+              <div class="form-group">
+                <label for="password_login">Password</label>
+                <input type="password" class="form-control" id="password_login" placeholder="Password">
+              </div>
+              <button type="submit" class="btn btn primary-color capsule-full">Sign In</button> <a href="#!" style="font-size:0.9rem;border-bottom:1px solid">I&rsquo;m not a member</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.container -->
+
+  </body>
+</html>

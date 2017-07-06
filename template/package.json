@@ -1,0 +1,17 @@
+{
+  "name": "post-it",
+  "version": "1.0.0",
+  "description": "andela bootcamp los24 postit project",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abdulqahhar Aminujatto <jattoade@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-bower": "0.0.10",
+    "gulp-notify": "^2.2.0",
+    "gulp-ruby-sass": "^0.7.1"
+  }
+}
