@@ -1,5 +1,5 @@
 // Custom CSS
-body {padding:50px;}
+// body {padding:50px;}
 
 #loginContainer {
   background: $loginbackground;
@@ -189,6 +189,7 @@ body {padding:50px;}
       border-color: transparent;
       border-radius: 0;
       border-bottom: 2px solid #009688;
+      background: transparent;
       a.icon-container {
         color: white;
         padding: 1.5rem 3rem;
@@ -321,6 +322,11 @@ body {padding:50px;}
             color: white;
           }
         }
+        .browse-group-heading {
+          color: $textColor;
+          margin-top: -5px;
+          margin-left:  -5rem;
+        }
       }
     }
   }
@@ -328,4 +334,8 @@ body {padding:50px;}
 
 .right-align {
   text-align: right;
+}
+
+.center-align {
+  text-align: center;
 }
