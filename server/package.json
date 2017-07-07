@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "postit backend api",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start:dev": "nodemon ./bin/www",
+    "test": "echo \"Error: no test specified yet\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "backend",
+    "postit",
+    "server",
+    "sequelize",
+    "db",
+    "postgres",
+    "node",
+    "express",
+    "mocha",
+    "chai"
+  ],
+  "author": "Aminujatto Abdulqahhar <jattoade@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "morgan": "^1.8.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
