@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start:dev": "nodemon ./bin/www",
-    "test": "echo \"Error: no test specified yet\" && exit 1"
+    "test": "mocha tests/tests.js"
   },
   "keywords": [
     "api",
@@ -23,12 +23,27 @@
     "mocha",
     "chai"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/jattoabdul/andela-bootcamp-postit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jattoabdul/andela-bootcamp-postit/issues"
+  },
+  "homepage": "https://github.com/jattoabdul/andela-bootcamp-postit",
   "author": "Aminujatto Abdulqahhar <jattoade@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "chai": "^4.0.2",
     "express": "^4.15.3",
-    "morgan": "^1.8.2"
+    "mocha": "^3.4.2",
+    "morgan": "^1.8.2",
+    "pg": "^6.4.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.2.1",
+    "sequelize-mocking": "^0.4.1",
+    "sinon": "^2.3.6"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
