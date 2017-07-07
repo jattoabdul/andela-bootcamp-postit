@@ -1,0 +1,41 @@
+{
+  "name": "postit",
+  "version": "1.0.0",
+  "description": "a simple group broadcast messaging app ",
+  "main": "app.js",
+  "dependencies": {
+    "eslint": "^4.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.2",
+    "eslint-plugin-import": "^2.6.1",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jattoabdul/andela-bootcamp-postit.git"
+  },
+  "keywords": [
+    "postit",
+    "messaging",
+    "broadcasting",
+    "react",
+    "node",
+    "express",
+    "postgres",
+    "sequelize",
+    "andela",
+    "bootcamp"
+  ],
+  "author": "Aminujatto Abdulqahhar <jattoade@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jattoabdul/andela-bootcamp-postit/issues"
+  },
+  "homepage": "https://github.com/jattoabdul/andela-bootcamp-postit#readme"
+}
