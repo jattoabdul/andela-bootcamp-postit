@@ -19,91 +19,147 @@
 </head>
 
 <body>
-
-<div class="container">
-
-    <div>
+    <div id="board" class="row">
         <!--sidemenu-->
-        <div>
+        <aside id="sidemenu" class="col-sm-2">
             <!--user profile detail-->
-            <img src="" alt="">
-            <h4>Aminujatto Abdulqahhar</h4>
-            <span>@jattoade</span>
-        </div><!--end user profile detail-->
-
-        <div>
-            <!--other menu (starred) + (group with a + -add button)-->
-            <p>
-                <a href="">Starred</a>
-                <span>
+            <div id="userProfile">
+                <img src="http://i.pravatar.cc/150?img=59" alt="">
+                <h4 class="user_displayName">Aminujatto Abdulqahhar</h4>
+                <span class="user_username">@jattoade</span>
+            </div>
+            <!--end user profile detail-->
+            <div class="starred-groups groups">
+                <a href="#">
+                    <h4>Starred <i class="fa fa-star"></i></h4>
+                </a>
+                <ul>
+                    <li><a href="#">Group A</a></li>
+                    <li><a href="#">Group B</a></li>
+                    <li><a href="#">Group C</a></li>
+                </ul>
+            </div>
+            <div class="other-groups groups">
+                <a href="#">
+                    <h4>Groups <i class="fa fa-plus"></i></h4>
+                </a>
+                <ul>
+                    <li><a href="#">Group 1</a></li>
+                    <li><a href="#">Group 2</a></li>
+                    <li><a href="#">Group 3</a></li>
+                </ul>
+            </div>
+            <div class="direct-messages groups">
+                <a href="#">
+                    <h4>Messages <i class="fa fa-paper-plane"></i></h4>
+                </a>
+                <ul>
+                    <li><a href="#">Tony</a></li>
+                    <li><a href="#">Adeola</a></li>
+                    <li><a href="#">Chuks</a></li>
+                </ul>
+            </div>
+        </aside>
+        <main class="col-sm-10">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-left">
+                        <a href="#" class="navbar-brand icon-container">
+                            <i class="fa fa-navicon"></i>
+                        </a>
+                    </div>
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">
+                            <i class="fa fa-bullhorn"> </i> POSTiT
+                        </a>
+                    </div>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+            </nav>
+            <div id="main_board" class="row">
+                <aside id="user_scroll" class="col-sm-1">
                     <ul>
-                        <li>group1</li>
-                        <li>Group2</li>
+                        <li>
+                            <a href="$#">
+                                <img src="http://i.pravatar.cc/80?img=23" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$#">
+                                <img src="http://i.pravatar.cc/80?img=59" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$#">
+                                <img src="http://i.pravatar.cc/80?img=20" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$#">
+                                <img src="http://i.pravatar.cc/80?img=34" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$#">
+                                <img src="http://i.pravatar.cc/80?img=17" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$#">
+                                <img src="http://i.pravatar.cc/80?img=18" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$#">
+                                <img src="http://i.pravatar.cc/80?img=21" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$#">
+                                <img src="http://i.pravatar.cc/80?img=34" alt="">
+                            </a>
+                        </li>
                     </ul>
-                </span>
-            </p>
+                </aside>
+                <div id="board_area" class="col-sm-11">
+                    <h2 class="center-align browse-group-heading">Create A channel</h2>
+                    <p class="center-align">some notes</p>
 
-            <p>
-                <a href="">Groups</a>
-                <span>
-                    <ul>
-                        <li>Group 1</li>
-                        <li>Group 2</li>
-                        <li>Group 3</li>
-                    </ul>
-                </span>
-            </p>
-        </div><!--other menu (starred) + (group with a + -add button)-->
+                    <br/>
+                    <form id="SignUpForm" class="col-md-6 col-md-offset-3">
+                      <div class="form-group">
+                        <label for="create_group_name">GROUP NAME</label>
+                        <input type="text" class="form-control" id="create_group_name" placeholder="Enter your Group Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="create_group_desc">GROUP DESCRIPTION</label>
+                        <textarea class="form-control" id="create_group_desc" placeholder="Your Group description goes here" rows="3"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="add_member_group">ADD A MEMBER</label>
+                        <input type="text" class="form-control" id="add_member_group" placeholder="Type all ">
+                        <br>
+                        <ul>
+                            <li>@jattoade</li>
+                            <li>@tracey</li>
+                        </ul>
+                      </div>
+                      <button type="submit" class="btn primary-color capsule-full">Create Group</button>
+                    </form>
+                </div>
 
-    </div><!-- end sidemenu-->
-
-    <div>
-        <!-- main body-->
-        <div>
-            <!--app header with a popup menu button, search form app logo and a home icon menu-->
-            <a href="">
-                navicon
-                <!--On the left and a popup menu-->
-            </a>
-            <p>
-                <i>icon-speaker</i>PostIt
-                <!--(Centered)-->
-            </p>
-            <a href="">
-                <i>icon-home</i>
-                <!--link to home or default page-->
-            </a>
-            <p>
-                search form
-                <!--search form-->
-            </p>
-        </div><!-- end app header with a popup menu button, search form app logo and a home icon menu-->
-        <div>
-            <!--online users(when on group search) or users who have read the message-->
-            <span><i>arrow-up</i></span>
-            <span>...</span>
-
-            <ul>
-                <li><img src="" alt=""></li>
-                <li><img src="" alt=""></li>
-                <li><img src="" alt=""></li>
-                <li><img src="" alt=""></li>
-            </ul>
-
-            <span><i>arrow-down</i></span>
-        </div><!-- end online users(when on group search) or users who have read the message-->
-        <div>
-            <!-- create channel view body-->
-            main content
-        </div><!-- create channel view body -->
-
-    </div><!-- end main body-->
-
-</div><!-- /.container -->
+            </div>
+        </main>
+    </div><!-- /.container -->
 
 <!-- Bootstrap core JavaScript
-================================================== -->
-<script src="../public/js/app.js"></script>
-<!--<script src="js/main.js"></script>-->
+    ================================================== -->
+    <script src="../public/js/app.js"></script>
+    <!--<script src="js/main.js"></script>-->
 </body>
 </html>

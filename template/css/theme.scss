@@ -138,6 +138,7 @@
   left: 0;
   width: 100%;
   margin: 0; // width: 100%;
+
   aside#sidemenu {
     height: 100vh;
     overflow-y: auto;
@@ -182,6 +183,7 @@
       margin-top: 35%;
     }
   }
+
   main {
     padding: 0;
     nav.navbar.navbar-default {
@@ -322,20 +324,106 @@
             color: white;
           }
         }
+
+        /* browse group page*/
         .browse-group-heading {
           color: $textColor;
           margin-top: -5px;
-          margin-left:  -5rem;
+          margin-left: -5rem;
         }
+
+        #groupListItem {
+              height: 60vh !important;
+        }
+
+        /*all browse group styles go here*/
+        #addGroupFab {
+              position: relative !important;;
+              right: -12vh !important;
+              bottom: 9vh !important;
+          .fixed-action-btn {
+              position: relative !important;;
+              right: -12vh !important;
+              bottom: 9vh !important;
+              padding-top: 15px;
+              margin-bottom: 0;
+              border-radius: 50% !important;
+              z-index: 998;
+          }
+
+          .btn-floating {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            background-color: #a6c;
+            border-radius: 50% !important;
+            -webkit-transition: .3s;
+            transition: .3s;
+            margin: 10px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12) !important;
+        }
+        .btn-floating, .btn-floating i {
+            display: inline-block;
+            line-height: 37px;
+            color: #fff !important;
+        }
+
+        #group-search {
+          position: fixed;
+          bottom: -0.5rem;
+          width: 100%;
+          margin-left: -1.5%;
+          .form-group {
+            padding-right: 0;
+            .form-control {
+              border: 2px solid #264653;
+              line-height: 5rem;
+              height: 5rem;
+              font-size: 2rem;
+              padding: 2px 1rem;
+              border-top-right-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+          }
+        }
+
+
+
+        }
+
+        /*end browse group page*/
+
+
+        /*create channel*/
+
+        /*end create channel*/
       }
     }
+    /*//end main_board*/
   }
+  /*// end main*/
+
 }
+/*// end board*/
 
 .right-align {
   text-align: right;
 }
-
+.white-text {
+  color: white !important;
+}
 .center-align {
   text-align: center;
+}
+
+.red {
+  background-color: #F44336 !important;
+}
+
+.circular {
+  border-radius: 50% !important;
 }
