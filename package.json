@@ -15,6 +15,7 @@
   "scripts": {
     "start:dev": "nodemon ./server/bin/www",
     "test:dev": "mocha server/tests/tests.js",
+    "test": "mocha server/tests/tests.js",
     "eslint": "eslint **/*.js"
   },
   "repository": {

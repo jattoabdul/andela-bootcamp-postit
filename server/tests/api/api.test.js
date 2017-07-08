@@ -11,7 +11,7 @@ const path = require("path");
 const Sequelize = require("sequelize");
 const sequelizeMockingMocha = require("sequelize-mocking").sequelizeMockingMocha;
 
-// Importing our xxx model for our unit testing.
+// Importing our models for our unit testing.
 // e.g. const Index = require('../../api/models/index.js');
 const User = require("../../api/models/user.js");
 

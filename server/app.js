@@ -12,14 +12,14 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// A catch-all route for anything the api(webservice) does not define.
+// app.get("*", (req, res) => res.status(404).send({
+//   message: "Nothing to see here",
+// }));
+
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 app.get("*", (req, res) => res.status(200).send({
   message: "Welcome to the beginning of nothingness.",
-}));
-
-// A catch-all route for anything the api(webservice) does not define.
-app.get("*", (req, res) => res.status(404).send({
-  message: "Nothing to see here",
 }));
 
 module.exports = app;
