@@ -6,10 +6,16 @@
   "directories": {
     "test": "server/tests"
   },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true
+    }
+  },
   "scripts": {
     "start:dev": "nodemon ./server/bin/www",
     "test:dev": "mocha server/tests/tests.js",
-    "eslint": "eslint **/*.js"
+    "eslint": "eslint --ignore-path .gitignore **/*.js"
   },
   "repository": {
     "type": "git",
