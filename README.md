@@ -3,7 +3,7 @@ Andela-bootcamp-postit
 # My Andela Bootcamp LOS24 Postit Project
 [![Build Status](https://travis-ci.org/jattoabdul/andela-bootcamp-postit.svg?branch=master)](https://travis-ci.org/jattoabdul/andela-bootcamp-postit)
 [![Coverage Status](https://coveralls.io/repos/github/jattoabdul/andela-bootcamp-postit/badge.svg?branch=master)](https://coveralls.io/github/jattoabdul/andela-bootcamp-postit?branch=master)
-[![Code Climate](https://codeclimate.com/github/jattoabdul/andela-bootcamp-postit)](https://codeclimate.com/github/jattoabdul/andela-bootcamp-postit)
+[![Code Climate](https://codeclimate.com/github/jattoabdul/andela-bootcamp-postit.png)](https://codeclimate.com/github/jattoabdul/andela-bootcamp-postit)
 
 # To run server in development, run
 $ npm run start:dev
