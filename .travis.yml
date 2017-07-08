@@ -15,7 +15,7 @@ before_script:
 - chmod +x ./cc-test-reporter
 script:
   - npm
-  - bundle exec rspec
+  - node_modules exec rspec
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 after_script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 # In the case where travis is setup to build PR updates only,
