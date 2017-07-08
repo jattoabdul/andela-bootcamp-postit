@@ -1,9 +1,9 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  "config": path.resolve('./server/api/config', 'config.json'),
-  "models-path": path.resolve('./server/api/models'),
-  "seeders-path": path.resolve('./server/api/seeders'),
-  "migrations-path": path.resolve('./server/api/migrations'),
-  "routers-path": path.resolve('./server/api/routers')
+  "config": path.resolve("./server/api/config", "config.json"),
+  "models-path": path.resolve("./server/api/models"),
+  "seeders-path": path.resolve("./server/api/seeders"),
+  "migrations-path": path.resolve("./server/api/migrations"),
+  "routers-path": path.resolve("./server/api/routers")
 };

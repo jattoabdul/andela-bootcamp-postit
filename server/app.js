@@ -17,4 +17,9 @@ app.get("*", (req, res) => res.status(200).send({
   message: "Welcome to the beginning of nothingness.",
 }));
 
+// A catch-all route for anything the api(webservice) does not define.
+app.get("*", (req, res) => res.status(404).send({
+  message: "Nothing to see here",
+}));
+
 module.exports = app;

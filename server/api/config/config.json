@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "postgres",
-    "password": null,
+    "password": "root",
     "database": "postit-dev",
     "host": "127.0.0.1",
     "port": 5432,
@@ -9,18 +9,10 @@
   },
   "test": {
     "username": "postgres",
-    "password": null,
+    "password": "root",
     "database": "postit-test",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"
   }
-  // "production": {
-  //   "username": "postgres",
-  //   "password": null,
-  //   "database": "postit-prod",
-  //   "host": "127.0.0.1",
-  //   "port": 5432,
-  //   "dialect": "postgres"
-  // }
 }

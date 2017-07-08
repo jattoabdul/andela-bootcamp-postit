@@ -15,10 +15,9 @@ const sequelizeMockingMocha = require("sequelize-mocking").sequelizeMockingMocha
 // e.g. const Index = require('../../api/models/index.js');
 const User = require("../../api/models/user.js");
 
-describe("User module", () => {
-  describe('"user testing"', () => {
-    it("should be type number", () => {
-      expect(1).to.be.a("number");
-    });
-  });
-});
+// describe api route
+
+// describe user model
+// describe group model
+// describe message model
+// describe
