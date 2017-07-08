@@ -1,5 +1,6 @@
 # andela-bootcamp-postit
 My Andela Bootcamp LOS24 Postit Project
+
 [![Build Status](https://travis-ci.org/jattoabdul/andela-bootcamp-postit.svg?branch=master)](https://travis-ci.org/jattoabdul/andela-bootcamp-postit)
 
 # To run server in development, run
