@@ -15,7 +15,7 @@
   "scripts": {
     "start:dev": "nodemon ./server/bin/www",
     "test:dev": "mocha server/tests/tests.js",
-    "eslint": "eslint --ignore-path .gitignore **/*.js"
+    "eslint": "eslint **/*.js"
   },
   "repository": {
     "type": "git",

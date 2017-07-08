@@ -1,0 +1,4 @@
+.idea/**/*.js
+node_modules/**/*.js
+bower_components/**/*.js
+template/public/**/*.js
