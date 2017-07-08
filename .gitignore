@@ -5,3 +5,5 @@ bower_components/
 .idea
 node_modules
 bower_components
+template/public/*
+npm-debug.log

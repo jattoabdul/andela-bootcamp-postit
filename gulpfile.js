@@ -5,8 +5,8 @@ var uglify = require('gulp-uglifyjs');
 
 var config = {
   bowerDir: './bower_components',
-  publicDir: './public',
-  sassPath: './css',
+  publicDir: './template/public',
+  sassPath: './template/css',
 };
 
 gulp.task('fonts', function() {
@@ -36,7 +36,7 @@ gulp.task('js', function() {
 });
 
 gulp.task('css', function() {
-  return gulp.src('css/app.scss')
+  return gulp.src('template/css/app.scss')
   .pipe(sourcemaps.init())
   .pipe(sass({
     outputStyle: 'compressed',
