@@ -1,4 +1,4 @@
-"use strict";
+
 
 module.exports = (sequelize, DataTypes) => {
   const Messages = sequelize.define("Messages", {
@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     groupId: DataTypes.INTEGER,
     timeSent: DataTypes.DATE,
     priority: {
-      type:DataTypes.STRING,
+      type: DataTypes.STRING,
       defaultValue: "0"
     }
   }, {

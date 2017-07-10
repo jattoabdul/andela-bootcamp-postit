@@ -1,7 +1,7 @@
-"use strict";
+
 
 module.exports = function (sequelize, DataTypes) {
-  var MessagesMeta = sequelize.define('MessagesMeta', {
+  const MessagesMeta = sequelize.define("MessagesMeta", {
     msgId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER,

@@ -9,8 +9,8 @@ const Users = require("../models/users").Users;
 
 module.exports = {
 	// Signup Users (create user and save to db)
-	signUp(req,res,next){
-      Users
+  signUp(req, res, next) {
+    Users
       .create({
         username: req.body.username,
         email: req.body.email,
@@ -24,6 +24,6 @@ module.exports = {
       .catch((error) => {
       	res.status(400).send(error);
       });
-	},
+  },
 
-}
+};

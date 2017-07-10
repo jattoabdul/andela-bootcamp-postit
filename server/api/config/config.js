@@ -1,5 +1,5 @@
 const appConfig = {
-	"secret": "jasabs93postitrandomkey"
-}
+  secret: "jasabs93postitrandomkey"
+};
 
 module.exports = appConfig;

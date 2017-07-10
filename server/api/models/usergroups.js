@@ -1,4 +1,4 @@
-"use strict";
+
 
 module.exports = (sequelize, DataTypes) => {
   const UserGroups = sequelize.define("UserGroups", {
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     freezeTableName: true,
     classMethods: {
-      associate(models){
+      associate(models) {
         // associations can be defined here
 
       }

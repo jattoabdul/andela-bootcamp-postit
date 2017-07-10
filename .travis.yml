@@ -15,13 +15,17 @@ cache:
   - npm install
 service:
   - postgresql
-before_script:
-  - createuser postgres -s -U postgres
-  - createdb postit-dev --username=postgres
-  - sequelize db:migrate
-after_script: NODE_ENV=test instanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+# before_script:
+#   - createuser postgres -s -U postgres
+#   - createdb postit-dev --username=postgres
+#   - sequelize db:migrate
+after_script:
+  - NODE_ENV=test nyc check-coverage ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+  # - NODE_ENV=test instanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+
 after_success:
 - npm run coveralls
+
 notifications:
   webhooks: https://coveralls.io/webhook?repo_token=H9AhM6hCSE6BzPXk2XQRY420Ok1spAQ0f
 # In the case where travis is setup to build PR updates only,

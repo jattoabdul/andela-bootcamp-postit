@@ -1,0 +1,20 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "root",
+    "database": "postit-dev",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "autoMigrateOldSchema": true
+  },
+  "test": {
+    "username": "postgres",
+    "password": "root",
+    "database": "postit-dev",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "autoMigrateOldSchema": true
+  }
+}

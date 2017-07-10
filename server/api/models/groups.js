@@ -1,11 +1,11 @@
-"use strict";
+
 
 module.exports = (sequelize, DataTypes) => {
-  var Groups = sequelize.define("Groups", {
+  const Groups = sequelize.define("Groups", {
     name: DataTypes.STRING,
     desc: DataTypes.TEXT,
     isArchived: {
-      type:DataTypes.ENUM,
+      type: DataTypes.ENUM,
       defaultValue: "0"
     },
     msgCount: DataTypes.INTEGER,

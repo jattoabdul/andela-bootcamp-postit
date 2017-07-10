@@ -1,7 +1,7 @@
-"use strict";
+
 
 module.exports = function (sequelize, DataTypes) {
-  var Messages = sequelize.define("Messages", {
+  const Messages = sequelize.define("Messages", {
     text: DataTypes.TEXT,
     userId: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER,

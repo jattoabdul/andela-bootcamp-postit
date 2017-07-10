@@ -1,7 +1,7 @@
-"use strict";
+
 
 module.exports = function (sequelize, DataTypes) {
-  var Groups = sequelize.define("Groups", {
+  const Groups = sequelize.define("Groups", {
     name: DataTypes.STRING,
     desc: DataTypes.TEXT,
     isArchived: {

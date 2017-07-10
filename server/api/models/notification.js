@@ -1,7 +1,7 @@
-"use strict";
+
 
 module.exports = (sequelize, DataTypes) => {
-  var Notification = sequelize.define("Notification", {
+  const Notification = sequelize.define("Notification", {
     msgCount: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER,
     hasSentEmail: DataTypes.ENUM,

@@ -1,4 +1,4 @@
-"use strict";
+
 
 module.exports = {
   up(queryInterface, Sequelize) {
@@ -19,11 +19,11 @@ module.exports = {
       },
       hasSentEmail: {
         allowNull: false,
-        type: Sequelize.ENUM("0","1")
+        type: Sequelize.ENUM("0", "1")
       },
       hasSentSms: {
         allowNull: false,
-        type: Sequelize.ENUM("0","1")
+        type: Sequelize.ENUM("0", "1")
       },
       createdAt: {
         allowNull: false,

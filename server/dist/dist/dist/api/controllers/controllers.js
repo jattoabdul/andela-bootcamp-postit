@@ -1,5 +1,5 @@
-"use strict";
+
 
 User = require("./usercontroller");
 
-module.exports = { User: User };
+module.exports = { User };

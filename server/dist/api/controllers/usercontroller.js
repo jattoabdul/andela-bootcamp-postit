@@ -1,4 +1,4 @@
-"use strict";
+
 
 /**
  * User Controller
@@ -6,8 +6,8 @@
  */
 
 // importing services
-var jwt = require("jsonwebtoken");
-var Users = require("../models/users").Users;
+const jwt = require("jsonwebtoken");
+const Users = require("../models/users").Users;
 
 module.exports = {
   // Signup Users (create user and save to db)
@@ -18,9 +18,9 @@ module.exports = {
       password: req.body.password,
       fullName: req.body.fullName,
       phoneNumber: req.body.phoneNumber
-    }).then(function (user) {
+    }).then((user) => {
       res.status(201).send(user);
-    }).catch(function (error) {
+    }).catch((error) => {
       res.status(400).send(error);
     });
   }

@@ -1,4 +1,4 @@
-"use strict";
+
 
 module.exports = {
   up(queryInterface, Sequelize) {
@@ -19,7 +19,7 @@ module.exports = {
       },
       isArchived: {
         allowNull: false,
-        type: Sequelize.ENUM("0","1")
+        type: Sequelize.ENUM("0", "1")
       },
       msgCount: {
         allowNull: false,
