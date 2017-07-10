@@ -1,10 +1,13 @@
-Andela-bootcamp-postit
-=============
 # My Andela Bootcamp LOS24 Postit Project
+=============
 [![Build Status](https://travis-ci.org/jattoabdul/andela-bootcamp-postit.png?branch=master)](https://travis-ci.org/jattoabdul/andela-bootcamp-postit)
-[![Coverage Status](https://coveralls.io/repos/github/jattoabdul/andela-bootcamp-postit/badge.png?branch=master)](https://coveralls.io/github/jattoabdul/andela-bootcamp-postit?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/jattoabdul/andela-bootcamp-postit/badge.png?branch=master)](https://coveralls.io/github/jattoabdul/andela-bootcamp-postit)
 [![Code Climate](https://codeclimate.com/github/jattoabdul/andela-bootcamp-postit.png)](https://codeclimate.com/github/jattoabdul/andela-bootcamp-postit)
 
+# SERVER
+-Backend API's are in the server folder
+
+# How to Run
 # To run server in development, run
 $ npm run start:dev
 
@@ -30,14 +33,8 @@ $ gulp
 # To run In Development Mode, run
 $ gulp watch
 
-
-# SERVER
--Backend API's are in the server folder
-
-
-
 # CLIENT
 - React Front End Are in the client folder
 
 
-Author: Aminujatto Abdulqahhar
+- Author: Aminujatto Abdulqahhar

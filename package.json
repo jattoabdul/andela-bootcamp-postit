@@ -14,9 +14,12 @@
   },
   "scripts": {
     "start:dev": "nodemon ./server/bin/www",
-    "test:dev": "mocha server/tests/tests.js",
-    "test": "mocha server/tests/tests.js",
-    "eslint": "eslint --fix **/*.js"
+    "build": "rimraf dist/ && babel ./server --out-dir server/dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "start": "npm run build && nodemon ./server/dist/bin/www",
+    "test:dev": "mocha server/tests/tests.js -w --compilers js:babel-register",
+    "test": "nyc mocha server/tests/tests.js --compilers js:babel-register",
+    "eslint": "eslint --fix **/*.js",
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
   },
   "repository": {
     "type": "git",
@@ -47,10 +50,14 @@
   },
   "homepage": "https://github.com/jattoabdul/andela-bootcamp-postit#readme",
   "dependencies": {
-    "eslint": "^4.1.1",
+    "babel-eslint": "^7.2.3",
     "body-parser": "^1.17.2",
     "chai": "^4.0.2",
+    "chai-http": "^3.0.0",
+    "crypto-js": "^3.1.9-1",
+    "eslint": "^4.1.1",
     "express": "^4.15.3",
+    "import-export": "^1.0.1",
     "jsonwebtoken": "^7.4.1",
     "mocha": "^3.4.2",
     "morgan": "^1.8.2",
@@ -58,10 +65,10 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.2.1",
     "sequelize-mocking": "^0.4.1",
-    "sinon": "^2.3.6",
-    "import-export": "^1.0.1"
+    "sinon": "^2.3.6"
   },
   "devDependencies": {
+    "babel-register": "^6.24.1",
     "concurrently": "^3.5.0",
     "coveralls": "^2.13.1",
     "eslint": "^3.19.0",
@@ -82,6 +89,7 @@
     "mocha-sinon": "^2.0.0",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
+    "nyc": "^11.0.3",
     "supertest": "^3.0.0",
     "uglify-js": "^3.0.24"
   }

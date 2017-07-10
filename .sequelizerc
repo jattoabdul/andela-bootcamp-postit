@@ -5,5 +5,5 @@ module.exports = {
   "models-path": path.resolve("./server/api/models"),
   "seeders-path": path.resolve("./server/api/seeders"),
   "migrations-path": path.resolve("./server/api/migrations"),
-  "routers-path": path.resolve("./server/api/routers")
+  "routes-path": path.resolve("./server/api/routers")
 };

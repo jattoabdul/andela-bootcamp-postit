@@ -1,9 +1,13 @@
 .idea/
 node_modules/
 bower_components/
+.vscode/
 .sass-cache
 .idea
+.vscode
 node_modules
 bower_components
 template/public/*
 npm-debug.log
+.DS_Store
+.nyc_output
