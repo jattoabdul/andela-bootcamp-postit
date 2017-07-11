@@ -3,9 +3,21 @@ export default(sequelize, DataTypes) => {
     msgId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER,
-    isRead: DataTypes.ENUM,
-    isArchived: DataTypes.ENUM,
-    isDeleted: DataTypes.ENUM
+    isRead: {
+      type: DataTypes.ENUM,
+      values: ["0", "1"],
+      defaultValue: "0"
+    },
+    isArchived: {
+      type: DataTypes.ENUM,
+      values: ["0", "1"],
+      defaultValue: "0"
+    },
+    isDeleted: {
+      type: DataTypes.ENUM,
+      values: ["0", "1"],
+      defaultValue: "0"
+    }
   }, {
     freezeTableName: true,
     classMethods: {

@@ -16,8 +16,8 @@
     "start:dev": "nodemon ./server/bin/www",
     "build": "rimraf dist/ && babel ./server --out-dir server/dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "npm run build && nodemon ./server/dist/bin/www",
-    "test:dev": "mocha server/tests/tests.js -w --compilers js:babel-register",
-    "test": "nyc mocha server/tests/tests.js --compilers js:babel-register",
+    "test:dev": "mocha server/tests/tests.js -w --compilers js:babel-core/register",
+    "test": "nyc mocha server/tests/tests.js --compilers js:babel-core/register",
     "eslint": "eslint --fix **/*.js",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
   },
