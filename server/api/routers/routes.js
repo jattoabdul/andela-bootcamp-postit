@@ -64,7 +64,8 @@ export default (app) => {
   app.post('/api/groups/', controllers.groupscontroller.createGroup);
   */
 
-  // API route for only authenticated user to view list of all groups he belongs to
+  // API route for only authenticated user to view list 
+  // of all groups he belongs to
 	// app.get('/api/groups/', controllers.groupscontroller.viewGroups);
 
   // API route for the groupadmin to add other users to the group he created
@@ -72,7 +73,8 @@ export default (app) => {
 	 // controllers.groupsuserscontroller.addMember);  
 
   // API route for authenticated user to post message into rooms he belong to	
-  // app.post('/api/groups/:id/message/', controllers.messagescontroller.sendMsg);	
+  // app.post('/api/groups/:id/message/', 
+  // controllers.messagescontroller.sendMsg);	
 
   // API route for authenticated users to view messages in a group
   // app.get('/api/groups/:id/messages/', controllers.groupscontroller.getMsg);

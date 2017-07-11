@@ -27,30 +27,31 @@ export default {
   },
   authenticate(req, res) {
     models.Users
-      .findAll({ 
-        where: { 
-          username: [req.body.username], 
-          password: [req.body.password] 
-        }
-      })
-      .then((user) => {
-        if (user[0]) {
-        // create a token
-          const token = jwt.sign({
-            data: user[0]
-          }, 'Jasabs93', { expiresIn: '30m' });
+    .findAll({ 
+      where: { 
+        username: [req.body.username], 
+        password: [req.body.password] 
+      }
+    })
+    .then((user) => {
+      if (user[0]) {
+      // create a token
+        const token = jwt.sign({
+          data: user[0]
+        }, 'Jasabs93', { expiresIn: '30m' });
 
-          res.status(202).send({
-            token,
-            message: 'successful login'
-          });
-          return;
-        }
-
-        res.status(404).send({
-          message: 'user not found'
+        res.status(202).send({
+          token,
+          message: 'successful login'
         });
+        return;
+      }
+
+      res.status(404)
+      .send({
+        message: 'user not found'
       });
+    });
   },
   getUsers(req, res) {
     return models.Users
