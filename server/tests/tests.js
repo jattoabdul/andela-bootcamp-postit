@@ -2,13 +2,15 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import sinon from "sinon";
 import path from "path";
-import Sequelize from "sequelize";
+import sequelize from "sequelize";
 
 // import app
 import app from "../app";
 
 // import my models for unit testing
 import models from "../api/models/db";
+
+process.env.NODE_ENV = 'test';
 
 /*
 // importing my controllers for unit testing
