@@ -4,7 +4,7 @@
  */
 
 // importing services
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import models from "../models/db";
 
 export default {
@@ -27,7 +27,12 @@ export default {
   },
   authenticate(req, res) {
     models.Users
-      .findAll({ where: { username: [req.body.username], password: [req.body.password] } })
+      .findAll({ 
+        where: { 
+          username: [req.body.username], 
+          password: [req.body.password] 
+        }
+      })
       .then((user) => {
         if (user[0]) {
         // create a token

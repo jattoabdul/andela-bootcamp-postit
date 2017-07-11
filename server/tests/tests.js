@@ -132,9 +132,17 @@ describe("POST /api/user/signup", () => {
         phoneNumber: "08162740850" 
       })
       .end((err, res) => {
-        assert.strictEqual(res.body.email, "johndoe@test.com", "email sent is correct");
+        assert.strictEqual(
+          res.body.email, 
+          "johndoe@test.com", 
+          "email sent is correct"
+          );
         // res.body.email.should.equal(email);
-        assert.strictEqual(res.body.username, "johndoe", "username sent is correct");
+        assert.strictEqual(
+          res.body.username, 
+          "johndoe", 
+          "username sent is correct"
+          );
         // res.body.username.should.equal(username);
 
         //get user and check if user details has been correctly created in db

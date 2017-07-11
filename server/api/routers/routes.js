@@ -37,7 +37,9 @@ export default (app) => {
 	
 	// setting a middleware to protect all other routes
 	app.use((req, res, next) => {
-    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const token = req.body.token 
+							    || req.query.token 
+							    || req.headers['x-access-token'];
     jwt.verify(token, 'Jasabs93', (err, decoded) => {
       if (err) {
         res.status(401).send({
@@ -66,7 +68,8 @@ export default (app) => {
 	// app.get('/api/groups/', controllers.groupscontroller.viewGroups);
 
   // API route for the groupadmin to add other users to the group he created
-	// app.post('/api/groups/:id/user/', controllers.groupsuserscontroller.addMember);  
+	// app.post('/api/groups/:id/user/',
+	 // controllers.groupsuserscontroller.addMember);  
 
   // API route for authenticated user to post message into rooms he belong to	
   // app.post('/api/groups/:id/message/', controllers.messagescontroller.sendMsg);	
