@@ -32,20 +32,4 @@ app.get("/", (req, res) => {
 
 routes(app);
 
-/**
- * NOT FOUND routes.
-*/
-// A catch-all route for anything the api(webservice) does not define.
-app.post("*", (req, res) => {
-  res
-    .status(404)
-    .send({ message: "Nothing to see here" });
-});
-
-app.get("*", (req, res) => {
-  res
-    .status(404)
-    .send({ message: "Nothing to see here" });
-});
-
 module.exports = app;

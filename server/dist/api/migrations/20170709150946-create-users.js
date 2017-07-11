@@ -1,4 +1,4 @@
-
+"use strict";
 
 module.exports = {
   up: function up(queryInterface, Sequelize) {
@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       lastLogin: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       email: {
@@ -34,7 +34,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       lastLogout: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       createdAt: {

@@ -1,7 +1,7 @@
-
+"use strict";
 
 module.exports = function (sequelize, DataTypes) {
-  const UserGroups = sequelize.define("UserGroups", {
+  var UserGroups = sequelize.define("UserGroups", {
     groupid: DataTypes.INTEGER,
     userid: DataTypes.INTEGER,
     joinedOn: DataTypes.DATE,

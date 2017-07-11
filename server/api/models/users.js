@@ -1,12 +1,33 @@
 export default(sequelize, DataTypes) => {
   const Users = sequelize.define("Users", {
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    fullName: DataTypes.STRING,
-    lastLogin: DataTypes.DATE,
-    email: DataTypes.STRING,
-    phoneNumber: DataTypes.STRING,
-    lastLogout: DataTypes.DATE
+    username: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    password: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    fullName: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    lastLogin: {
+      allowNull: true,
+      type: DataTypes.DATE
+    },
+    email: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    phoneNumber: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    lastLogout: {
+      allowNull: true,
+      type: DataTypes.DATE
+    }
   }, {
     classMethods: {
       associate(models) {

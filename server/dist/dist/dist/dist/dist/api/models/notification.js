@@ -1,11 +1,23 @@
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-module.exports = function (sequelize, DataTypes) {
-  const Notification = sequelize.define("Notification", {
+exports.default = function (sequelize, DataTypes) {
+  var Notification = sequelize.define("Notification", {
     msgCount: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER,
-    hasSentEmail: DataTypes.ENUM,
-    hasSentSms: DataTypes.ENUM
+    hasSentEmail: {
+      type: DataTypes.ENUM,
+      values: ["0", "1"],
+      defaultValue: "0"
+    },
+    hasSentSms: {
+      type: DataTypes.ENUM,
+      values: ["0", "1"],
+      defaultValue: "0"
+    }
   }, {
     freezeTableName: true,
     classMethods: {

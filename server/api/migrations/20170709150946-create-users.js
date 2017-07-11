@@ -23,7 +23,8 @@ module.exports = {
       },
       lastLogin: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       },
       email: {
         allowNull: false,

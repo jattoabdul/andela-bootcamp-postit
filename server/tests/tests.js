@@ -70,7 +70,7 @@ describe("GET undefined routes", () => {
       .end((err, res) => {
         expect(res.body.message)
           .to
-          .equal("Nothing to see here");
+          .equal("trying to get? Nothing to see here");
         expect(res)
           .to
           .have
@@ -80,14 +80,14 @@ describe("GET undefined routes", () => {
   });
 });
 
-/*models
+models
   .Users
   .destroy({
     where: {},
     cascade: true,
     truncate: true
   });
-
+/*
 models
   .Messages
   .destroy({
@@ -136,10 +136,9 @@ describe("POST /api/user/signup", () => {
         // res.body.email.should.equal(email);
         assert.strictEqual(res.body.username, "johndoe", "username sent is correct");
         // res.body.username.should.equal(username);
-        expect(res)
-          .to
-          .have
-          .status(201);
+
+        //get user and check if user details has been correctly created in db
+        expect(res).to.have.status(201);
         done();
       });
   });

@@ -1,7 +1,11 @@
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-module.exports = function (sequelize, DataTypes) {
-  const Users = sequelize.define("Users", {
+exports.default = function (sequelize, DataTypes) {
+  var Users = sequelize.define("Users", {
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     fullName: DataTypes.STRING,

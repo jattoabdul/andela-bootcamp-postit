@@ -1,13 +1,29 @@
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-module.exports = function (sequelize, DataTypes) {
-  const MessagesMeta = sequelize.define("MessagesMeta", {
+exports.default = function (sequelize, DataTypes) {
+  var MessagesMeta = sequelize.define("MessagesMeta", {
     msgId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER,
-    isRead: DataTypes.ENUM,
-    isArchived: DataTypes.ENUM,
-    isDeleted: DataTypes.ENUM
+    isRead: {
+      type: DataTypes.ENUM,
+      values: ["0", "1"],
+      defaultValue: "0"
+    },
+    isArchived: {
+      type: DataTypes.ENUM,
+      values: ["0", "1"],
+      defaultValue: "0"
+    },
+    isDeleted: {
+      type: DataTypes.ENUM,
+      values: ["0", "1"],
+      defaultValue: "0"
+    }
   }, {
     freezeTableName: true,
     classMethods: {

@@ -1,7 +1,11 @@
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-module.exports = function (sequelize, DataTypes) {
-  const Messages = sequelize.define("Messages", {
+exports.default = function (sequelize, DataTypes) {
+  var Messages = sequelize.define("Messages", {
     text: DataTypes.TEXT,
     userId: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER,

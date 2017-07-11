@@ -1,37 +1,50 @@
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-const fs = require("fs");
-const path = require("path");
-const Sequelize = require("sequelize");
+var _fs = require("fs");
 
-const basename = path.basename(module.filename);
-const env = process.env.NODE_ENV || "development";
-// const config = require(`${__dirname}/../config/config.json`)[env];
-// const configurations = require("../config/config.json");
-// const config = configurations[env];
-const config = require("../config/config.json")[env];
+var _fs2 = _interopRequireDefault(_fs);
 
-const db = {};
+var _path = require("path");
 
-let sequelize = void 0;
+var _path2 = _interopRequireDefault(_path);
+
+var _sequelize = require("sequelize");
+
+var _sequelize2 = _interopRequireDefault(_sequelize);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var basename = _path2.default.basename(module.filename);
+var env = process.env.NODE_ENV || "development";
+var config = require(__dirname + "/../config/config.json")[env];
+
+var db = {};
+
+var sequelize = void 0;
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable]);
+  sequelize = new _sequelize2.default(process.env[config.use_env_variable]);
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new _sequelize2.default(config.database, config.username, config.password, config);
 }
 
-fs.readdirSync(__dirname).filter(file => file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js").forEach((file) => {
-  const model = sequelize.import(path.join(__dirname, file));
+_fs2.default.readdirSync(__dirname).filter(function (file) {
+  return file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js";
+}).forEach(function (file) {
+  var model = sequelize.import(_path2.default.join(__dirname, file));
   db[model.name] = model;
 });
 
-Object.keys(db).forEach((modelName) => {
+Object.keys(db).forEach(function (modelName) {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
 });
 
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.Sequelize = _sequelize2.default;
 
-module.exports = db;
+exports.default = db;
