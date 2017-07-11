@@ -1,6 +1,4 @@
-
-
-module.exports = (sequelize, DataTypes) => {
+export default(sequelize, DataTypes) => {
   const MessagesMeta = sequelize.define("MessagesMeta", {
     msgId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,

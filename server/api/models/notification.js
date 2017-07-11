@@ -1,6 +1,4 @@
-
-
-module.exports = (sequelize, DataTypes) => {
+export default(sequelize, DataTypes) => {
   const Notification = sequelize.define("Notification", {
     msgCount: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER,

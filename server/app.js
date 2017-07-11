@@ -1,7 +1,7 @@
-const express = require("express");
-const logger = require("morgan");
-const bodyParser = require("body-parser");
-const routes = require("./api/routers/routes");
+import express from "express";
+import logger from "morgan";
+import bodyParser from "body-parser";
+import routes from "./api/routers";
 
 // Set up the express app
 const app = express();
@@ -11,7 +11,7 @@ app.use(logger("dev"));
 
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
 // importing all Controllers Importing all Models
 
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get("/", (req, res) => {
   res
     .status(200)
-    .send({ message: "Welcome to the beginning of nothingness." });
+    .send({message: "Welcome to the beginning of nothingness."});
 });
 
 /**
@@ -39,13 +39,13 @@ routes(app);
 app.post("*", (req, res) => {
   res
     .status(404)
-    .send({ message: "Nothing to see here" });
+    .send({message: "Nothing to see here"});
 });
 
 app.get("*", (req, res) => {
   res
     .status(404)
-    .send({ message: "Nothing to see here" });
+    .send({message: "Nothing to see here"});
 });
 
 module.exports = app;

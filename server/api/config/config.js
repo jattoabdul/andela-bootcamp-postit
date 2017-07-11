@@ -1,5 +1,3 @@
-const appConfig = {
+export default appConfig = {
   secret: "jasabs93postitrandomkey"
 };
-
-module.exports = appConfig;
