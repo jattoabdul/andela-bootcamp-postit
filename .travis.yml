@@ -9,15 +9,13 @@ node_js:
 install:
   - npm install
 script:
-  - npm start
   - npm test
 service:
   - postgresql
-  - sequelize
-before_script:
-  - createuser postgres -s -U postgres
-  - createdb postit-dev --username=postgres
-  - sequelize db:migrate
+# before_script:
+#   - createuser postgres -s -U postgres
+#   - createdb postit-dev --username=postgres
+#   - sequelize db:migrate
 after_script: NODE_ENV=test instanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 after_success: 
   - npm run coverage
