@@ -12,6 +12,7 @@ script:
   - npm test
 service:
   - postgresql
+  - sequelize
 before_script:
   - createdb postit-dev --username=postgres
   - sequelize db:migrate  
