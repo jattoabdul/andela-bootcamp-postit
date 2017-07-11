@@ -10,9 +10,10 @@ install:
   - npm install
 script:
   - npm test
-service:
+services:
   - postgresql
-  - sequelize
+cache: 
+  - npm install
 before_script:
   - createdb postit-dev --username=postgres
   - sequelize db:migrate  
