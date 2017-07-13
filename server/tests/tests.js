@@ -422,12 +422,8 @@ describe("POST /api/group/:id/message", () => {
 
 // describe retrieve/receive group messages endpoint
 describe("GET /api/group/:id/messages", () => {});
-
 // describe group model 
-
 // describe message model
-
-
 // describing the get all undefined routes to be 404 error message
 // describe("GET undefined routes", () => {
 //   it("responds with a 404 and error message in json", (done) => {
