@@ -18,18 +18,18 @@ export default (app) => {
  	* HEROKU DB routes.
 	*/
 
-  app.get("/db", (request, response) => {
-    pg.connect(process.env.DATABASE_URL, (err, client, done) => {
-      client.query("SELECT * FROM test_table", (err, result) => {
-        done();
-        if (err) {
-          console.error(err); response.send(`Error ${err}`);
-        } else {
-          response.render("pages/db", { results: result.rows });
-        }
-      });
-    });
-  });
+  // app.get("/db", (request, response) => {
+  //   pg.connect(process.env.DATABASE_URL, (err, client, done) => {
+  //     client.query("SELECT * FROM test_table", (err, result) => {
+  //       done();
+  //       if (err) {
+  //         console.error(err); response.send(`Error ${err}`);
+  //       } else {
+  //         response.render("pages/db", { results: result.rows });
+  //       }
+  //     });
+  //   });
+  // });
 
   /**
  	* NOT FOUND routes.
