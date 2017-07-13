@@ -22,9 +22,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       lastLogin: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        allowNull: true,
+        type: Sequelize.DATE
       },
       email: {
         allowNull: false,
@@ -33,10 +32,6 @@ module.exports = {
       phoneNumber: {
         allowNull: false,
         type: Sequelize.STRING
-      },
-      lastLogout: {
-        allowNull: false,
-        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

@@ -9,17 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      groupid: {
-        type: Sequelize.INTEGER
-      },
-      userid: {
-        type: Sequelize.INTEGER
-      },
-      joinedOn: {
-        type: Sequelize.DATE
-      },
       isAdmin: {
-        type: Sequelize.ENUM("0", "1")
+        type: Sequelize.ENUM("0", "1"),
+        defaultValue: "0"
       },
       createdAt: {
         allowNull: false,

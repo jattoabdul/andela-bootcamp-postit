@@ -21,13 +21,20 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      timeSent: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
       priority: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "0"
+      },
+      isArchived: {
+        type: Sequelize.ENUM("0", "1"),
+        values: ["0", "1"],
+        defaultValue: "0"
+      },
+      isDeleted: {
+        type: Sequelize.ENUM("0", "1"),
+        values: ["0", "1"],
+        defaultValue: "0"
       },
       createdAt: {
         allowNull: false,

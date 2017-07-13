@@ -19,15 +19,8 @@ module.exports = {
       },
       isArchived: {
         allowNull: false,
-        type: Sequelize.ENUM("0", "1")
-      },
-      msgCount: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      userCount: {
-        allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.ENUM("0", "1"),
+        defaultValue: "0"
       },
       createdAt: {
         allowNull: false,

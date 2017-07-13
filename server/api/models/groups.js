@@ -6,14 +6,13 @@ export default(sequelize, DataTypes) => {
       type: DataTypes.ENUM,
       values: ["0", "1"],
       defaultValue: "0"
-    },
-    msgCount: DataTypes.INTEGER,
-    userCount: DataTypes.INTEGER
+    }
   }, {
-    freezeTableName: true,
     classMethods: {
       associate: (models) => {
         // associations can be defined here
+        Groups.belongsTo(models.Users, { foreignKeyContraint: true });
+        Groups.belongsToMany(models.Users, { through: "GroupsUsers" });
       }
     }
   });
