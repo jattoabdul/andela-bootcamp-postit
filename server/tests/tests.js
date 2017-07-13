@@ -56,37 +56,41 @@ describe("GET / route", () => {
 });
 
 
-// models
-//   .Users
-//   .destroy({
-//     where: {},
-//     cascade: true,
-//     truncate: true
-//   });
+models
+  .Users
+  .destroy({
+    where: {},
+    cascade: true,
+    truncate: true,
+    resetIdentity: true
+  });
 
-// models
-//   .Messages
-//   .destroy({
-//     where: {},
-//     cascade: true,
-//     truncate: true
-//   });
+models
+  .Messages
+  .destroy({
+    where: {},
+    cascade: true,
+    truncate: true,
+    resetIdentity: true
+  });
 
-// models
-//   .Groups
-//   .destroy({
-//     where: {},
-//     cascade: true,
-//     truncate: true
-//   });
+models
+  .Groups
+  .destroy({
+    where: {},
+    cascade: true,
+    truncate: true,
+    resetIdentity: true
+  });
 
-// models
-//   .GroupUsers
-//   .destroy({
-//     where: {},
-//     cascade: true,
-//     truncate: true
-//   });
+models
+  .GroupsUsers
+  .destroy({
+    where: {},
+    cascade: true,
+    truncate: true,
+    resetIdentity: true
+  });
 
 /* describe API route
 * ===============================
