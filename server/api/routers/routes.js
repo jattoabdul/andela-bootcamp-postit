@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import pg from "pg";
+// import pg from "pg";
 import controllers from "../controllers";
 
 export default (app) => {
