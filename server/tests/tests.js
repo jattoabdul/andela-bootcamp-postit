@@ -8,7 +8,7 @@ import chaiHttp from "chai-http";
 import app from "../app";
 
 // import my models for unit testing
-import models from "../api/models/db";
+// import models from "../api/models/db";
 
 // importing my controllers for unit testing
 
@@ -56,37 +56,37 @@ describe("GET / route", () => {
 });
 
 
-// models
-//   .Users
-//   .destroy({
-//     where: {},
-//     cascade: true,
-//     truncate: true
-//   });
+models
+  .Users
+  .destroy({
+    where: {},
+    cascade: true,
+    truncate: true
+  });
 
-// models
-//   .Messages
-//   .destroy({
-//     where: {},
-//     cascade: true,
-//     truncate: true
-//   });
+models
+  .Messages
+  .destroy({
+    where: {},
+    cascade: true,
+    truncate: true
+  });
 
-// models
-//   .Groups
-//   .destroy({
-//     where: {},
-//     cascade: true,
-//     truncate: true
-//   });
+models
+  .Groups
+  .destroy({
+    where: {},
+    cascade: true,
+    truncate: true
+  });
 
-// models
-//   .GroupUsers
-//   .destroy({
-//     where: {},
-//     cascade: true,
-//     truncate: true
-//   });
+models
+  .GroupsUsers
+  .destroy({
+    where: {},
+    cascade: true,
+    truncate: true
+  });
 
 /* describe API route
 * ===============================
@@ -107,6 +107,7 @@ describe("POST /api/users/signup", () => {
         phoneNumber: "08162740850"
       })
       .end((err, res) => {
+        console.log(res.body);
         assert.strictEqual(
           res.body.email,
           "johndoe@test.com",

@@ -13,7 +13,6 @@ export default {
       res.status(400).send({ message: "Name parameter is required" });
       return;
     }
-    
     return models.Groups
       .create({
         name: req.body.name,
