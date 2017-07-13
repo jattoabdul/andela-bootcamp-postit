@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-// import pg from "pg";
 import controllers from "../controllers";
 
 export default (app) => {
@@ -8,28 +7,11 @@ export default (app) => {
 	*/
 
   // base API Route
-  app.all("/api", (req, res) => {
+  app.get("/api", (req, res) => {
     res
       .status(200)
       .send({ message: "Welcome to Andela Bootcamp PostIt Project API" });
   });
-
-  /**
- 	* HEROKU DB routes.
-	*/
-
-  // app.get("/db", (request, response) => {
-  //   pg.connect(process.env.DATABASE_URL, (err, client, done) => {
-  //     client.query("SELECT * FROM test_table", (err, result) => {
-  //       done();
-  //       if (err) {
-  //         console.error(err); response.send(`Error ${err}`);
-  //       } else {
-  //         response.render("pages/db", { results: result.rows });
-  //       }
-  //     });
-  //   });
-  // });
 
   /**
  	* NOT FOUND routes.
