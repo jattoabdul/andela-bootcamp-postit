@@ -13,7 +13,7 @@ services:
 cache: 
   - npm install
 after_install:
-  - createdb postit-dev --username=postgres
+  - createdb postgres --username=postgres
   - sequelize db:migrate
 before_script:
   - npm start
