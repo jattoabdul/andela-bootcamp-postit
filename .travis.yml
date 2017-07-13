@@ -14,8 +14,7 @@ cache:
   - npm install
 after_script: 
   - NODE_ENV=test instanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
-after_success: 
-  - npm run coverage
+after_success:
   - npm run coveralls
 notifications:
   webhooks: https://coveralls.io/webhook?repo_token=H9AhM6hCSE6BzPXk2XQRY420Ok1spAQ0f
