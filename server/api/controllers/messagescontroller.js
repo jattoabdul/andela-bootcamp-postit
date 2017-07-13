@@ -16,8 +16,8 @@ export default {
         groupId: req.params.id,
         priority: req.body.priority
       })
-      .then(message => res.status(200).send(message))
-      .catch(error => res.status(404).send(error));
+      .then(message => res.status(201).send(message))
+      .catch(error => res.status(400).send(error));
   },
   getMsg(req, res) {
     models.Messages

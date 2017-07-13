@@ -9,6 +9,11 @@ import models from "../models/db";
 
 export default {
   createGroup(req, res) {
+    if (!req.body.name) {
+      res.status(400).send({ message: "Name parameter is required" });
+      return;
+    }
+    
     return models.Groups
       .create({
         name: req.body.name,
@@ -37,7 +42,9 @@ export default {
   viewGroups(req, res) {
     return models.Groups
       .findAll()
-      .then((groups) => res.status(200).send(groups))
-      .catch(error => res.status(400).send(error));
+      .then((groups) => {
+        res.status(200).send(groups);
+      })
+      .catch(error => res.status(404).send(error));
   }
 };

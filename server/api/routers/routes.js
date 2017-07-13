@@ -7,7 +7,7 @@ export default (app) => {
 	*/
 
   // base API Route
-  app.get("/api", (req, res) => {
+  app.all("/api", (req, res) => {
     res
       .status(200)
       .send({ message: "Welcome to Andela Bootcamp PostIt Project API" });
@@ -18,12 +18,12 @@ export default (app) => {
 	*/
 
   // A catch-all route for the api(webservice) not defined for get request.
-  app.get("*", (req, res) => {
-    res
-      .status(404)
-      .send({ message: "trying to get? Nothing to see here" });
-  });
-  
+  // app.get("*", (req, res) => {
+  //   res
+  //     .status(404)
+  //     .send({ message: "trying to get? Nothing to see here" });
+  // });
+
   // // A catch-all route for the api(webservice) not defined for post request.
   // app.post("*", (req, res) => {
   //   res
@@ -46,9 +46,10 @@ export default (app) => {
       req.headers["x-access-token"];
     jwt.verify(token, "Jasabs93", (err, authToken) => {
       if (err) {
-        res.status(401).send({
-          message: "sorry, user not authenticated, invalid access token"
-        });
+        res.status(401)
+          .send({
+            message: "sorry, user not authenticated, invalid access token"
+          });
         return;
       }
       // if authenticated with auth token, 
@@ -85,7 +86,7 @@ export default (app) => {
   app.delete("/api/groups/:id/user/",
     controllers.groupsUsersController.removeMember);
 
-  // API route for the groupadmin to remove users from the group he created
+  // API route 4 d groupadmin 2 view users 4rm group he belongs/created
   app.get("/api/groups/:id/users/",
     controllers.groupsUsersController.viewMembers);
 
