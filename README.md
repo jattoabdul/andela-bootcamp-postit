@@ -50,9 +50,8 @@ view a Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
 >- To run eslint test, Run
    `$ npm run eslint`
 
-**API URL ENDPOINT**
->- To SignUp
-  `http://heroku-app/api/users/signup`
+**API DOCUMENTATION**
+>- `https://app.apiary.io/postit3`
 
 
 # TEMPLATES
