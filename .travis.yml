@@ -13,7 +13,6 @@ services:
 cache: 
   - npm install
 before_script:
-  - createdb postgres -U postgres
   - db:migrate
 after_script: 
   - nyc npm test && nyc report --reporter=text-lcov | coveralls
