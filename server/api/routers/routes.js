@@ -13,23 +13,6 @@ export default (app) => {
       .send({ message: "Welcome to Andela Bootcamp PostIt Project API" });
   });
 
-  /**
- 	* NOT FOUND routes.
-	*/
-  
-  // A catch-all route for the api(webservice) not defined for get request.
-  // app.get("*", (req, res) => {
-  //   res
-  //     .status(404)
-  //     .send({ message: "trying to get? Nothing to see here" });
-  // });
-
-  // // A catch-all route for the api(webservice) not defined for post request.
-  // app.post("*", (req, res) => {
-  //   res
-  //     .status(404)
-  //     .send({ message: "trying to post? Nothing to see here" });
-  // });
 
   // signup API Route - for creating a user
   app.post("/api/users/signup", controllers.userController.signUp);

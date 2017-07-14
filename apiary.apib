@@ -2,3 +2,20 @@ FORMAT: 1A
 HOST: http://polls.apiblueprint.org/
 
 # POSTIT
+
+Is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once - a broadcast message. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
+
+# Allowed HTTPs requests:
+<pre>
+POST     : To create resource
+GET     : Get a resource or list of resources
+DELETE  : To delete resource
+</pre>
+
+# Description Of Usual Server Responses:
+- 200 `OK` - the request was successful (some API calls may return 201 instead).
+- 201 `Created` - the request was successful and a resource was created.
+- 400 `Bad Request` - the request could not be understood or was missing required parameters.
+- 401 `Unauthorized` - authentication failed or user doesn't have permissions for requested operation.
+- 404 `Not Found` - resource was not found.
+

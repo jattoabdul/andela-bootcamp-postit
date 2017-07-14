@@ -30,8 +30,6 @@ export default(sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate(models) {
-        // associations can be defined here
-        // Users.hasMany(models.Groups, { foreignKeyContraint: true });
         Users.belongsToMany(models.Groups, { through: "GroupsUsers" });
       }
     }
