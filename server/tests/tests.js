@@ -163,7 +163,11 @@ describe("POST /api/users/signup", () => {
         done();
       });
   });
+  // TODOS
+  // ===============================================================
   // it should only accept 8 digits of passwords
+  // it should raise an error if wrong /empty value is passed as params
+  // ===============================================================
 });
 
 // describe user signin/login endpoint
@@ -184,7 +188,7 @@ describe("POST /api/user/signin", () => {
         done();
       });
   });
-  // it should reject invalid logincand respond 401 error
+  // it should reject invalid login and respond 401 error
   it("should reject login if user does not exist", (done) => {
     chai.request(app)
       .post("/api/users/signin/")
@@ -202,7 +206,7 @@ describe("POST /api/user/signin", () => {
   // it should only accept alphanumeric
 });
 
-// describe protection of routes (if routes well protected)
+// describe protection of routes (routes well protected- only authorized users)
 describe("Routes are protected", () => {
   // create groups routes
   it("should check if POST /api/groups/ is protected", (done) => {
@@ -421,9 +425,29 @@ describe("POST /api/group/:id/message", () => {
 });
 
 // describe retrieve/receive group messages endpoint
-describe("GET /api/group/:id/messages", () => {});
+describe("GET /api/group/:id/messages", () => {
+  it("should get all messages in a group via GET /api/groups/:id/messages/",
+    (done) => {
+      chai.request(app)
+        .get("/api/groups/1/messages/")
+        .set("x-access-token", authToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("array");
+          assert.isAtLeast(res.body.length, 1, "length of messages array >= 1");
+          done();
+        });
+    });
+});
+
+// TODOS
+// ===============================================================
+// describe all controllers
 // describe group model 
 // describe message model
+// describe user model
+// ===============================================================
+
 // describing the get all undefined routes to be 404 error message
 // describe("GET undefined routes", () => {
 //   it("responds with a 404 and error message in json", (done) => {

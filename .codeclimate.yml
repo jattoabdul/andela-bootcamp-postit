@@ -1,6 +1,8 @@
 engines:
-  duplication:
+  eslint:
     enabled: true
+  duplication:
+    enabled: false
     checks:
       Similar code:
         enabled: false
@@ -8,3 +10,9 @@ engines:
       languages:
         javascript:
           mass_threshold: 100
+  exclude_paths:
+    - server/tests/
+    - node_modules/
+    - bower_components/
+    - template/public
+    - coverage/
