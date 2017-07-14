@@ -1,18 +1,19 @@
 engines:
-  eslint:
-    enabled: true
   duplication:
-    enabled: false
-    checks:
-      Similar code:
-        enabled: false
-    config:
-      languages:
-        javascript:
-          mass_threshold: 100
+      enabled: true
+      checks:
+        Similar code:
+          enabled: false
+      config:
+        languages:
+          - javascript
+  fixme:
+    enabled: true
+ratings:
+  paths:
+    - "server/*.js"
+    - "server/**/*.js"
   exclude_paths:
-    - server/tests/
+    - "server/tests/"
     - node_modules/
     - bower_components/
-    - template/public
-    - coverage/
