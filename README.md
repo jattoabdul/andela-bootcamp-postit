@@ -6,7 +6,7 @@
 [![Code Climate](https://codeclimate.com/github/jattoabdul/andela-bootcamp-postit.png)](https://codeclimate.com/github/jattoabdul/andela-bootcamp-postit)
 
 **ABOUT POSTIT**
-Is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
+Is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once - a broadcast message. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
 
 View the API Here[https://jatto-postit-app.herokuapp.com/]
 
@@ -51,7 +51,7 @@ view a Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
    `$ npm run eslint`
 
 **API DOCUMENTATION**
->- `https://app.apiary.io/postit3`
+>- [https://app.apiary.io/postit3]
 
 
 # TEMPLATES
