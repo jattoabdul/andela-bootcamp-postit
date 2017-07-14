@@ -13,7 +13,7 @@ services:
 cache: 
   - npm install
 before_script:
-  - db:migrate
+  - sequelize db:migrate
 after_script: 
   - nyc npm test && nyc report --reporter=text-lcov | coveralls
 after_success:
