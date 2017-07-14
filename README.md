@@ -8,8 +8,9 @@
 **ABOUT POSTIT**
 Is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
 
-View a Demo Here[http://heroku]
+View the API Here[https://jatto-postit-app.herokuapp.com/]
 
+view a Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
 
 **TECHNOLOGIES**
 > - Front-end: React/Redux + SASS (To be Implemented)
