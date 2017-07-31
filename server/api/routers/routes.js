@@ -40,7 +40,6 @@ export default (app) => {
       req.authToken = authToken;
       authToken = JSON.stringify(authToken);
       // testing for saving user data
-      // res.cookie("userid", decoded.id);
       res.append("user", authToken);
       next();
     });
@@ -52,9 +51,10 @@ export default (app) => {
   // API route to get list of all users
   app.get("/api/users/", controllers.userController.getAllUsers);
 
-  /*
+  // API route to get current user and their details and groups
+  app.get("/api/user/", controllers.userController.getCurrentUser);
+
   // API route for only authenticated user to create a group
-  */
   app.post("/api/groups/", controllers.groupsController.createGroup);
 
   // API route for only authenticated user to view list 
@@ -62,21 +62,30 @@ export default (app) => {
   app.get("/api/groups/", controllers.groupsController.viewGroups);
 
   // API route for the groupadmin to add other users to the group he created
+  // where :id is group id
   app.post("/api/groups/:id/user/",
     controllers.groupsUsersController.addMember);
 
-  // API route for the groupadmin to remove users from the group he created
+  // API route for the groupadmin/users to remove users from group he created
+  // where :id is group id
   app.delete("/api/groups/:id/user/",
     controllers.groupsUsersController.removeMember);
 
-  // API route 4 d groupadmin 2 view users 4rm group he belongs/created
+  // API route 4 user 2 view users 4rm the current group he belongs/created
+  // where :id is group id
   app.get("/api/groups/:id/users/",
     controllers.groupsUsersController.viewMembers);
 
-  // API route for authenticated user to post message into rooms he belong to	
+  // API route 4 a user 2 view users 4rm all groups
+  app.get("/api/groups/users/",
+    controllers.groupsUsersController.viewAllGroupMembers);
+
+  // API route for authenticated user to post message into rooms he belong to
+  // where :id is group id	
   app.post("/api/groups/:id/message/",
     controllers.messagesController.sendMsg);
 
-  // API route for authenticated users to view messages in a group
+  // API route for authenticated users to view messages in a group he belongs
+  // where :id is group id and group is currently active
   app.get("/api/groups/:id/messages/", controllers.messagesController.getMsg);
 };

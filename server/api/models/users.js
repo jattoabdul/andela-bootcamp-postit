@@ -1,16 +1,22 @@
-export default(sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Users = sequelize.define("Users", {
     username: {
       allowNull: false,
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
+      validate: {
+        notEmpty: true
+      }
     },
     password: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
     },
     fullName: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING
     },
     lastLogin: {
@@ -21,18 +27,25 @@ export default(sequelize, DataTypes) => {
     email: {
       allowNull: false,
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
+      validate: {
+        isEmail: true
+      }
     },
     phoneNumber: {
       allowNull: false,
-      type: DataTypes.STRING
-    }
-  }, {
-    classMethods: {
-      associate(models) {
-        Users.belongsToMany(models.Groups, { through: "GroupsUsers" });
+      type: DataTypes.STRING,
+      validate: {
+        not: ["[a-z]", "i"]
       }
     }
   });
+  Users.associate = (models) => {
+    Users.belongsToMany(models.Groups, {
+      through: "GroupsUsers",
+      as: "groups",
+      foreignKey: "userId"
+    });
+  };
   return Users;
 };

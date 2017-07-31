@@ -1,5 +1,3 @@
-
-
 module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable("Groups", {
@@ -11,7 +9,10 @@ module.exports = {
       },
       name: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+          notEmpty: true
+        }
       },
       desc: {
         allowNull: false,
@@ -20,7 +21,10 @@ module.exports = {
       isArchived: {
         allowNull: false,
         type: Sequelize.ENUM("0", "1"),
-        defaultValue: "0"
+        defaultValue: "0",
+        validate: {
+          isIn: [["0", "1"]]
+        }
       },
       createdAt: {
         allowNull: false,

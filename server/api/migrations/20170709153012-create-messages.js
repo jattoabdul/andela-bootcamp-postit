@@ -1,5 +1,3 @@
-
-
 module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable("Messages", {
@@ -9,32 +7,42 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      text: {
-        allowNull: false,
-        type: Sequelize.TEXT
-      },
       userId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        validate: {
+          notEmpty: true
+        }
       },
       groupId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        validate: {
+          notEmpty: true
+        }
+      },
+      text: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+        validate: {
+          notEmpty: true
+        }
       },
       priority: {
         allowNull: false,
         type: Sequelize.STRING,
-        defaultValue: "0"
+        defaultValue: "Normal",
+        validate: {
+          isIn: [["Normal", "Urgent", "Critical"]]
+        }
       },
       isArchived: {
         type: Sequelize.ENUM("0", "1"),
         values: ["0", "1"],
-        defaultValue: "0"
-      },
-      isDeleted: {
-        type: Sequelize.ENUM("0", "1"),
-        values: ["0", "1"],
-        defaultValue: "0"
+        defaultValue: "0",
+        validate: {
+          isIn: [["0", "1"]]
+        }
       },
       createdAt: {
         allowNull: false,

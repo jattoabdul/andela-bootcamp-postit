@@ -4,19 +4,35 @@
  */
 
 // importing services
-// import jwt from "jsonwebtoken";
 import models from "../models/db";
 
+let userID = 0;
 export default {
   sendMsg(req, res) {
-    return models.Messages
-      .create({
-        userId: req.body.userId,
-        text: req.body.text,
-        groupId: req.params.id,
-        priority: req.body.priority
+    const userName = req.authToken.data;
+
+    if (!req.body.text || req.body.text.trim() === "") {
+      res.status(400).send({ message: "cannot send empty message" });
+      return;
+    }
+
+    models.Users
+      .findOne({
+        where: { username: userName }
       })
-      .then(message => res.status(201).send(message))
+      .then((user) => {
+        userID = user.id;
+        // console.log(`user id: ${userID}`);
+        return models.Messages
+          .create({
+            userId: userID,
+            groupId: req.params.id,
+            text: req.body.text,
+            priority: req.body.priority
+          })
+          .then(message => res.status(201).send(message))
+          .catch(error => res.status(400).send(error));
+      })
       .catch(error => res.status(400).send(error));
   },
   getMsg(req, res) {

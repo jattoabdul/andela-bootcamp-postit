@@ -1,34 +1,45 @@
-export default(sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const GroupsUsers = sequelize.define("GroupsUsers", {
-    id: {
+    userId: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+      allowNull: false,
+      references: {
+        model: "Users",
+        key: "id"
+      }
+    },
+    groupId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Groups",
+        key: "id"
+      }
     },
     isAdmin: {
       type: DataTypes.ENUM,
       values: ["0", "1"],
-      defaultValue: "0"
-    }
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // associations can be defined here
-        // GroupsUsers.belongsto(models.Groups, {
-        //   foreignkey: {
-        //     name: "GroupsId",
-        //     allowNull: false
-        //   }
-        // });
-
-        // GroupsUsers.hasMany(models.Users, {
-        //   foreignkey: {
-        //     name: "UsersId",
-        //     allowNull: false
-        //   }
-        // });
+      defaultValue: "0",
+      validate: {
+        isIn: [["0", "1"]]
       }
     }
   });
+
+  // associations can be defined here
+  // GroupsUsers.belongsto(models.Groups, {
+  //   foreignkey: {
+  //     name: "groupId",
+  //     allowNull: false
+  //   }
+  // });
+
+  // GroupsUsers.hasMany(models.Users, {
+  //   foreignkey: {
+  //     name: "userId",
+  //     allowNull: false
+  //   }
+  // });
+
   return GroupsUsers;
 };

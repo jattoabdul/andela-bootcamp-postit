@@ -25,9 +25,9 @@ view a Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
 
 **INSTALLATION**
 > - Clone the repo
-> - Run `npm install && bower install` to install dependencies
+> - Run `$ npm install && bower install` to install dependencies
 > - Setup Postgres
-> - Install sequelize-cli, Run `npm install -g sequelize-cli` (note: sudo install on ubuntu or MAC)
+> - Install sequelize-cli, Run `$ npm install -g sequelize-cli` (note: sudo install on ubuntu or MAC)
 > - setup your db according to settings in `server/api/config/config.json`
 > - then run `$ sequelize db:migrate`
 

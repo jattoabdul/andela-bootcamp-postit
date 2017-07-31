@@ -4,44 +4,64 @@
  */
 
 // importing services
-// import jwt from "jsonwebtoken";
 import models from "../models/db";
 
+let userID = 0;
 export default {
   createGroup(req, res) {
-    if (!req.body.name) {
+    const userName = req.authToken.data;
+    if (!req.body.name || req.body.name.trim() === "") {
       res.status(400).send({ message: "Name parameter is required" });
       return;
     }
-    
+
     return models.Groups
       .create({
         name: req.body.name,
         desc: req.body.desc,
-        isArchived: req.body.isArchived,
-        UsersId: req.body.UsersId
+        isArchived: req.body.isArchived || "0"
       })
       .then((group) => {
         if (group) {
+          models.Users
+            .findOne({
+              where: { username: userName }
+            })
+            .then((user) => {
+              userID = user.id;
+              // console.log(`user id: ${userID}`);
+            })
+            .catch(error => res.status(400).send(error));
+          // console.log(`group id: ${group.id}`);
           models.GroupsUsers
             .create({
               isAdmin: "1",
-              GroupsId: group.GroupsId,
-              UsersId: group.UsersId
+              groupId: group.id,
+              userId: userID
             })
             .then(() => {
               res.status(201).send({
                 group,
                 message: "group created successfully"
               });
-            });
+            })
+            .catch(error => res.status(400).send(error));
         }
       })
       .catch(error => res.status(400).send(error));
   },
   viewGroups(req, res) {
     return models.Groups
-      .findAll()
+      .findAll(
+        { include: [{
+          model: models.Users,
+          through: {
+            attributes: ["id", "username"],
+          },
+          as: "users"
+        }]
+        }
+      )
       .then((groups) => {
         res.status(200).send(groups);
       })

@@ -1,5 +1,3 @@
-
-
 module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable("Users", {
@@ -12,11 +10,17 @@ module.exports = {
       username: {
         allowNull: false,
         type: Sequelize.STRING,
-        unique: true
+        unique: true,
+        validate: {
+          notEmpty: true
+        }
       },
       password: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+          notEmpty: true
+        }
       },
       fullName: {
         allowNull: false,
@@ -29,11 +33,17 @@ module.exports = {
       email: {
         allowNull: false,
         type: Sequelize.STRING,
-        unique: true
+        unique: true,
+        validate: {
+          isEmail: true
+        }
       },
       phoneNumber: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+          not: ['[a-z]', 'i']
+        }
       },
       createdAt: {
         allowNull: false,

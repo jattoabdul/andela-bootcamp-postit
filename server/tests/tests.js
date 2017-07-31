@@ -13,16 +13,16 @@ import models from "../api/models/db";
 // importing my controllers for unit testing
 
 // importing my routes for unit testing
+
+// setting my dev environment to test
 process.env.NODE_ENV = "test";
 
 // const sequelizeMockingMocha from "sequelize-mocking".sequelizeMockingMocha;
-
 const expect = chai.expect;
 const assert = chai.assert;
 const should = chai.should();
 
 chai.use(chaiHttp);
-// const request = require("supertest");
 
 // global variables
 let authToken;
@@ -59,7 +59,7 @@ describe("GET / route", () => {
 models
   .Users
   .destroy({
-    where: {},
+    // where: {},
     cascade: true,
     truncate: true,
     resetIdentity: true
@@ -68,7 +68,6 @@ models
 models
   .Messages
   .destroy({
-    where: {},
     cascade: true,
     truncate: true,
     resetIdentity: true
@@ -77,7 +76,6 @@ models
 models
   .Groups
   .destroy({
-    where: {},
     cascade: true,
     truncate: true,
     resetIdentity: true
@@ -86,7 +84,6 @@ models
 models
   .GroupsUsers
   .destroy({
-    where: {},
     cascade: true,
     truncate: true,
     resetIdentity: true
