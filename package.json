@@ -1,6 +1,9 @@
 {
   "name": "postit",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.11.1"
+  },
   "description": "a simple group broadcast messaging app ",
   "main": "app.js",
   "directories": {
