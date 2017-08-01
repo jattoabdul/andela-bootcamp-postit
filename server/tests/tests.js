@@ -556,7 +556,7 @@ describe("POST /api/group/:id/message", () => {
         .set("x-access-token", authToken)
         .type("form")
         .send({
-          userId: 26,
+          userId: 1,
           text: "my test message 2",
           groupId: 1,
           priority: "Normal"
