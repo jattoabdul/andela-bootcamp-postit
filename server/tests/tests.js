@@ -55,7 +55,7 @@ describe("GET / route", () => {
   });
 });
 
-
+// resetting database by deleting data created by test and reseting identity
 models
   .Users
   .destroy({
@@ -103,31 +103,199 @@ describe("POST /api/users/signup", () => {
       .send({
         username: "johndoe",
         email: "johndoe@test.com",
-        password: "123jas",
+        password: "jas123",
         fullName: "john doe",
         phoneNumber: "08162740850"
       })
       .end((err, res) => {
         assert.strictEqual(
-          res.body.email,
+          res.body.data.email,
           "johndoe@test.com",
           "email sent is correct"
         );
-        // res.body.email.should.equal(email);
-        // res.body.email.should.equal("johndoe@test.com");
         assert.strictEqual(
-          res.body.username,
+          res.body.data.username,
           "johndoe",
           "username sent is correct"
         );
-        // res.body.username.should.equal(username);
-        // res.should.have.status(201);
-        // get user and check if user details has been correctly created in db
-        expect(res).to.have.status(201);
+        // res.body.email.should.equal("johndoe@test.com");
+        res.should.have.status(201);
+        // expect(res).to.have.status(201);
         done();
       });
   });
-
+  it("should raise 400 error without password parameter", (done) => {
+    chai.request(app)
+      .post("/api/users/signup")
+      .type("form")
+      .send({
+        username: "johndoe",
+        email: "johndoe@test.com",
+        fullName: "john doe",
+        phoneNumber: "08162740850"
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+  it("should raise 400 error without username parameter", (done) => {
+    chai.request(app)
+      .post("/api/users/signup")
+      .type("form")
+      .send({
+        email: "johndoe@test.com",
+        password: "jas123",
+        fullName: "john doe",
+        phoneNumber: "08162740850"
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+  it("should raise 400 error without email parameter", (done) => {
+    chai.request(app)
+      .post("/api/users/signup")
+      .type("form")
+      .send({
+        username: "johndoe",
+        password: "jas123",
+        fullName: "john doe",
+        phoneNumber: "08162740850"
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+  it("should raise 400 error without phone parameter", (done) => {
+    chai.request(app)
+      .post("/api/users/signup")
+      .type("form")
+      .send({
+        username: "johndoe",
+        email: "johndoe@test.com",
+        password: "jas123",
+        fullName: "john doe"
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+  it("should raise 400 error with duplicate email", (done) => {
+    chai.request(app)
+      .post("/api/users/signup")
+      .type("form")
+      .send({
+        username: "johndoes",
+        email: "johndoe@test.com",
+        password: "jas123test",
+        fullName: "john does",
+        phoneNumber: "08162740860"
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+  it("should raise 400 error with duplicate username", (done) => {
+    chai.request(app)
+      .post("/api/users/signup")
+      .type("form")
+      .send({
+        username: "johndoe",
+        email: "johndoes@test.com",
+        password: "jas123test",
+        fullName: "john does",
+        phoneNumber: "08162740860"
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+  it("should raise 400 error with invalid email", (done) => {
+    chai.request(app)
+      .post("/api/users/signup")
+      .type("form")
+      .send({
+        username: "johndoed",
+        email: "johndoed",
+        password: "jasd123",
+        fullName: "john doed",
+        phoneNumber: "08162740870"
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+  it("should raise 400 error with empty password", (done) => {
+    chai.request(app)
+      .post("/api/users/signup")
+      .type("form")
+      .send({
+        username: "johndoe3",
+        email: "johndoe3@test.com",
+        password: " ",
+        fullName: "john doe",
+        phoneNumber: "08162740853"
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+  it("should raise 400 error with empty username", (done) => {
+    chai.request(app)
+      .post("/api/users/signup")
+      .type("form")
+      .send({
+        username: " ",
+        email: "johndoe5@test.com",
+        password: "jas1235",
+        fullName: "john doe",
+        phoneNumber: "08162740855"
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+  it("should raise 400 error with empty email", (done) => {
+    chai.request(app)
+      .post("/api/users/signup")
+      .type("form")
+      .send({
+        username: "johndoe6",
+        email: " ",
+        password: "jas1236",
+        fullName: "john doe",
+        phoneNumber: "08162740856"
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+  it("should raise 400 error with empty phoneNumber", (done) => {
+    chai.request(app)
+      .post("/api/users/signup")
+      .type("form")
+      .send({
+        username: "johndoe7",
+        email: "johndoe7@test.com",
+        password: "jas1237",
+        fullName: "john doe",
+        phoneNumber: " "
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
   it("should raise an error if email exist", (done) => {
     chai.request(app)
       .post("/api/users/signup/")
@@ -176,7 +344,7 @@ describe("POST /api/user/signin", () => {
       .type("form")
       .send({
         username: "johndoe",
-        password: "123jas"
+        password: "jas123"
       })
       .end((err, res) => {
         res.should.have.status(202);
@@ -186,7 +354,7 @@ describe("POST /api/user/signin", () => {
       });
   });
   // it should reject invalid login and respond 401 error
-  it("should reject login if user does not exist", (done) => {
+  it("should reject login if username does not exist", (done) => {
     chai.request(app)
       .post("/api/users/signin/")
       .type("form")
@@ -195,8 +363,8 @@ describe("POST /api/user/signin", () => {
         password: "123jased"
       })
       .end((err, res) => {
-        res.should.have.status(401);
-        res.body.message.should.equal("username not found, please register");
+        res.should.have.status(404);
+        res.body.message.should.equal("username does not exist");
         done();
       });
   });
@@ -367,7 +535,8 @@ describe("POST /api/groups/:id/user", () => {
       .set("x-access-token", authToken)
       .type("form")
       .send({
-        GroupsId: 1,
+        userId: 12,
+        groupId: 1,
         isAdmin: "0"
       })
       .end((err, res) => {
@@ -375,21 +544,22 @@ describe("POST /api/groups/:id/user", () => {
         done();
       });
   });
+  // it returns erro for errors
 });
 
 // describe send message to a group by a logged in user endpoint
 describe("POST /api/group/:id/message", () => {
-  it("shoul send a message to a group via POST /api/groups/:id/message/",
+  it("should send a message to a group via POST /api/groups/:id/message/",
     (done) => {
       chai.request(app)
         .post("/api/groups/1/message/")
         .set("x-access-token", authToken)
         .type("form")
         .send({
-          userId: "1",
+          userId: 26,
           text: "my test message 2",
-          groupId: "1",
-          priority: "0"
+          groupId: 1,
+          priority: "Normal"
         })
         .end((err, res) => {
           res.status.should.equal(201);
