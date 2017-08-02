@@ -17,6 +17,7 @@
   },
   "scripts": {
     "start:dev": "nodemon --exec babel-node ./server/bin/www",
+    "both:dev": "concurrently \"npm start\" \"cd client && npm start\"",
     "build": "rimraf dist/ && babel ./server --out-dir server/dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "nodemon --exec babel-node ./server/bin/www",
     "test:dev": "mocha server/tests/tests.js -w --compilers js:babel-register",

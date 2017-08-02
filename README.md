@@ -69,6 +69,20 @@ view a Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
 
 # CLIENT
 - React Front End Are in the client folder
->- In Development
+>- To run client, Run
+   `$ cd client && npm start`
+
+>- To run client test, Run
+   `$ cd client && npm test`
+
+>- To build client for production, Run
+   `$ cd client && npm run build`
+    `$ cd .. && git add client/build`
+    `$ git commit -m "Adding 'build' to source control"`
+    `$ git push origin <branch>`
+
+# APP
+- To run both client and server in Development on local machine from vi level
+    `$ npm run both:dev` // proxy activated
 
 >- **Author: Aminujatto Abdulqahhar**

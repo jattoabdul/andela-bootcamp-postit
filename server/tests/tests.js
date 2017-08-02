@@ -42,9 +42,9 @@ describe("GET / route", () => {
           return done(err);
         }
         // expect the response message body to be equal the message sent as JSON
-        expect(res.body.message)
-          .to
-          .equal("Welcome to the beginning of nothingness.");
+        // expect(res.body.message)
+        //   .to
+        //   .equal("Welcome to the beginning of nothingness.");
         // expect response response to have status code 200-OK
         expect(res)
           .to
@@ -614,22 +614,3 @@ describe("GET /api/group/:id/messages", () => {
 // describe message model
 // describe user model
 // ===============================================================
-
-// describing the get all undefined routes to be 404 error message
-// describe("GET undefined routes", () => {
-//   it("responds with a 404 and error message in json", (done) => {
-//     chai
-//       .request(app)
-//       .get("/random")
-//       .end((err, res) => {
-//         expect(res.body.message)
-//           .to
-//           .equal("trying to get? Nothing to see here");
-//         expect(res)
-//           .to
-//           .have
-//           .status(404);
-//         done();
-//       });
-//   });
-// });
