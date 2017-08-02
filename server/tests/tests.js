@@ -1,8 +1,5 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
-// import sinon from "sinon";
-// import path from "path";
-// import sequelize from "sequelize";
 
 // import app
 import app from "../app";

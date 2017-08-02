@@ -88,7 +88,8 @@
     "sequelize": "^4.3.1",
     "sequelize-cli": "^2.7.0",
     "sequelize-mocking": "^0.4.1",
-    "sinon": "^2.3.6"
+    "sinon": "^2.3.6",
+    "concurrently": "^3.5.0"
   },
   "devDependencies": {
     "concurrently": "^3.5.0",
