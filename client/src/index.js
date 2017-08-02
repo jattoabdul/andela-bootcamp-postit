@@ -1,14 +1,16 @@
 // absolute imports
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, IndexRoute, Route, browserHistory } from "react-router";
+// import injectTapEventPlugin from "react-tap-event-plugin";
 import "bootstrap/dist/css/bootstrap.css";
 
 // relative imports
-import "./index.css";
-import App from "./App";
+import "./stylesheet/index.css";
+import App from "./components/App";
 import registerServiceWorker from "./registerServiceWorker";
 
+// Needed for onTouchTap
+// injectTapEventPlugin();
 
-ReactDOM.render(< App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
 registerServiceWorker();
