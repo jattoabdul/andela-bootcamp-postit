@@ -3,8 +3,17 @@ import logger from "morgan";
 import bodyParser from "body-parser";
 import routes from "./api/routers/routes";
 
+const path = require("path");
 // Set up the express app
 const app = express();
+
+// for serving static react client app on heroku
+if (process.env.NODE_ENV === "production") {
+  app.use("/", express.static(path.join(__dirname, "../client/build")));
+}
+
+// for serving static react client app on development machine - uncomment below
+// app.use("/", express.static(path.join(__dirname, "../client/build")));
 
 // Log requests to the console.
 app.use(logger("dev"));
@@ -13,16 +22,19 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// importing all Controllers Importing all Models
+// importing all Controllers 
+// importing all Models
 
 /**
  * Default routes.
 */
-
-// Setup a default root route that sends back a welcome message in JSON format.
+// Comment this out in production
 app.get("/", (req, res) => {
   res
     .status(200)
+    // .sendFile("index.html", { 
+    //   root: path.join(__dirname, "../client/build")
+    // });
     .send({ message: "Welcome to the beginning of nothingness." });
 });
 
