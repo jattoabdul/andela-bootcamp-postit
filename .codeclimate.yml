@@ -17,3 +17,4 @@ ratings:
     - "server/tests/"
     - node_modules/
     - bower_components/
+    - client/build/
