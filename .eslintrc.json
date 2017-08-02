@@ -54,9 +54,24 @@
     "require-jsdoc": ["error", {
       "require": {
         "FunctionDeclaration": true,
-        "MethodDefinition": true,
-        "ClassDeclaration": true
+        "MethodDefinition": false,
+        "ClassDeclaration": false,
+        "ArrowFunctionExpression": false
       }
-    }]
+    }],
+    "class-methods-use-this": ["error", {
+       "exceptMethods": [
+         "render",
+         "getInitialState",
+         "getDefaultProps",
+         "componentWillMount",
+         "componentDidMount",
+         "componentWillReceiveProps",
+         "shouldComponentUpdate",
+         "componentWillUpdate",
+         "componentDidUpdate",
+         "componentWillUnmount"
+       ]
+     }]
   }
 }
