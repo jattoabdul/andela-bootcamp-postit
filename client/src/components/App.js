@@ -11,10 +11,11 @@ class App extends Component {
           <h2>Welcome to POSTIT</h2>
         </div>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p> 
+          You Dont Have to Shout, Just <code>come</code> and PostIt.
+        </p>
       </div>
     );
   }
 }
+
 export default App;
