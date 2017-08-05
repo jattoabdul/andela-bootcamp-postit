@@ -1,7 +1,7 @@
 import React from "react";
 
 const Welcome = () =>
-    <div className="hide">
+    <div>
         <p>Welcome</p>
     </div>;
 

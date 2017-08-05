@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./../../images/logo.svg";
 import { Welcome } from "./../partials/";
-import "./../../stylesheet/App.css";
+import "./../../stylesheet/App.css"; // Home.css
 
 const Home = () =>
 <div className="App">
