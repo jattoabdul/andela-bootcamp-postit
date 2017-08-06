@@ -7,7 +7,7 @@ const Home = () =>
 <div id="indexContainer">
     <div id="mainContainer" className="row">
         <Welcome />
-        <div className="col s12 m6 indexSideTwo">
+        <div className="col s12 m6 indexSideTwo flexCentered">
           <a href="/#/login" className="teal btn waves-effect waves-light">
               Login
           </a>
