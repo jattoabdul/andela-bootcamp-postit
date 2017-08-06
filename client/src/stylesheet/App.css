@@ -18,9 +18,10 @@
 #indexContainer a {
   color: white !important; }
 
-#indexContainer .col {
+#mainContainer > .col {
   border-radius: 8px;
-  min-height: 32rem; }
+  min-height: 34rem;
+  position: relative; }
 
 #indexContainer .indexSideOne {
   background: #2a9d8f !important;
@@ -28,7 +29,7 @@
   border-bottom-right-radius: 0;
   padding: 2% 2rem 3rem; }
 
-#indexContainer .indexSideOne h5 > span {
+#indexContainer .indexSideOne h5 > span, a > span {
   border-bottom: 1px solid white; }
 
 #indexContainer .indexSideOne li {
@@ -40,6 +41,15 @@
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   padding: 2rem 2rem 3rem 3rem;
+  position: relative; }
+
+#loginForm {
+  padding-top: 1rem; }
+
+#loginForm > button {
+  margin-left: 0.6rem; }
+
+.flexCentered {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -52,3 +62,38 @@
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column; }
+
+#authCapsules {
+  position: absolute;
+  top: 2rem;
+  right: 2rem; }
+
+#authCapsules .capsule {
+  padding: 0px 11px;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  border-radius: 2rem;
+  height: 1.8rem;
+  line-height: 1.85rem; }
+
+#authCapsules .capsule:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-right: -3px; }
+
+#authCapsules .capsule:nth-child(2) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0; }
+
+form a.forgotPass {
+  margin-top: 1rem;
+  margin-right: 1rem;
+  float: right; }
+
+.nopadding {
+  padding: 0 !important; }
+
+#loginForm input[type="password"] {
+  width: 95%;
+  margin-left: 0.5rem; }
