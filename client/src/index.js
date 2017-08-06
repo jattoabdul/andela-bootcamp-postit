@@ -8,6 +8,8 @@ import "materialize-css/dist/css/materialize.min.css";
 import "animate.css/animate.css";
 
 import "./stylesheet/index.css";
+import configureStore from "./stores/configureStore";
+
 import { Home,
         Register,
         Login,
@@ -19,8 +21,10 @@ import { Home,
 // import { Auth } from "./components/containers";
 import registerServiceWorker from "./registerServiceWorker";
 
+const store = configureStore();
+
 render(
-<Provider>
+<Provider store={store}>
     <Router>
         <Switch>
             <Route exact path="/" component={Home}/>

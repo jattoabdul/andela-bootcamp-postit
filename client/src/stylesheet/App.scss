@@ -1,26 +1,119 @@
 @import "./variable";
-
-.App {
-  text-align: center;
+ 
+#indexContainer {
+	background: #e76f51 !important;
+	color: white;
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 100vh;
+	width: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+#mainContainer {
+	width: 55%;
+	max-width: 75rem;
+	min-width: 50rem;
+	min-height: 20rem;
+	display: block;
+	margin: 10vh auto;
 }
 
-.App-header {
-  background-color: #222;
-  height: 250px;
-  padding: 20px;
-  color: white;
+#indexContainer a {
+	color: white !important;
 }
 
-.App-intro {
-  font-size: large;
+#mainContainer>.col {
+	border-radius: 8px;
+	min-height: 34rem;
+	position: relative;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+#indexContainer .indexSideOne {
+	background: #2a9d8f !important;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	padding: 2% 2rem 3rem;
+}
+
+#indexContainer .indexSideOne h5>span, a>span {
+	border-bottom: 1px solid white;
+}
+
+#indexContainer .indexSideOne li {
+	list-style-type: disc;
+	margin-left: 1rem;
+}
+
+#indexContainer .indexSideTwo {
+	background: #264653 !important;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	padding: 2rem 2rem 3rem 3rem;
+	position: relative;
+}
+
+#loginForm {
+	padding-top: 1rem;
+}
+
+#loginForm>button {
+	margin-left: 0.6rem;
+}
+
+.flexCentered {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+}
+
+#authCapsules {
+	position: absolute;
+	top: 2rem;
+	right: 2rem;
+}
+
+#authCapsules .capsule {
+	padding: 0px 11px;
+	font-size: 0.9rem;
+	text-transform: capitalize;
+	cursor: pointer;
+	border-radius: 2rem;
+	height: 1.8rem;
+	line-height: 1.85rem;
+}
+
+#authCapsules .capsule:first-child {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	margin-right: -3px;
+}
+
+#authCapsules .capsule:nth-child(2) {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+form a.forgotPass {
+  margin-top: 1rem;
+  margin-right: 1rem;
+  float: right;
+}
+
+.nopadding {
+	padding: 0 !important;
+}
+
+#loginForm input[type="password"] {
+  width: 95%;
+  margin-left: 0.5rem;
 }
