@@ -1,6 +1,6 @@
 // createAccount
 const initialState = {
-  // createAccountModal: "CLOSED",
+  signUpPage: "CLOSED",
   currentUser: {
     email: ""
   },
@@ -10,10 +10,10 @@ const initialState = {
 
 const signUpUser = (state = initialState, action) => {
   switch (action) {
-    // case "SHOW_MODAL":
-    //   return Object.assign(initialState, { createAccountModal: "OPEN" });
+    case "SHOW_MODAL":
+      return Object.assign(initialState, { signUpPage: "OPEN" });
     case "CREATE":
-      // return Object.assign(initialState, { currentUser: action.user.email });
+    // return Object.assign(initialState, { currentUser: action.user.email });
       break;
     case "CANCEL":
       // do stuff

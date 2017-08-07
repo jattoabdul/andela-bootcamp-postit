@@ -1,29 +1,29 @@
-// import { createStore, combineReducers } from "redux";
-// import { toggleLogin } from "../reducers";
+import { createStore, combineReducers } from "redux";
+import { loginUser } from "../reducers";
 
-// let store;
+let store;
 
-// export default {
-//   configure: (initialState) => {
-//     const reducers = combineReducers({
-//       toggleLogin
-//     });
+export default {
+  configure: (initialState) => {
+    const reducers = combineReducers({
+      loginUser
+    });
 
-//     if (initialState) {
-//       store = createStore(
-//         reducers,
-//         initialState
-//       );
-//       return store;
-//     }
+    if (initialState) {
+      store = createStore(
+        reducers,
+        initialState
+      );
+      return store;
+    }
 
-//     store = createStore(
-//       reducers
-//     );
+    store = createStore(
+      reducers
+    );
 
-//     return store;
-//   },
+    return store;
+  },
 
-//   currentStore: () => store
-// };
+  currentStore: () => store
+};
 

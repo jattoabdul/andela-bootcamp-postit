@@ -1,13 +1,48 @@
 import React from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 // import Auth from "./../containers/";
-// import registerUser from "../../actions/registerUser";
-// import api from "../helpers/api";
+import loginUser from "../../actions/loginUser";
+import Api from "../../utils/api";
 import { Welcome } from "./../partials/";
 import "./../../stylesheet/App.css"; // Home.scss
 import "./../../stylesheet/Auth.css"; // Auth.scss
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onLoginUser = this.onLoginUser.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.state = {
+      error_message: ""
+    };
+  }
+
+  onFocus() {
+    this.setState({ error_message: "" });
+  }
+
+  onLoginUser(e) {
+    e.preventDefault();
+    let { username, password } = this;
+    username = username.value.trim();
+    password = password.value;
+    if (username !== "" || password !== "") {
+      const userString = `username=${username}&password=${password}`;
+      Api(userString, "http://localhost:8000/api/users/signin", "POST").then(
+        (_loginRes) => {
+          if (_loginRes.error === undefined) {
+            this.props.onLoginUser(JSON.stringify(_loginRes));
+            sessionStorage.setItem("user", JSON.stringify(_loginRes));
+            window.location.hash = "/#/dashboard";
+          } else {
+            this.setState({ error_message: _loginRes.error.message });
+          }
+        }
+      );
+    } else {
+      this.setState({ error_message: "Error: All fields are required" });
+    }
+  }
 
   render() {
     return (
@@ -24,14 +59,18 @@ class Login extends React.Component {
                         </a>
                     </div>
                     <br/>
-                    <form id="loginForm" className="row" action="#">
+                    <form id="loginForm" className="row">
                         <p className="flow-text"> &nbsp; Sign In</p>
                         <div className="input-field col s12">
-                            <input type="email" id="email_login"/>
-                            <label htmlFor="email_login">Email</label>
+                            <input onFocus={this.onFocus}
+                                type="text" id="username_login"
+                                ref={(input) => { this.username = input; }}/>
+                            <label htmlFor="username_login">Username</label>
                         </div>
                         <div className="input-field col s12 m7 no-padding">
-                            <input type="password" id="password_login"/>
+                            <input onFocus={this.onFocus}
+                                type="password" id="password_login"
+                                ref={(input) => { this.password = input; }}/>
                             <label htmlFor="password_login">Password</label>
                         </div>
                         <div className="input-field col s12 m5 nopadding">
@@ -40,8 +79,9 @@ class Login extends React.Component {
                             </a>
                         </div>
                         <div className="input-field col s12">
-                            <button className="btn waves-effect waves-light"
-                                    type="submit">
+                            <button onClick= { this.onLoginUser }
+                                className="btn waves-effect waves-light"
+                                type="submit">
                                 sign in
                             </button>
                             <br/><br/>
@@ -61,4 +101,11 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoginUser: user => dispatch(loginUser(user))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Login);
+// export default Login;
