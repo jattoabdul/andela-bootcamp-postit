@@ -28,12 +28,12 @@ class Login extends React.Component {
     password = password.value;
     if (username !== "" || password !== "") {
       const userString = `username=${username}&password=${password}`;
-      Api(userString, "http://localhost:8000/api/users/signin", "POST").then(
+      Api(userString, "/api/users/signin", "POST").then(
         (_loginRes) => {
           if (_loginRes.error === undefined) {
             this.props.onLoginUser(JSON.stringify(_loginRes));
             sessionStorage.setItem("user", JSON.stringify(_loginRes));
-            window.location.hash = "/#/dashboard";
+            window.location = "/dashboard";
           } else {
             this.setState({ error_message: _loginRes.error.message });
           }
@@ -51,10 +51,10 @@ class Login extends React.Component {
                 <Welcome />
                 <div className="col s12 m6 indexSideTwo">
                     <div id="authCapsules">
-                        <a href="/#/register" className="capsule btn teal">
+                        <a href="/register" className="capsule btn teal">
                             Sign Up
                         </a>
-                        <a href="/#/login" className="capsule btn cyan">
+                        <a href="/login" className="capsule btn cyan">
                             Sign In
                         </a>
                     </div>
@@ -87,7 +87,7 @@ class Login extends React.Component {
                             <br/><br/>
                             <p>
                                 &nbsp;
-                                 <a href="/#/register" className="alternative">
+                                 <a href="/register" className="alternative">
                                     Don&rsquo; have an Account? &nbsp;
                                 <span>SIGN UP NOW</span>
                                 </a>

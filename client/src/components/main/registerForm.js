@@ -39,17 +39,17 @@ class Register extends React.Component {
       this.setState({ error_message: "Error: please all field are required" });
       return;
     }
-    const userString = `username=${username}&fullname=${fullname}&email=${email}
-        &password=${password}&phone=${phoneNumber}`;
-    Api(userString, "http://localhost:8000/api/users/signup", "POST", null).then(
+    const userString = `username=${username}&fullName=${fullname}&email=${email}
+        &password=${password}&phoneNumber=${phoneNumber}`;
+    Api(userString, "/api/users/signup", "POST", null).then(
       (_registerRes) => {
         if (_registerRes.error === undefined) {
-          Api(userString, "http://localhost:8000/api/users/signin", "POST", null).then(
+          Api(userString, "/api/users/signin", "POST", null).then(
             (_loginRes) => {
               if (_loginRes.error === undefined) {
                 this.props.onLoginUser(JSON.stringify(_loginRes));
                 sessionStorage.setItem("user", JSON.stringify(_loginRes));
-                window.location.hash = "/#/dashboard";
+                window.location = "/dashboard";
               } else {
                 this.setState({ error_message: _loginRes.error.message });
               }
@@ -58,6 +58,17 @@ class Register extends React.Component {
         } else {
           this.setState({ error_message: _registerRes.error.message });
         }
+        Api(userString, "/api/users/signin", "POST", null).then(
+            (_loginRes) => {
+              if (_loginRes.error === undefined) {
+                this.props.onLoginUser(JSON.stringify(_loginRes));
+                sessionStorage.setItem("user", JSON.stringify(_loginRes));
+                window.location.hash = "/dashboard";
+              } else {
+                this.setState({ error_message: _loginRes.error.message });
+              }
+            }
+          );
       }
     );
   }
@@ -69,14 +80,14 @@ class Register extends React.Component {
                 <Welcome />
                 <div className="col s12 m6 indexSideTwo">
                     <div id="authCapsules">
-                        <a href="/#/register" className="capsule btn teal">
+                        <a href="/register" className="capsule btn teal">
                             Sign Up
                         </a>
-                        <a href="/#/login" className="capsule btn cyan">
+                        <a href="/login" className="capsule btn cyan">
                             Sign In
                         </a>
                     </div>
-                    <form id="signUpForm" className="row" action="#">
+                    <form id="signUpForm" className="row">
                         <p className="flow-text"> &nbsp; Sign Up</p>
                         {/* this.state.error_message === "" ? "" :
                           <div className='red card' style={{ padding: "5px 10px" }}>
@@ -120,7 +131,7 @@ class Register extends React.Component {
                              sign Up
                         </button>
                         <p>
-                            <a href="/#/login">
+                            <a href="/login">
                                 <span>Already have an account</span>
                             </a>
                         </p>

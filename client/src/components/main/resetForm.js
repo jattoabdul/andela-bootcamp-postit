@@ -16,10 +16,10 @@ class ResetPassword extends React.Component {
                 <Welcome />
                 <div className="col s12 m6 indexSideTwo flexCentered">
                     <div id="authCapsules">
-                        <a href="/#/register" className="capsule btn teal">
+                        <a href="/register" className="capsule btn teal">
                             Sign Up
                         </a>
-                        <a href="/#/login" className="capsule btn cyan">
+                        <a href="/login" className="capsule btn cyan">
                             Sign In
                         </a>
                     </div>
@@ -42,7 +42,7 @@ class ResetPassword extends React.Component {
                                         type="submit">Reset my password
                                 </button>
                                 <p className="center">
-                                <a href="/#/login"><span>SIGN IN</span></a>
+                                <a href="/login"><span>SIGN IN</span></a>
                                 </p>
                             </div>
                         </div>

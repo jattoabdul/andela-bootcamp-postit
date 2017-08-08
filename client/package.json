@@ -26,11 +26,11 @@
     "redux-saga": "^0.15.6",
     "redux-thunk": "^2.2.0"
   },
-  "proxy": "http://localhost:8000/",
+  "proxy": "http://localhost:7000/",
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src/stylesheet --include-path ./node_modules src/stylesheet/ -o src/stylesheet/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src/stylesheet --include-path ./node_modules src/stylesheet/ -o src/stylesheet/ --watch --recursive",
-    "start-js": "react-scripts start",
+    "start-js": "PORT=3006 react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
