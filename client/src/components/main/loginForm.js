@@ -29,13 +29,13 @@ class Login extends React.Component {
     if (username !== "" || password !== "") {
       const userString = `username=${username}&password=${password}`;
       Api(userString, "/api/users/signin", "POST").then(
-        (_loginRes) => {
-          if (_loginRes.error === undefined) {
-            this.props.onLoginUser(JSON.stringify(_loginRes));
-            sessionStorage.setItem("user", JSON.stringify(_loginRes));
+        (loginRes) => {
+          if (loginRes.error === undefined) {
+            this.props.onLoginUser(JSON.stringify(loginRes));
+            sessionStorage.setItem("user", JSON.stringify(loginRes));
             window.location = "/dashboard";
           } else {
-            this.setState({ error_message: _loginRes.error.message });
+            this.setState({ error_message: loginRes.error.message });
           }
         }
       );
@@ -46,7 +46,7 @@ class Login extends React.Component {
 
   render() {
     return (
-        <div id="indexContainer">
+        <div id="indexContainer" className="amber">
             <div id="mainContainer" className="row">
                 <Welcome />
                 <div className="col s12 m6 indexSideTwo">
@@ -74,7 +74,7 @@ class Login extends React.Component {
                             <label htmlFor="password_login">Password</label>
                         </div>
                         <div className="input-field col s12 m5 nopadding">
-                            <a href="/#/resetpassword" className="forgotPass">
+                            <a href="/resetpassword" className="forgotPass">
                                 forgot password
                             </a>
                         </div>
@@ -101,11 +101,8 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     onLoginUser: user => dispatch(loginUser(user))
-  };
-};
+});
 
 export default connect(null, mapDispatchToProps)(Login);
-// export default Login;

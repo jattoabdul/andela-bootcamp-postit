@@ -42,30 +42,30 @@ class Register extends React.Component {
     const userString = `username=${username}&fullName=${fullname}&email=${email}
         &password=${password}&phoneNumber=${phoneNumber}`;
     Api(userString, "/api/users/signup", "POST", null).then(
-      (_registerRes) => {
-        if (_registerRes.error === undefined) {
+      (registerRes) => {
+        if (registerRes.error === undefined) {
           Api(userString, "/api/users/signin", "POST", null).then(
-            (_loginRes) => {
-              if (_loginRes.error === undefined) {
-                this.props.onLoginUser(JSON.stringify(_loginRes));
-                sessionStorage.setItem("user", JSON.stringify(_loginRes));
+            (loginRes) => {
+              if (loginRes.error === undefined) {
+                this.props.onLoginUser(JSON.stringify(loginRes));
+                sessionStorage.setItem("user", JSON.stringify(loginRes));
                 window.location = "/dashboard";
               } else {
-                this.setState({ error_message: _loginRes.error.message });
+                this.setState({ error_message: loginRes.error.message });
               }
             }
           );
         } else {
-          this.setState({ error_message: _registerRes.error.message });
+          this.setState({ error_message: registerRes.error.message });
         }
         Api(userString, "/api/users/signin", "POST", null).then(
-            (_loginRes) => {
-              if (_loginRes.error === undefined) {
-                this.props.onLoginUser(JSON.stringify(_loginRes));
-                sessionStorage.setItem("user", JSON.stringify(_loginRes));
-                window.location.hash = "/dashboard";
+            (loginRes) => {
+              if (loginRes.error === undefined) {
+                this.props.onLoginUser(JSON.stringify(loginRes));
+                sessionStorage.setItem("user", JSON.stringify(loginRes));
+                window.location = "/dashboard";
               } else {
-                this.setState({ error_message: _loginRes.error.message });
+                this.setState({ error_message: loginRes.error.message });
               }
             }
           );
@@ -75,7 +75,7 @@ class Register extends React.Component {
 
   render() {
     return (
-        <div id="indexContainer">
+        <div id="indexContainer" className="amber">
             <div id="mainContainer" className="row">
                 <Welcome />
                 <div className="col s12 m6 indexSideTwo">
@@ -93,34 +93,39 @@ class Register extends React.Component {
                           <div className='red card' style={{ padding: "5px 10px" }}>
                             {this.state.error_message}
                           </div> */}
-                        <div className="input-field col s12">
+                        <div className="input-field col s6">
                           <input onFocus={this.onFocus}
                             type="text" id="fullname_signup"
-                            ref = {(input) => { this.fullname = input; }}/>
+                            ref = {(input) => { this.fullname = input; }}
+                            required/>
                           <label htmlFor="fullname_signup">Fullname</label>
                         </div>
-                        <div className="input-field col s12">
+                        <div className="input-field col s6">
                         <input onFocus={this.onFocus}
                           type="text" id="username_signup"
-                          ref = {(input) => { this.username = input; }}/>
+                          ref = {(input) => { this.username = input; }}
+                          required/>
                         <label htmlFor="username_signup">Username</label>
                         </div>
-                        <div className="input-field col s12">
+                        <div className="input-field col s6">
                         <input onFocus={this.onFocus}
                           type="password" id="password_signup"
-                          ref = {(input) => { this.password = input; }}/>
+                          ref = {(input) => { this.password = input; }}
+                          required/>
                         <label htmlFor="password_signup">Password</label>
                         </div>
-                        <div className="input-field col s12">
+                        <div className="input-field col s6">
                         <input onFocus={this.onFocus}
                           type="email" id="email_signup"
-                          ref = {(input) => { this.email = input; }}/>
+                          ref = {(input) => { this.email = input; }}
+                          required/>
                         <label htmlFor="email_signup">Email</label>
                         </div>
                          <div className="input-field col s12">
                           <input onFocus={this.onFocus}
                             type="number" id="phone_signup"
-                            ref = {(input) => { this.phoneNumber = input; }}/>
+                            ref = {(input) => { this.phoneNumber = input; }}
+                            required/>
                           <label htmlFor="phone_signup">Phone Number</label>
                         </div>
                         <div className="input-field col s12">
@@ -144,8 +149,7 @@ class Register extends React.Component {
   }
 }
 const mapDispatchToProps = (dispatch) => ({
-    onLoginUser: user => dispatch(loginUser(user))
-  });
+  onLoginUser: user => dispatch(loginUser(user))  
+});
 
 export default connect(null, mapDispatchToProps)(Register);
-// export default Register;
