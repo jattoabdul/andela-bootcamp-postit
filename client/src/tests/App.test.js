@@ -1,6 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { shallow } from "enzyme";
+
+// importing test frameworks
+// import { shallow } from "enzyme";
+// import "jest-enzyme";
+// import sinon from "sinon";
+// import { expect } from "chai";
+
+// importing components
 import App from "./../components/App";
 
 
@@ -10,3 +17,8 @@ describe("App", () => {
   });
 });
 
+describe("Signup Component", () => {
+  it("should do this", () => {
+    expect(2).toBe(2);
+  });
+});
