@@ -43,32 +43,22 @@ class Register extends React.Component {
         &password=${password}&phoneNumber=${phoneNumber}`;
     Api(userString, "/api/users/signup", "POST", null).then(
       (registerRes) => {
-        if (registerRes.error === undefined) {
+        console.log(registerRes.err);
+        if (registerRes.err === undefined) {
           Api(userString, "/api/users/signin", "POST", null).then(
             (loginRes) => {
-              if (loginRes.error === undefined) {
+              if (loginRes.message !== "username does not exist") {
                 this.props.onLoginUser(JSON.stringify(loginRes));
                 sessionStorage.setItem("user", JSON.stringify(loginRes));
                 window.location = "/dashboard";
               } else {
-                this.setState({ error_message: loginRes.error.message });
+                this.setState({ error_message: loginRes.message });
               }
             }
           );
         } else {
-          this.setState({ error_message: registerRes.error.message });
+          this.setState({ error_message: registerRes.err.message });
         }
-        Api(userString, "/api/users/signin", "POST", null).then(
-            (loginRes) => {
-              if (loginRes.error === undefined) {
-                this.props.onLoginUser(JSON.stringify(loginRes));
-                sessionStorage.setItem("user", JSON.stringify(loginRes));
-                window.location = "/dashboard";
-              } else {
-                this.setState({ error_message: loginRes.error.message });
-              }
-            }
-          );
       }
     );
   }
@@ -148,8 +138,8 @@ class Register extends React.Component {
     );
   }
 }
-const mapDispatchToProps = (dispatch) => ({
-  onLoginUser: user => dispatch(loginUser(user))  
+const mapDispatchToProps = dispatch => ({
+  onLoginUser: user => dispatch(loginUser(user))
 });
 
 export default connect(null, mapDispatchToProps)(Register);

@@ -3,7 +3,6 @@ import React from "react";
 // import api from "../helpers/api";
 import "./../../stylesheet/App.css"; // Home.scss
 // import "./../../stylesheet/SideMenu.css"; // SideMenu.scss
-// import logo from "./../../images/logo.svg";
 
 class SideMenu extends React.Component {
 

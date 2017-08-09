@@ -26,16 +26,15 @@ class Login extends React.Component {
     let { username, password } = this;
     username = username.value.trim();
     password = password.value;
-    if (username !== "" || password !== "") {
+    if (username !== "" && password !== "") {
       const userString = `username=${username}&password=${password}`;
       Api(userString, "/api/users/signin", "POST").then(
         (loginRes) => {
-          if (loginRes.error === undefined) {
+          if (loginRes.message !== "username does not exist") {
+            // console.log(loginRes);
             this.props.onLoginUser(JSON.stringify(loginRes));
             sessionStorage.setItem("user", JSON.stringify(loginRes));
             window.location = "/dashboard";
-          } else {
-            this.setState({ error_message: loginRes.error.message });
           }
         }
       );
@@ -64,13 +63,15 @@ class Login extends React.Component {
                         <div className="input-field col s12">
                             <input onFocus={this.onFocus}
                                 type="text" id="username_login"
-                                ref={(input) => { this.username = input; }}/>
+                                ref={(input) => { this.username = input; }}
+                                required/>
                             <label htmlFor="username_login">Username</label>
                         </div>
                         <div className="input-field col s12 m7 no-padding">
                             <input onFocus={this.onFocus}
                                 type="password" id="password_login"
-                                ref={(input) => { this.password = input; }}/>
+                                ref={(input) => { this.password = input; }}
+                                required/>
                             <label htmlFor="password_login">Password</label>
                         </div>
                         <div className="input-field col s12 m5 nopadding">
@@ -101,7 +102,7 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onLoginUser: user => dispatch(loginUser(user))
 });
 

@@ -149,7 +149,7 @@ form a.forgotPass {
 #appBoard nav {
   border-left: 1px solid white !important; }
 
-button.createGroup {
+a.createGroup {
   margin-bottom: 0.5rem; }
 
 .input-field input[type=search], .input-field input[type=search]:focus {

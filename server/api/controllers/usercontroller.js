@@ -95,7 +95,7 @@ export default {
       .then((user) => {
         const password = req.body.password;
         if (user[0]) {
-          if (bcrypt.hashSync(password, salt) === user[0].password) {
+          if (bcrypt.compareSync(password, user[0].password)) {
             // create an authToken for the user
             const token = jwt.sign({
               data: user[0].username

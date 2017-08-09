@@ -48,10 +48,10 @@ class Dashboard extends React.Component {
                             <div className="col m4">
                                 <p>
                                     <span className="flow-text or">or </span> &nbsp;
-                                    <button className="btn createGroup waves-effect"
+                                    <a className="btn createGroup waves-effect"
                                         href="/dashboard/create-group">
                                         Create Group
-                                    </button>
+                                    </a>
                                 </p>
                             </div>
                             <br/><br/><br/><br/>
@@ -59,11 +59,16 @@ class Dashboard extends React.Component {
                                 <div className="col s12">
                                     <h5 className="left-align">About Us</h5>
                                     <p>
-                                        We are a Lorem ipsum dolor sit amet,consectetur
-                                        adipisicing elit. Nam, excepturi eaque velit
-                                        asperiores, quia veritatis nemo culpa nesciunt
-                                        perspiciatis quasi repellat soluta voluptates
-                                        ipsa aut dolorum accusantium qui magnam eum.
+                                        Is a simple application that allows
+                                        friends and colleagues create groups
+                                        for notifications. This way one person
+                                        can post notifications to everyone by
+                                        sending a message once - a broadcast
+                                        message. The application allows people
+                                        create accounts, create groups and add
+                                        registered users to the groups, and
+                                        then send messages out to these groups
+                                        whenever they want.
                                     </p>
                                 </div>
                             </div>
