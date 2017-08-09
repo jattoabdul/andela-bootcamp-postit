@@ -16,26 +16,29 @@ class CreateGroupBoard extends React.Component {
     };
   }
 
+  // OnCreateGroup Method
   onCreateGroup(e) {
     e.preventDefault();
-    if(this.name.value === "") {
+    if (this.name.value === "") {
       console.log("name cannot be empty");
     }
-    if(this.desc.value === "") {
+    if (this.desc.value === "") {
       console.log("desc cannot be empty");
     }
     console.log(`${this.name.value} --- ${this.desc.value}
         ---- ${this.selectedUsers} array (potential group members) `);
+    // checking if user is logged in
+    if (sessionStorage.getItem("user") === null) {
+      window.location = "/login";
+    }
     const groupCreateParams = `name=${this.name.value}&desc=${this.desc.value}`;
+    // making calls to the create group API endpoint
     Api(groupCreateParams, "/api/groups/", "POST").then(
         (createGroupResponse) => {
           console.log(createGroupResponse);
           window.location = "/dashboard/message";
         }
     );
-    // if (sessionStorage.getItem("user") === null) {
-    //   window.location = "/login";
-    // }
   }
 
   render() {
