@@ -3,6 +3,7 @@
  * handles every groups users related task and authentication
  */
 
+
 // importing services
 import models from "../models/db";
 
@@ -43,8 +44,10 @@ export default {
         //     userName = user.username;
         //   })
         //   .catch(error => res.status(400).send(error));
-        // console.log(`===================> username of current user to be added: ${userName}`);
-        // then add username field to group user models and include on param with necessary value
+        // console.log(`===================> username of 
+        // current user to be added: ${userName}`);
+        // Then add username field to group user models and 
+        // include on param with necessary value
         return models.GroupsUsers
           .create({
             userId: req.body.userId,
@@ -101,5 +104,33 @@ export default {
       .catch((error) => {
         res.status(400).send(error);
       });
+  },
+  searchMember(req, res) {
+    if (req.query.search) {
+      models.GroupsUsers
+        .findAll({
+          where: { groupId: req.params.id },
+          attributes: ["userId"]
+        })
+        .then((groupUsers) => {
+          const groupUsersId = groupUsers
+            .map(groupUser => `${groupUser.userId}`);
+          models.Users
+            .findAll({
+              where: {
+                username: { $like: `%${req.query.search}%` }
+              },
+              attributes: ["id", "username", "fullName"]
+            })
+            .then((searchItemResult) => {
+              const data = {
+                groupUsersId,
+                searchItemResult
+              };
+              console.log(data);
+              return res.status(200).send(data);
+            }).catch(error => res.status(400).send(error));
+        }).catch(error => res.status(400).send(error));
+    }
   }
 };

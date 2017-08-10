@@ -38,7 +38,18 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script>
+     $(document).ready(function () {
+        $(".button-collapse").sideNav({
+          menuWidth: 250, // Default is 300
+          edge: "left", // Choose the horizontal origin
+          closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+          draggable: true // Choose whether you can drag to open on touch screens
+        });
+        $("select").material_select();
+      });  
+     </script> 
      <!-- <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="

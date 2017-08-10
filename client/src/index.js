@@ -17,7 +17,8 @@ import { Home,
         NotFound,
         Dashboard,
         MessageBoard,
-        CreateGroupBoard } from "./components/main";
+        CreateGroupBoard,
+        AddUserToGroupBoard } from "./components/main";
 // import { Auth } from "./components/containers";
 import registerServiceWorker from "./registerServiceWorker";
 
@@ -32,6 +33,8 @@ render(
             <Route path="/login" component={Login}/>
             <Route path="/resetpassword" component={ResetPassword}/>
             <Route exact path="/dashboard" component={Dashboard}/>
+            <Route path="/dashboard/:groupId/addusertogroup"
+                component={AddUserToGroupBoard}/>
             <Route exact path="/dashboard/message" component={MessageBoard}/>
             <Route
                 exact path="/dashboard/create-group"

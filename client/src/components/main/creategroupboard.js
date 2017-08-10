@@ -1,4 +1,5 @@
 import React from "react";
+import withRouter from "react-router-dom";
 // import { connect } from "react-redux";
 // import Auth from "./../containers/";
 // import registerUser from "../../actions/registerUser";
@@ -36,7 +37,9 @@ class CreateGroupBoard extends React.Component {
     Api(groupCreateParams, "/api/groups/", "POST").then(
         (createGroupResponse) => {
           console.log(createGroupResponse);
-          window.location = "/dashboard/message";
+          const groupId = createGroupResponse.group.id;
+        //   window.location = `/dashboard/${groupId}/addusertogroup`;
+          this.props.history.push(`/dashboard/${groupId}/addusertogroup`);
         }
     );
   }
@@ -50,9 +53,9 @@ class CreateGroupBoard extends React.Component {
                 <MainNav />
                 <br />
             <div id="chatArea" className="white-text row padTop">
-            <div className="container">
+            <div className="container centerContainerForForms">
                 <div className="card-panel formPanel">
-                    <form>
+                    <form className="centerForm">
                         <div className="input-field col s12">
                         <input type="text" id="group_name-create"
                         ref={ (input) => { this.name = input; } } required/>
@@ -67,15 +70,6 @@ class CreateGroupBoard extends React.Component {
                             Group Description
                         </label>
                         </div>
-                        <div className="col s12 teal-text">
-                        Add User (s):
-                        <div className="input-field inline">
-                            <input id="add_users" type="text"
-                                className="validate"
-                                ref={ (input) => { this.selectedUsers = input; } }/>
-                            <label htmlFor="add_users">Users</label>
-                        </div>
-                        </div>
                         <div className="col s12">
                         <p className="center">
                             <button
@@ -85,12 +79,6 @@ class CreateGroupBoard extends React.Component {
                             </button>
                         </p>
                         </div>
-                        <ul>
-                        <li><a href="">@jattoade</a></li>
-                        <li><a href="">@shery</a></li>
-                        <li><a href="">@joe</a></li>
-                        <li><a href="">@ratcoder</a></li>
-                        </ul>
                     </form>
                 </div>
             </div>

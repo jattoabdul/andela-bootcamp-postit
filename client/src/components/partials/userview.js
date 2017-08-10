@@ -8,13 +8,53 @@ class UserView extends React.Component {
 
   render() {
     return (
-        <div>
-            <ul>
-                <li>image with badge(online/offline)</li>
-                <li>image with badge(online/offline)</li>
-            </ul>
-            <button>icon</button>
-        </div>
+        <div className="white right col s1" id="usersScroll">
+              <ul>
+                <li>
+                  <a href="">
+                    <img src="http://i.pravatar.cc/80?img=23" alt=""/>
+                </a>
+                </li>
+                <li>
+                  <a href="">
+                    <img src="http://i.pravatar.cc/80?img=59" alt=""/>
+                </a>
+                </li>
+                <li>
+                  <a href="">
+                    <img src="http://i.pravatar.cc/80?img=20" alt=""/>
+                </a>
+                </li>
+                <li>
+                  <a href="">
+                    <img src="http://i.pravatar.cc/80?img=34" alt=""/>
+                </a>
+                </li>
+                <li>
+                  <a href="">
+                    <img src="http://i.pravatar.cc/80?img=17" alt=""/>
+                </a>
+                </li>
+                <li>
+                  <a href="">
+                    <img src="http://i.pravatar.cc/80?img=18" alt=""/>
+                </a>
+                </li>
+                <li>
+                  <a href="">
+                    <img src="http://i.pravatar.cc/80?img=21" alt=""/>
+                </a>
+                </li>
+                <li>
+                  <a href="">
+                    <img src="http://i.pravatar.cc/80?img=34" alt=""/>
+                </a>
+                </li>
+              </ul>
+              <span className="bottomSearch waves-effect waves-teal">
+                <i className="icon ion-ios-search teal-text x25"></i>
+              </span>
+            </div>
     );
   }
 }

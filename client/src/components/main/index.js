@@ -6,6 +6,7 @@ import NotFound from "./notFound";
 import Dashboard from "./dashboard";
 import MessageBoard from "./messageboard";
 import CreateGroupBoard from "./creategroupboard";
+import AddUserToGroupBoard from "./addUserToGroup";
 
 export { Home,
         Register,
@@ -14,4 +15,5 @@ export { Home,
         NotFound,
         Dashboard,
         MessageBoard,
-        CreateGroupBoard };
+        CreateGroupBoard,
+        AddUserToGroupBoard };

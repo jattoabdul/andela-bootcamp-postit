@@ -185,10 +185,16 @@ a.createGroup {
 	margin-bottom: 0.5rem;
 }
 
+input#group_name-create, textarea#group_desc-create{
+	color: #009688;
+}
+
 .input-field input[type=search], .input-field input[type=search]:focus {
-  margin-left: 0;
-  border: 2px solid white;
-  border-radius: 4rem;
+		margin-left: 0;
+		padding-left: 1rem;
+    border: 1px solid #009688;
+    border-radius: 4rem;
+    width: 25rem;
 }
 
 .input-field.search .prefix.active {
@@ -202,12 +208,20 @@ a.createGroup {
 }
 
 #chatArea.padTop {
-	padding-top: 2rem;
+	padding-top: 3rem;
 	margin-bottom: 0;
 }
 
 .formPanel.card-panel {
 	display: flex;
+}
+
+.centerContainerForForms {
+	padding-top: 4rem;
+}
+
+.centerForm {
+	padding-left: 5rem;
 }
 
 .welcome.card-panel {

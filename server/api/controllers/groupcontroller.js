@@ -30,22 +30,22 @@ export default {
             .then((user) => {
               userID = user.id;
               // console.log(`user id: ${userID}`);
+              models.GroupsUsers
+                .create({
+                  isAdmin: "1",
+                  groupId: group.id,
+                  userId: userID
+                })
+                .then(() => {
+                  res.status(201).send({
+                    group,
+                    message: "group created successfully"
+                  });
+                })
+                .catch(error => res.status(400).send(error));
             })
             .catch(error => res.status(400).send(error));
           // console.log(`group id: ${group.id}`);
-          models.GroupsUsers
-            .create({
-              isAdmin: "1",
-              groupId: group.id,
-              userId: userID
-            })
-            .then(() => {
-              res.status(201).send({
-                group,
-                message: "group created successfully"
-              });
-            })
-            .catch(error => res.status(400).send(error));
         }
       })
       .catch(error => res.status(400).send(error));

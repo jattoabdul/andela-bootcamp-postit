@@ -10,10 +10,8 @@ class MessageList extends React.Component {
 
   render() {
     return (
-        <div>
-            <ul>
-                <MessageItem />
-            </ul>
+        <div className="chats">
+            <MessageItem/>
         </div>
     );
   }
