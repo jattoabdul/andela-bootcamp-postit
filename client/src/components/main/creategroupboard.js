@@ -1,5 +1,5 @@
 import React from "react";
-import withRouter from "react-router-dom";
+// import withRouter from "react-router-dom";
 // import { connect } from "react-redux";
 // import Auth from "./../containers/";
 // import registerUser from "../../actions/registerUser";

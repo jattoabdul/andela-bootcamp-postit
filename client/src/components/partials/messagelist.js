@@ -11,7 +11,13 @@ class MessageList extends React.Component {
   render() {
     return (
         <div className="chats">
-            <MessageItem/>
+          {
+            this.props.messages.map(message =>
+                <MessageItem timestamp={message.timestamp}
+                          priority={message.priority}
+                          text={message.text}
+                          key={message.id} />)
+        }
         </div>
     );
   }

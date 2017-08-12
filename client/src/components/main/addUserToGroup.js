@@ -15,11 +15,12 @@ class AddUserToGroupBoard extends React.Component {
       error: "",
       selectedUsers: null
     };
+    this.onSearchUserInGroup = this.onSearchUserInGroup.bind(this);
     this.onAddUserToGroup = this.onAddUserToGroup.bind(this);
   }
 
-  // OnaddUserToGroup Method
-  onAddUserToGroup(e) {
+  // onSearchUserInGroup Method
+  onSearchUserInGroup(e) {
     e.preventDefault();
     const id = `${this.props.match.params.groupId}`;
     // console.log(this.props.match.params.groupId);
@@ -29,15 +30,28 @@ class AddUserToGroupBoard extends React.Component {
         selectedUsers: null
       });
     }
-    console.log(searchText);
+    // console.log(searchText);
     Api(null, `/api/groups/${id}/usersearch?search=${searchText}`, "GET").then(
         (createGroupResponse) => {
-          console.log(createGroupResponse);
+          console.log(createGroupResponse, "createGroupResponse");
           this.setState({
             selectedUsers: createGroupResponse.searchItemResult
           });
-        //   window.location = "/dashboard/addusertogroup";
-        // this.props.history.push(`/messageboard/${groupId}`);
+        }
+    );
+    console.log(this.state.selectedUsers, "selectedUsers");
+  }
+
+  // onAddUserToGroup Method
+  onAddUserToGroup(uId) {
+    // e.preventDefault();
+    const id = `${this.props.match.params.groupId}`;
+    const addUserParams = `userId=${uId}`;
+    Api(addUserParams, `/api/groups/${id}/user/`, "POST").then(
+        (addUserToGroupResponse) => {
+          console.log(addUserToGroupResponse, "addUserToGroupResponse");
+        // check if response, i.e user added, set message state to "user added"
+        // check for users in a group and update UI to add mark icon
         }
     );
   }
@@ -63,7 +77,7 @@ class AddUserToGroupBoard extends React.Component {
                                   this.selectedUsers = input;
                                 }
                                  }
-                                onKeyUp={this.onAddUserToGroup}/>
+                                onKeyUp={this.onSearchUserInGroup}/>
                             <label htmlFor="add_users">Users</label>
                         </div>
                         </div>
@@ -71,7 +85,12 @@ class AddUserToGroupBoard extends React.Component {
                         <ul>
                             { this.state.selectedUsers !== null ?
                                     this.state.selectedUsers.map(selectedUser => <li key={selectedUser.id}>
-                                        <a href="">@{selectedUser.username}</a>
+                                        <a href="#"
+                                         onClick={
+                                             () => this.onAddUserToGroup(selectedUser.id)
+                                            }>
+                                         @{selectedUser.username}
+                                         </a>
                                         </li>)
                                 : this.state.selectedUsers
                             }
@@ -80,7 +99,7 @@ class AddUserToGroupBoard extends React.Component {
                         <div className="col s12">
                             <p className="center">
                                 <button className="btn-large waves-effect waves-light"
-                                onClick={this.onAddUserToGroup}>Search</button>
+                                onClick={this.onSearchUserInGroup}>Search</button>
                             </p>
                         </div>
                     </form>

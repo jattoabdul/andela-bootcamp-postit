@@ -35,7 +35,7 @@ render(
             <Route exact path="/dashboard" component={Dashboard}/>
             <Route path="/dashboard/:groupId/addusertogroup"
                 component={AddUserToGroupBoard}/>
-            <Route exact path="/dashboard/message" component={MessageBoard}/>
+            <Route exact path="/dashboard/messages" component={MessageBoard}/>
             <Route
                 exact path="/dashboard/create-group"
                 component={CreateGroupBoard}/>
