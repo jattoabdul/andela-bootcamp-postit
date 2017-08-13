@@ -9,19 +9,18 @@ import "./../../stylesheet/App.css"; // Home.scss
 class MessageItem extends React.Component {
   // constructor(props) {
   //   super(props);
-  //   this.handleSubmit = this.handleSubmit.bind(this);
   // }
 
   render() {
-    const now = new Date(this.props.timestamp);
-    const hhmmss = now.toISOString().substr(11, 8);
+    // const now = new Date(this.props.createdAt);
+    // const hhmmss = now.toISOString().substr(11, 8);
     return (
       <div className="chat card">
         <img src="http://i.pravatar.cc/60?img=59"
             alt="@jattoade" className="left"/>
         <div className="message left">
             <p className="sender_details">Jatto {this.props.priority}
-              <span className="sender_username">@jattoade</span>
+              <span className="sender_username"> @jattoade</span>
             </p>
             <p className="sender_message">
                 {this.props.text}
@@ -32,7 +31,7 @@ class MessageItem extends React.Component {
               Aug 5 &nbsp;
               <i className="status icon ion-ios-checkmark-outline x15"></i>
               <br/>
-              <span className="time">{hhmmss}</span>
+              <span className="time">{this.props.createdAt}</span>
             </p>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 // import { connect } from "react-redux";
 // import Auth from "./../containers/";
 // import registerUser from "../../actions/registerUser";
-// import api from "../helpers/api";
+import Api from "../../utils/api";
 import { SideMenu, MainNav } from "./../partials/";
 import "./../../stylesheet/App.css"; // Home.scss
 // import "./../../stylesheet/Dashboard.css"; // Dashboard.scss
@@ -14,7 +14,20 @@ class Dashboard extends React.Component {
       groups: []
     };
   }
-
+  // check if user is authenticated!
+  componentWillMount() {
+    if (sessionStorage.getItem("user") === null) {
+      // eslint-disable-next-line
+      this.props.history.push(`/login`);
+    //   window.location = "/login";
+      return;
+    }
+    // getting user profile and group details
+    Api(null, "/api/user/", "GET").then((response) => {
+      console.log("Response: ", response);
+      this.setState({ groups: response.data.groups });
+    });
+  }
   render() {
     return (
         <div id="dashContainer" className="teal">

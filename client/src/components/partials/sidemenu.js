@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Api from "../../utils/api";
 import "./../../stylesheet/App.css"; // Home.scss
@@ -57,7 +57,7 @@ class SideMenu extends React.Component {
                     this.state.userGroups !== null ?
                     this.state.userGroups
                         .map(userGroup => <li key={userGroup.id}>
-                            <Link to="/dashboard/messages"
+                            <Link to={`/dashboard/messages/${userGroup.id}`}
                             onClick={
                                 () => this.onShowGroupMessages(userGroup.id)}>
                               {userGroup.name}

@@ -33,12 +33,12 @@ class MessageInputForm extends React.Component {
         <div id="messageBox" className="row">
             <form onSubmit={this.handleSubmit}>
             <div className="col s3 m2 input-field">
-                <select value="normal"
+                <select value="Normal"
                     ref={ (select) => { this.priority = select; }}
                     id="priority" name="priority">
-                <option value="normal">Normal</option>
-                <option value="important">Important</option>
-                <option value="urgent">Urgent</option>
+                <option value="Normal">Normal</option>
+                <option value="Urgent">Urgent</option>
+                <option value="Critical">Critical</option>
                 </select>
             </div>
             <div className="col s6 m8 input-field">

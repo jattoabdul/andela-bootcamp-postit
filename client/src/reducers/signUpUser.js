@@ -15,18 +15,6 @@ const signUpUser = (state = initialState, action) => {
     case "CREATE":
     // return Object.assign(initialState, { currentUser: action.user.email });
       break;
-    case "CANCEL":
-      // do stuff
-      break;
-    case "SUCCESS":
-      // do stuff
-      break;
-    case "FAILED":
-      // do stuff
-      break;
-    case "INVALID_FORM":
-      // do stuff
-      break;
     default:
       return state;
   }

@@ -2,7 +2,7 @@ import React from "react";
 // import { connect } from "react-redux";
 // import Auth from "./../containers/";
 // import registerUser from "../../actions/registerUser";
-// import api from "../helpers/api";
+import Api from "../../utils/api";
 import { SideMenu,
         MainNav,
         UserView,
@@ -20,14 +20,34 @@ class MessageBoard extends React.Component {
     };
     this.appendChatMessage = this.appendChatMessage.bind(this);
   }
+
+  componentDidMount() {
+    const gId = `${this.props.match.params.groupId}`;
+    Api(null, `/api/groups/${gId}/messages/`, "GET")
+      .then((response) => {
+        console.log("Response of messages from db: ", ...response);
+        // const newMessageList = JSON.parse(response);
+        // console.log(newMessageList);
+        this.setState({ messages: [...this.state.messages, ...response] });
+        console.log("current value of state messages: ", this.state.messages);
+      });
+  }
   appendChatMessage(priority, text) {
-    const newMessage = {
-      id: this.state.messages.length + 1,
-      timestamp: new Date().getTime(),
-      priority,
-      text
-    };
-    this.setState({ messages: [...this.state.messages, newMessage] });
+    // const newMessage = {
+    //   id: this.state.messages.length + 1,
+    //   timestamp: new Date().getTime(),
+    //   priority,
+    //   text
+    // };
+    // make Api call to send msg here
+    const messageParams = `text=${text}&&priority=${priority}`;
+    const gId = `${this.props.match.params.groupId}`;
+    Api(messageParams, `/api/groups/${gId}/message/`, "POST")
+      .then((response) => {
+        console.log("Response: ", ...response);
+        this.setState({ messages: [...this.state.messages, ...response] });
+      });
+    // this.setState({ messages: [...this.state.messages, newMessage] });
   }
   render() {
     return (

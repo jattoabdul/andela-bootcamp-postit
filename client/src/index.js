@@ -35,7 +35,7 @@ render(
             <Route exact path="/dashboard" component={Dashboard}/>
             <Route path="/dashboard/:groupId/addusertogroup"
                 component={AddUserToGroupBoard}/>
-            <Route exact path="/dashboard/messages" component={MessageBoard}/>
+            <Route exact path="/dashboard/messages/:groupId" component={MessageBoard}/>
             <Route
                 exact path="/dashboard/create-group"
                 component={CreateGroupBoard}/>
@@ -43,5 +43,4 @@ render(
         </Switch>
     </Router>
 </Provider>, document.getElementById("root"));
-// ReactDOM.render(<App />, document.getElementById("root"));
 registerServiceWorker();
