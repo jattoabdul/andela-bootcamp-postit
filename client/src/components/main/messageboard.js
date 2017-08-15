@@ -16,29 +16,41 @@ class MessageBoard extends React.Component {
     super(props);
     this.state = {
       messages: [],
-      msg_err: ""
+      msg_err: "",
+      username: "",
+      fullName: ""
     };
     this.appendChatMessage = this.appendChatMessage.bind(this);
   }
 
   componentDidMount() {
-    const gId = `${this.props.match.params.groupId}`;
-    Api(null, `/api/groups/${gId}/messages/`, "GET")
-      .then((response) => {
-        console.log("Response of messages from db: ", ...response);
-        // const newMessageList = JSON.parse(response);
-        // console.log(newMessageList);
-        this.setState({ messages: [...this.state.messages, ...response] });
-        console.log("current value of state messages: ", this.state.messages);
-      });
+    if (sessionStorage.getItem("user") !== null) {
+      Api(null, `/api/user/`, "GET").then(
+            (userGroupsResponse) => {
+              console.log(`=======> user details with group res:
+                `, userGroupsResponse.data);
+              this.setState({
+                username: userGroupsResponse.data.username,
+                fullName: userGroupsResponse.data.fullName
+              });
+            }
+        );
+      const gId = `${this.props.match.params.groupId}`;
+      Api(null, `/api/groups/${gId}/messages/`, "GET")
+        .then((response) => {
+          console.log("Response of messages from db: ", ...response);
+          this.setState({ messages: [...this.state.messages, ...response] });
+          console.log("current value of state messages: ", this.state.messages);
+        });
+    } else {
+      window.location = `/login`;
+    }
+  }
+
+  componentWillUnmount() {
+    this.setState({ messages: [] });
   }
   appendChatMessage(priority, text) {
-    // const newMessage = {
-    //   id: this.state.messages.length + 1,
-    //   timestamp: new Date().getTime(),
-    //   priority,
-    //   text
-    // };
     // make Api call to send msg here
     const messageParams = `text=${text}&&priority=${priority}`;
     const gId = `${this.props.match.params.groupId}`;
@@ -47,6 +59,7 @@ class MessageBoard extends React.Component {
         console.log("Response: ", ...response);
         this.setState({ messages: [...this.state.messages, ...response] });
       });
+    // this.forceUpdate();
     // this.setState({ messages: [...this.state.messages, newMessage] });
   }
   render() {
@@ -58,7 +71,9 @@ class MessageBoard extends React.Component {
               <MainNav />
               <div id="chatArea" className="white-text row no-marginbtm">
                 <div id="chatBoard" className="col s11">
-                  <MessageList messages={this.state.messages} />
+                  <MessageList username={this.state.username}
+                   fullName={this.state.fullName}
+                   messages={this.state.messages} />
                   <MessageInputForm appendChatMessage={this.appendChatMessage}/>
                 </div>
                 <UserView />

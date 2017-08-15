@@ -11,7 +11,9 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groups: []
+      groups: [],
+      username: "",
+      fullName: ""
     };
   }
   // check if user is authenticated!
@@ -25,7 +27,11 @@ class Dashboard extends React.Component {
     // getting user profile and group details
     Api(null, "/api/user/", "GET").then((response) => {
       console.log("Response: ", response);
-      this.setState({ groups: response.data.groups });
+      this.setState({
+        groups: response.data.groups,
+        username: response.data.username,
+        fullName: response.data.fullName
+      });
     });
   }
   render() {
@@ -38,7 +44,7 @@ class Dashboard extends React.Component {
                     <br/>
                     <div id="chatArea" className="white-text">
                         <div className="card-panel welcome teal-text">
-                            <h2 className="center-align">Welcome Abdulqahhar</h2>
+                            <h2 className="center-align">Welcome {this.state.fullName}</h2>
                             <h4 className="left-align center">
                                 You don&rsquo;t have to shout. <br/>
                                 <span className="right-align flow-text">

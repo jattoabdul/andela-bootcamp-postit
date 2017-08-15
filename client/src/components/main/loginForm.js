@@ -30,8 +30,10 @@ class Login extends React.Component {
       const userString = `username=${username}&password=${password}`;
       Api(userString, "/api/users/signin", "POST").then(
         (loginRes) => {
-          if (loginRes.message !== "username does not exist") {
-            // console.log(loginRes);
+        //   console.log(loginRes);
+          if (loginRes.message !== "username does not exist" &&
+            loginRes.message !== "invalid password") {
+            // console.log(loginRes.message);
             this.props.onLoginUser(JSON.stringify(loginRes));
             sessionStorage.setItem("user", JSON.stringify(loginRes));
             window.location = "/dashboard";
@@ -45,7 +47,7 @@ class Login extends React.Component {
 
   render() {
     return (
-        <div id="indexContainer" className="amber">
+        <div id="indexContainer" className="teal lighten-5">
             <div id="mainContainer" className="row">
                 <Welcome />
                 <div className="col s12 m6 indexSideTwo">

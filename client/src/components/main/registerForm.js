@@ -39,6 +39,10 @@ class Register extends React.Component {
       this.setState({ error_message: "Error: please all field are required" });
       return;
     }
+    if (phoneNumber.length !== 11) {
+      this.setState({ error_message: "Error: phone number not correct" });
+      return;
+    }
     const userString = `username=${username}&fullName=${fullname}&email=${email}
         &password=${password}&phoneNumber=${phoneNumber}`;
     Api(userString, "/api/users/signup", "POST", null).then(
@@ -65,7 +69,7 @@ class Register extends React.Component {
 
   render() {
     return (
-        <div id="indexContainer" className="amber">
+        <div id="indexContainer" className="teal lighten-5">
             <div id="mainContainer" className="row">
                 <Welcome />
                 <div className="col s12 m6 indexSideTwo">

@@ -16,7 +16,9 @@ class MessageList extends React.Component {
                 <MessageItem createdAt={message.createdAt}
                           priority={message.priority}
                           text={message.text}
-                          key={message.id} />)
+                          key={message.id}
+                          username={this.props.username}
+                          fullName={this.props.fullName} />)
         }
         </div>
     );

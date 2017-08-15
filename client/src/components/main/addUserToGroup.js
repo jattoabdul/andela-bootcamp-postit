@@ -17,6 +17,7 @@ class AddUserToGroupBoard extends React.Component {
     };
     this.onSearchUserInGroup = this.onSearchUserInGroup.bind(this);
     this.onAddUserToGroup = this.onAddUserToGroup.bind(this);
+    this.onShowGroupMessages = this.onShowGroupMessages.bind(this);
   }
 
   // onSearchUserInGroup Method
@@ -55,12 +56,23 @@ class AddUserToGroupBoard extends React.Component {
         }
     );
   }
+
+  onShowGroupMessages(e) {
+    e.preventDefault();
+    const gId = `${this.props.match.params.groupId}`;
+    Api(null, `/api/groups/${gId}/messages/`, "GET").then(
+        (groupMessages) => {
+          console.log(groupMessages, "====> group messages");
+          window.location = `/dashboard/messages/${gId}`;
+        }
+    );
+  }
   // render Method
   render() {
     return (
         <div id="dashContainer" className="teal">
             <div id="appContainer" className="row no-marginbtm">
-            <SideMenu />
+            <SideMenu onShowGroupMessages={this.onShowGroupMessages}/>
             <div id="appBoard" className="col s10 m9 l10 no-padding">
                 <MainNav />
                 <br />
@@ -99,7 +111,11 @@ class AddUserToGroupBoard extends React.Component {
                         <div className="col s12">
                             <p className="center">
                                 <button className="btn-large waves-effect waves-light"
-                                onClick={this.onSearchUserInGroup}>Search</button>
+                                onClick={this.onSearchUserInGroup}>Search</button> or
+                                <button className="btn-large waves-effect waves-light"
+                                onClick={
+                                    this.onShowGroupMessages
+                                }>Enter Group</button>
                             </p>
                         </div>
                     </form>

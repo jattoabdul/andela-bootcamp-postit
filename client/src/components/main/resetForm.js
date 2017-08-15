@@ -11,7 +11,7 @@ class ResetPassword extends React.Component {
 
   render() {
     return (
-        <div id="indexContainer" className="amber">
+        <div id="indexContainer" className="teal lighten-5">
             <div id="mainContainer" className="row">
                 <Welcome />
                 <div className="col s12 m6 indexSideTwo flexCentered">

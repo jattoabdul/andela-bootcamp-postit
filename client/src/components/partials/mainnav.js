@@ -1,6 +1,6 @@
 import React from "react";
 // import { connect } from "react-redux";
-// import api from "../helpers/api";
+// import Api from "../../utils/api";
 import "./../../stylesheet/App.css"; // Home.scss
 // import "./../../stylesheet/MainNav.css"; // MainNav.scss
 
