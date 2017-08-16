@@ -6,11 +6,115 @@
 // importing services
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt-nodejs";
+import nodemailer from "nodemailer";
+import crypto from "crypto";
 import models from "../models/db";
 
 const salt = bcrypt.genSaltSync(5);
 const error = {};
 export default {
+
+  passwordReset(req, res) {
+    const email = req.body.email;
+    const secret = req.body.email;
+    const hash = crypto
+      .createHash("sha256", secret)
+      .update(Date.now().toString())
+      .digest("hex");
+    const date = new Date();
+    date.setHours(date.getHours() + 1);
+    const expiresIn = `${date.toString().split(" ")[2]}
+      :${date.toString().split(" ")[4]}`;
+    if (email === undefined || email.trim() === "") {
+      res.status(400).send({
+        data: { error: { message: "email is not valid" } }
+      });
+      return;
+    }
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      port: 465,
+      auth: {
+        user: "jattoade@gmail.com",
+        pass: "jasabs93"
+      }
+    });
+
+    const mailOptions = {
+      from: "no-reply <jattoade@gmail.com>",
+      to: email,
+      subject: "Reset Password Link",
+      html: `Hello ${email}, to reset your password, please click on
+       \n<a href="http://localhost:3006/updatepassword/${hash}">this Link</a>
+        to reset your password`
+    };
+
+    models.PasswordReset
+      .findOne({
+        where: { email }
+      }).then((response) => {
+        if (response === null) {
+          models.PasswordReset
+            .create({
+              email,
+              expiresIn,
+              hash
+            }).then(() => {
+              transporter.sendMail(mailOptions, (errors, info) => {
+                if (errors) {
+                  res.status(503).send({ data: { error: { message: errors } } });
+                } else {
+                  res.status(200).send({ data: { message: info } });
+                }
+              });
+            });
+        } else {
+          response
+            .update({
+              hash,
+              expiresIn
+            }).then(() => {
+              transporter.sendMail(mailOptions, (errors, info) => {
+                if (errors) {
+                  res.status(503).send({
+                    data: { error: { message: errors } }
+                  });
+                } else {
+                  res.status(200).send({ data: { message: info } });
+                }
+              });
+            });
+        }
+      });
+  },
+  updatePassword(req, res) {
+    const newPass = bcrypt
+      .hashSync(req.body.password, salt, null);
+    models.PasswordReset
+      .findOne({
+        where: { hash: req.params.hash }
+      }).then((result) => {
+        const email = result.dataValues.email;
+        const date = new Date();
+        const now = `${date.toString().split(" ")[2]}
+        :${date.toString().split(" ")[4]}`;
+        if (now > result.dataValues.expiresIn) {
+          res.status(200).send({
+            data: { error: { message: "Expired or Invalid link" } }
+          });
+          return;
+        }
+        return models.Users
+          .update(
+            { password: newPass },
+            { where: { email } }
+          ).then(() =>
+            res.status(200).send({
+              data: { message: "Password Reset Successful" }
+            })
+          );
+      });
+  },
   // Signup Users (create user and save to db)
   signUp(req, res) {
     if (!req.body.email || req.body.email.trim() === "") {

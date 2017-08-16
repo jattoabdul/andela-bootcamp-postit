@@ -138,6 +138,11 @@ export default {
           "priority",
           "createdAt"
         ],
+        include: [{
+          model: models.Users,
+          attributes: ["id", "username", "fullName"],
+          as: "user"
+        }]
       })
       .then(messages => res.status(200).send(messages))
       .catch(error => res.status(404).send(error));

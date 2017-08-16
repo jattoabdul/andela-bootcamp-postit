@@ -13,13 +13,17 @@ export default (app) => {
       .send({ message: "Welcome to Andela Bootcamp PostIt Project API" });
   });
 
+  // reset password API route - for current user to request password reset link
+  app.post("/api/users/reset/request", controllers.userController.passwordReset);
+
+  // update password API route - for current user's new password to be updated
+  app.post("/api/users/reset/:hash", controllers.userController.updatePassword);
 
   // signup API Route - for creating a user
   app.post("/api/users/signup", controllers.userController.signUp);
 
   // signin API Route - for authenticaticating a user
   app.post("/api/users/signin", controllers.userController.authenticate);
-
 
   let token;
 

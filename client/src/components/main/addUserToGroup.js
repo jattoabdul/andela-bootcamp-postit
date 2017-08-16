@@ -97,11 +97,12 @@ class AddUserToGroupBoard extends React.Component {
                         <ul>
                             { this.state.selectedUsers !== null ?
                                     this.state.selectedUsers.map(selectedUser => <li key={selectedUser.id}>
+                                        {/* eslint-disable-next-line */}
                                         <a href="#"
                                          onClick={
                                              () => this.onAddUserToGroup(selectedUser.id)
                                             }>
-                                         @{selectedUser.username}
+                                         @{selectedUser.username} <span className="new badge" data-badge-caption="Member"></span>
                                          </a>
                                         </li>)
                                 : this.state.selectedUsers

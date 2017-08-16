@@ -1,6 +1,7 @@
 import React from "react";
 // import { connect } from "react-redux";
 // import Auth from "./../containers/";
+// import { Toast } from "react-materialize";
 // import registerUser from "../../actions/registerUser";
 import Api from "../../utils/api";
 import { SideMenu,

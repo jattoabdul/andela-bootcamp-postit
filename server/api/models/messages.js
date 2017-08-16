@@ -41,16 +41,16 @@ export default (sequelize, DataTypes) => {
   });
 
   // associations can be defined here
-  // Messages.associate = (models) => {
-  //   Messages.belongsTo(models.Users, {
-  //     as: "user",
-  //     foreignKey: "userId"
-  //   });
+  Messages.associate = (models) => {
+    Messages.belongsTo(models.Users, {
+      as: "user",
+      foreignKey: "userId"
+    });
 
-  //   Messages.belongsTo(models.Groups, {
-  //     as: "group",
-  //     foreignKey: "groupId"
-  //   });
-  // };
+    // Messages.belongsTo(models.Groups, {
+    //   as: "group",
+    //   foreignKey: "groupId"
+    // });
+  };
   return Messages;
 };

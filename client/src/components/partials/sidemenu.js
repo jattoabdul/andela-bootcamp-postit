@@ -26,7 +26,7 @@ class SideMenu extends React.Component {
               this.setState({
                 userGroups: userGroupsResponse.data.groups,
                 username: userGroupsResponse.data.username,
-                fullName: userGroupsResponse.data.fullName
+                fullName: userGroupsResponse.data.fullName,
               });
             }
         );
@@ -50,7 +50,7 @@ class SideMenu extends React.Component {
         <div id="roomsView"
             className="col s2 m3 l2 blue-grey darken-4 white-text">
             <div className="right-align">
-            <i className="icon ion-navicon x3 waves-effect waves-light"></i>
+            <i className="icon ion-navicon x3 waves-effect waves-light button-collapse"></i>
             </div>
             <img className="profilePic"
                 src={`https://robohash.org/${this.state.username}`} alt="Profile"/>

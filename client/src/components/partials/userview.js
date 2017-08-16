@@ -11,44 +11,34 @@ class UserView extends React.Component {
         <div className="white right col s1" id="usersScroll">
               <ul>
                 <li>
-                  <a href="">
+                  <a
+                  href="">
                     <img src="http://i.pravatar.cc/80?img=23" alt=""/>
-                </a>
+                  </a>
                 </li>
                 <li>
-                  <a href="">
+                  <a
+                  href="">
                     <img src="http://i.pravatar.cc/80?img=59" alt=""/>
-                </a>
+                  </a>
                 </li>
                 <li>
-                  <a href="">
-                    <img src="http://i.pravatar.cc/80?img=20" alt=""/>
-                </a>
+                  <a
+                  href="">
+                    <img src="http://i.pravatar.cc/80?img=24" alt=""/>
+                  </a>
                 </li>
                 <li>
-                  <a href="">
+                  <a
+                  href="">
                     <img src="http://i.pravatar.cc/80?img=34" alt=""/>
-                </a>
+                  </a>
                 </li>
                 <li>
-                  <a href="">
+                  <a
+                  href="">
                     <img src="http://i.pravatar.cc/80?img=17" alt=""/>
-                </a>
-                </li>
-                <li>
-                  <a href="">
-                    <img src="http://i.pravatar.cc/80?img=18" alt=""/>
-                </a>
-                </li>
-                <li>
-                  <a href="">
-                    <img src="http://i.pravatar.cc/80?img=21" alt=""/>
-                </a>
-                </li>
-                <li>
-                  <a href="">
-                    <img src="http://i.pravatar.cc/80?img=34" alt=""/>
-                </a>
+                  </a>
                 </li>
               </ul>
               <span className="bottomSearch waves-effect waves-teal">

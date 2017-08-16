@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
+import "materialize-css/dist/js/materialize.min";
+
 // import Reveal from "react-reveal";
 import "animate.css/animate.css";
 
@@ -14,6 +16,7 @@ import { Home,
         Register,
         Login,
         ResetPassword,
+        UpdatePassword,
         NotFound,
         Dashboard,
         MessageBoard,
@@ -29,9 +32,11 @@ render(
     <Router>
         <Switch>
             <Route exact path="/" component={Home}/>
+            <Route path="/resetpassword" component={ResetPassword}/>
+            <Route path="/updatepassword/:hash"
+                component={UpdatePassword}/>
             <Route path="/register" component={Register}/>
             <Route path="/login" component={Login}/>
-            <Route path="/resetpassword" component={ResetPassword}/>
             <Route exact path="/dashboard" component={Dashboard}/>
             <Route path="/dashboard/:groupId/addusertogroup"
                 component={AddUserToGroupBoard}/>

@@ -16,11 +16,11 @@ class MessageItem extends React.Component {
     const hhmmss = now.split(" ")[0];
     return (
       <div className="chat card">
-        <img src={`https://robohash.org/${this.props.username}?size=50x50`}
-            alt="@jattoade" className="left"/>
+        <img src={`https://robohash.org/${this.props.sender}?size=50x50`}
+            alt={`@${this.props.sender}`} className="left"/>
         <div className="message left">
-            <p className="sender_details">{this.props.fullName}
-              <span className="sender_username"> @{this.props.username}</span>
+            <p className="sender_details">{this.props.senderFullName}
+              <span className="sender_username"> @{this.props.sender}</span>
             </p>
             <p className="sender_message">
                 {this.props.text}
