@@ -19,7 +19,8 @@ class MessageBoard extends React.Component {
       messages: [],
       msg_err: "",
       username: "",
-      fullName: ""
+      fullName: "",
+      messageBody: false
     };
     this.appendChatMessage = this.appendChatMessage.bind(this);
   }

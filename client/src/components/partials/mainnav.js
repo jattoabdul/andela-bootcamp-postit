@@ -13,7 +13,7 @@ class MainNav extends React.Component {
             <a href="/dashboard" className="brand-logo center">
               POSTiT
               <i className="icon ion-speakerphone left x2"></i>
-              <sub><small>you dont have to shout</small></sub>
+              <sub><small>you dont have to shout, just POSTiT</small></sub>
             </a>
             <ul className="right">
               <li>

@@ -37,6 +37,10 @@ class Login extends React.Component {
             this.props.onLoginUser(JSON.stringify(loginRes));
             sessionStorage.setItem("user", JSON.stringify(loginRes));
             window.location = "/dashboard";
+          } else {
+            this.setState({
+              error_message: loginRes.message
+            });
           }
         }
       );
@@ -62,6 +66,11 @@ class Login extends React.Component {
                     <br/>
                     <form id="loginForm" className="row">
                         <p className="flow-text"> &nbsp; Sign In</p>
+                        {this.state.error_message === "" ? "" :
+                        <div className="chip red white-text center" style={{ width: "20rem" }}>
+                          {this.state.error_message}
+                          <i className="close material-icons">close</i>
+                        </div>}
                         <div className="input-field col s12">
                             <input onFocus={this.onFocus}
                                 type="text" id="username_login"
