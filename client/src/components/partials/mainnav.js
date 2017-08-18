@@ -11,9 +11,9 @@ class MainNav extends React.Component {
         <nav className="blue-grey darken-4">
           <div className="nav-wrapper">
             <a href="/dashboard" className="brand-logo center">
-              NodeJs Developers
+              POSTiT
               <i className="icon ion-speakerphone left x2"></i>
-              <sub><small>where NodeJS Devs meet</small></sub>
+              <sub><small>you dont have to shout, just postit!!!</small></sub>
             </a>
             <ul className="right">
               <li>

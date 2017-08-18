@@ -21,6 +21,7 @@ class MessageBoard extends React.Component {
       fullName: ""
     };
     this.appendChatMessage = this.appendChatMessage.bind(this);
+    // this.updateReadStatus = this.updateReadStatus.bind(this);
   }
 
   componentDidMount() {
@@ -62,9 +63,15 @@ class MessageBoard extends React.Component {
     // this.forceUpdate();
     // this.setState({ messages: [...this.state.messages, newMessage] });
   }
+
+  // update Read Status
+  // updateReadStatus(msgId) {
+  //   const user = this.state.username;
+  //   console.log(msgId, user);
+  // }
   render() {
     return (
-        <div id="dashContainer" className="teal">
+        <div id="dashContainer" className="teal lighten-5">
           <div id="appContainer" className="row no-marginbtm">
             <SideMenu />
             <div id="appBoard" className="col s10 m9 l10 no-padding">

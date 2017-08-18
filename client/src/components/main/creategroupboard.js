@@ -8,7 +8,18 @@ import { SideMenu, MainNav } from "./../partials/";
 import "./../../stylesheet/App.css"; // Home.scss
 // import "./../../stylesheet/CreateGroupBoard.css"; // CreateGroupBoard.scss
 
+/**
+ * Create Group Component Class that extends React.Component
+ * @class CreateGroupBoard
+ * @param {object} props
+ * @returns {object} returns an object with methods
+ */
 class CreateGroupBoard extends React.Component {
+  /**
+   * Constructor function
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.onCreateGroup = this.onCreateGroup.bind(this);
@@ -17,7 +28,12 @@ class CreateGroupBoard extends React.Component {
     };
   }
 
-  // OnCreateGroup Method
+    /**
+     * OnCreateGroup Method
+     * method to search for users
+     * @param {event} e
+     * @returns {object} returns a group object
+     */
   onCreateGroup(e) {
     e.preventDefault();
     if (this.name.value === "") {
@@ -44,6 +60,10 @@ class CreateGroupBoard extends React.Component {
     );
   }
 
+    /**
+     * Render Method
+     * @returns {ReactElement} Creategroup page markup
+     */
   render() {
     return (
         <div id="dashContainer" className="teal">

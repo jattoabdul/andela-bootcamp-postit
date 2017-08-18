@@ -83,10 +83,11 @@ class Register extends React.Component {
                     </div>
                     <form id="signUpForm" className="row">
                         <p className="flow-text"> &nbsp; Sign Up</p>
-                        {/* this.state.error_message === "" ? "" :
-                          <div className='red card' style={{ padding: "5px 10px" }}>
+                        {this.state.error_message === "" ? "" :
+                          <div className="chip red white-text center" style={{ width: "20rem" }}>
                             {this.state.error_message}
-                          </div> */}
+                            <i className="close material-icons">close</i>
+                          </div>}
                         <div className="input-field col s6">
                           <input onFocus={this.onFocus}
                             type="text" id="fullname_signup"

@@ -7,7 +7,19 @@ import { SideMenu, MainNav } from "./../partials/";
 import "./../../stylesheet/App.css"; // Home.scss
 // import "./../../stylesheet/CreateGroupBoard.css"; // CreateGroupBoard.scss
 
+/**
+ * Add User to group Component Class that extends React.Component
+ * @class AddUserToGroupBoard
+ * @param {object} props
+ * @returns {object} returns an object with methods
+ */
 class AddUserToGroupBoard extends React.Component {
+
+  /**
+   * Constructor function
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     // this.onCreateGroup = this.onCreateGroup.bind(this);
@@ -20,7 +32,12 @@ class AddUserToGroupBoard extends React.Component {
     this.onShowGroupMessages = this.onShowGroupMessages.bind(this);
   }
 
-  // onSearchUserInGroup Method
+    /**
+     * onSearchUserInGroup Method
+     * method to search for users
+     * @param {event} e
+     * @returns {array} returns an array of user objects
+     */
   onSearchUserInGroup(e) {
     e.preventDefault();
     const id = `${this.props.match.params.groupId}`;
@@ -43,7 +60,12 @@ class AddUserToGroupBoard extends React.Component {
     console.log(this.state.selectedUsers, "selectedUsers");
   }
 
-  // onAddUserToGroup Method
+    /**
+     * onAddUserToGroup Method
+     * method to add user to a group
+     * @param {number} uId -> userId
+     * @returns {object} returns a user object
+     */
   onAddUserToGroup(uId) {
     // e.preventDefault();
     const id = `${this.props.match.params.groupId}`;
@@ -57,6 +79,12 @@ class AddUserToGroupBoard extends React.Component {
     );
   }
 
+    /**
+     * onShowGroupMessages Method
+     * method to show group messages
+     * @param {event} e
+     * @returns {array} returns an array of message objects of a specified group
+     */
   onShowGroupMessages(e) {
     e.preventDefault();
     const gId = `${this.props.match.params.groupId}`;
@@ -67,7 +95,12 @@ class AddUserToGroupBoard extends React.Component {
         }
     );
   }
-  // render Method
+
+
+    /**
+     * Render Method
+     * @returns {ReactElement} Add User To Group page markup
+     */
   render() {
     return (
         <div id="dashContainer" className="teal">

@@ -7,7 +7,18 @@ import { Welcome } from "./../partials/";
 import "./../../stylesheet/App.css"; // Home.scss
 import "./../../stylesheet/Auth.css"; // Auth.scss
 
+    /**
+     * Login Component Class that extends React.Component
+     * @class Login
+     * @param {object} props
+     * @returns {object} returns an object with methods
+     */
 class Login extends React.Component {
+  /**
+   * Constructor function
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.onLoginUser = this.onLoginUser.bind(this);
@@ -17,10 +28,22 @@ class Login extends React.Component {
     };
   }
 
+/**
+ * onFocus Method
+ * Input field onFocus method
+ * @param {empty} null
+ * @returns {object} returns a state object
+ */
   onFocus() {
     this.setState({ error_message: "" });
   }
 
+    /**
+     * OnLoginUser Method
+     * method to login user
+     * @param {event} e
+     * @returns {object} returns a group object and an eror message state object
+     */
   onLoginUser(e) {
     e.preventDefault();
     let { username, password } = this;
@@ -37,6 +60,8 @@ class Login extends React.Component {
             this.props.onLoginUser(JSON.stringify(loginRes));
             sessionStorage.setItem("user", JSON.stringify(loginRes));
             window.location = "/dashboard";
+          } else {
+            this.setState({ error_message: "Username or Password Incorrect" });
           }
         }
       );
@@ -45,6 +70,10 @@ class Login extends React.Component {
     }
   }
 
+    /**
+     * Render Method
+     * @returns {ReactElement} Creategroup page markup
+     */
   render() {
     return (
         <div id="indexContainer" className="teal lighten-5">
@@ -62,6 +91,11 @@ class Login extends React.Component {
                     <br/>
                     <form id="loginForm" className="row">
                         <p className="flow-text"> &nbsp; Sign In</p>
+                        {this.state.error_message === "" ? "" :
+                        <div className="chip red white-text center" style={{ width: "20rem" }}>
+                          {this.state.error_message}
+                          <i className="close material-icons">close</i>
+                        </div>}
                         <div className="input-field col s12">
                             <input onFocus={this.onFocus}
                                 type="text" id="username_login"

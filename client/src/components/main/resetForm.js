@@ -28,6 +28,11 @@ class ResetPassword extends React.Component {
                         <p className="flow-text center-align">
                             It&rsquo;s normal for humans to forget
                         </p>
+                        {this.state.error_message === "" ? "" :
+                        <div className="chip red white-text center" style={{ width: "20rem" }}>
+                          {this.state.error_message}
+                          <i className="close material-icons">close</i>
+                        </div>}
                         <div className="input-field col s12">
                             <input className="center"
                                     type="email" id="email_forgot"/>

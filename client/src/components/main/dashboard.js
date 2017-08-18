@@ -7,7 +7,18 @@ import { SideMenu, MainNav } from "./../partials/";
 import "./../../stylesheet/App.css"; // Home.scss
 // import "./../../stylesheet/Dashboard.css"; // Dashboard.scss
 
+    /**
+     * Create Group Component Class that extends React.Component
+     * @class CreateGroupBoard
+     * @param {object} props
+     * @returns {object} returns an object with methods
+     */
 class Dashboard extends React.Component {
+  /**
+   * Constructor function
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -17,6 +28,13 @@ class Dashboard extends React.Component {
     };
   }
   // check if user is authenticated!
+
+    /**
+     * componentWillMount Method
+     * function runs on mount of the component
+     * @param {empty} null
+     * @returns {object} returns a state object
+     */
   componentWillMount() {
     if (sessionStorage.getItem("user") === null) {
       // eslint-disable-next-line
@@ -34,9 +52,14 @@ class Dashboard extends React.Component {
       });
     });
   }
+
+    /**
+     * Render Method
+     * @returns {ReactElement} Dashboard page markup
+     */
   render() {
     return (
-        <div id="dashContainer" className="teal">
+        <div id="dashContainer" className="teal lighten-5">
             <div id="appContainer" className="row no-marginbtm">
                 <SideMenu />
                 <div id="appBoard" className="col s10 m9 l10 no-padding">
