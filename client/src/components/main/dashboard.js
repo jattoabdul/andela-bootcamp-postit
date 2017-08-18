@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
   }
   render() {
     return (
-        <div id="dashContainer" className="teal">
+        <div id="dashContainer" className="teal lighten-5">
             <div id="appContainer" className="row no-marginbtm">
                 <SideMenu />
                 <div id="appBoard" className="col s10 m9 l10 no-padding">

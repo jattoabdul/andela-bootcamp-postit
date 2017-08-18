@@ -17,10 +17,12 @@ class MessageList extends React.Component {
                           priority={message.priority}
                           text={message.text}
                           key={message.id}
+                          id={message.id}
                           sender={message.user.username}
                           senderFullName={message.user.fullName}
                           username={this.props.username}
-                          fullName={this.props.fullName} />)
+                          fullName={this.props.fullName}
+                          openMessageBody={this.props.openMessageBody} />)
         }
         </div>
     );
