@@ -77,9 +77,12 @@ class UpdatePassword extends React.Component {
                     <form id="forgotPass" className="row">
                         <p className="flow-text center-align">
                             Please update your password
-                            {/* this.state.message */}
-                            {/* this.state.status */}
                         </p>
+                        {this.state.message === "" ? "" :
+                        <div className="chip green white-text center" style={{ width: "20rem" }}>
+                          {this.state.message}, please login with your credentials
+                          <i className="close material-icons">close</i>
+                        </div>}
                         <div className="input-field col s12">
                             {
                             this.state.status === "" ?
