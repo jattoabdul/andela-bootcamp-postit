@@ -6,6 +6,7 @@
 // importing services
 import Nexmo from "nexmo";
 import nodemailer from "nodemailer";
+import _ from "lodash";
 import models from "../models/db";
 
 let userID = 0;
@@ -137,6 +138,7 @@ export default {
           "userId",
           "groupId",
           "priority",
+          "readBy",
           "createdAt"
         ],
         include: [{
@@ -157,13 +159,14 @@ export default {
       })
       .then((message) => {
         const userName = req.authToken.data;
-        if (!message.readBy.includes(userName)) {
+        console.log("==========> message readby: ", message.readBy);
+        if (message.readBy.includes(userName) === false) {
           message.readBy.push(userName);
           message.update({ readBy: message.readBy });
+          return res.status(200).send(message);
         }
+        res.status(200).send({ message: "message has been read by you" });
       })
-      .then((message) => {
-        res.status(200).send(message);
-      });
+      .catch(error => res.status(400).send(error));
   }
 };
