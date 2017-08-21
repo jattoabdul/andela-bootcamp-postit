@@ -150,10 +150,20 @@ export default {
   },
   updateReadBy(req, res) {
     models.Messages
-      .find({
+      .findOne({
         where: {
-
+          id: req.body.id
         }
+      })
+      .then((message) => {
+        const userName = req.authToken.data;
+        if (!message.readBy.includes(userName)) {
+          message.readBy.push(userName);
+          message.update({ readBy: message.readBy });
+        }
+      })
+      .then((message) => {
+        res.status(200).send(message);
       });
   }
 };
