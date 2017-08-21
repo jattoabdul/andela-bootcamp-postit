@@ -44,6 +44,10 @@ module.exports = {
           isIn: [["0", "1"]]
         }
       },
+      readBy: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

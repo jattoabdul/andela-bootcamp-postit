@@ -37,6 +37,10 @@ export default (sequelize, DataTypes) => {
       validate: {
         isIn: [["0", "1"]]
       }
+    },
+    readBy: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false
     }
   });
 
@@ -47,10 +51,10 @@ export default (sequelize, DataTypes) => {
       foreignKey: "userId"
     });
 
-    // Messages.belongsTo(models.Groups, {
-    //   as: "group",
-    //   foreignKey: "groupId"
-    // });
+    Messages.belongsTo(models.Groups, {
+      as: "group",
+      foreignKey: "groupId"
+    });
   };
   return Messages;
 };

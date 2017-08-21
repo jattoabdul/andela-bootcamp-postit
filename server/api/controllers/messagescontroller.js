@@ -72,7 +72,8 @@ export default {
             userId: userID,
             groupId: req.params.id,
             text: req.body.text,
-            priority: req.body.priority
+            priority: req.body.priority,
+            readBy: [`${userName}`]
           })
           .then((message) => {
             if (req.body.priority === "Critical") {
@@ -146,5 +147,13 @@ export default {
       })
       .then(messages => res.status(200).send(messages))
       .catch(error => res.status(404).send(error));
+  },
+  updateReadBy(req, res) {
+    models.Messages
+      .find({
+        where: {
+
+        }
+      });
   }
 };
