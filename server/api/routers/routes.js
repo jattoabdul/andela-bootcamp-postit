@@ -93,6 +93,11 @@ export default (app) => {
   app.post("/api/groups/:id/message/",
     controllers.messagesController.sendMsg);
 
+  // API route for authenticated user to update message readBy status in a room
+  // where :id is group id and message id is passed as body	
+  app.post("/api/groups/:id/message/read",
+    controllers.messagesController.updateReadBy);
+
   // API route for authenticated users to view messages in a group he belongs
   // where :id is group id and group is currently active
   app.get("/api/groups/:id/messages/", controllers.messagesController.getMsg);
