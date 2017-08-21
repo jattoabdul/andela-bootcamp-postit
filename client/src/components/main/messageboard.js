@@ -20,12 +20,10 @@ class MessageBoard extends React.Component {
       messages: [],
       msg_err: "",
       username: "",
-      fullName: "",
-      messageBody: false
+      fullName: ""
     };
     this.appendChatMessage = this.appendChatMessage.bind(this);
-    this.openMessageBody = this.openMessageBody.bind(this);
-    this.closeMessageBody = this.closeMessageBody.bind(this);
+    this.updateReadBy = this.updateReadBy.bind(this);
   }
 
   componentDidMount() {
@@ -68,15 +66,15 @@ class MessageBoard extends React.Component {
     // this.setState({ messages: [...this.state.messages, newMessage] });
   }
 
-  openMessageBody(e) {
-    e.preventDefault();
-    this.setState({ messageBody: true });
+  updateReadBy(id) {
+    const updateMessageParams = `id=${id}`;
+    const gId = `${this.props.match.params.groupId}`;
+    Api(updateMessageParams, `/api/groups/${gId}/message/read`, "POST")
+    .then((response) => {
+      console.log("Response: ", response);
+    });
   }
 
-  closeMessageBody(e) {
-    e.preventDefault();
-    this.setState({ messageBody: false });
-  }
   render() {
     return (
         <div id="dashContainer" className="teal lighten-5">
@@ -86,17 +84,14 @@ class MessageBoard extends React.Component {
               <MainNav />
               <div id="chatArea" className="white-text row no-marginbtm">
                 <div id="chatBoard" className="col s11">
-                { this.state.messageBody ?
+                {/* this.state.messageBody ?
                 <MessageBody messages={this.state.messages}
-                  closeMessageBody={this.closeMessageBody}/> :
-                <MessageList openMessageBody={this.openMessageBody}
+                closeMessageBody={this.closeMessageBody}/> : */}
+                <MessageList updateReadBy={this.updateReadBy}
                   username={this.state.username}
                   fullName={this.state.fullName}
                   messages={this.state.messages} />
-                }
-                { this.state.messageBody ? null :
                 <MessageInputForm appendChatMessage={this.appendChatMessage}/>
-                }
                 </div>
                 <UserView />
               </div>

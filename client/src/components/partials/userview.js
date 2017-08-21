@@ -1,43 +1,21 @@
 import React from "react";
 // import { connect } from "react-redux";
-// import api from "../helpers/api";
+import Api from "../../utils/api";
 import "./../../stylesheet/App.css"; // Home.scss
 // import "./../../stylesheet/UserView.css"; // UserView.scss
 
 class UserView extends React.Component {
-
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
         <div className="white right col s1" id="usersScroll">
               <ul>
                 <li>
-                  <a
-                  href="">
-                    <img src="http://i.pravatar.cc/80?img=23" alt=""/>
-                  </a>
-                </li>
-                <li>
-                  <a
-                  href="">
-                    <img src="http://i.pravatar.cc/80?img=59" alt=""/>
-                  </a>
-                </li>
-                <li>
-                  <a
-                  href="">
-                    <img src="http://i.pravatar.cc/80?img=24" alt=""/>
-                  </a>
-                </li>
-                <li>
-                  <a
-                  href="">
-                    <img src="http://i.pravatar.cc/80?img=34" alt=""/>
-                  </a>
-                </li>
-                <li>
-                  <a
-                  href="">
-                    <img src="http://i.pravatar.cc/80?img=17" alt=""/>
+                  <a>
+                    <img src="https://robohash.org/jattoade"
+                      alt="{this.props.username}"/>
                   </a>
                 </li>
               </ul>
@@ -50,3 +28,5 @@ class UserView extends React.Component {
 }
 
 export default UserView;
+
+// {`https://robohash.org/${this.props.username}`}
