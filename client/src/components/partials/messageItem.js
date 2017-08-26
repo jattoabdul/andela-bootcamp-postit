@@ -1,21 +1,18 @@
 import React from "react";
 // import { connect } from "react-redux";
 // import registerUser from "../../actions/registerUser";
-// import api from "../helpers/api";
+// import Api from "../../utils/api";
 // import { UserView } from "./../partials/";
 import "./../../stylesheet/App.css"; // Home.scss
 // import "./../../stylesheet/MessageItem.css"; // MessageItem.scss
 
 class MessageItem extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
 
   render() {
     const now = new Date(this.props.createdAt).toTimeString();
     const hhmmss = now.split(" ")[0];
     return (
-      <div className="chat card">
+      <div id={this.props.id} className="chat card">
         <img src={`https://robohash.org/${this.props.sender}?size=50x50`}
             alt={`@${this.props.sender}`} className="left"/>
         <div className="message left">
@@ -43,6 +40,3 @@ class MessageItem extends React.Component {
 }
 
 export default MessageItem;
-
-// <i className="status icon ion-ios-checkmark x15"></i>
-// {this.props.priority}

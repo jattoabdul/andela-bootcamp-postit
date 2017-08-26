@@ -4,4 +4,3 @@ bower_components/**/*.js
 template/public/**/*.js
 server/dist/**/*.js
 coverage/**/*.js
-server/api/migrations/**/*.js

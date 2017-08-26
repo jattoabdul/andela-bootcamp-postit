@@ -1,9 +1,8 @@
 import React from "react";
 // import { connect } from "react-redux";
 // import Auth from "./../containers/";
-// import registerUser from "../../actions/registerUser";
 import Api from "../../utils/api";
-import { SideMenu, MainNav } from "./../partials/";
+import { SideMenu, MainNav } from './../partials/';
 import "./../../stylesheet/App.css"; // Home.scss
 // import "./../../stylesheet/CreateGroupBoard.css"; // CreateGroupBoard.scss
 
@@ -57,6 +56,7 @@ class AddUserToGroupBoard extends React.Component {
     );
   }
 
+
   onShowGroupMessages(e) {
     e.preventDefault();
     const gId = `${this.props.match.params.groupId}`;
@@ -72,7 +72,8 @@ class AddUserToGroupBoard extends React.Component {
     return (
         <div id="dashContainer" className="teal">
             <div id="appContainer" className="row no-marginbtm">
-            <SideMenu onShowGroupMessages={this.onShowGroupMessages}/>
+            <SideMenu
+                onShowGroupMessages={this.onShowGroupMessages}/>
             <div id="appBoard" className="col s10 m9 l10 no-padding">
                 <MainNav />
                 <br />
@@ -97,12 +98,12 @@ class AddUserToGroupBoard extends React.Component {
                         <ul>
                             { this.state.selectedUsers !== null ?
                                     this.state.selectedUsers.map(selectedUser => <li key={selectedUser.id}>
-                                        {/* eslint-disable-next-line */}
-                                        <a href="#"
+                                        <a
                                          onClick={
                                              () => this.onAddUserToGroup(selectedUser.id)
                                             }>
-                                         @{selectedUser.username} <span className="new badge" data-badge-caption="Member"></span>
+                                         @{selectedUser.username}
+                                         <span className="new badge" data-badge-caption="Member"></span>
                                          </a>
                                         </li>)
                                 : this.state.selectedUsers

@@ -1,6 +1,6 @@
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.createTable("Messages", {
+    return queryInterface.createTable('Messages', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -31,17 +31,17 @@ module.exports = {
       priority: {
         allowNull: false,
         type: Sequelize.STRING,
-        defaultValue: "Normal",
+        defaultValue: 'Normal',
         validate: {
-          isIn: [["Normal", "Urgent", "Critical"]]
+          isIn: [['Normal', 'Urgent', 'Critical']]
         }
       },
       isArchived: {
-        type: Sequelize.ENUM("0", "1"),
-        values: ["0", "1"],
-        defaultValue: "0",
+        type: Sequelize.ENUM('0', '1'),
+        values: ['0', '1'],
+        defaultValue: '0',
         validate: {
-          isIn: [["0", "1"]]
+          isIn: [['0', '1']]
         }
       },
       readBy: {
@@ -59,6 +59,6 @@ module.exports = {
     });
   },
   down(queryInterface, Sequelize) {
-    return queryInterface.dropTable("Messages");
+    return queryInterface.dropTable('Messages');
   }
 };

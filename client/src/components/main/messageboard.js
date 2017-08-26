@@ -1,14 +1,12 @@
 import React from "react";
 // import { connect } from "react-redux";
 // import Auth from "./../containers/";
-// import { Toast } from "react-materialize";
 // import registerUser from "../../actions/registerUser";
 import Api from "../../utils/api";
 import { SideMenu,
         MainNav,
         UserView,
         MessageList,
-        MessageBody,
         MessageInputForm } from "./../partials/";
 import "./../../stylesheet/App.css"; // Home.scss
 // import "./../../stylesheet/MessageBoard.css"; // MessageBoard.scss
@@ -20,10 +18,12 @@ class MessageBoard extends React.Component {
       messages: [],
       msg_err: "",
       username: "",
-      fullName: ""
+      fullName: "",
+      activeMessageReaders: []
     };
     this.appendChatMessage = this.appendChatMessage.bind(this);
     this.updateReadBy = this.updateReadBy.bind(this);
+    this.gotoAddUserToGroup = this.gotoAddUserToGroup.bind(this);
   }
 
   componentDidMount() {
@@ -62,8 +62,19 @@ class MessageBoard extends React.Component {
         console.log("Response: ", ...response);
         this.setState({ messages: [...this.state.messages, ...response] });
       });
+    // refetch messages and update state
     // this.forceUpdate();
     // this.setState({ messages: [...this.state.messages, newMessage] });
+  }
+
+  gotoAddUserToGroup(e) {
+    e.preventDefault();
+    const gId = `${this.props.match.params.groupId}`;
+    window.location = `/dashboard/${gId}/addusertogroup`;
+  }
+
+  showMessageReadByUsers(messageId) {
+    
   }
 
   updateReadBy(id) {
@@ -79,7 +90,7 @@ class MessageBoard extends React.Component {
     return (
         <div id="dashContainer" className="teal lighten-5">
           <div id="appContainer" className="row no-marginbtm">
-            <SideMenu />
+            <SideMenu gotoAddUserToGroup={this.gotoAddUserToGroup}/>
             <div id="appBoard" className="col s10 m9 l10 no-padding">
               <MainNav />
               <div id="chatArea" className="white-text row no-marginbtm">
@@ -93,7 +104,7 @@ class MessageBoard extends React.Component {
                   messages={this.state.messages} />
                 <MessageInputForm appendChatMessage={this.appendChatMessage}/>
                 </div>
-                <UserView />
+                <UserView activeMessageReaders={this.state.activeMessageReaders}/>
               </div>
             </div>
             </div>

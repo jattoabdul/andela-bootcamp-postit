@@ -1,6 +1,6 @@
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.createTable("GroupsUsers", {
+    return queryInterface.createTable('GroupsUsers', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,10 +16,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       isAdmin: {
-        type: Sequelize.ENUM("0", "1"),
-        defaultValue: "0",
+        type: Sequelize.ENUM('0', '1'),
+        defaultValue: '0',
         validate: {
-          isIn: [["0", "1"]]
+          isIn: [['0', '1']]
         }
       },
       createdAt: {
@@ -33,6 +33,6 @@ module.exports = {
     });
   },
   down(queryInterface, Sequelize) {
-    return queryInterface.dropTable("GroupsUsers");
+    return queryInterface.dropTable('GroupsUsers');
   }
 };

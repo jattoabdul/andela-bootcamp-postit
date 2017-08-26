@@ -1,13 +1,12 @@
 import React from "react";
 // import { connect } from "react-redux";
-import Api from "../../utils/api";
+// import Api from "../../utils/api";
 import "./../../stylesheet/App.css"; // Home.scss
-// import "./../../stylesheet/UserView.css"; // UserView.scss
 
 class UserView extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
   render() {
     return (
         <div className="white right col s1" id="usersScroll">

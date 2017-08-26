@@ -4,14 +4,14 @@
  */
 
 // importing services
-import models from "../models/db";
+import models from '../models/db';
 
 let userID = 0;
 export default {
   createGroup(req, res) {
     const userName = req.authToken.data;
-    if (!req.body.name || req.body.name.trim() === "") {
-      res.status(400).send({ message: "Name parameter is required" });
+    if (!req.body.name || req.body.name.trim() === '') {
+      res.status(400).send({ message: 'Name parameter is required' });
       return;
     }
 
@@ -19,7 +19,7 @@ export default {
       .create({
         name: req.body.name,
         desc: req.body.desc,
-        isArchived: req.body.isArchived || "0"
+        isArchived: req.body.isArchived || '0'
       })
       .then((group) => {
         if (group) {
@@ -32,14 +32,14 @@ export default {
               // console.log(`user id: ${userID}`);
               models.GroupsUsers
                 .create({
-                  isAdmin: "1",
+                  isAdmin: '1',
                   groupId: group.id,
                   userId: userID
                 })
                 .then(() => {
                   res.status(201).send({
                     group,
-                    message: "group created successfully"
+                    message: 'group created successfully'
                   });
                 })
                 .catch(error => res.status(400).send(error));
@@ -56,9 +56,9 @@ export default {
         { include: [{
           model: models.Users,
           through: {
-            attributes: ["id", "username"],
+            attributes: ['id', 'username'],
           },
-          as: "users"
+          as: 'users'
         }]
         }
       )

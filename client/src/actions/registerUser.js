@@ -1,8 +1,6 @@
-const registerUser = (user) => {
-  return {
-    type: "REGISTER_USER",
-    user
-  };
-};
+const registerUser = user => ({
+  type: 'REGISTER_USER',
+  user
+});
 
 export default registerUser;

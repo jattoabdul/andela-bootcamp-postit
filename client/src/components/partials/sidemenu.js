@@ -32,6 +32,7 @@ class SideMenu extends React.Component {
         );
     }
   }
+
   onShowGroupMessages(gId) {
     Api(null, `/api/groups/${gId}/messages/`, "GET").then(
         (groupMessages) => {
@@ -80,7 +81,7 @@ class SideMenu extends React.Component {
             </ul>
 
             <div className="buttomNavs container">
-                <a href="" className="left">
+                <a onClick={this.props.gotoAddUserToGroup} className="left">
                     <i className="icon ion-person-add"></i>
                 </a>
                 <a onClick={() => this.onLogOut()} className="right">

@@ -1,10 +1,10 @@
-const userData = (state = "{}", action) => {
+const userData = (state = '{}', action) => {
   const { type, user } = action;
   switch (type) {
-    case "LOGIN_USER":
+    case 'LOGIN_USER':
       return user;
-    case "LOGOUT_USER":
-      return "{}";
+    case 'LOGOUT_USER':
+      return '{}';
     default:
       return state;
   }

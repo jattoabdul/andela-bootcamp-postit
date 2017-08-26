@@ -6,6 +6,7 @@
     "bootstrap": "4.0.0-alpha.6",
     "enzyme": "^2.9.1",
     "jest-enzyme": "^3.7.0",
+    "jsdom": "^11.2.0",
     "material-ui": "^0.18.7",
     "node-sass-chokidar": "^0.0.3",
     "nodemailer": "^4.0.1",

@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 // importing test frameworks
 // import { shallow } from "enzyme";
@@ -8,17 +8,17 @@ import ReactDOM from "react-dom";
 // import { expect } from "chai";
 
 // importing components
-import App from "./../components/App";
+import App from './../components/App';
 
 
-describe("App", () => {
-  it("should properly run tests", () => {
+describe('App', () => {
+  it('should properly run tests', () => {
     expect(1).toBe(1);
   });
 });
 
-describe("Signup Component", () => {
-  it("should do this", () => {
+describe('Signup Component', () => {
+  it('should do this', () => {
     expect(2).toBe(2);
   });
 });

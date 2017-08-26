@@ -1,15 +1,15 @@
 const Api = (body, url, method) => (new Promise((resolve) => {
   const headers = new Headers();
-  headers.append("Content-Type", "application/x-www-form-urlencoded");
-  if (sessionStorage.getItem("user") !== null) {
-    headers.append("x-access-token",
-    JSON.parse(sessionStorage.getItem("user")).token);
+  headers.append('Content-Type', 'application/x-www-form-urlencoded');
+  if (sessionStorage.getItem('user') !== null) {
+    headers.append('x-access-token',
+    JSON.parse(sessionStorage.getItem('user')).token);
   }
 
   if (body === null) {
-    body = "";
+    body = '';
   }
-  if (method.toUpperCase() === "GET") {
+  if (method.toUpperCase() === 'GET') {
     fetch(url, { method,
       headers
     })

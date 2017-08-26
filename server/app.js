@@ -1,16 +1,16 @@
-import express from "express";
-import logger from "morgan";
-import bodyParser from "body-parser";
-// import _ from "lodash";
-import routes from "./api/routers/routes";
+import express from 'express';
+import logger from 'morgan';
+import bodyParser from 'body-parser';
+import routes from './api/routers/routes';
 
-const path = require("path");
+const path = require('path');
+
 // Set up the express app
 const app = express();
 
 // for serving static react client app on heroku
-if (process.env.NODE_ENV === "production") {
-  app.use("/", express.static(path.join(__dirname, "../client/build")));
+if (process.env.NODE_ENV === 'production') {
+  app.use('/', express.static(path.join(__dirname, '../client/build')));
 }
 
 // for serving static react client app on development machine - uncomment below
@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === "production") {
 // app.use(express.static(path.join(__dirname, "../client/build"))); // 1
 
 // Log requests to the console.
-app.use(logger("dev"));
+app.use(logger('dev'));
 
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
@@ -41,10 +41,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // }); // 2
 
 // Comment this out in production
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res
     .status(200)
-    .send({ message: "Welcome to the beginning of nothingness." });
+    .send({ message: 'Welcome to the beginning of nothingness.' });
 });
 
 /**

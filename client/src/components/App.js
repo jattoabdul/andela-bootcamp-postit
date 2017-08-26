@@ -1,3 +1,3 @@
-import App from "./main";
+import App from './main';
 
 export default { App };
