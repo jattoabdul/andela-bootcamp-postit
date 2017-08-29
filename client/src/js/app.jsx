@@ -1,9 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
-import "materialize-css";
-import '../style/index.scss';
 
-import ComponentA from './ComponentA';
-// import ComponentB from './ComponentB';
+import "materialize-loader";
 
-render(<ComponentA />, document.getElementById('app'));
+import App from './components/';
+import '../styles/index.scss';
+
+ render(<App />, document.getElementById('app')); 
+ 

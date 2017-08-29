@@ -6,4 +6,4 @@ sass-lint:
   enabled: true
 eslint:
   enabled: true
-  config: ../.eslintrc
+  config: ./eslintrc

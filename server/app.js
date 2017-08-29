@@ -8,13 +8,20 @@ import routes from './api/routers/routes';
 // Set up the express app
 const app = express();
 
+
 // for serving static react client app on heroku
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, '../client/dist')));
 }
 
-// for serving static react client app on server localhost:port
-app.use('/', express.static(path.join(__dirname, '../client/dist')));
+// app.get('/', (req, res) => {
+//   res
+//     .status(200)
+//     .sendFile(path.join(__dirname, '../client/index.html'));
+// });
+// // for serving static react client app on server localhost:port
+// app.use('/', express.static(path.join(__dirname, '../client/dist')));
+
 
 // Log requests to the console.
 app.use(logger('dev'));
@@ -26,11 +33,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 /**
  * Default routes.
  */
-// app.get('/', (req, res) => {
-//   res
-//     .status(200)
-//     .send({ message: 'Welcome to the beginning of nothingness.' });
-// });
+app.get('/', (req, res) => {
+  res
+    .status(200)
+    .send({ message: 'Welcome to the beginning of nothingness.' });
+});
 
 /**
  * API routes call.
