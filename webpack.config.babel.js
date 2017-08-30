@@ -18,7 +18,9 @@ module.exports = {
     filename: 'bundle.js'
   },
   externals: {
-    Materialize: 'Materialize'
+    Materialize: 'Materialize',
+    jquery: 'jQuery',
+    materialize: 'materialize'
   },
   module: {
     loaders: [
@@ -55,5 +57,11 @@ module.exports = {
       'window.jQuery': 'jquery',
       Hammer: 'hammerjs/hammer'
     })
-  ] // plugins
+  ], // plugins
+  devServer: {
+    proxy: {
+      '/api': 'http://localhost:7000'
+    },
+    hot: true
+  }
 };

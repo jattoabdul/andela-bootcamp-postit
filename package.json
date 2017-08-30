@@ -22,7 +22,7 @@
     "client:dev": "webpack-dev-server --hot",
     "build:client": "webpack --config webpack.config.babel.js",
     "server:dev": "nodemon --watch server --exec babel-node -- server/bin/www",
-    "build:server": "rimraf dist/ && babel ./server --out-dir server/dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "build:server": "rimraf server/dist/ && babel ./server --out-dir server/dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "test:server": "nyc --reporter=html --reporter=text mocha tests/tests.js --compilers js:babel-register",
     "eslint": "eslint --fix **/*.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",

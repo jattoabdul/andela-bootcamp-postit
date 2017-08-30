@@ -1,7 +1,12 @@
 import React from 'react';
 
 export default () => {
+
     return (
-        <h1 className="red-text">Hello From React</h1>
+        <div>
+            <h1
+            className="blue-text"
+            >Hello React</h1>
+        </div>
     );
 }
