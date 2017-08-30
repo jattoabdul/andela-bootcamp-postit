@@ -25,9 +25,22 @@ module.exports = {
   module: {
     loaders: [
       // > JS
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
       // > JSX
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.jsx$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      { test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['react', 'es2015', 'stage-2']
+        }
+      },
       // > CSS / SCSS
       { test: /\.(css|scss)?$/,
         use: ExtractTextPlugin.extract({
@@ -43,6 +56,11 @@ module.exports = {
         loader: 'file-loader'
       }
     ] // loaders
+  }, // modules
+  // > Module Folders (packages and extensions)
+  resolve: {
+    modules: ['node_modules', 'client/src'],
+    extensions: ['.js', '.jsx', '.json', '.css', '.scss']
   }, // modules
   plugins: [
     HtmlWebpackPluginConfig,
@@ -63,5 +81,5 @@ module.exports = {
       '/api': 'http://localhost:7000'
     },
     hot: true
-  }
+  } // devServer
 };
