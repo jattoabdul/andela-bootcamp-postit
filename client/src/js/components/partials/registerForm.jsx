@@ -1,7 +1,9 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React from 'react';
+// import {  } from 'react-router';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { userRegisterRequest } from './../../actions/registerActions';
+
 class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
@@ -10,7 +12,9 @@ class RegisterForm extends React.Component {
             password: '',
             fullName: '',
             email: '',
-            phoneNumber: ''
+            phoneNumber: '',
+            error_messages: {},
+            isLoading: false
         };
 
         this.onChange = this.onChange.bind(this);
@@ -26,21 +30,60 @@ class RegisterForm extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.props.userRegisterRequest(this.state);
-
+        this.setState({
+            error_messages: {},
+            isLoading: true 
+        });
+        this.props.userRegisterRequest(this.state).then(
+            (registerResponse) => {
+                if (registerResponse.err === undefined) {
+                    // register success handling
+                    // flashing message
+                    this.props.addFlashMessage({
+                        type:'success',
+                        text: 'SignUp successful, Welcome to PostiT!!!'
+                    });
+                    this.props.loginRequest(this.state).then(
+                        () => {
+                            const user = JSON.parse(sessionStorage.getItem('user'));
+                            // console.log(user);
+                            if (user.message !== 'username does not exist' &&
+                                user.message !== 'invalid password') {
+                                // redirecting
+                                this.props.history.push('/dashboard');
+                            } else {
+                            // login error handling
+                            this.setState({
+                                error_message: user.message,
+                                isLoading: false
+                            });
+                            }
+                        });
+                }
+                else {
+                    // register error handling
+                    this.setState({
+                        error_messages: registerRes.err,
+                        isLoading: false
+                    });
+                }
+            }
+        );
     }
 
     render() {
+    const {error_messages} = this.state;
     return (
         <form
             onSubmit={this.onSubmit}
             id="signUpForm"
             className="row">
             <p className="flow-text"> &nbsp; Sign Up</p>
-            {/*<div className="chip red white-text center" style={{ width: "20rem" }}>
-                error
+            {error_messages.message && 
+                <div className="chip red white-text center" style={{ width: "20rem" }}>
+                {error_messages.message}
                 <i className="close material-icons">close</i>
-            </div>*/}
+            </div>}
             <div className="input-field col s6">
                 <input
                 type="text"
@@ -58,6 +101,8 @@ class RegisterForm extends React.Component {
                 name="username"
                 value={this.state.username}
                 onChange={this.onChange}
+                maxLength="15"
+                pattern="(?=^.{6,15}$)(?!.*\s).*$"
                 required/>
             <label htmlFor="username_signup">Username</label>
             </div>
@@ -68,6 +113,8 @@ class RegisterForm extends React.Component {
                 name="password"
                 value={this.state.password}
                 onChange={this.onChange}
+                pattern="(?=^.{6,12}$)(?!.*\s).*$"
+                title="6 to 12 characters required"
                 required/>
             <label htmlFor="password_signup">Password</label>
             </div>
@@ -83,9 +130,10 @@ class RegisterForm extends React.Component {
             </div>
                 <div className="input-field col s12">
                 <input
-                type="number"
+                type="tel"
                 id="phone_signup"
                 name="phoneNumber"
+                pattern="^\d{11}$"
                 value={this.state.phoneNumber}
                 onChange={this.onChange}
                 required/>
@@ -94,8 +142,9 @@ class RegisterForm extends React.Component {
             <div className="input-field col s12">
             <button
                 className="btn waves-effect waves-light"
+                disabled={this.state.isLoading}
                 type="submit">
-                    sign Up
+                    Sign Up
             </button>
             <p>
                 <Link to="/login">
@@ -109,7 +158,9 @@ class RegisterForm extends React.Component {
 }
 
 RegisterForm.propTypes = {
-    userRegisterRequest: PropTypes.func.isRequired
+    userRegisterRequest: PropTypes.func.isRequired,
+    loginRequest: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired
 }
 
-export default RegisterForm;
+export default withRouter(RegisterForm);

@@ -34,10 +34,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //     .send({ message: 'Welcome to the beginning of nothingness.' });
 // });
 
-// app.get('/', (req, res) => {
+// app.get('*', (req, res) => {
 //   res
 //     .status(200)
 //     .sendFile(path.join(__dirname, '../client/dist/index.html'));
+// });
+
+
+// io.on('connection', function (socket) {
+//   io.emit('news', { hello: 'world' });
+
+//   socket.on('my other event', function (data) {
+//     console.log(data);
+//   });
+//   socket.on('disconnect', function () {
+//     io.emit('user disconnected');
+//   });
 // });
 
 /**

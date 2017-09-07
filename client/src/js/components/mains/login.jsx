@@ -1,12 +1,17 @@
 import React from "react";
+import { render } from 'react-dom';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
 // import Api from "../../utils/api";
-import { Welcome } from "./../partials/";
+import { Welcome, LoginForm } from "./../partials/";
+import { loginRequest } from './../../actions/loginActions';
 
 class Login extends React.Component {
-
   render() {
+    const { loginRequest } = this.props;
     return (
         <div id="indexContainer" className="teal lighten-5">
             <div id="mainContainer" className="row">
@@ -21,44 +26,9 @@ class Login extends React.Component {
                         </Link>
                     </div>
                     <br/>
-                    <form id="loginForm" className="row">
-                        <p className="flow-text"> &nbsp; Sign In</p>
-                        <div className="chip red white-text center" style={{ width: "20rem" }}>
-                          <i className="close material-icons">close</i>
-                        </div>
-                        <div className="input-field col s12">
-                            <input
-                                type="text" id="username_login"
-                                required/>
-                            <label htmlFor="username_login">Username</label>
-                        </div>
-                        <div className="input-field col s12 m7 no-padding">
-                            <input onFocus={this.onFocus}
-                                type="password" id="password_login"
-                                required/>
-                            <label htmlFor="password_login">Password</label>
-                        </div>
-                        <div className="input-field col s12 m5 nopadding">
-                            <a href="/resetpassword" className="forgotPass">
-                                forgot password
-                            </a>
-                        </div>
-                        <div className="input-field col s12">
-                            <button
-                                className="btn waves-effect waves-light"
-                                type="submit">
-                                sign in
-                            </button>
-                            <br/><br/>
-                            <p>
-                                &nbsp;
-                                 <Link to="/register" className="alternative">
-                                    Don&rsquo; have an Account? &nbsp;
-                                <span>SIGN UP NOW</span>
-                                </Link>
-                            </p>
-                        </div>
-                    </form>
+                    <LoginForm
+                        loginRequest={loginRequest}
+                        />
                 </div>
             </div>
         </div>
@@ -66,9 +36,8 @@ class Login extends React.Component {
   }
 }
 
-// const mapDispatchToProps = dispatch => ({
-//     onLoginUser: user => dispatch(loginUser(user))
-// });
+Login.PropTypes = {
+    loginRequest: PropTypes.func.isRequired
+}
 
-// export default connect(null, mapDispatchToProps)(Login);
-export default Login;
+export default connect(null, {loginRequest})(Login);

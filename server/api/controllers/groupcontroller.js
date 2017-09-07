@@ -9,7 +9,7 @@ import models from '../models/db';
 let userID = 0;
 export default {
   createGroup(req, res) {
-    const userName = req.authToken.data;
+    const userName = req.authToken.data.username;
     if (!req.body.name || req.body.name.trim() === '') {
       res.status(400).send({ message: 'Name parameter is required' });
       return;
@@ -51,10 +51,13 @@ export default {
       .catch(error => res.status(400).send(error));
   },
   viewGroups(req, res) {
+    const userId = req.authToken.data.id;
     return models.Groups
       .findAll(
         { include: [{
           model: models.Users,
+          where: { id: userId },
+          attributes: { exclude: ['password'] },
           through: {
             attributes: ['id', 'username'],
           },

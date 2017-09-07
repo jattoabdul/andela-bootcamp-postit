@@ -1,22 +1,41 @@
 import React from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
+import classNames from 'classnames';
 // import Api from "../../utils/api";
+import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { SideMenu, MainNav } from "./../partials/";
+import FlashMessageList from './../flash/FlashMessagesList';
+import { logout } from './../../actions/loginActions';
 
 
 class Dashboard extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
+
+    componentWillMount() {
+        if (sessionStorage.getItem('user') === null) {
+            this.props.history.push('/login');
+            return;
+          }
+    }
   render() {
+      const { isAuthenticated, user } = this.props.login;
     return (
         <div id="dashContainer" className="teal lighten-5">
             <div id="appContainer" className="row no-marginbtm">
-                <SideMenu />
+                <SideMenu
+                    isAuthenticated={isAuthenticated}
+                    user={user} />
                 <div id="appBoard" className="col s10 m9 l10 no-padding">
                     <MainNav />
                     <br/>
                     <div id="chatArea" className="white-text">
+                        <FlashMessageList />
                         <div className="card-panel welcome teal-text">
-                            <h2 className="center-align">Welcome Aminujatto</h2>
+                            <h2 className="center-align">Welcome {user.data.fullName}</h2>
                             <h4 className="left-align center">
                                 You don&rsquo;t have to shout. <br/>
                                 <span className="right-align flow-text">
@@ -40,7 +59,7 @@ class Dashboard extends React.Component {
                                 <p>
                                     <span className="flow-text or">or </span> &nbsp;
                                     <a className="btn createGroup waves-effect"
-                                        href="/#/dashboard/create-group">
+                                        href="/create-group">
                                         Create Group
                                     </a>
                                 </p>
@@ -73,4 +92,14 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+Dashboard.PropTypes = {
+    login: PropTypes.object.isRequired
+}
+ 
+function mapStateToProps(state){
+  return {
+      login: state.login
+  }
+}
+
+export default connect(mapStateToProps)(withRouter(Dashboard));

@@ -2,13 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
 // import Api from "../../utils/api";
 import { Welcome, RegisterForm } from "./../partials/";
 import userRegisterRequest from './../../actions/registerActions';
+import { addFlashMessage } from './../../actions/flashMessages.js';
+import { loginRequest } from './../../actions/loginActions';
+
 class Register extends React.Component {
 
   render() {
-    const { userRegisterRequest } = this.props;
+    const { userRegisterRequest, addFlashMessage, loginRequest } = this.props;
     return (
       <div id="indexContainer" className="teal lighten-5">
         <div id="mainContainer" className="row">
@@ -22,7 +27,10 @@ class Register extends React.Component {
                     Sign In
                 </Link>
               </div>
-            <RegisterForm userRegisterRequest={userRegisterRequest} />
+            <RegisterForm 
+              userRegisterRequest={userRegisterRequest}
+              addFlashMessage={addFlashMessage}
+              loginRequest={loginRequest} />
           </div>
         </div>
       </div>
@@ -31,8 +39,14 @@ class Register extends React.Component {
 }
 
 Register.propTypes = {
-  userRegisterRequest: PropTypes.func.isRequired
+  userRegisterRequest: PropTypes.func.isRequired,
+  addFlashMessage: PropTypes.func.isRequired,
+  loginRequest: PropTypes.func.isRequired 
 }
 
-export default connect(null, { userRegisterRequest })(Register);
+export default connect(null,
+    { 
+    userRegisterRequest, 
+    loginRequest, 
+    addFlashMessage })(Register);
 

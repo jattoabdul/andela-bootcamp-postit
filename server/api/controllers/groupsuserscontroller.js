@@ -116,8 +116,11 @@ export default {
           models.Users
             .findAll({
               where: {
-                username: { $like: `%${req.query.search}%` }
+                username: {
+                  $like: `%${req.query.search}%`
+                }
               },
+              limit: 10,
               attributes: ['id', 'username', 'fullName']
             })
             .then((searchItemResult) => {
@@ -132,3 +135,6 @@ export default {
     }
   }
 };
+
+// ,
+// $notIn: groupUsersId

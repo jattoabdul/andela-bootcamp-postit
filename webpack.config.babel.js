@@ -80,6 +80,11 @@ module.exports = {
     proxy: {
       '/api': 'http://localhost:7000'
     },
-    hot: true
-  } // devServer
+    hot: true,
+    historyApiFallback: true
+  }, // devServer
+  node: {
+    net: 'empty',
+    dns: 'empty'
+  }
 };

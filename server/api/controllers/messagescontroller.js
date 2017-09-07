@@ -58,7 +58,7 @@ const fetchMembersEmail = groupId =>
 
 export default {
   sendMsg(req, res) {
-    const userName = req.authToken.data;
+    const userName = req.authToken.data.username;
     if (!req.body.text || req.body.text.trim() === '') {
       res.status(400).send({ message: 'cannot send empty message' });
       return;
@@ -162,7 +162,7 @@ export default {
         }
       })
       .then((message) => {
-        const userName = req.authToken.data;
+        const userName = req.authToken.data.username;
         // console.log('==========> message readby: ', message.readBy);
         if (message.readBy.includes(userName) === false) {
           message.readBy.push(userName);

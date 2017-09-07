@@ -204,20 +204,24 @@ export default {
           if (bcrypt.compareSync(password, user[0].password)) {
             // create an authToken for the user
             const token = jwt.sign({
-              data: user[0].username
+              data: {
+                id: user[0].id,
+                username: user[0].username,
+                email: user[0].email,
+                fullName: user[0].fullName,
+                phoneNumber: user[0].phoneNumber
+              }
             }, 'Jasabs93', { expiresIn: '24h' });
             res
               .status(202)
               .send({
                 token,
-                message: `${user[0].username} has successfully logged in`,
-                data: req.body
+                message: `${user[0].username} has successfully logged in`
               });
           } else {
             res.status(401)
               .send({
-                message: 'invalid password',
-                data: req.body
+                message: 'invalid password'
               });
           }
           return;
@@ -225,8 +229,7 @@ export default {
 
         res.status(404)
           .send({
-            message: 'username does not exist',
-            data: req.body
+            message: 'username does not exist'
           });
       });
   },
@@ -237,7 +240,7 @@ export default {
       .catch(err => res.status(400).send({ err }));
   },
   getCurrentUser(req, res) {
-    const username = req.authToken.data;
+    const username = req.authToken.data.username;
     // console.log(username);
     // const id = req.authToken.data;
     // console.log(id);

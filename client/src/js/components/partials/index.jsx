@@ -6,6 +6,7 @@ import MessageList from './messagelist';
 import MessageItem from './messageItem';
 import MessageInputForm from './messageinputform';
 import RegisterForm from './registerForm';
+import LoginForm from './loginForm';
 
 export { Welcome,
   SideMenu,
@@ -14,4 +15,5 @@ export { Welcome,
   MessageList,
   MessageItem,
   MessageInputForm,
-  RegisterForm };
+  RegisterForm,
+  LoginForm };

@@ -2,10 +2,10 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 
 // import app
-import app from '../server/app';
+import app from '../../server/app';
 
 // import my models for unit testing
-import models from '../server/api/models/db';
+import models from '../../server/api/models/db';
 
 // importing my controllers for unit testing
 
