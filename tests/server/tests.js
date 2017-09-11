@@ -91,11 +91,11 @@ models
 */
 
 // describe user signup endpoint
-describe('POST /api/users/signup', () => {
+describe('POST /api/v1/users/signup', () => {
   it('should should create a new user', (done) => {
     chai
       .request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         username: 'johndoe',
@@ -123,7 +123,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise 400 error without password parameter', (done) => {
     chai.request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         username: 'johndoe',
@@ -138,7 +138,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise 400 error without username parameter', (done) => {
     chai.request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         email: 'johndoe@test.com',
@@ -153,7 +153,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise 400 error without email parameter', (done) => {
     chai.request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         username: 'johndoe',
@@ -168,7 +168,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise 400 error without phone parameter', (done) => {
     chai.request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         username: 'johndoe',
@@ -183,7 +183,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise 400 error with duplicate email', (done) => {
     chai.request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         username: 'johndoes',
@@ -199,7 +199,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise 400 error with duplicate username', (done) => {
     chai.request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         username: 'johndoe',
@@ -215,7 +215,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise 400 error with invalid email', (done) => {
     chai.request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         username: 'johndoed',
@@ -231,7 +231,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise 400 error with empty password', (done) => {
     chai.request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         username: 'johndoe3',
@@ -247,7 +247,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise 400 error with empty username', (done) => {
     chai.request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         username: ' ',
@@ -263,7 +263,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise 400 error with empty email', (done) => {
     chai.request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         username: 'johndoe6',
@@ -279,7 +279,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise 400 error with empty phoneNumber', (done) => {
     chai.request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .type('form')
       .send({
         username: 'johndoe7',
@@ -295,7 +295,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise an error if email exist', (done) => {
     chai.request(app)
-      .post('/api/users/signup/')
+      .post('/api/v1/users/signup/')
       .type('form')
       .send({
         username: 'johndoe',
@@ -311,7 +311,7 @@ describe('POST /api/users/signup', () => {
   });
   it('should raise an error if username exist', (done) => {
     chai.request(app)
-      .post('/api/users/signup/')
+      .post('/api/v1/users/signup/')
       .type('form')
       .send({
         username: 'johndoe',
@@ -333,11 +333,11 @@ describe('POST /api/users/signup', () => {
 });
 
 // describe user signin/login endpoint
-describe('POST /api/user/signin', () => {
+describe('POST /api/v1/user/signin', () => {
   // it should login user and return auth token
   it('should login user and return auth token', (done) => {
     chai.request(app)
-      .post('/api/users/signin/')
+      .post('/api/v1/users/signin/')
       .type('form')
       .send({
         username: 'johndoe',
@@ -353,7 +353,7 @@ describe('POST /api/user/signin', () => {
   // it should reject invalid login and respond 401 error
   it('should reject login if username does not exist', (done) => {
     chai.request(app)
-      .post('/api/users/signin/')
+      .post('/api/v1/users/signin/')
       .type('form')
       .send({
         username: 'johndoesss',
@@ -371,9 +371,9 @@ describe('POST /api/user/signin', () => {
 // describe protection of routes (routes well protected- only authorized users)
 describe('Routes are protected', () => {
   // create groups routes
-  it('should check if POST /api/groups/ is protected', (done) => {
+  it('should check if POST /api/v1/groups/ is protected', (done) => {
     chai.request(app)
-      .post('/api/groups/')
+      .post('/api/v1/groups/')
       .type('form')
       .send({
         name: 'andelabootcamp24',
@@ -387,9 +387,9 @@ describe('Routes are protected', () => {
       });
   });
   // view list of groups
-  it('should check if GET /api/groups/ is protected', (done) => {
+  it('should check if GET /api/v1/groups/ is protected', (done) => {
     chai.request(app)
-      .get('/api/groups/')
+      .get('/api/v1/groups/')
       .end((err, res) => {
         res.should.have.status(401);
         done();
@@ -397,9 +397,9 @@ describe('Routes are protected', () => {
   });
 
   // add member route
-  it('should check if POST /api/groups/:id/user is protected', (done) => {
+  it('should check if POST /api/v1/groups/:id/user is protected', (done) => {
     chai.request(app)
-      .post('/api/groups/1/user')
+      .post('/api/v1/groups/1/user')
       .type('form')
       .send({
         UsersId: 1,
@@ -413,9 +413,9 @@ describe('Routes are protected', () => {
   });
 
   // remove member route
-  it('should check if DELETE /api/groups/:id/user is protected', (done) => {
+  it('should check if DELETE /api/v1/groups/:id/user is protected', (done) => {
     chai.request(app)
-      .post('/api/groups/1/user')
+      .post('/api/v1/groups/1/user')
       .type('form')
       .send({
         UsersId: 1,
@@ -428,9 +428,9 @@ describe('Routes are protected', () => {
   });
 
   // view member route
-  it('should check if GET /api/groups/:id/users is protected', (done) => {
+  it('should check if GET /api/v1/groups/:id/users is protected', (done) => {
     chai.request(app)
-      .get('/api/groups/1/users')
+      .get('/api/v1/groups/1/users')
       .end((err, res) => {
         res.should.have.status(401);
         done();
@@ -438,9 +438,9 @@ describe('Routes are protected', () => {
   });
 
   // send message route
-  it('should check if POST /api/groups/:id/message/ is protected', (done) => {
+  it('should check if POST /api/v1/groups/:id/message/ is protected', (done) => {
     chai.request(app)
-      .post('/api/groups/1/message/')
+      .post('/api/v1/groups/1/message/')
       .type('form')
       .send({
         userId: 1,
@@ -455,9 +455,9 @@ describe('Routes are protected', () => {
   });
 
   // get messages route
-  it('should check if GET /api/groups/:id/messages is protected', (done) => {
+  it('should check if GET /api/v1/groups/:id/messages is protected', (done) => {
     chai.request(app)
-      .get('/api/groups/1/messages')
+      .get('/api/v1/groups/1/messages')
       .end((err, res) => {
         res.should.have.status(401);
         done();
@@ -466,10 +466,10 @@ describe('Routes are protected', () => {
 });
 
 // describe create group endpoint
-describe('POST /api/group', () => {
-  it('should create POST /api/groups/ New Group', (done) => {
+describe('POST /api/v1/group', () => {
+  it('should create POST /api/v1/groups/ New Group', (done) => {
     chai.request(app)
-      .post('/api/groups/')
+      .post('/api/v1/groups/')
       .set('x-access-token', authToken)
       .type('form')
       .send({
@@ -489,10 +489,10 @@ describe('POST /api/group', () => {
       });
   });
 
-  it('should check if group name is not provided to POST /api/groups/',
+  it('should check if group name is not provided to POST /api/v1/groups/',
     (done) => {
       chai.request(app)
-        .post('/api/groups/')
+        .post('/api/v1/groups/')
         .set('x-access-token', authToken)
         .type('form')
         .send({
@@ -511,9 +511,9 @@ describe('POST /api/group', () => {
         });
     });
 
-  it('should GET get all created groups via /api/groups/', (done) => {
+  it('should GET get all created groups via /api/v1/groups/', (done) => {
     chai.request(app)
-      .get('/api/groups/')
+      .get('/api/v1/groups/')
       .set('x-access-token', authToken)
       .end((err, res) => {
         res.should.have.status(200);
@@ -525,10 +525,10 @@ describe('POST /api/group', () => {
 });
 
 // describe group member addition endpoint
-describe('POST /api/groups/:id/user', () => {
-  it('should add user to a group-1 via POST /api/groups/:id/user', (done) => {
+describe('POST /api/v1/groups/:id/user', () => {
+  it('should add user to a group-1 via POST /api/v1/groups/:id/user', (done) => {
     chai.request(app)
-      .post('/api/groups/1/user')
+      .post('/api/v1/groups/1/user')
       .set('x-access-token', authToken)
       .type('form')
       .send({
@@ -545,11 +545,11 @@ describe('POST /api/groups/:id/user', () => {
 });
 
 // describe send message to a group by a logged in user endpoint
-describe('POST /api/group/:id/message', () => {
+describe('POST /api/v1/group/:id/message', () => {
   it('should send a message to a group via POST /api/groups/:id/message/',
     (done) => {
       chai.request(app)
-        .post('/api/groups/1/message/')
+        .post('/api/v1/groups/1/message/')
         .set('x-access-token', authToken)
         .type('form')
         .send({
@@ -573,7 +573,7 @@ describe('POST /api/group/:id/message', () => {
   it('should not send message if text empty via POST /api/groups/:id/message/',
     (done) => {
       chai.request(app)
-        .post('/api/groups/1/message/')
+        .post('/api/v1/groups/1/message/')
         .set('x-access-token', authToken)
         .type('form')
         .send({
@@ -589,11 +589,11 @@ describe('POST /api/group/:id/message', () => {
 });
 
 // describe retrieve/receive group messages endpoint
-describe('GET /api/group/:id/messages', () => {
+describe('GET /api/v1/group/:id/messages', () => {
   it('should get all messages in a group via GET /api/groups/:id/messages/',
     (done) => {
       chai.request(app)
-        .get('/api/groups/1/messages/')
+        .get('/api/v1/groups/1/messages/')
         .set('x-access-token', authToken)
         .end((err, res) => {
           res.should.have.status(200);

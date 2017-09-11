@@ -39,7 +39,7 @@ export const loginRequest = data => (dispatch) => {
 
   if (username !== '' && password !== '') {
     const userString = `username=${username}&password=${password}`;
-    return Api(userString, '/api/users/signin', 'POST').then(
+    return Api(userString, '/api/v1/users/signin', 'POST').then(
       (loginRes) => {
         // set user details in session storage to set headers of request
         sessionStorage.setItem('user', JSON.stringify(loginRes));

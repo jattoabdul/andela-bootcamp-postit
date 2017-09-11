@@ -27,7 +27,7 @@ export default (state = initialState, action = {}) => {
         isLoadingGroup: action.isLoadingGroup
       };
     case SET_CURRENT_GROUP:
-      console.log(action.currentGroup);
+      // console.log(action.currentGroup);
       return {
         currentGroup: action.currentGroup
       };
@@ -36,12 +36,12 @@ export default (state = initialState, action = {}) => {
         groups: [action.groups, ...state]
       };
     case ADD_USER_TO_GROUP:
-      console.log(action.userAdded);
+      // console.log(action.userAdded);
       return {
         userAdded: action.userAdded
       };
     case SET_MATCHING_USERS:
-      console.log(action.matchedUsers);
+      // console.log(action.matchedUsers);
       return {
         matchedUsers: [...action.matchedUsers, ...state]
       };

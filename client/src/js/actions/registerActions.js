@@ -8,7 +8,7 @@ const userRegisterRequest = userData => (dispatch) => {
     phoneNumber = userData.phoneNumber;
   const userString = `username=${username}&fullName=${fullName}&email=${email}
     &password=${password}&phoneNumber=${phoneNumber}`;
-  return Api(userString, '/api/users/signup', 'POST', null);
+  return Api(userString, '/api/v1/users/signup', 'POST', null);
 };
 
 

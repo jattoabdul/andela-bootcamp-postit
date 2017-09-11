@@ -8,14 +8,16 @@
 **ABOUT POSTIT**
 Is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once - a broadcast message. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
 
-View the API Here[https://jatto-postit-app.herokuapp.com/]
+View the Beast-Mode App Here[https://jatto-postit-app.herokuapp.com/]
 
-view a Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
+Access the API Here[https://jatto-postit-app.herokuapp.com/api/v1]
+
+view a Template Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
 
 **TECHNOLOGIES**
-> - Front-end: React/Redux + SASS (To be Implemented)
+> - Front-end: React/Redux + SASS / Materialize
 > - Back-end: Node/Expressjs + Sequelize/Postgres
-> - Libraries: jsonwebtoken, es6, Babel-Node, Gulp, eslint, Mocha/Chai + chai-http
+> - Libraries: jsonwebtoken, es6, Babel-Node, Gulp, eslint, Mocha/Chai + chai-http, Enzyme
 
 **FOLDER STRUCTURE**
 > - client: to contain React/Redux implementation of the frontend
@@ -36,16 +38,16 @@ view a Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
 # SERVER
 -Backend API's are in the server folder
 
->- To run server, Run
+>- To run server in production, Run
    `$ npm run start`
 
 >- To run server in development, Run
-   `$ npm run start:dev`
+   `$ npm run server:dev`
 
 >- Open PostMan and test url end points
 
 >- To run server test, Run
-   `$ npm run test:dev`
+   `$ npm run test:server`
 
 >- To run eslint test, Run
    `$ npm run eslint`
@@ -70,19 +72,25 @@ view a Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
 # CLIENT
 - React Front End Are in the client folder
 >- To run client, Run
-   `$ cd client && npm start`
+   `$ npm client:dev`
 
 >- To run client test, Run
-   `$ cd client && npm test`
+   `$ npm test:client`
 
 >- To build client for production, Run
-   `$ cd client && npm run build`
-    `$ cd .. && git add client/build`
+   `$ npm run build`
+    `$ git add client/dist`
     `$ git commit -m "Adding 'build' to source control"`
     `$ git push origin <branch>`
 
-# APP
-- To run both client and server in Development on local machine from vi level
-    `$ npm run both:dev` // proxy activated
+# BEAST MODE APP
+- To run both client and server in Development on local machine
+    `$ npm run start:dev` // proxy activated
+
+- To run full app in Production
+    `$ npm start` // proxy activated
+
+- App Deployed Online With Heroku
+    [https://jatto-postit-app.herokuapp.com/]
 
 >- **Author: Aminujatto Abdulqahhar**

@@ -2,8 +2,6 @@
 import Api from '../utils/api';
 import {
   GET_USER_GROUPS,
-  GET_GROUP_MESSAGES,
-  CREATE_GROUP_MESSAGE,
   GETTING_USER_GROUP,
   SET_CURRENT_GROUP,
   CREATE_USER_GROUP,
@@ -51,15 +49,19 @@ export function setMatchingUsers(matchedUsers) {
     matchedUsers
   };
 }
+
+export const sideBarSetCurrentGroup = group => dispatch =>
+  dispatch(setCurrentGroup(group));
+
 export const createNewGroup = group => (dispatch) => {
   const groupName = group.groupName,
     groupDesc = group.groupDesc;
 
   const groupCreateParams = `name=${groupName}&desc=${groupDesc}`;
   // making calls to the create group API endpoint
-  return Api(groupCreateParams, '/api/groups/', 'POST').then(
+  return Api(groupCreateParams, '/api/v1/groups/', 'POST').then(
     (res) => {
-      console.log(res);
+      // console.log(res);
       // dispatch create group action
       dispatch(createGroup(res.group));
       const currentGroup = res.group;
@@ -72,19 +74,20 @@ export const createNewGroup = group => (dispatch) => {
 export const fetchUserGroups = () => (dispatch) => {
   dispatch(gettingUserGroups());
   // making call to the get all groups API endpoint
-  return Api(null, '/api/groups/', 'GET').then(
+  return Api(null, '/api/v1/groups/', 'GET').then(
     (userGroups) => {
-      console.log('fetching user group', userGroups);
+      // console.log('fetching user group', userGroups);
       dispatch(getUserGroups(userGroups));
     }
   );
 };
 
 export const searchUser = (groupId, searchText) => (dispatch) => {
-  return Api(null, `/api/groups/${groupId}/usersearch?search=${searchText}`, 'GET')
+  return Api(null,
+    `/api/v1/groups/${groupId}/usersearch?search=${searchText}`, 'GET')
     .then(
       (res) => {
-        console.log(res, 'searchUser');
+        // console.log(res, 'searchUser');
         dispatch(setMatchingUsers(res.searchItemResult));
       }
     );
@@ -93,14 +96,10 @@ export const searchUser = (groupId, searchText) => (dispatch) => {
 export const addUserToGroup = (groupId, userId) => (dispatch) => {
   const addUserParams = `userId=${userId}`;
   // making calls to the add user group endpoint
-  return Api(addUserParams, `/api/groups/${groupId}/user/`, 'POST').then(
+  return Api(addUserParams, `/api/v1/groups/${groupId}/user/`, 'POST').then(
     (res) => {
-      console.log(res);
+      // console.log(res);
       dispatch(addUser());
     }
   );
 };
-
-// Create group message
-
-// Get group messages

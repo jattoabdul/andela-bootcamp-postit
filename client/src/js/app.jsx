@@ -11,13 +11,14 @@ import 'materialize-loader';
 import 'materialize-css'
 import 'materialize-css/dist/js/materialize.min';
 
-import js from './utils/htmlAction';
+import './utils/htmlAction';
 import { Home,
     Register,
     Login,
     Dashboard,
     CreateGroupBoard,
     AddUserBoard,
+    MessageBoard,
     NotFound } from './components/mains'; 
 import rootReducer from './rootReducer.js';
 import '../styles/index.scss';
@@ -39,7 +40,7 @@ const token = sessionStorage.getItem('user');
 if (token) {
     const userDetails = JSON.parse(token);
     const decodedUserDetails = jwt.decode(userDetails.token);
-    console.log(decodedUserDetails, 'user info');
+    // console.log(decodedUserDetails, 'user info');
     store.dispatch(setCurrentUser(decodedUserDetails));
 }
 
@@ -53,12 +54,9 @@ if (token) {
                 <Route exact path="/register" component={Register}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/dashboard" component={Dashboard}/>
-                <Route
-                    path="/create-group"
-                    component={CreateGroupBoard}/>
-                <Route
-                    path="/add/:groupId/user"
-                    component={AddUserBoard}/>
+                <Route path="/create-group" component={CreateGroupBoard}/>
+                <Route path="/add/:groupId/user" component={AddUserBoard}/>
+                <Route exact path="/dashboard/:groupId/message" component={MessageBoard}/>
                 <Route component={NotFound}/>
             </Switch>
         </Router>

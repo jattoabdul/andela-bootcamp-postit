@@ -1,9 +1,12 @@
 import React from "react";
+import ReactDOM from 'react-dom';
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { logout } from './../../actions/loginActions';
-import { addUserToGroup, fetchUserGroups } from './../../actions/groupActions';
+import { addUserToGroup,
+    fetchUserGroups,
+    sideBarSetCurrentGroup } from './../../actions/groupActions';
 
 class SideMenu extends React.Component {
 
@@ -11,20 +14,32 @@ class SideMenu extends React.Component {
       super(props)
 
       this.onLogout = this.onLogout.bind(this);
-      // this.onAddToGroup = this.onAddToGroup.bind(this);
+      this.onAddToGroup = this.onAddToGroup.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchUserGroups();
   }
-    
-  // onAddToGroup(e) {
-  //     e.preventDefault();
-  //     const groupId = this.props.group.currentGroup.id;
-  //     console.log(groupId);
-  //     // redirecting to add user to group component
-  //     this.props.history.push(`/add/${groupId}/user`);
-  // }
+
+  onAddToGroup(e) {
+      e.preventDefault();
+      const groupId = this.props.group.currentGroup.id;
+    //   const groupId =this.props.match.params.groupId;
+    //   console.log(groupId);
+      // redirecting to add user to group component
+      this.props.history.push(`/add/${groupId}/user`);
+  }
+
+  onOpenGroup(group){
+    // e.preventDefault();
+    // fire setCurrentGroupDetails Action
+    this.props.sideBarSetCurrentGroup(group);
+    const groupId = group.id;
+    // redirecting to group message board
+    // console.log(`setting current group ${groupId} on messageBoard`, group);
+    this.props.history.push(`/dashboard/${groupId}/message`);
+  }
+
   onLogout(){
       this.props.logout();
       // redirecting
@@ -34,11 +49,11 @@ class SideMenu extends React.Component {
   render() {
        const { isAuthenticated, user } = this.props.login;
        const { groups, isLoadingGroup } = this.props.group;
-       console.log(user, 'sidemenu bastard props');
+    //    console.log(user, 'sidemenu bastard props');
 
       const GroupItems = ({name, onClick}) => {
-        // const className = isSelected ? "teal-text" : "white-text";
-        const className = "white-text";
+        // const className = isSelected ? "channels teal-text" : "channels white-text";
+        const className = "channels white-text";
         return (
           <li onClick={onClick} className={className}>{name}</li>
         );
@@ -48,7 +63,10 @@ class SideMenu extends React.Component {
         <div id="roomsView"
             className="col s2 m3 l2 blue-grey darken-4 white-text">
             <div className="right-align">
-            <i className="icon ion-navicon x3 waves-effect waves-light button-collapse"></i>
+            <Link to="/dashboard">
+                <i  className={`icon ion-home x3 waves-effect
+                    waves-light`}></i>
+            </Link>
             </div>
             <img className="profilePic"
                 src={ user === null ?
@@ -63,6 +81,11 @@ class SideMenu extends React.Component {
             <br/>
             <h4 className="sideheading">
                 Groups <i className="icon ion-ios-people"></i>
+                <span className="right">
+                <Link to="/create-group">
+                    <i className="icon ion-android-add-circle"></i>
+                </Link>
+                </span>
             </h4>
             <ul>
                 {
@@ -71,7 +94,7 @@ class SideMenu extends React.Component {
                     {/* const is_selected = selectedChannelId === userGroup.id; */}
                     {/* const onChannelSelect = () => openAndSelectChannel(userGroup.id); */}
                     {/* isSelected={is_selected} */}
-                    const onChannelSelect = () => console.log('selecting group with ID:', userGroup.id);
+                    const onChannelSelect = () => this.onOpenGroup(userGroup);
                     return <GroupItems key={userGroup.id} name={userGroup.name}
                       onClick={onChannelSelect} />
                   }) : <li>Group Loading ...</li>
@@ -80,6 +103,7 @@ class SideMenu extends React.Component {
 
             <div className="buttomNavs container">
                 <span
+                    onClick={this.onAddToGroup}
                     className="left">
                     <i className="icon ion-person-add"></i>
                 </span>
@@ -103,11 +127,14 @@ function mapStateToProps(state){
 
 const mapDispatchToProps = {
     logout,
-    fetchUserGroups
+    fetchUserGroups,
+    sideBarSetCurrentGroup
 }
 
 SideMenu.PropTypes = {
     logout: PropTypes.func.isRequired,
+    fetchUserGroups: PropTypes.func.isRequired,
+    sideBarSetCurrentGroup: PropTypes.func.isRequired,
     group: PropTypes.object.isRequired
 }
 

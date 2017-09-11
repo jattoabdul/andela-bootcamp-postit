@@ -73,12 +73,16 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
-      Hammer: 'hammerjs/hammer'
+      Hammer: 'hammerjs/hammer',
+      createDayLabel: 'jquery',
+      createWeekdayLabel: 'jquery',
+      activateOption: 'jquery',
+      leftPosition: 'jquery'
     })
   ], // plugins
   devServer: {
     proxy: {
-      '/api': 'http://localhost:7000'
+      '/api/v1': 'http://localhost:7000'
     },
     hot: true,
     historyApiFallback: true

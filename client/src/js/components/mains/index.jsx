@@ -4,6 +4,7 @@ import Login from './login';
 import Dashboard from './dashboard';
 import CreateGroupBoard from './createGroupBoard';
 import AddUserBoard from './addUserBoard';
+import MessageBoard from './messageBoard';
 import NotFound from './notFound';
 
 export { Home,
@@ -12,4 +13,5 @@ export { Home,
   Dashboard,
   CreateGroupBoard,
   AddUserBoard,
+  MessageBoard,
   NotFound };

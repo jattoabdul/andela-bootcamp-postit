@@ -9,9 +9,13 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_GROUP_MESSAGES:
-      return action.groupMessages;
+      return {
+        groupMessages: [...action.groupMessages]
+      };
     case CREATE_GROUP_MESSAGE:
-      return [...state, action.message];
+      return {
+        groupMessage: [action.groupMessages, ...state]
+      };
     default:
       return state;
   }
