@@ -1,41 +1,82 @@
 import React from "react";
+import ReactDOM from 'react-dom';
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import classNames from 'classnames';
-// import Api from "../../utils/api";
-import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
+import Api from "../../utils/api";
 import { SideMenu, MainNav } from "./../partials/";
-import FlashMessageList from './../flash/FlashMessagesList';
-import { logout } from './../../actions/loginActions';
-
+import { onLogoutUser } from "../../actions/authAction";
+import { fetchUserGroups } from "../../actions/groupAction";
+import '../../../styles/index.scss';
 
 class Dashboard extends React.Component {
-
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: "",
+      userGroups: null,
+      username: "",
+      fullName: ""
+    };
+    this.onLogOut = this.onLogOut.bind(this);
+    this.callToaster = this.callToaster.bind(this);
+  }
+  // check if user is authenticated!
+  componentWillMount() {
+    if (sessionStorage.getItem("user") === null) {
+      // eslint-disable-next-line
+      this.props.history.push(`/login`);
+      return;
     }
+    console.log("#1")
+    this.props.fetchUserGroups();    
+  }
 
-    componentWillMount() {
-        if (sessionStorage.getItem('user') === null) {
-            this.props.history.push('/login');
-            return;
-          }
-    }
+
+
+  componentWillReceiveProps(nextProps){
+    console.log(`nextProps this item:`, nextProps);
+    const { authData: { currentUserData },
+            groupData: { userGroups } } = this.props;
+    console.log(343434, currentUserData);
+    this.setState({
+        userGroups: !isEmpty(userGroups) ? userGroups : null,
+        username: !isEmpty(currentUserData) && !isEmpty(currentUserData.data) ? currentUserData.data.username : 'no name',
+        fullName: !isEmpty(currentUserData) && !isEmpty(currentUserData.data) ? currentUserData.data.fullName : 'no full name',
+        }, () => {
+            // this.callToaster(this.state.username)
+        });
+  }
+
+  onLogOut() {
+    this.props.onLogoutUser();
+    // redirecting
+    this.props.history.push('/login');
+  }
+
+
+  callToaster(username){
+    // Add a toastr welcome mesage here.
+    Materialize.toast(`Welcome ${username}, let's PostiT`, 4000);
+  }
   render() {
-      const { isAuthenticated, user } = this.props.login;
+      const { fullName, username, userGroups } = this.state;
     return (
         <div id="dashContainer" className="teal lighten-5">
             <div id="appContainer" className="row no-marginbtm">
                 <SideMenu
-                    isAuthenticated={isAuthenticated}
-                    user={user} />
+                    {...this.props}
+                    username={username}
+                    fullName={fullName}
+                    userGroups={userGroups}
+                    handleLogout={this.onLogOut}/>
                 <div id="appBoard" className="col s10 m9 l10 no-padding">
                     <MainNav />
                     <br/>
                     <div id="chatArea" className="white-text">
-                        <FlashMessageList />
                         <div className="card-panel welcome teal-text">
-                            <h2 className="center-align">Welcome {user.data.fullName}</h2>
+                            <h2 className="center-align">Welcome {fullName}</h2>
                             <h4 className="left-align center">
                                 You don&rsquo;t have to shout. <br/>
                                 <span className="right-align flow-text">
@@ -58,10 +99,10 @@ class Dashboard extends React.Component {
                             <div className="col m4">
                                 <p>
                                     <span className="flow-text or">or </span> &nbsp;
-                                    <a className="btn createGroup waves-effect"
-                                        href="/create-group">
+                                    <Link className="btn createGroup waves-effect"
+                                        to="/dashboard/create-group">
                                         Create Group
-                                    </a>
+                                    </Link>
                                 </p>
                             </div>
                             <br/><br/><br/><br/>
@@ -92,14 +133,24 @@ class Dashboard extends React.Component {
   }
 }
 
-Dashboard.PropTypes = {
-    login: PropTypes.object.isRequired
-}
- 
-function mapStateToProps(state){
-  return {
-      login: state.login
-  }
+Dashboard.propTypes = {
+    fetchUserGroups: PropTypes.func.isRequired,
+    onLogoutUser: PropTypes.func,
+    groupData: PropTypes.object.isRequired,
+    authData: PropTypes.object.isRequired
 }
 
-export default connect(mapStateToProps)(withRouter(Dashboard));
+const mapDispatchToProps = {
+    fetchUserGroups,
+    onLogoutUser
+}
+
+function mapStateToProps({ authData, groupData }){
+    console.log(authData.currentUserData)
+    return {
+        authData,
+        groupData
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Dashboard));

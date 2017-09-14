@@ -1,7 +1,7 @@
 import React from "react";
 // import { connect } from "react-redux";
 // import Api from "../../utils/api";
-// import "./../../stylesheet/App.css"; // Home.scss
+import '../../../styles/index.scss';
 
 class UserView extends React.Component {
   // constructor(props) {

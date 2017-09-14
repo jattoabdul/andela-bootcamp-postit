@@ -1,51 +1,55 @@
+import Api from '../utils/api';
 import {
-  CREATE_USER_GROUP,
-  GET_USER_GROUPS,
-  GETTING_USER_GROUP,
   SET_CURRENT_GROUP,
-  SET_MATCHING_USERS,
-  ADD_USER_TO_GROUP } from '../actions/types';
+  REMOVE_CURRENT_GROUP,
+  ADD_GROUP_SUCCESS,
+  ADD_GROUP_FAIL,
+  GET_GROUPS,
+  GET_GROUPS_SUCCESS,
+  GET_GROUPS_FAIL,
+  ADD_USER_SUCCESS,
+  ADD_USER_FAIL } from '../constants';
 
 const initialState = {
-  groups: [],
+  userGroups: [],
   currentGroup: {},
   matchedUsers: [],
-  isLoadingGroup: false,
+  groupError: {},
+  isLoadingGroups: false,
   userAdded: false
 };
 
+const groupData = (state = initialState, action) => {
+  const {
+    type,
+    userGroups,
+    groupError,
+    currentGroup,
+    matchedUsers,
+    isLoadingGroups,
+    userAdded } = action;
 
-export default (state = initialState, action = {}) => {
-  switch (action.type) {
-    case GET_USER_GROUPS:
+  switch (type) {
+    case GET_GROUPS:
       return {
-        groups: [...action.groups],
-        isLoadingGroup: false
+        ...state,
+        isLoadingGroups: !isLoadingGroups
       };
-    case GETTING_USER_GROUP:
+    case GET_GROUPS_SUCCESS:
       return {
-        isLoadingGroup: action.isLoadingGroup
+        ...state,
+        userGroups: [...userGroups],
+        isLoadingGroups: false
       };
-    case SET_CURRENT_GROUP:
-      // console.log(action.currentGroup);
+    case GET_GROUPS_FAIL:
       return {
-        currentGroup: action.currentGroup
-      };
-    case CREATE_USER_GROUP:
-      return {
-        groups: [action.groups, ...state]
-      };
-    case ADD_USER_TO_GROUP:
-      // console.log(action.userAdded);
-      return {
-        userAdded: action.userAdded
-      };
-    case SET_MATCHING_USERS:
-      // console.log(action.matchedUsers);
-      return {
-        matchedUsers: [...action.matchedUsers, ...state]
+        ...state,
+        userGroups,
+        isLoadingGroups: false
       };
     default:
       return state;
   }
 };
+
+export default groupData;

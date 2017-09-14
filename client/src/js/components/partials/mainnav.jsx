@@ -1,6 +1,7 @@
 import React from "react";
 // import { connect } from "react-redux";
 // import Api from "../../utils/api";
+import '../../../styles/index.scss';
 
 class MainNav extends React.Component {
 
