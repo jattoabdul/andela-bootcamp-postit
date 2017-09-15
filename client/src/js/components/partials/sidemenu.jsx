@@ -10,6 +10,7 @@ import '../../../styles/index.scss';
 class SideMenu extends React.Component {
   constructor(props) {
     super(props);
+    console.log(`props:`, props);
     // this.onShowGroupMessages = this.onShowGroupMessages.bind(this);
     this.state = {
       error: "",
@@ -20,12 +21,12 @@ class SideMenu extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    const {username, fullName, userGroups } = this.props
-    console.log(username, fullName, userGroups)
+    const {username, fullName, userGroups } = nextProps;
+    console.log('am logging usergroups', userGroups);
     this.setState({
         userGroups: !isEmpty(userGroups) ? userGroups : null,
-        username: username? username : 'i dont know',
-        fullName:  fullName ? fullName : 'not set',
+        username: username? username : '',
+        fullName:  fullName ? fullName : '',
         });
   }
 
@@ -100,10 +101,10 @@ class SideMenu extends React.Component {
 
 
 SideMenu.propTypes = {
-    fetchUserGroups: PropTypes.func.isRequired,
-    handleLogout: PropTypes.func.isRequired,
-    groupData: PropTypes.object.isRequired,
-    authData: PropTypes.object.isRequired
+    fetchUserGroups: PropTypes.func,
+    handleLogout: PropTypes.func,
+    groupData: PropTypes.object,
+    authData: PropTypes.object
 }
 
 export default withRouter(SideMenu);

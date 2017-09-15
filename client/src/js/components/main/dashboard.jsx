@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from 'react-dom';
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
@@ -29,24 +28,25 @@ class Dashboard extends React.Component {
       this.props.history.push(`/login`);
       return;
     }
-    console.log("#1")
-    this.props.fetchUserGroups();    
+    this.props.fetchUserGroups();
   }
 
 
 
   componentWillReceiveProps(nextProps){
-    console.log(`nextProps this item:`, nextProps);
-    const { authData: { currentUserData },
-            groupData: { userGroups } } = this.props;
-    console.log(343434, currentUserData);
+    const { authData: { currentUserData},
+            groupData: { userGroups } } = nextProps;
+    console.log(`userGroups on dashboard:`, userGroups);
     this.setState({
         userGroups: !isEmpty(userGroups) ? userGroups : null,
-        username: !isEmpty(currentUserData) && !isEmpty(currentUserData.data) ? currentUserData.data.username : 'no name',
-        fullName: !isEmpty(currentUserData) && !isEmpty(currentUserData.data) ? currentUserData.data.fullName : 'no full name',
-        }, () => {
-            // this.callToaster(this.state.username)
+        username: !isEmpty(currentUserData) && !isEmpty(currentUserData.data)
+         ? currentUserData.data.username : '',
+        fullName: !isEmpty(currentUserData) && !isEmpty(currentUserData.data)
+         ? currentUserData.data.fullName : '',
         });
+    if (currentUserData && currentUserData.data) {
+        this.callToaster(currentUserData.data.username);
+    }
   }
 
   onLogOut() {
@@ -146,7 +146,7 @@ const mapDispatchToProps = {
 }
 
 function mapStateToProps({ authData, groupData }){
-    console.log(authData.currentUserData)
+    console.log('ths is group data', groupData)
     return {
         authData,
         groupData

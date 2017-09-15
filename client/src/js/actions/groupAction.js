@@ -53,6 +53,7 @@ export const fetchUserGroups = () => (dispatch) => {
       dispatch(getGroupSuccess(userGroups));
     }
   ).catch((groupError) => {
+    console.log('groupError:', groupError);
     dispatch(getGroupFail(groupError));
   });
 };

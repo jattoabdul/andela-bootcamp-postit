@@ -12,7 +12,10 @@ class CreateGroupBoard extends React.Component {
     super(props);
     this.onCreateGroup = this.onCreateGroup.bind(this);
     this.state = {
-      error: ""
+      error: "",
+      userGroups: null,
+      username: "",
+      fullName: ""
     };
   }
 
@@ -44,10 +47,16 @@ class CreateGroupBoard extends React.Component {
   }
 
   render() {
+    const { fullName, username, userGroups } = this.state;
     return (
         <div id="dashContainer" className="teal">
             <div id="appContainer" className="row no-marginbtm">
-            <SideMenu />
+            <SideMenu
+                {...this.props}
+                username={username}
+                fullName={fullName}
+                userGroups={userGroups}
+                handleLogout={this.onLogOut}/>
             <div id="appBoard" className="col s10 m9 l10 no-padding">
                 <MainNav />
                 <br />
