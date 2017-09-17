@@ -35,7 +35,6 @@ export function loginFail(user) {
  * @return {*} empty
  */
 export function setCurrentUser(currentUserData) {
-  console.log('got here');
   return {
     type: SET_CURRENT_USER,
     currentUserData

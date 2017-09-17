@@ -1,8 +1,4 @@
 import React from "react";
-// import { connect } from "react-redux";
-// import registerUser from "../../actions/registerUser";
-// import api from "../helpers/api";
-// import { MessageItem } from "./../partials/";
 import '../../../styles/index.scss';
 
 class MessageInputForm extends React.Component {
@@ -56,7 +52,3 @@ class MessageInputForm extends React.Component {
 }
 
 export default MessageInputForm;
-
-// <button className="col s3 m2 btn-large waves-effect waves-light">
-//   Send
-// </button>

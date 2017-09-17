@@ -38,7 +38,6 @@ class Login extends React.Component {
     username = username.trim();
     password = password;
     if (username !== "" && password !== '') {
-      console.log(`this.state:`, this.state);
       this.props.onLoginUser(this.state)
       .then(
           () => {

@@ -6,8 +6,7 @@ import 'materialize-loader';
 import 'materialize-css'
 import 'materialize-css/dist/js/materialize.min';
 // import jwt from 'jsonwebtoken';
-// import Reveal from "react-reveal";
-// import "animate.css/animate.css";
+
 import { setCurrentUser } from './actions/authAction.js';
 import '../styles/index.scss';
 import configureStore from "./stores/configureStore";
@@ -23,7 +22,8 @@ import { Home,
         MessageBoard,
         CreateGroupBoard,
         AddUserToGroupBoard } from "./components/main";
-// import { Auth } from "./components/containers";
+import BaseDashboard from "./containers/dashboard";
+
 import registerServiceWorker from "./registerServiceWorker";
 
 const store = configureStore();
@@ -40,14 +40,7 @@ render(
                 component={UpdatePassword}/>
             <Route path="/register" component={Register}/>
             <Route path="/login" component={Login}/>
-            <Route exact path="/dashboard" component={Dashboard}/>
-            <Route path="/dashboard/:groupId/addusertogroup"
-                component={AddUserToGroupBoard}/>
-            <Route exact path="/dashboard/messages/:groupId" component={MessageBoard}/>
-            <Route
-                exact path="/dashboard/create-group"
-                component={CreateGroupBoard}/>
-            <Route component={NotFound}/>
+            <Route path="/dashboard" component={BaseDashboard}/>
         </Switch>
     </Router>
 </Provider>, app);
