@@ -9,7 +9,7 @@ import {
 
 
 /**
- * @param {*} empty
+ * @param {*} user
  * @return {*} empty
  */
 export function loginSuccess(user) {
@@ -20,7 +20,7 @@ export function loginSuccess(user) {
 }
 
 /**
- * @param {*} empty
+ * @param {*} user
  * @return {*} empty
  */
 export function loginFail(user) {
@@ -31,7 +31,7 @@ export function loginFail(user) {
 }
 
 /**
- * @param {*} empty
+ * @param {*} currentUserData
  * @return {*} empty
  */
 export function setCurrentUser(currentUserData) {
@@ -63,8 +63,9 @@ export function logoutSuccess() {
 
 
 export const onLoginUser = user => (dispatch) => {
-  const username = user.username,
-    password = user.password;
+  const { username, password } = user;
+  // const username = user.username,
+  //   password = user.password;
   const userString = `username=${username}&password=${password}`;
   return Api(userString, '/api/v1/users/signin', 'POST', null).then(
     (loginRes) => {
@@ -91,11 +92,12 @@ export const onLoginUser = user => (dispatch) => {
 
 
 export const onRegisterUser = userData => (dispatch) => {
-  const username = userData.username,
-    fullName = userData.fullName,
-    email = userData.email,
-    password = userData.password,
-    phoneNumber = userData.phoneNumber;
+  const { username, fullName, email, password, phoneNumber } = userData;
+  // const username = userData.username,
+  //   fullName = userData.fullName,
+  //   email = userData.email,
+  //   password = userData.password,
+  //   phoneNumber = userData.phoneNumber;
   const userString = `username=${username}&fullName=${fullName}&email=${email}
       &password=${password}&phoneNumber=${phoneNumber}`;
   return Api(userString, '/api/v1/users/signup', 'POST', null);

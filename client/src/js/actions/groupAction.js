@@ -20,7 +20,7 @@ import {
 
 
 /**
- * @param {*} empty
+ * @param {*} void
  * @return {*} empty
  */
 export function getGroup() {
@@ -63,7 +63,7 @@ export function setCurrentGroup(currentGroup) {
 }
 
 /**
- * @param {*} empty
+ * @param {*} void
  * @return {*} empty
  */
 export function removeCurrentGroup() {
@@ -84,7 +84,7 @@ export function addGroupFail(addError) {
 }
 
 /**
- * @param {*} empty
+ * @param {*} void
  * @return {*} empty
  */
 export function getGroupMessages() {
@@ -105,7 +105,7 @@ export function getGroupMessagesSuccess(groupMessages) {
 }
 
 /**
- * @param {*} empty
+ * @param {*} void
  * @return {*} empty
  */
 export function addMessage() {
