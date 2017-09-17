@@ -14,7 +14,7 @@ ratings:
     - "server/*.js"
     - "server/**/*.js"
   exclude_paths:
-    - "server/tests/"
+    - "tests/"
     - node_modules/
     - bower_components/
     - client/build/

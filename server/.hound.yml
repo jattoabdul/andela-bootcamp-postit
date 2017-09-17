@@ -1,9 +1,0 @@
-scss:
-  enabled: true
-exclude:
-  - "template/**"
-sass-lint:
-  enabled: true
-eslint:
-  enabled: true
-  config: ../.eslintrc

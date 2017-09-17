@@ -4,19 +4,20 @@
  */
 
 // importing services
-import Nexmo from "nexmo";
-import nodemailer from "nodemailer";
-import models from "../models/db";
+import Nexmo from 'nexmo';
+import nodemailer from 'nodemailer';
+// import _ from "lodash";
+import models from '../models/db';
 
 let userID = 0;
 
 const sendEmail = (email, message, priority) => {
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: 'gmail',
     port: 465,
     auth: {
-      user: "jattoade@gmail.com",
-      pass: "jasabs93"
+      user: 'jattoade@gmail.com',
+      pass: 'jasabs93'
     }
   });
 
@@ -29,9 +30,10 @@ const sendEmail = (email, message, priority) => {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      return console.log(error);
+      // console.log(error);
+      return error;
     }
-    console.log(`Message ${info.messageId} sent: ${info.response}`);
+    // console.log(`Message ${info.messageId} sent: ${info.response}`);
     return info;
   });
 };
@@ -42,10 +44,12 @@ const fetchMembersEmail = groupId =>
       where: {
         id: groupId
       },
-      attributes: ["id"]
+      attributes: ['id']
     })
       .then((group) => {
-        group.getUsers({ attributes: ["id", "username", "email", "phoneNumber"] })
+        group.getUsers({
+          attributes: ['id', 'username', 'email', 'phoneNumber']
+        })
           .then((users) => {
             resolve(users);
           });
@@ -54,9 +58,9 @@ const fetchMembersEmail = groupId =>
 
 export default {
   sendMsg(req, res) {
-    const userName = req.authToken.data;
-    if (!req.body.text || req.body.text.trim() === "") {
-      res.status(400).send({ message: "cannot send empty message" });
+    const userName = req.authToken.data.username;
+    if (!req.body.text || req.body.text.trim() === '') {
+      res.status(400).send({ message: 'cannot send empty message' });
       return;
     }
 
@@ -72,22 +76,23 @@ export default {
             userId: userID,
             groupId: req.params.id,
             text: req.body.text,
-            priority: req.body.priority
+            priority: req.body.priority,
+            readBy: [`${userName}`]
           })
           .then((message) => {
-            if (req.body.priority === "Critical") {
+            if (req.body.priority === 'Critical') {
               fetchMembersEmail(req.params.id).then(
                 (results) => {
-                  console.log("========>resolved critical res", results.map(result => result.dataValues.email)
-                  );
+                  // console.log('========>resolved critical res',
+                  //   results.map(result => result.dataValues.email));
                   results.map((result) => {
                     sendEmail(result.dataValues.email,
-                      `${userID}: ${req.body.text}`, "Critical");
+                      `${userID}: ${req.body.text}`, 'Critical');
 
                     // send sms notification
                     const nexmo = new Nexmo({
-                      apiKey: "2a78b29f",
-                      apiSecret: "acf27ddd3a3ed3b3"
+                      apiKey: '2a78b29f',
+                      apiSecret: 'acf27ddd3a3ed3b3'
                     });
                     const frmUser = `${user.phoneNumber}`;
                     const toUser = `${result.dataValues.phoneNumber}`;
@@ -99,10 +104,11 @@ export default {
                     \n${userID}: ${req.body.text}`,
                         (err, responseData) => {
                           if (err) {
-                            console.log(err);
-                          } else {
-                            console.log(responseData);
+                            // console.log(err);
+                            return err;
                           }
+                          // console.log(responseData);
+                          return responseData;
                         }
                       );
                     }
@@ -110,14 +116,14 @@ export default {
                   });
                 });
             }
-            if (req.body.priority === "Urgent") {
+            if (req.body.priority === 'Urgent') {
               fetchMembersEmail(req.params.id).then(
                 (results) => {
-                  console.log("========>resolved urgent res", results.map(result => result.dataValues.email)
-                  );
+                  // console.log('========>resolved urgent res',
+                  //   results.map(result => result.dataValues.email));
                   results.map(result =>
                     sendEmail(result.dataValues.email,
-                      `${userID}: ${req.body.text}`, "Urgent"));
+                      `${userID}: ${req.body.text}`, 'Urgent'));
                 });
             }
             res.status(201).send(message);
@@ -131,20 +137,42 @@ export default {
       .findAll({
         where: { groupId: [req.params.id] },
         attributes: [
-          "id",
-          "text",
-          "userId",
-          "groupId",
-          "priority",
-          "createdAt"
+          'id',
+          'text',
+          'userId',
+          'groupId',
+          'priority',
+          'readBy',
+          'createdAt'
         ],
         include: [{
           model: models.Users,
-          attributes: ["id", "username", "fullName"],
-          as: "user"
+          attributes: ['id', 'username', 'fullName'],
+          as: 'user'
         }]
       })
       .then(messages => res.status(200).send(messages))
       .catch(error => res.status(404).send(error));
+  },
+  updateReadBy(req, res) {
+    models.Messages
+      .findOne({
+        where: {
+          id: req.body.id
+        }
+      })
+      .then((message) => {
+        const userName = req.authToken.data.username;
+        // console.log('==========> message readby: ', message.readBy);
+        if (message.readBy.includes(userName) === false) {
+          message.readBy.push(userName);
+          message.update({
+            readBy: message.readBy
+          });
+          return res.status(200).send(message);
+        }
+        res.status(200).send({ message: 'message has been read by you' });
+      })
+      .catch(error => res.status(400).send(error));
   }
 };

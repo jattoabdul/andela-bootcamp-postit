@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const Messages = sequelize.define("Messages", {
+  const Messages = sequelize.define('Messages', {
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -24,33 +24,37 @@ export default (sequelize, DataTypes) => {
     },
     priority: {
       type: DataTypes.STRING,
-      defaultValue: "Normal",
+      defaultValue: 'Normal',
       allowNull: false,
       validate: {
-        isIn: [["Normal", "Urgent", "Critical"]]
+        isIn: [['Normal', 'Urgent', 'Critical']]
       }
     },
     isArchived: {
       type: DataTypes.ENUM,
-      values: ["0", "1"],
-      defaultValue: "0",
+      values: ['0', '1'],
+      defaultValue: '0',
       validate: {
-        isIn: [["0", "1"]]
+        isIn: [['0', '1']]
       }
+    },
+    readBy: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false
     }
   });
 
   // associations can be defined here
   Messages.associate = (models) => {
     Messages.belongsTo(models.Users, {
-      as: "user",
-      foreignKey: "userId"
+      as: 'user',
+      foreignKey: 'userId'
     });
 
-    // Messages.belongsTo(models.Groups, {
-    //   as: "group",
-    //   foreignKey: "groupId"
-    // });
+    Messages.belongsTo(models.Groups, {
+      as: 'group',
+      foreignKey: 'groupId'
+    });
   };
   return Messages;
 };

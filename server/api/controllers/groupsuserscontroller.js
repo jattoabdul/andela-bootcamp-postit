@@ -3,22 +3,20 @@
  * handles every groups users related task and authentication
  */
 
-
-// importing services
-import models from "../models/db";
+import models from '../models/db';
 
 // let userName = "";
 export default {
   addMember(req, res) {
     if (!req.body.userId) {
       res.status(400)
-        .send({ error: { message: "userId parameter is required" } });
+        .send({ error: { message: 'userId parameter is required' } });
       return;
     }
 
     if (!req.params.id) {
       res.status(400)
-        .send({ error: { message: "GroupId parameter is required" } });
+        .send({ error: { message: 'GroupId parameter is required' } });
       return;
     }
 
@@ -33,7 +31,7 @@ export default {
         if (response) {
           return res.status(400)
             .send({
-              error: { message: "user already exist in group" }
+              error: { message: 'user already exist in group' }
             });
         }
         // models.Users
@@ -52,7 +50,7 @@ export default {
           .create({
             userId: req.body.userId,
             groupId: req.params.id,
-            isAdmin: "0"
+            isAdmin: '0'
           })
           .then((result) => {
             res.status(201).send(result);
@@ -69,9 +67,9 @@ export default {
         include: [{
           model: models.Users,
           through: {
-            attributes: ["id", "username"],
+            attributes: ['id', 'username'],
           },
-          as: "users"
+          as: 'users'
         }]
       })
       .then((members) => {
@@ -110,7 +108,7 @@ export default {
       models.GroupsUsers
         .findAll({
           where: { groupId: req.params.id },
-          attributes: ["userId"]
+          attributes: ['userId']
         })
         .then((groupUsers) => {
           const groupUsersId = groupUsers
@@ -118,9 +116,12 @@ export default {
           models.Users
             .findAll({
               where: {
-                username: { $like: `%${req.query.search}%` }
+                username: {
+                  $like: `%${req.query.search}%`
+                }
               },
-              attributes: ["id", "username", "fullName"]
+              limit: 10,
+              attributes: ['id', 'username', 'fullName']
             })
             .then((searchItemResult) => {
               const data = {
@@ -134,3 +135,6 @@ export default {
     }
   }
 };
+
+// ,
+// $notIn: groupUsersId
