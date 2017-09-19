@@ -23,16 +23,12 @@ class BaseDashboard extends Component {
 			username: "",
 			fullName: ""
 		};
-		// this.gotoAddUserToGroup = this.gotoAddUserToGroup.bind(this);
+		this.addAUser = this.addAUser.bind(this);
 		this.openMessageBoard = this.openMessageBoard.bind(this);
 		this.onLogOut = this.onLogOut.bind(this);
 	}
 	// check if user is authenticated!
 	componentWillMount() {
-		if (sessionStorage.getItem("user") === null) {
-			this.props.history.push(`/login`);
-			return;
-		}
 		this.props.fetchUserGroups();
 	}
 
@@ -59,16 +55,16 @@ class BaseDashboard extends Component {
 	// 	this.props.history.push(`/dashboard/${groupId}/addusertogroup`);
 	// }
 
-	openMessageBoard(group, groupId){
+	openMessageBoard(group){
 		//setCurrentGroup in redux store
 		this.props.setSelectedGroupAsCurrent(group);
 		//call load messages action on enter of group
-		this.props.fetchMessages(groupId).then(
-      (item) => {
-        // redirect to the message board
-        this.props.history.push(`/dashboard/messages/${groupId}`);
-      }
-    );
+			this.props.fetchMessages(group.id).then(
+				(item) => {
+						// redirect to the message board
+						this.props.history.push(`/dashboard/messages/${group.id}`);
+					}
+			);
 	}
 
 	onLogOut() {
@@ -76,6 +72,21 @@ class BaseDashboard extends Component {
 		// redirecting
 		this.props.history.push('/login');
 	}
+
+	// add a user to currentGroup
+	  addAUser(){
+			const path = this.props.location.pathname;
+			const isInGroup= !!path.match('/dashboard/message');
+			if (!isInGroup) {
+				Materialize.toast('Please Select A Group', 2000);
+			}
+			else if(isInGroup) {
+				const locationUrl =this.props.location.pathname;
+				const groupId = locationUrl.split('/')[3];
+				// console.log(groupId);
+				this.props.history.push(`/dashboard/${groupId}/addusertogroup`);
+			}
+	  }
 
 	render() {
 		const { fullName, username, userGroups, currentGroup } = this.state;
@@ -90,7 +101,8 @@ class BaseDashboard extends Component {
 							userGroups={userGroups}
 							currentGroup={currentGroup}
 							handleOpenMessageBoard={this.openMessageBoard}
-							handleLogout={this.onLogOut} />
+							handleLogout={this.onLogOut}
+							handleAddUserToGroup={this.addAUser} />
 						<div id="appBoard" className="col s10 m9 l10 no-padding">
 							<MainNav />
 							<div className="containers">

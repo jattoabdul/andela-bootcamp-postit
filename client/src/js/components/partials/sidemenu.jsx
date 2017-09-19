@@ -27,16 +27,23 @@ class SideMenu extends React.Component {
 			fullName: fullName ? fullName : '',
 		});
 	}
-	//   add a user to group
-	//   addAUser(){
-	//     const groupId =this.props.match.params.groupId;
-	//     console.log('hello groupid of life', groupId)
-	//     this.props.gotoAddUserToGroup(groupId);
-	//   }
 
+	openNextMessageBoard(userGroup){
+		const { currentGroup } = this.state;
+		// get the crrentGroup Id from the location and strip out the url
+		const path = this.props.location.pathname;
+		const currGroupId = currentGroup && currentGroup.id;
+		const isloadedMessages= !!path.match('/dashboard/message');
+		if (!isloadedMessages) {
+			this.props.handleOpenMessageBoard(userGroup);
+		}
+		else if (isloadedMessages && currGroupId !== userGroup.id){
+			this.props.handleOpenMessageBoard(userGroup);
+		}
+	}
 
 	render() {
-		const { username, fullName, currentGroup } = this.state;
+		const { username, fullName, currentGroup, userGroups } = this.state;
 		return (
 			<div id="roomsView"
 				className="col s2 m3 l2 blue-grey darken-4 white-text">
@@ -63,22 +70,25 @@ class SideMenu extends React.Component {
 					{
 						this.props.userGroups !== null ?
 							this.props.userGroups
-								.map(userGroup => <li className="channels"
+								.map(userGroup =>  
+								<li className={currentGroup && (userGroup.id === currentGroup.id) ? 'channels activeChannel' : 'channels'}
 									key={userGroup.id}>
 									<a
-										onClick={() => this.props.handleOpenMessageBoard(userGroup, userGroup.id) }>
+									className={currentGroup && (userGroup.id === currentGroup.id) ? 'white-text' : 'wheat-text'}
+										onClick={() => this.openNextMessageBoard(userGroup) }>
 										{userGroup.name}
 									</a>
 								</li>)
 							: this.state.userGroups
 					}
 				</ul>
-				{/* this.onShowGroupMessages(userGroup.id) */}
 				<div className="buttomNavs container">
-					<a className="left channels">
+					<a className="left channels"
+						onClick={() => this.props.handleAddUserToGroup()}>
 						<i className="icon ion-person-add"></i>
 					</a>
-					<a onClick={() => this.props.handleLogout()} className="right channels">
+					<a onClick={() => this.props.handleLogout()}
+						className="right channels">
 						<i className="icon ion-android-exit"></i>
 					</a>
 				</div>

@@ -11,6 +11,9 @@ import '../../../styles/index.scss';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      hasShownToaster: false
+    }
     this.callToaster = this.callToaster.bind(this);
   }
 
@@ -24,7 +27,12 @@ class Dashboard extends React.Component {
 
   callToaster(username) {
     // Add a toastr welcome mesage here.
-    Materialize.toast(`Welcome ${username}, let's PostiT`, 4000);
+    if (this.state.hasShownToaster !== true) {
+      Materialize.toast(`Welcome ${username}, let's PostiT`, 3000);
+      this.setState({
+        hasShownToaster: true
+      });
+    }
   }
   render() {
     const { fullName, username } = this.props;

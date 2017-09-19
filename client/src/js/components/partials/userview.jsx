@@ -1,6 +1,4 @@
 import React from "react";
-// import { connect } from "react-redux";
-// import Api from "../../utils/api";
 import '../../../styles/index.scss';
 
 class UserView extends React.Component {
@@ -11,12 +9,23 @@ class UserView extends React.Component {
     return (
         <div className="white right col s1" id="usersScroll">
               <ul>
-                <li>
-                  <a>
-                    <img src="https://robohash.org/jattoade"
-                      alt="{this.props.username}"/>
-                  </a>
-                </li>
+                {
+                  this.props.activeMessageReaders !== [] ?
+                  this.props.activeMessageReaders.map(user => 
+                    <li key={user.id}>
+                      <a>
+                        <img src={`https://robohash.org/${user.username}`}
+                          alt={user.username}/>
+                      </a>
+                    </li>) :
+                    <li>
+                      <a>
+                        <img src="https://robohash.org/jatto"
+                          alt="jatto"/>
+                      </a>
+                    </li>
+                }
+                
               </ul>
               <span className="bottomSearch waves-effect waves-teal">
                 <i className="icon ion-ios-search teal-text x25"></i>

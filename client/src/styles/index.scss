@@ -1,3 +1,4 @@
+@import "~react-select/dist/react-select.css";
 @import "./variable";
 
 .x1 {
@@ -381,7 +382,33 @@ input#group_name-create, textarea#group_desc-create{
   cursor: pointer;
 }
 
+.activeChannel {
+  cursor: no-drop;
+}
+
 .containers {
   width: 100%;
   height: auto;
+}
+
+.Select-menu-outer { 
+  top: auto;
+  bottom: 100%;
+}
+
+.Select-control {
+  border-radius: 1px;
+  border: none;
+  border-bottom: 1px solid teal;
+  padding-top: 7px;
+  margin-top: 2px;
+}
+
+// react-select styling
+.Select-placeholder,
+.Select--single > .Select-control .Select-value {
+
+}
+.has-value.is-clearable.Select--single > .Select-control .Select-value {
+  padding-top: 5px !important;
 }

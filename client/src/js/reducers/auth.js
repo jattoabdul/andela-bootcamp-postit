@@ -49,9 +49,3 @@ const authData = (state = initialState, action) => {
 };
 
 export default authData;
-
-// return Object.assign(initialState, {
-//     isAuthenticated: !isEmpty(user),
-//     user
-// });
-

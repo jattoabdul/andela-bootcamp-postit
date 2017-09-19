@@ -18,42 +18,40 @@ class MessageBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupMessages: [],
+      groupMessages: !isEmpty(props.groupMessages) ? props.groupMessages : [],
       msg_err: '',
       username: '',
       fullName: '',
-      currentGroup: null,
+      currentGroup: !isEmpty(props.currentGroup) ? props.currentGroup : {},
       activeMessageReaders: []
     };
     this.appendChatMessage = this.appendChatMessage.bind(this);
     this.updateReadBy = this.updateReadBy.bind(this);
   }
+  
+  componentDidMount(){
+    
+  }
 
   componentWillReceiveProps(nextProps) {
 		const { authData: { currentUserData },
 			groupData: { currentGroup, groupMessages } } = nextProps;
-		console.log(`currentMessages on message component:`, groupMessages);
 		this.setState({
       username: !isEmpty(currentUserData) && !isEmpty(currentUserData.data)
       ? currentUserData.data.username : '',
       fullName: !isEmpty(currentUserData) && !isEmpty(currentUserData.data)
       ? currentUserData.data.fullName : '',
       groupMessages: !isEmpty(groupMessages) ? groupMessages : [],
-      currentGroup: !isEmpty(currentGroup) ? currentGroup : null
+      currentGroup: !isEmpty(currentGroup) ? currentGroup : null,
+      activeMessageReaders: !isEmpty(currentGroup) && !isEmpty(currentGroup.users) ? currentGroup.users : [],
 		});
   }
 
   appendChatMessage(priority, text) {
     const group = this.state.currentGroup;
     const groupId = group.id;
-    console.log('on message board on send message', groupId);
-    // const gId = `${this.props.match.params.groupId}`;
     // make Api call to send msg here
-    this.props.handleSendMessage(groupId, priority, text).then(
-      (item) => {
-        this.props.fetchMessages(groupId);
-      }
-    );
+    this.props.handleSendMessage(groupId, priority, text);
   }
 
   updateReadBy(id) {
@@ -61,22 +59,24 @@ class MessageBoard extends React.Component {
     const gId = `${this.props.match.params.groupId}`;
     Api(updateMessageParams, `/api/v1/groups/${gId}/message/read`, "POST")
       .then((response) => {
-        console.log("Response: ", response);
+        // console.log("Response: ", response);
       });
   }
 
   render() {
-    const { fullName, username, currentGroup, groupMessages } = this.state;
+    const { fullName, username, currentGroup, activeMessageReaders, groupMessages } = this.state;
     return (
       <div id="chatArea" className="white-text row no-marginbtm">
         <div id="chatBoard" className="col s11">
-          {/* this.state.messageBody ?
-              <MessageBody messages={this.state.messages}
-              closeMessageBody={this.closeMessageBody}/> : */}
-          <MessageList updateReadBy={this.updateReadBy}
-            username={username}
-            fullName={fullName}
-            messages={groupMessages} />
+          {
+            isEmpty(groupMessages) ?
+            <p className="center grey-text">No Messages Yet</p> :
+            <MessageList updateReadBy={this.updateReadBy}
+              username={username}
+              fullName={fullName}
+              messages={groupMessages} />
+
+          }
           <MessageInputForm appendChatMessage={this.appendChatMessage} />
         </div>
         <UserView activeMessageReaders={this.state.activeMessageReaders} />

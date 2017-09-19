@@ -165,27 +165,23 @@ export const createGroup = (name, desc) => (dispatch) => {
 
 
   // onSearchUserInGroup Method
-export const onSearchUser = (id, searchText) => (dispatch) => {
-  return Api(
-    null,
-    `/api/v1/groups/${id}/usersearch?search=${searchText}`,
-    'GET')
-    .then(
-      (userSearchResult) => {
-        return userSearchResult.searchItemResult;
-      }
-    );
-};
+export const onSearchUser = (id, searchText) => dispatch => Api(
+  null,
+  `/api/v1/groups/${id}/usersearch?search=${searchText}`,
+  'GET')
+  .then(
+    userSearchResult => userSearchResult.searchItemResult
+  );
 
   // onAddUserToGroup Method
 export const onAddUser = (userId, groupId) => (dispatch) => {
   const addUserParams = `userId=${userId}`;
   return Api(addUserParams, `/api/v1/groups/${groupId}/user/`, 'POST').then(
-    (addUserToGroupResponse) => {
+    addUserToGroupResponse =>
       // check if response, i.e user added, set message state to "user added"
       // check for users in a group and update UI to add mark icon
-      return addUserToGroupResponse;
-    }
+      addUserToGroupResponse
+
   );
 };
 
@@ -194,7 +190,7 @@ export const setSelectedGroupAsCurrent = group => (dispatch) => {
   dispatch(setCurrentGroup(group));
 };
 
-export const fetchMessages = groupId => (dispatch) => {
+const fetchTheMessages = (groupId, dispatch) => {
   dispatch(getGroupMessages());
   return Api(null, `/api/v1/groups/${groupId}/messages/`, 'GET').then(
     (groupMessages) => {
@@ -204,15 +200,32 @@ export const fetchMessages = groupId => (dispatch) => {
   );
 };
 
+export const fetchMessages = groupId => dispatch => fetchTheMessages(groupId, dispatch);
+
 export const handleSendMessage = (groupId, priority, text) => (dispatch) => {
   dispatch(addMessage());
   // make Api call to send msg here
   const messageParams = `text=${text}&&priority=${priority}`;
-  Api(messageParams, `/api/v1/groups/${groupId}/message/`, 'POST')
+  return Api(messageParams, `/api/v1/groups/${groupId}/message/`, 'POST')
     .then((messageResponse) => {
-      console.log('Response: ', ...messageResponse);
       dispatch(addMessageSuccess(messageResponse));
-      // fetchMessages(groupId);
+      fetchTheMessages(groupId, dispatch);
       return messageResponse;
     });
 };
+// TODO: fix this and abstract from messageboard component
+// export const updateReadBy = id => (dispatch) => {
+//   const updateMessageParams = `id=${id}`;
+//   const gId = `${this.props.match.params.groupId}`;
+//   // make API call to the read message endpoint
+//   Api(updateMessageParams, `/api/v1/groups/${gId}/message/read`, 'POST')
+//     .then((response) => {
+//       console.log('Response: ', response);
+//     });
+// };
+
+// TODO: fix users in a group and deleting user from group UI & backend
+
+// TODO: fix responsiveness css
+
+// TODO: abstract all other API calls in component

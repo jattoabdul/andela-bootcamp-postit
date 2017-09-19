@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import {
   SET_CURRENT_GROUP,
   REMOVE_CURRENT_GROUP,
@@ -21,6 +22,7 @@ const initialState = {
   groupError: {},
   addError: {},
   addMsgErr: {},
+  message: {},
   groupMessages: [],
   isLoadingMessages: false,
   isAddingMessage: false,
@@ -29,6 +31,7 @@ const initialState = {
 };
 
 const groupData = (state = initialState, action) => {
+  let newState = cloneDeep(state);
   const {
     type,
     userGroups,
@@ -38,8 +41,6 @@ const groupData = (state = initialState, action) => {
     currentGroup,
     matchedUsers,
     groupMessages,
-    isLoadingMessages,
-    isAddingMessage,
     message,
     isLoadingGroups,
     userAdded } = action;
@@ -47,73 +48,73 @@ const groupData = (state = initialState, action) => {
   switch (type) {
     case GET_GROUPS:
       return {
-        ...state,
+        ...newState,
         isLoadingGroups: !isLoadingGroups
       };
     case GET_GROUPS_SUCCESS:
       return {
-        ...state,
+        ...newState,
         userGroups: [...userGroups],
         isLoadingGroups: false
       };
     case GET_GROUPS_FAIL:
       return {
-        ...state,
+        ...newState,
         groupError,
         isLoadingGroups: false
       };
     case SET_CURRENT_GROUP:
       return {
-        ...state,
+        ...newState,
         currentGroup
       };
     case ADD_GROUP_FAIL:
       return {
-        ...state,
+        ...newState,
         addError
       };
     case REMOVE_CURRENT_GROUP:
       return {
-        ...state,
+        ...newState,
         currentGroup: {}
       };
     case RECEIVE_MESSAGES:
       return {
-        ...state,
-        isLoadingMessages: !isLoadingMessages,
+        ...newState,
+        isLoadingMessages: true,
         groupMessages: []
       };
     case RECEIVE_MESSAGES_SUCCESS:
       return {
-        ...state,
+        ...newState,
         groupMessages: [...groupMessages],
         isLoadingMessages: false
       };
     case RECEIVE_MESSAGES_FAIL:
       return {
-        ...state,
+        ...newState,
         groupMessages: [],
         isLoadingMessages: false
       };
     case ADD_MESSAGE:
       return {
-        ...state,
-        isAddingMessage: !isAddingMessage
+        ...newState,
+        isAddingMessage: true
       };
     case ADD_MESSAGE_SUCCESS:
       return {
-        ...state,
-        groupMessages: [...groupMessages, ...message],
+        ...newState,
+        message,
         isAddingMessage: false
       };
     case ADD_MESSAGE_FAIL:
       return {
-        ...state,
+        ...newState,
         isAddingMessage: false,
         addMsgErr
       };
     default:
-      return state;
+      return newState;
   }
 };
 
