@@ -1,10 +1,7 @@
 import React from "react";
-// import { connect } from "react-redux";
-// import Api from "../../utils/api";
 import '../../../styles/index.scss';
 
 class MainNav extends React.Component {
-
   render() {
     return (
         <nav className="blue-grey darken-4">
@@ -14,13 +11,13 @@ class MainNav extends React.Component {
               <i className="icon ion-speakerphone left x2"></i>
               <sub><small>you dont have to shout, just POSTiT</small></sub>
             </a>
-            <ul className="right">
+            {/* <ul className="right">
               <li>
                 <a href="" className="waves-effect waves-light">
                   <i className="icon ion-android-more-vertical"></i>
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </nav>
     );

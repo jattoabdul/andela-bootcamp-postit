@@ -68,7 +68,6 @@ export default (app) => {
   app.get('/api/v1/groups/', controllers.groupsController.viewGroups);
 
   // API route for the groupadmin to add other users to the group he created
-  // where :id is group id
   app.post('/api/v1/groups/:id/user/',
     controllers.groupsUsersController.addMember);
 
@@ -77,12 +76,10 @@ export default (app) => {
     controllers.groupsUsersController.searchMember);
 
   // API route for the groupadmin/users to remove users from group he created
-  // where :id is group id
   app.delete('/api/v1/groups/:id/user/',
     controllers.groupsUsersController.removeMember);
 
-  // API route 4 user 2 view users 4rm the current group he belongs/created
-  // where :id is group id
+  // API route for user to view users from the current group he/she belongs/created
   app.get('/api/v1/groups/:id/users/',
     controllers.groupsUsersController.viewMembers);
 

@@ -7,7 +7,9 @@ import { onLogoutUser } from "../../actions/authAction";
 import {
 	fetchUserGroups,
 	setSelectedGroupAsCurrent,
-	fetchMessages } from "../../actions/groupAction";
+	fetchMessages,
+	currentGroupMembers,
+	setSelectedGroupMembers } from "../../actions/groupAction";
 import DashboardRoutes from './dashboardRoute';
 import { SideMenu, MainNav } from "./../../components/partials/";
 
@@ -19,6 +21,7 @@ class BaseDashboard extends Component {
 			error: "",
 			userGroups: null,
 			currentGroup: null,
+			currentGroupMembers: null,
 			groupMessages: null,
 			username: "",
 			fullName: ""
@@ -37,7 +40,8 @@ class BaseDashboard extends Component {
 			groupData: {
 				userGroups,
 				currentGroup,
-				groupMessages } } = nextProps;
+				groupMessages,
+				currentGroupMembers } } = nextProps;
 		this.setState({
 			userGroups: !isEmpty(userGroups) ? userGroups : null,
 			username: !isEmpty(currentUserData) && !isEmpty(currentUserData.data)
@@ -45,20 +49,18 @@ class BaseDashboard extends Component {
 			fullName: !isEmpty(currentUserData) && !isEmpty(currentUserData.data)
 				? currentUserData.data.fullName : '',
 			currentGroup: !isEmpty(currentGroup) ? currentGroup : null,
-			groupMessages: !isEmpty(groupMessages) ? groupMessages : null
+			groupMessages: !isEmpty(groupMessages) ? groupMessages : null,
+			currentGroupMembers: !isEmpty(currentGroupMembers) ? currentGroupMembers : null
 		});
 	}
 
-	//add user to group called here for sidebar
-	// gotoAddUserToGroup(groupId) {
-	// 	// redirecting to add user to group component
-	// 	this.props.history.push(`/dashboard/${groupId}/addusertogroup`);
-	// }
-
 	openMessageBoard(group){
-		//setCurrentGroup in redux store
+		// setCurrentGroup in redux store
 		this.props.setSelectedGroupAsCurrent(group);
-		//call load messages action on enter of group
+		// get Group Members on enter of groups and fetching messages
+		this.props.setSelectedGroupMembers(group.id)
+			.then(usersItem => usersItem);
+		// call load messages action on enter of group
 			this.props.fetchMessages(group.id).then(
 				(item) => {
 						// redirect to the message board
@@ -119,6 +121,7 @@ class BaseDashboard extends Component {
 BaseDashboard.propTypes = {
 	fetchUserGroups: PropTypes.func.isRequired,
 	setSelectedGroupAsCurrent: PropTypes.func,
+	setSelectedGroupMembers: PropTypes.func,
 	fetchMessages: PropTypes.func,	
 	onLogoutUser: PropTypes.func,
 	groupData: PropTypes.object.isRequired,
@@ -128,6 +131,7 @@ BaseDashboard.propTypes = {
 const mapDispatchToProps = {
 	fetchUserGroups,
 	setSelectedGroupAsCurrent,
+	setSelectedGroupMembers,
 	fetchMessages,
 	onLogoutUser
 }

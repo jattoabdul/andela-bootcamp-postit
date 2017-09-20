@@ -11,6 +11,9 @@ import {
   RECEIVE_MESSAGES_FAIL,
   ADD_USER_SUCCESS,
   ADD_USER_FAIL,
+  REMOVE_GROUP_MEMBER_SUCCESS,
+  GET_GROUP_MEMBERS_SUCCESS,
+  GET_GROUP_MEMBERS_FAIL,
   ADD_MESSAGE,
   ADD_MESSAGE_SUCCESS,
   ADD_MESSAGE_FAIL } from '../constants';
@@ -24,6 +27,7 @@ const initialState = {
   addMsgErr: {},
   message: {},
   groupMessages: [],
+  currentGroupMembers: [],
   isLoadingMessages: false,
   isAddingMessage: false,
   isLoadingGroups: false,
@@ -31,18 +35,21 @@ const initialState = {
 };
 
 const groupData = (state = initialState, action) => {
-  let newState = cloneDeep(state);
+  const newState = cloneDeep(state);
   const {
     type,
     userGroups,
     groupError,
     addError,
     addMsgErr,
+    groupMembersError,
     currentGroup,
-    matchedUsers,
     groupMessages,
+    currentGroupMembers,
     message,
     isLoadingGroups,
+    userId,
+    matchedUsers,
     userAdded } = action;
 
   switch (type) {
@@ -78,6 +85,25 @@ const groupData = (state = initialState, action) => {
         ...newState,
         currentGroup: {}
       };
+    case GET_GROUP_MEMBERS_SUCCESS:
+      return {
+        ...newState,
+        currentGroupMembers: [...currentGroupMembers]
+      };
+    case GET_GROUP_MEMBERS_FAIL:
+      return {
+        ...newState,
+        groupMembersError
+      };
+    case REMOVE_GROUP_MEMBER_SUCCESS: {
+      const newGroupMembers = newState.currentGroupMembers.filter(member => member.id !== userId);
+      console.log('currentGroupMembers', newState.currentGroupMembers);
+      console.log('newGroupMembers', newGroupMembers);
+      return {
+        ...newState,
+        currentGroupMembers: [...newGroupMembers]
+      };
+    }
     case RECEIVE_MESSAGES:
       return {
         ...newState,

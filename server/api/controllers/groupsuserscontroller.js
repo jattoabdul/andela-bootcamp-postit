@@ -73,10 +73,10 @@ export default {
         }]
       })
       .then((members) => {
-        // console.log(`members with their user details: ${members}`);
-        res.status(200).send(members);
+        res.status(200).send(members[0].users);
       })
       .catch((error) => {
+        console.log(error);
         res.status(400).send(error);
       });
   },
@@ -87,21 +87,26 @@ export default {
       .catch(error => res.status(400).send(error));
   },
   removeMember(req, res) {
-    return models.GroupsUsers
-      .destroy({
-        where: {
-          userId: req.body.usersId,
-          groupId: req.params.id
-        },
-        force: true
+    if (req.query.usersId) {
+      return models.GroupsUsers
+        .destroy({
+          where: {
+            userId: req.query.usersId,
+            groupId: req.params.id
+          },
+          force: true
         // truncate: true, cascade: true
-      })
-      .then((result) => {
-        res.status(202).send(result);
-      })
-      .catch((error) => {
-        res.status(400).send(error);
-      });
+        })
+        .then((result) => {
+          res.status(202).send({
+            result,
+            message: 'User Removed Successfully'
+          });
+        })
+        .catch((error) => {
+          res.status(400).send(error);
+        });
+    }
   },
   searchMember(req, res) {
     if (req.query.search) {
@@ -135,6 +140,3 @@ export default {
     }
   }
 };
-
-// ,
-// $notIn: groupUsersId

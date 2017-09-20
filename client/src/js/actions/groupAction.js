@@ -14,6 +14,7 @@ import {
   ADD_USER_FAIL,
   GET_GROUP_MEMBERS_SUCCESS,
   GET_GROUP_MEMBERS_FAIL,
+  REMOVE_GROUP_MEMBER_SUCCESS,
   ADD_MESSAGE,
   ADD_MESSAGE_SUCCESS,
   ADD_MESSAGE_FAIL } from '../constants';
@@ -61,6 +62,29 @@ export function setCurrentGroup(currentGroup) {
     currentGroup
   };
 }
+
+/**
+ * @param {*} currentGroupMembers
+ * @return {*} empty
+ */
+export function setCurrentGroupUsersSuccess(currentGroupMembers) {
+  return {
+    type: GET_GROUP_MEMBERS_SUCCESS,
+    currentGroupMembers
+  };
+}
+
+/**
+ * @param {*} groupMembersError
+ * @return {*} empty
+ */
+export function setCurrentGroupUsersFail(groupMembersError) {
+  return {
+    type: GET_GROUP_MEMBERS_FAIL,
+    groupMembersError
+  };
+}
+
 
 /**
  * @param {*} void
@@ -136,6 +160,17 @@ export function addMessageFail(addMsgErr) {
   };
 }
 
+/**
+ * @param {*} userId
+ * @return {*} empty
+ */
+export function removeGroupMember(userId) {
+  return {
+    type: REMOVE_GROUP_MEMBER_SUCCESS,
+    userId
+  };
+}
+
 export const fetchUserGroups = () => (dispatch) => {
   dispatch(getGroup());
   // making call to the get all groups API endpoint
@@ -173,15 +208,45 @@ export const onSearchUser = (id, searchText) => dispatch => Api(
     userSearchResult => userSearchResult.searchItemResult
   );
 
+  // TODO: fix users in a group and deleting user from group UI & backend
+export const setSelectedGroupMembers = groupId => (dispatch) => {
+  // TODO: make API call to get users of a group from the server
+  return Api(null, `/api/v1/groups/${groupId}/users/`, 'GET').then(
+    (currentGroupMembers) => {
+      // setting current group members response from server to store
+      dispatch(setCurrentGroupUsersSuccess(currentGroupMembers));
+      return currentGroupMembers;
+    }
+  ).catch(
+    (groupMembersError) => {
+      // setting error response from server when getting members of group
+      dispatch(setCurrentGroupUsersFail(groupMembersError));
+      return groupMembersError;
+    });
+};
+
   // onAddUserToGroup Method
 export const onAddUser = (userId, groupId) => (dispatch) => {
   const addUserParams = `userId=${userId}`;
   return Api(addUserParams, `/api/v1/groups/${groupId}/user/`, 'POST').then(
-    addUserToGroupResponse =>
+    (addUserToGroupResponse) => {
       // check if response, i.e user added, set message state to "user added"
       // check for users in a group and update UI to add mark icon
-      addUserToGroupResponse
+      return addUserToGroupResponse;
+    }
 
+  );
+};
+
+// onAddUserToGroup Method
+export const onRemoveUser = (userId, groupId) => (dispatch) => {
+  const removeUserParams = `?usersId=${userId}`;
+  return Api(null, `/api/v1/groups/${groupId}/user/${removeUserParams}`, 'DELETE').then(
+    (removeUserFromGroupResponse) => {
+      // call remove groupmember action
+      dispatch(removeGroupMember(userId));
+      return removeUserFromGroupResponse;
+    }
   );
 };
 
@@ -223,8 +288,6 @@ export const handleSendMessage = (groupId, priority, text) => (dispatch) => {
 //       console.log('Response: ', response);
 //     });
 // };
-
-// TODO: fix users in a group and deleting user from group UI & backend
 
 // TODO: fix responsiveness css
 

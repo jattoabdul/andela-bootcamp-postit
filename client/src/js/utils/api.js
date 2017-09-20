@@ -17,6 +17,14 @@ const Api = (body, url, method) => (new Promise((resolve) => {
       .then((response) => {
         resolve(response);
       });
+  } else if (method.toUpperCase() === 'DELETE') {
+    fetch(url, { method,
+      headers
+    })
+      .then(response => response.json())
+      .then((response) => {
+        resolve(response);
+      });
   } else {
     fetch(url, { method,
       body,

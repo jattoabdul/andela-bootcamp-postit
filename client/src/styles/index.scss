@@ -405,10 +405,22 @@ input#group_name-create, textarea#group_desc-create{
 }
 
 // react-select styling
-.Select-placeholder,
-.Select--single > .Select-control .Select-value {
+// .Select-placeholder,
+// .Select--single > .Select-control .Select-value {
 
-}
+// }
 .has-value.is-clearable.Select--single > .Select-control .Select-value {
   padding-top: 5px !important;
+}
+
+.remove-user {
+  position: relative;
+  left: 40px;
+  bottom: 65px;
+  .rmUserIcon {
+    color: grey;
+  }
+  & :hover {
+    color: tomato;
+  }
 }

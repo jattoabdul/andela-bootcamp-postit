@@ -55,6 +55,7 @@ render(
             <Route path='/login' component={Login}/>
             <Route path ='/dashboard' render={props =>
                 (isAuthenticated() ? (<BaseDashboard {...props}/>) : (<Redirect to={{ pathname: '/login' }}/>))} />
+            <Route component={NotFound}/>
         </Switch>
     </Router>
 </Provider>, app);

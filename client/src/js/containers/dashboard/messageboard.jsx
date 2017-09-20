@@ -6,7 +6,8 @@ import isEmpty from 'lodash/isEmpty';
 import Api from '../../utils/api';
 import {
   fetchMessages,
-  handleSendMessage } from '../../actions/groupAction';
+  handleSendMessage,
+  onRemoveUser } from '../../actions/groupAction';
 import {
   UserView,
   MessageList,
@@ -23,19 +24,16 @@ class MessageBoard extends React.Component {
       username: '',
       fullName: '',
       currentGroup: !isEmpty(props.currentGroup) ? props.currentGroup : {},
-      activeMessageReaders: []
+      currentGroupMembers: !isEmpty(props.currentGroupMembers) ? props.currentGroupMembers : []
     };
     this.appendChatMessage = this.appendChatMessage.bind(this);
     this.updateReadBy = this.updateReadBy.bind(this);
-  }
-  
-  componentDidMount(){
-    
+    this.removeGroupMember = this.removeGroupMember.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
 		const { authData: { currentUserData },
-			groupData: { currentGroup, groupMessages } } = nextProps;
+			groupData: { currentGroup, groupMessages, currentGroupMembers } } = nextProps;
 		this.setState({
       username: !isEmpty(currentUserData) && !isEmpty(currentUserData.data)
       ? currentUserData.data.username : '',
@@ -43,7 +41,7 @@ class MessageBoard extends React.Component {
       ? currentUserData.data.fullName : '',
       groupMessages: !isEmpty(groupMessages) ? groupMessages : [],
       currentGroup: !isEmpty(currentGroup) ? currentGroup : null,
-      activeMessageReaders: !isEmpty(currentGroup) && !isEmpty(currentGroup.users) ? currentGroup.users : [],
+      currentGroupMembers: !isEmpty(currentGroupMembers) ? currentGroupMembers : [],
 		});
   }
 
@@ -52,6 +50,16 @@ class MessageBoard extends React.Component {
     const groupId = group.id;
     // make Api call to send msg here
     this.props.handleSendMessage(groupId, priority, text);
+  }
+
+  removeGroupMember(userId) {
+    const group = this.state.currentGroup;
+    const groupId = group.id;
+    this.props.onRemoveUser(userId, groupId).then(
+      (res) => {
+        Materialize.toast(res.message, 3000);
+      }
+    );
   }
 
   updateReadBy(id) {
@@ -64,7 +72,7 @@ class MessageBoard extends React.Component {
   }
 
   render() {
-    const { fullName, username, currentGroup, activeMessageReaders, groupMessages } = this.state;
+    const { fullName, username, currentGroup, currentGroupMembers, groupMessages } = this.state;
     return (
       <div id="chatArea" className="white-text row no-marginbtm">
         <div id="chatBoard" className="col s11">
@@ -79,7 +87,9 @@ class MessageBoard extends React.Component {
           }
           <MessageInputForm appendChatMessage={this.appendChatMessage} />
         </div>
-        <UserView activeMessageReaders={this.state.activeMessageReaders} />
+        <UserView
+          activeMessageReaders={this.state.currentGroupMembers}
+          removeGroupMember={this.removeGroupMember} />
       </div>
     );
   }
@@ -88,13 +98,15 @@ class MessageBoard extends React.Component {
 MessageBoard.propTypes = {
   fetchMessages: PropTypes.func,
   handleSendMessage: PropTypes.func,
+  onRemoveUser: PropTypes.func,
   groupData: PropTypes.object,
 	authData: PropTypes.object
 }
 
 const mapDispatchToProps = {
   fetchMessages,
-  handleSendMessage
+  handleSendMessage,
+  onRemoveUser
 }
 
 function mapStateToProps({ authData, groupData }){

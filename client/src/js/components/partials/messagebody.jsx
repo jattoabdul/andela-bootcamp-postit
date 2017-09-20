@@ -1,7 +1,4 @@
 import React from "react";
-// import { connect } from "react-redux";
-// import registerUser from "../../actions/registerUser";
-// import Api from "../helpers/api";
 import '../../../styles/index.scss';
 
 class MessageBody extends React.Component {

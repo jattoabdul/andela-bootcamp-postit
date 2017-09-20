@@ -1,7 +1,4 @@
 import React from "react";
-// import { connect } from "react-redux";
-// import registerUser from "../../actions/registerUser";
-// import api from "../helpers/api";
 import { MessageItem } from "./../partials/";
 import '../../../styles/index.scss';
 
