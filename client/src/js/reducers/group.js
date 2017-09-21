@@ -97,8 +97,7 @@ const groupData = (state = initialState, action) => {
       };
     case REMOVE_GROUP_MEMBER_SUCCESS: {
       const newGroupMembers = newState.currentGroupMembers.filter(member => member.id !== userId);
-      console.log('currentGroupMembers', newState.currentGroupMembers);
-      console.log('newGroupMembers', newGroupMembers);
+    
       return {
         ...newState,
         currentGroupMembers: [...newGroupMembers]
