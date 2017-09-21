@@ -255,6 +255,11 @@ export const setSelectedGroupAsCurrent = group => (dispatch) => {
   dispatch(setCurrentGroup(group));
 };
 
+export const resetCurrentGroup = () => (dispatch) => {
+  // setting current group to store
+  dispatch(removeCurrentGroup());
+};
+
 const fetchTheMessages = (groupId, dispatch) => {
   dispatch(getGroupMessages());
   return Api(null, `/api/v1/groups/${groupId}/messages/`, 'GET').then(

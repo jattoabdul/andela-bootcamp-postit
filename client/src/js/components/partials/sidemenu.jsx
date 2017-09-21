@@ -14,7 +14,9 @@ class SideMenu extends React.Component {
 			userGroups: null,
 			currentGroup: null,
 			username: props.username || "",
-			fullName: props.fullName || ""
+			fullName: props.fullName || "",
+			activeClassList: false,
+			activeClassAnchor: false
 		};
 	}
 
@@ -28,6 +30,8 @@ class SideMenu extends React.Component {
 		});
 	}
 
+	// this.props.handleOnResetCurrentGroup()
+	
 	openNextMessageBoard(userGroup){
 		const { currentGroup } = this.state;
 		// get the crrentGroup Id from the location and strip out the url
@@ -43,7 +47,10 @@ class SideMenu extends React.Component {
 	}
 
 	render() {
-		const { username, fullName, currentGroup, userGroups } = this.state;
+		const { 
+				username, fullName,
+				currentGroup, userGroups,
+				activeClassList, activeClassAnchor } = this.state;
 		return (
 			<div id="roomsView"
 				className="col s2 m3 l2 blue-grey darken-4 white-text">
@@ -71,14 +78,14 @@ class SideMenu extends React.Component {
 						this.props.userGroups !== null ?
 							this.props.userGroups
 								.map(userGroup =>  
-								<li className={currentGroup && (userGroup.id === currentGroup.id) ? 'channels activeChannel' : 'channels'}
-									key={userGroup.id}>
-									<a
-									className={currentGroup && (userGroup.id === currentGroup.id) ? 'white-text' : 'wheat-text'}
-										onClick={() => this.openNextMessageBoard(userGroup) }>
-										{userGroup.name}
-									</a>
-								</li>)
+									<li className={currentGroup && (userGroup.id === currentGroup.id) ? 'channels activeChannel' : 'channels'}
+										key={userGroup.id}>
+										<a
+										className={currentGroup && (userGroup.id === currentGroup.id) ? 'white-text' : 'wheat-text'}
+											onClick={() => this.openNextMessageBoard(userGroup) }>
+											{userGroup.name}
+										</a>
+									</li>)
 							: this.state.userGroups
 					}
 				</ul>
@@ -107,3 +114,12 @@ SideMenu.propTypes = {
 }
 
 export default withRouter(SideMenu);
+
+{/* <li className={activeClassList ? 'channels activeChannel' : 'channels'}
+	key={userGroup.id}>
+	<a
+	className={activeClassAnchor ? 'white-text' : 'wheat-text' }
+		onClick={() => this.openNextMessageBoard(userGroup) }>
+		{userGroup.name}
+	</a>
+</li> */}

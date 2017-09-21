@@ -7,6 +7,7 @@ import Api from '../../utils/api';
 import {
   fetchMessages,
   handleSendMessage,
+  resetCurrentGroup,
   onRemoveUser } from '../../actions/groupAction';
 import {
   UserView,
@@ -45,6 +46,10 @@ class MessageBoard extends React.Component {
 		});
   }
 
+  componentWillUnmount() {
+    this.props.resetCurrentGroup();
+  }
+
   appendChatMessage(priority, text) {
     const group = this.state.currentGroup;
     const groupId = group.id;
@@ -55,11 +60,14 @@ class MessageBoard extends React.Component {
   removeGroupMember(userId) {
     const group = this.state.currentGroup;
     const groupId = group.id;
-    this.props.onRemoveUser(userId, groupId).then(
-      (res) => {
-        Materialize.toast(res.message, 3000);
-      }
-    );
+    const checkConfirmation = confirm('are you sure you want to delete this user?');
+    if (checkConfirmation) {
+      this.props.onRemoveUser(userId, groupId).then(
+        (res) => {
+          Materialize.toast(res.message, 3000);
+        }
+      );
+    }
   }
 
   updateReadBy(id) {
@@ -99,6 +107,8 @@ MessageBoard.propTypes = {
   fetchMessages: PropTypes.func,
   handleSendMessage: PropTypes.func,
   onRemoveUser: PropTypes.func,
+  handleOnResetCurrentGroup: PropTypes.func,
+  resetCurrentGroup: PropTypes.func,
   groupData: PropTypes.object,
 	authData: PropTypes.object
 }
@@ -106,6 +116,7 @@ MessageBoard.propTypes = {
 const mapDispatchToProps = {
   fetchMessages,
   handleSendMessage,
+  resetCurrentGroup,
   onRemoveUser
 }
 

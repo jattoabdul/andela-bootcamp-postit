@@ -50,20 +50,8 @@ class Dashboard extends React.Component {
             </h4>
             <div className="row">
               <br />
-              <div className="col m8 row">
-                <form>
-                  <div className="input-field search col s12">
-                    <i className="icon ion-ios-search prefix right"></i>
-                    <input type="search"
-                      id="searchArea"
-                      placeholder="search"
-                      className="teal white-text" />
-                  </div>
-                </form>
-              </div>
-              <div className="col m4">
-                <p>
-                  <span className="flow-text or">or </span> &nbsp;
+              <div className="col m12">
+                <p className="center">
                     <Link className="btn createGroup waves-effect"
                       to="/dashboard/create-group">
                       Create Group
