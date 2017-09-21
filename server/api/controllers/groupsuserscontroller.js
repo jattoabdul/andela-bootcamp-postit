@@ -126,7 +126,14 @@ export default {
                 }
               },
               limit: 10,
-              attributes: ['id', 'username', 'fullName']
+              attributes: ['id', 'username', 'fullName'],
+              include: [{
+                model: models.Groups,
+                as: 'groups',
+                required: false,
+                attributes: ['id'],
+                through: { attributes: [] }
+              }]
             })
             .then((searchItemResult) => {
               const data = {

@@ -15,13 +15,15 @@ class Register extends React.Component {
     this.onRegisterUser = this.onRegisterUser.bind(this);
     this.onChange = this.onChange.bind(this);    
     this.onFocus = this.onFocus.bind(this);
+    this.closeError = this.closeError.bind(this);    
     this.state = {
       username: "",
       fullName: "",
       email: "",
       phoneNumber: "",
       password: "",
-      error_message: ""
+      error_message: "",
+      hasError: false
     };
   }
 
@@ -34,6 +36,13 @@ class Register extends React.Component {
   onFocus() {
     this.setState({ error_message: "" });
   }
+
+  closeError(e) {
+    e.preventDefault();
+    this.setState({
+      hasError: false
+    });
+}
 
   onRegisterUser(e) {
     e.preventDefault();
@@ -69,7 +78,8 @@ class Register extends React.Component {
               if (response.message === 'username does not exist'
                 || response.message === 'invalid password') {
                     this.setState({
-                        error_message: response.message
+                        error_message: response.message,
+                        hasError: true
                     })
                 return;
               }
@@ -78,9 +88,14 @@ class Register extends React.Component {
             }
           )
         } else {
-        this.setState({ error_message: registerRes.err.message });
+        this.setState({ 
+          error_message: registerRes.err.message,
+          hasError: true 
+        });
         }
       }
+    ).catch(
+      (error) => { throw error; }
     )
   }
 
@@ -103,10 +118,10 @@ class Register extends React.Component {
                       id="signUpForm"
                       className="row">
                         <p className="flow-text"> &nbsp; Sign Up</p>
-                        {this.state.error_message === "" ? "" :
+                        {this.state.hasError &&
                         <div className="chip red white-text center" style={{ width: "20rem" }}>
                           {this.state.error_message}
-                          <i className="close material-icons">close</i>
+                          <i className="close material-icons" onClick={this.closeError}>close</i>
                         </div>}
                         <div className="input-field col s6">
                           <input onFocus={this.onFocus}

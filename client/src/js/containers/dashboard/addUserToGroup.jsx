@@ -2,7 +2,8 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty'; 
+import classNames from 'classnames';
 import {
   onAddUser,
   onSearchUser,
@@ -17,19 +18,29 @@ class AddUserToGroupBoard extends React.Component {
     this.state = {
       error: "",
       currentGroup: null,
-      selectedUsers: []
+      selectedUsers: [],
+      currentGroupId: null
     };
     this.onSearchUserInGroup = this.onSearchUserInGroup.bind(this);
     this.onAddUserToGroup = this.onAddUserToGroup.bind(this);
     this.onShowGroupMessages = this.onShowGroupMessages.bind(this);
+    this.computeClass = this.computeClass.bind(this);
+  }
+
+  componentDidMount() {
+    const locationUrl =this.props.location.pathname;
+    const group = {id: locationUrl.split('/')[2]}
+
+    this.setState({
+      currentGroupId: parseInt(group.id)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
 		const { authData: { currentUserData },
-			groupData: { userGroups, currentGroup } } = nextProps;
-		// console.log(`currentGroup on add user to group component:`, currentGroup);
+      groupData: { userGroups, currentGroup } } = nextProps;
 		this.setState({
-			currentGroup: !isEmpty(currentGroup) ? currentGroup : null
+			currentGroup: !isEmpty(currentGroup) ? currentGroup : {}
 		});
   }
   
@@ -60,19 +71,24 @@ class AddUserToGroupBoard extends React.Component {
     //call addUser action
     this.props.onAddUser(uId, id).then(
       (item) => {
-        console.log('added user to group succes', item)
-        Materialize.toast(`user with ID: ${item.username} is added succesfully`, 4000);
+        Materialize.toast(`user with ID: ${uId} was added succesfully`, 3000);
       }
     );
   }
-
+  computeClass(val) {
+    return classNames({
+      link_disabled: val,
+      channels: true
+    });
+  }
 
   onShowGroupMessages(e) {
     e.preventDefault();
     //get this id from the currentGroup Object in store
     // const gId = `${this.props.match.params.groupId}`;
     const group = this.state.currentGroup;
-    const gId = group.id;
+    const groupIdB = this.state.currentGroupId;
+    const gId = group.id || groupIdB;
     //call enter group and load message
     this.props.fetchMessages(gId).then(
       (item) => {
@@ -84,6 +100,7 @@ class AddUserToGroupBoard extends React.Component {
 
   // render Method
   render() {
+    const { currentGroupId } = this.state;
     return (
       <div>
         <br />
@@ -115,13 +132,16 @@ class AddUserToGroupBoard extends React.Component {
                     {this.state.selectedUsers.length >= 1 ?
                       this.state.selectedUsers.map(selectedUser => <li key={selectedUser.id}>
                         <a
-                          className="channels"
+                          className={this.computeClass(selectedUser.groups.map( group =>
+                          group.id).includes(currentGroupId))}
                           onClick={
                             () => this.onAddUserToGroup(selectedUser.id)
                           }>
-                          @{selectedUser.username}
+                          @{selectedUser.username} {currentGroupId} 
                         </a>
-                        <span className="new badge" data-badge-caption="Member"></span>
+                        { selectedUser.groups.map( group => group.id).includes(currentGroupId) &&  
+                          <span className="new badge" data-badge-caption="Member"></span>
+                        }
                       </li>)
                       : <li></li>
                     }

@@ -28,7 +28,7 @@ import registerServiceWorker from "./registerServiceWorker";
 
 const store = configureStore();
 
-const app = document.getElementsByTagName('div')[0];
+const app = document.getElementById('root');
 
 const isTokenExpired = () => {
     const token = jwt.decode(JSON.parse(sessionStorage.getItem('user')).token);

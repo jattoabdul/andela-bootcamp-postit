@@ -45,7 +45,7 @@ export default {
       to: email,
       subject: 'Reset Password Link',
       html: `Hello ${email}, to reset your password, please click on
-       \n<a href="http://localhost:3006/updatepassword/${hash}">this Link</a>
+       \n<a href="http://localhost:8080/#/updatepassword/${hash}">this Link</a>
         to reset your password`
     };
 

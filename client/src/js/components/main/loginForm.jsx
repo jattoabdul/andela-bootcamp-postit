@@ -15,10 +15,12 @@ class Login extends React.Component {
     this.onLoginUser = this.onLoginUser.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.closeError = this.closeError.bind(this);
     this.state = {
         username: '',
         password: '',
-        error_message: ''
+        error_message: '',
+        hasError: false
     };
   }
 
@@ -46,7 +48,8 @@ class Login extends React.Component {
               if (response.message === 'username does not exist'
                  || response.message === 'invalid password') {
                      this.setState({
-                         error_message: response.message
+                         error_message: response.message,
+                         hasError: true
                      })
                 return;
               }
@@ -57,6 +60,13 @@ class Login extends React.Component {
     } else {
       this.setState({ error_message: 'Error: All fields are required' });
     }
+  }
+
+  closeError(e) {
+      e.preventDefault();
+      this.setState({
+        hasError: false
+      });
   }
 
   render() {
@@ -79,10 +89,10 @@ class Login extends React.Component {
                         id="loginForm"
                         className="row">
                         <p className="flow-text"> &nbsp; Sign In</p>
-                        {this.state.error_message === "" ? "" :
+                        {this.state.hasError &&   
                         <div className="chip red white-text center" style={{ width: "20rem" }}>
                           {this.state.error_message}
-                          <i className="close material-icons">close</i>
+                          <i className="close material-icons" onClick={this.closeError}>close</i>
                         </div>}
                         <div className="input-field col s12">
                             <input

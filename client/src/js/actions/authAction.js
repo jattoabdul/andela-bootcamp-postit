@@ -87,11 +87,13 @@ export const onLoginUser = user => (dispatch) => {
       const token = loginRes.token;
       const decodedToken = jwt.decode(token);
       dispatch(setCurrentUser(decodedToken));
-    });
+    }).catch(
+    (error) => { throw error; }
+  );
 };
 
 
-export const onRegisterUser = userData => (dispatch) => {
+export const onRegisterUser = userData => () => {
   const { username, fullName, email, password, phoneNumber } = userData;
   // const username = userData.username,
   //   fullName = userData.fullName,

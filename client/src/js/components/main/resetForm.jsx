@@ -11,9 +11,11 @@ class ResetPassword extends React.Component {
   constructor(props) {
     super(props);
     this.onRequestReset = this.onRequestReset.bind(this);
+    this.closeError = this.closeError.bind(this);    
     this.state = {
       responseMessage: "",
-      requestButtonClassName: "btn waves-effect waves-light"
+      requestButtonClassName: "btn waves-effect waves-light",
+      hasStatus: false
     };
   }
 
@@ -34,12 +36,20 @@ class ResetPassword extends React.Component {
           if (response.data.error === undefined) {
             this.setState({
               responseMessage: "password reset link sent, please check your email",
+              hasStatus: true,
               requestButtonClassName: "btn waves-effect waves-light disabled"
             });
           }
         }
     );
   }
+  closeError(e) {
+    e.preventDefault();
+    this.setState({
+      hasStatus: false
+    });
+  }
+
   render() {
     return (
         <div id="indexContainer" className="teal lighten-5">
@@ -59,8 +69,11 @@ class ResetPassword extends React.Component {
                         <p className="flow-text center-align">
                             It&rsquo;s normal for humans to forget
                         </p>
-                        {this.state.responseMessage === "" ? "" :
-                        <div className="chip green white-text center" style={{ width: "20rem" }}>
+                        {this.state.hasStatus &&
+                        <div className="chip green white-text center" style={{ 
+                            width: "100%",
+                            fontSize: "12px"
+                         }}>
                           {this.state.responseMessage}
                           <i className="close material-icons">close</i>
                         </div>}

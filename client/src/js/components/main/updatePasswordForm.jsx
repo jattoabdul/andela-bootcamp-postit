@@ -79,8 +79,10 @@ class UpdatePassword extends React.Component {
                             Please update your password
                         </p>
                         {this.state.message === "" ? "" :
-                        <div className="chip green white-text center" style={{ width: "20rem" }}>
-                          {this.state.message}, please login with your credentials
+                        <div className="chip green white-text center" style={{ 
+                          width: "100%",
+                          fontSize: "10px" }}>
+                          {this.state.message}
                           <i className="close material-icons">close</i>
                         </div>}
                         <div className="input-field col s12">
