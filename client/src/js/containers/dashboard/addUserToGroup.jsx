@@ -137,7 +137,7 @@ class AddUserToGroupBoard extends React.Component {
                           onClick={
                             () => this.onAddUserToGroup(selectedUser.id)
                           }>
-                          @{selectedUser.username} {currentGroupId} 
+                          @{selectedUser.username}
                         </a>
                         { selectedUser.groups.map( group => group.id).includes(currentGroupId) &&  
                           <span className="new badge" data-badge-caption="Member"></span>

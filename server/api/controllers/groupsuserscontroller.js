@@ -34,18 +34,6 @@ export default {
               error: { message: 'user already exist in group' }
             });
         }
-        // models.Users
-        //   .findOne({
-        //     where: { id: req.body.userId }
-        //   })
-        //   .then((user) => {
-        //     userName = user.username;
-        //   })
-        //   .catch(error => res.status(400).send(error));
-        // console.log(`===================> username of 
-        // current user to be added: ${userName}`);
-        // Then add username field to group user models and 
-        // include on param with necessary value
         return models.GroupsUsers
           .create({
             userId: req.body.userId,
@@ -87,26 +75,58 @@ export default {
       .catch(error => res.status(400).send(error));
   },
   removeMember(req, res) {
-    if (req.query.usersId) {
-      return models.GroupsUsers
-        .destroy({
-          where: {
-            userId: req.query.usersId,
-            groupId: req.params.id
-          },
-          force: true
-        // truncate: true, cascade: true
-        })
-        .then((result) => {
-          res.status(202).send({
-            result,
-            message: 'User Removed Successfully'
-          });
-        })
-        .catch((error) => {
-          res.status(400).send(error);
+    const currentUserId = req.authToken.data.id;
+    models.GroupsUsers
+      .find({
+        where: {
+          userId: currentUserId,
+          groupId: req.params.id
+        }
+      }).then(
+        (user) => {
+          if (user.isAdmin === '1') {
+            if (req.query.usersId) {
+              // console.log('req.query.usersId: user ID of the user to be removed:', req.query.usersId);
+              // console.log('userID requesting removal of a user:', user.userId);
+              if (user.userId === req.query.usersId) {
+                return res.status(400).send({
+                  message: 'You cannot remove yourself'
+                });
+              }
+              return models.GroupsUsers
+                .destroy({
+                  where: {
+                    userId: req.query.usersId,
+                    groupId: req.params.id
+                  },
+                  force: true
+                // truncate: true, cascade: true
+                })
+                .then((result) => {
+                  res.status(202).send({
+                    result,
+                    message: 'User Removed Successfully'
+                  });
+                })
+                .catch((error) => {
+                  res.status(400).send({
+                    error,
+                    message: 'Error Occured While trying to remove User'
+                  });
+                });
+            }
+          } else {
+            return res.status(400).send({
+              message: 'User Is not an Admin'
+            });
+          }
+        }
+      ).catch((error) => {
+        res.status(400).send({
+          error,
+          message: 'Sorry user is not a member of the group'
         });
-    }
+      });
   },
   searchMember(req, res) {
     if (req.query.search) {

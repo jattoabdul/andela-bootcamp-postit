@@ -19,7 +19,7 @@
     "production": "NODE_ENV=production npm run build",
     "start": "nodemon --watch server --exec babel-node -- server/bin/www",
     "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
-    "test": "npm run test:server && npm run test:client",
+    "test": "npm run test:server",
     "start:dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "client:dev": "webpack-dev-server --hot",
     "build:client": "webpack --config webpack.config.babel.js",

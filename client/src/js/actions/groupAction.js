@@ -243,6 +243,13 @@ export const onRemoveUser = (userId, groupId) => (dispatch) => {
   const removeUserParams = `?usersId=${userId}`;
   return Api(null, `/api/v1/groups/${groupId}/user/${removeUserParams}`, 'DELETE').then(
     (removeUserFromGroupResponse) => {
+      console.log('removeUserFromGroupResponse========>', removeUserFromGroupResponse);
+      if (removeUserFromGroupResponse.message === 'User Is not an Admin') {
+        return removeUserFromGroupResponse;
+      }
+      if (removeUserFromGroupResponse.message === 'You cannot remove yourself') {
+        return removeUserFromGroupResponse;
+      }
       // call remove groupmember action
       dispatch(removeGroupMember(userId));
       return removeUserFromGroupResponse;

@@ -724,3 +724,7 @@ input#group_name-create, textarea#group_desc-create {
     color: grey; }
   .remove-user :hover {
     color: tomato; }
+
+.link_disabled {
+  pointer-events: none;
+  color: #ccc; }
