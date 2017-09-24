@@ -1,51 +1,146 @@
+import { cloneDeep } from 'lodash';
 import {
-  CREATE_USER_GROUP,
-  GET_USER_GROUPS,
-  GETTING_USER_GROUP,
   SET_CURRENT_GROUP,
-  SET_MATCHING_USERS,
-  ADD_USER_TO_GROUP } from '../actions/types';
+  REMOVE_CURRENT_GROUP,
+  ADD_GROUP_FAIL,
+  GET_GROUPS,
+  GET_GROUPS_SUCCESS,
+  GET_GROUPS_FAIL,
+  RECEIVE_MESSAGES,
+  RECEIVE_MESSAGES_SUCCESS,
+  RECEIVE_MESSAGES_FAIL,
+  ADD_USER_SUCCESS,
+  ADD_USER_FAIL,
+  REMOVE_GROUP_MEMBER_SUCCESS,
+  GET_GROUP_MEMBERS_SUCCESS,
+  GET_GROUP_MEMBERS_FAIL,
+  ADD_MESSAGE,
+  ADD_MESSAGE_SUCCESS,
+  ADD_MESSAGE_FAIL } from '../constants';
 
 const initialState = {
-  groups: [],
+  userGroups: [],
   currentGroup: {},
   matchedUsers: [],
-  isLoadingGroup: false,
+  groupError: {},
+  addError: {},
+  addMsgErr: {},
+  message: {},
+  groupMessages: [],
+  currentGroupMembers: [],
+  isLoadingMessages: false,
+  isAddingMessage: false,
+  isLoadingGroups: false,
   userAdded: false
 };
 
+const groupData = (state = initialState, action) => {
+  const newState = cloneDeep(state);
+  const {
+    type,
+    userGroups,
+    groupError,
+    addError,
+    addMsgErr,
+    groupMembersError,
+    currentGroup,
+    groupMessages,
+    currentGroupMembers,
+    message,
+    isLoadingGroups,
+    userId,
+    matchedUsers,
+    userAdded } = action;
 
-export default (state = initialState, action = {}) => {
-  switch (action.type) {
-    case GET_USER_GROUPS:
+  switch (type) {
+    case GET_GROUPS:
       return {
-        groups: [...action.groups],
-        isLoadingGroup: false
+        ...newState,
+        isLoadingGroups: !isLoadingGroups
       };
-    case GETTING_USER_GROUP:
+    case GET_GROUPS_SUCCESS:
       return {
-        isLoadingGroup: action.isLoadingGroup
+        ...newState,
+        userGroups: [...userGroups],
+        isLoadingGroups: false
+      };
+    case GET_GROUPS_FAIL:
+      return {
+        ...newState,
+        groupError,
+        isLoadingGroups: false
       };
     case SET_CURRENT_GROUP:
-      // console.log(action.currentGroup);
       return {
-        currentGroup: action.currentGroup
+        ...newState,
+        currentGroup
       };
-    case CREATE_USER_GROUP:
+    case ADD_GROUP_FAIL:
       return {
-        groups: [action.groups, ...state]
+        ...newState,
+        addError
       };
-    case ADD_USER_TO_GROUP:
-      // console.log(action.userAdded);
+    case REMOVE_CURRENT_GROUP:
       return {
-        userAdded: action.userAdded
+        ...newState,
+        currentGroup: {}
       };
-    case SET_MATCHING_USERS:
-      // console.log(action.matchedUsers);
+    case GET_GROUP_MEMBERS_SUCCESS:
       return {
-        matchedUsers: [...action.matchedUsers, ...state]
+        ...newState,
+        currentGroupMembers: [...currentGroupMembers]
+      };
+    case GET_GROUP_MEMBERS_FAIL:
+      return {
+        ...newState,
+        groupMembersError
+      };
+    case REMOVE_GROUP_MEMBER_SUCCESS: {
+      const newGroupMembers = newState.currentGroupMembers.filter(member => member.id !== userId);
+    
+      return {
+        ...newState,
+        currentGroupMembers: [...newGroupMembers]
+      };
+    }
+    case RECEIVE_MESSAGES:
+      return {
+        ...newState,
+        isLoadingMessages: true,
+        groupMessages: []
+      };
+    case RECEIVE_MESSAGES_SUCCESS:
+      return {
+        ...newState,
+        groupMessages: [...groupMessages],
+        isLoadingMessages: false
+      };
+    case RECEIVE_MESSAGES_FAIL:
+      return {
+        ...newState,
+        groupMessages: [],
+        isLoadingMessages: false
+      };
+    case ADD_MESSAGE:
+      return {
+        ...newState,
+        isAddingMessage: true
+      };
+    case ADD_MESSAGE_SUCCESS:
+      return {
+        ...newState,
+        message,
+        isAddingMessage: false
+      };
+    case ADD_MESSAGE_FAIL:
+      return {
+        ...newState,
+        isAddingMessage: false,
+        addMsgErr
       };
     default:
-      return state;
+      return newState;
   }
 };
+
+export default groupData;

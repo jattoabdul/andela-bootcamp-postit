@@ -1,15 +1,8 @@
-import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import React from "react";
 import { MessageItem } from "./../partials/";
-import { getGroupMesage,
-    createNewGroupMesage } from './../../actions/messagesActions';
+import '../../../styles/index.scss';
+
 class MessageList extends React.Component {
-  constructor(props){
-    super(props);
-  }
 
   render() {
     return (
@@ -23,15 +16,14 @@ class MessageList extends React.Component {
                 id={message.id}
                 readBy={message.readBy}
                 sender={message.user.username}
-                senderFullName={message.user.fullName} />)
+                senderFullName={message.user.fullName}
+                username={this.props.username}
+                fullName={this.props.fullName}
+                updateReadBy={this.props.updateReadBy} />)
       }
       </div>
     );
   }
 }
 
-MessageList.PropTypes = {
-messages: PropTypes.array.isRequired
-}
-
-export default connect(null, {})(withRouter(MessageList));
+export default MessageList;

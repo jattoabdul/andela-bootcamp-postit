@@ -1,141 +1,125 @@
 import React from "react";
-import ReactDOM from 'react-dom';
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { logout } from './../../actions/loginActions';
-import { addUserToGroup,
-    fetchUserGroups,
-    sideBarSetCurrentGroup } from './../../actions/groupActions';
+import isEmpty from 'lodash/isEmpty';
+import '../../../styles/index.scss';
 
 class SideMenu extends React.Component {
+	constructor(props) {
+		super(props);
+		// this.addAUser = this.addAUser.bind(this);
+		this.state = {
+			error: "",
+			userGroups: null,
+			currentGroup: null,
+			username: props.username || "",
+			fullName: props.fullName || "",
+			activeClassList: false,
+			activeClassAnchor: false
+		};
+	}
 
-  constructor(props) {
-      super(props)
+	componentWillReceiveProps(nextProps) {
+		const { username, fullName, userGroups, currentGroup } = nextProps;
+		this.setState({
+			userGroups: !isEmpty(userGroups) ? userGroups : null,
+			currentGroup: !isEmpty(currentGroup) ? currentGroup : null,
+			username: username ? username : '',
+			fullName: fullName ? fullName : '',
+		});
+	}
 
-      this.onLogout = this.onLogout.bind(this);
-      this.onAddToGroup = this.onAddToGroup.bind(this);
-  }
+	// this.props.handleOnResetCurrentGroup()
+	
+	openNextMessageBoard(userGroup){
+		const { currentGroup } = this.state;
+		// get the crrentGroup Id from the location and strip out the url
+		const path = this.props.location.pathname;
+		const currGroupId = currentGroup && currentGroup.id;
+		const isloadedMessages= !!path.match('/dashboard/message');
+		if (!isloadedMessages) {
+			this.props.handleOpenMessageBoard(userGroup);
+		}
+		else if (isloadedMessages && currGroupId !== userGroup.id){
+			this.props.handleOpenMessageBoard(userGroup);
+		}
+	}
 
-  componentDidMount() {
-    this.props.fetchUserGroups();
-  }
-
-  onAddToGroup(e) {
-      e.preventDefault();
-      const groupId = this.props.group.currentGroup.id;
-    //   const groupId =this.props.match.params.groupId;
-    //   console.log(groupId);
-      // redirecting to add user to group component
-      this.props.history.push(`/add/${groupId}/user`);
-  }
-
-  onOpenGroup(group){
-    // e.preventDefault();
-    // fire setCurrentGroupDetails Action
-    this.props.sideBarSetCurrentGroup(group);
-    const groupId = group.id;
-    // redirecting to group message board
-    // console.log(`setting current group ${groupId} on messageBoard`, group);
-    this.props.history.push(`/dashboard/${groupId}/message`);
-  }
-
-  onLogout(){
-      this.props.logout();
-      // redirecting
-      this.props.history.push('/login');
-  }
-
-  render() {
-       const { isAuthenticated, user } = this.props.login;
-       const { groups, isLoadingGroup } = this.props.group;
-    //    console.log(user, 'sidemenu bastard props');
-
-      const GroupItems = ({name, onClick}) => {
-        // const className = isSelected ? "channels teal-text" : "channels white-text";
-        const className = "channels white-text";
-        return (
-          <li onClick={onClick} className={className}>{name}</li>
-        );
-      };
-
-    return (
-        <div id="roomsView"
-            className="col s2 m3 l2 blue-grey darken-4 white-text">
-            <div className="right-align">
-            <Link to="/dashboard">
-                <i  className={`icon ion-home x3 waves-effect
-                    waves-light`}></i>
-            </Link>
-            </div>
-            <img className="profilePic"
-                src={ user === null ?
-                    "https://robohash.org/guest" :
-                    `https://robohash.org/${user.data.username}`} alt="Profile"/>
-            <p className="flow-text center profileName">
-                {user === null ? "Guest" : user.data.fullName}
-                <small>
-                    <br/><a className="username">@{ user === null ? "Guest" : user.data.username}</a>
-                </small>
-            </p>
-            <br/>
-            <h4 className="sideheading">
-                Groups <i className="icon ion-ios-people"></i>
-                <span className="right">
-                <Link to="/create-group">
-                    <i className="icon ion-android-add-circle"></i>
-                </Link>
-                </span>
-            </h4>
-            <ul>
-                {
-                  isLoadingGroup !== true ? 
-                  groups.map((userGroup) => {
-                    {/* const is_selected = selectedChannelId === userGroup.id; */}
-                    {/* const onChannelSelect = () => openAndSelectChannel(userGroup.id); */}
-                    {/* isSelected={is_selected} */}
-                    const onChannelSelect = () => this.onOpenGroup(userGroup);
-                    return <GroupItems key={userGroup.id} name={userGroup.name}
-                      onClick={onChannelSelect} />
-                  }) : <li>Group Loading ...</li>
-                }
-            </ul>
-
-            <div className="buttomNavs container">
-                <span
-                    onClick={this.onAddToGroup}
-                    className="left">
-                    <i className="icon ion-person-add"></i>
-                </span>
-                <span
-                    onClick={this.onLogout}
-                    className="right">
-                    <i className="icon ion-android-exit"></i>
-                </span>
-            </div>
-        </div>
-    );
-  }
+	render() {
+		const { 
+				username, fullName,
+				currentGroup, userGroups,
+				activeClassList, activeClassAnchor } = this.state;
+		return (
+			<div id="roomsView"
+				className="col s2 m3 l2 blue-grey darken-4 white-text">
+				<div className="right-align">
+					<i className="icon ion-navicon x3 waves-effect waves-light button-collapse"></i>
+				</div>
+				<img className="profilePic"
+					src={`https://robohash.org/${username}`} alt="Profile" />
+				<p className="flow-text center profileName">
+					{fullName}
+					<small>
+						<br /><a href="" className="username">@{username}</a>
+					</small>
+				</p>
+				<br />
+				<h4 className="sideheading">
+					Groups <i className="icon ion-ios-people"></i>
+					<Link to="/dashboard/create-group">
+						<i className="icon ion-plus-circled channels right">
+						</i>
+					</Link>
+				</h4>
+				<ul>
+					{
+						this.props.userGroups !== null ?
+							this.props.userGroups
+								.map(userGroup =>  
+									<li className={currentGroup && (userGroup.id === currentGroup.id) ? 'channels activeChannel' : 'channels'}
+										key={userGroup.id}>
+										<a
+										className={currentGroup && (userGroup.id === currentGroup.id) ? 'white-text' : 'wheat-text'}
+											onClick={() => this.openNextMessageBoard(userGroup) }>
+											{userGroup.name}
+										</a>
+									</li>)
+							: this.state.userGroups
+					}
+				</ul>
+				<div className="buttomNavs container">
+					<a className="left channels"
+						onClick={() => this.props.handleAddUserToGroup()}>
+						<i className="icon ion-person-add"></i>
+					</a>
+					<a onClick={() => this.props.handleLogout()}
+						className="right channels">
+						<i className="icon ion-android-exit"></i>
+					</a>
+				</div>
+			</div>
+		);
+	}
 }
 
-function mapStateToProps(state){
-  return {
-      login: state.login,
-      group: state.group
-  }
+
+SideMenu.propTypes = {
+	fetchUserGroups: PropTypes.func,
+	handleLogout: PropTypes.func,
+	handleSetCurrentGroup: PropTypes.func,
+	groupData: PropTypes.object,
+	authData: PropTypes.object
 }
 
-const mapDispatchToProps = {
-    logout,
-    fetchUserGroups,
-    sideBarSetCurrentGroup
-}
+export default withRouter(SideMenu);
 
-SideMenu.PropTypes = {
-    logout: PropTypes.func.isRequired,
-    fetchUserGroups: PropTypes.func.isRequired,
-    sideBarSetCurrentGroup: PropTypes.func.isRequired,
-    group: PropTypes.object.isRequired
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SideMenu));
+{/* <li className={activeClassList ? 'channels activeChannel' : 'channels'}
+	key={userGroup.id}>
+	<a
+	className={activeClassAnchor ? 'white-text' : 'wheat-text' }
+		onClick={() => this.openNextMessageBoard(userGroup) }>
+		{userGroup.name}
+	</a>
+</li> */}

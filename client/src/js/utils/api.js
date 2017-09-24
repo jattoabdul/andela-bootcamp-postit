@@ -1,5 +1,3 @@
-import 'whatwg-fetch';
-
 const Api = (body, url, method) => (new Promise((resolve) => {
   const headers = new Headers();
   headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -12,6 +10,14 @@ const Api = (body, url, method) => (new Promise((resolve) => {
     body = '';
   }
   if (method.toUpperCase() === 'GET') {
+    fetch(url, { method,
+      headers
+    })
+      .then(response => response.json())
+      .then((response) => {
+        resolve(response);
+      });
+  } else if (method.toUpperCase() === 'DELETE') {
     fetch(url, { method,
       headers
     })
@@ -32,4 +38,3 @@ const Api = (body, url, method) => (new Promise((resolve) => {
 }));
 
 export default Api;
-

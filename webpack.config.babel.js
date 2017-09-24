@@ -10,12 +10,14 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 // const debug = process.env.NODE_ENV !== 'production';
-
+// ./client/src/js/index.js
+// ./client/src/js/app.jsx
 module.exports = {
-  entry: ['./client/src/js/app.jsx'],
+  entry: ['./client/src/js/index.jsx'],
   output: {
     path: path.resolve(__dirname, 'client/dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: ''
   },
   externals: {
     Materialize: 'Materialize',

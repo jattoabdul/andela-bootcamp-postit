@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // for serving static react client app on server localhost:port
-app.use('/', express.static(path.join(__dirname, '../client/dist')));
+app.use('/', express.static(path.resolve(__dirname, '../client/dist')));
 
 
 // Log requests to the console.
@@ -32,24 +32,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //   res
 //     .status(200)
 //     .send({ message: 'Welcome to the beginning of nothingness.' });
-// });
-
-// app.get('*', (req, res) => {
-//   res
-//     .status(200)
-//     .sendFile(path.join(__dirname, '../client/dist/index.html'));
-// });
-
-
-// io.on('connection', function (socket) {
-//   io.emit('news', { hello: 'world' });
-
-//   socket.on('my other event', function (data) {
-//     console.log(data);
-//   });
-//   socket.on('disconnect', function () {
-//     io.emit('user disconnected');
-//   });
 // });
 
 /**
