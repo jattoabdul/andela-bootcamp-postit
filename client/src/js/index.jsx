@@ -47,15 +47,15 @@ render(
 <Provider store={store}>
     <Router>
         <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route path='/resetpassword' component={ResetPassword}/>
-            <Route path='/updatepassword/:hash'
-                component={UpdatePassword}/>
-            <Route path='/register' component={Register}/>
-            <Route path='/login' component={Login}/>
-            <Route path ='/dashboard' render={props =>
-                (isAuthenticated() ? (<BaseDashboard {...props}/>) : (<Redirect to={{ pathname: '/login' }}/>))} />
-            <Route component={NotFound}/>
+          <Route exact path='/' component={Home}/>
+          <Route path='/resetpassword' component={ResetPassword}/>
+          <Route path='/updatepassword/:hash'
+              component={UpdatePassword}/>
+          <Route path='/register' component={Register}/>
+          <Route path='/login' component={Login}/>
+          <Route path ='/dashboard' render={props =>
+              (isAuthenticated() ? (<BaseDashboard {...props}/>) : (<Redirect to={{ pathname: '/login' }}/>))} />
+          <Route component={NotFound}/>
         </Switch>
     </Router>
 </Provider>, app);

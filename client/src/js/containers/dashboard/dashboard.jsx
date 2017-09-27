@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
         <br />
         <div id="chatArea" className="white-text">
           <div className="card-panel welcome teal-text">
-            <h2 className="center-align">Welcome {fullName}</h2>
+            <h2 className="fName center-align">Welcome {fullName}</h2>
             <h4 className="left-align center">
               You don&rsquo;t have to shout. <br />
               <span className="right-align flow-text">

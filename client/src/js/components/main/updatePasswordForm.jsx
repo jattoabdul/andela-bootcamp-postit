@@ -1,8 +1,6 @@
 import React from "react";
 import { Link, withRouter } from 'react-router-dom';
 // import { connect } from "react-redux";
-// import Auth from "./../containers/";
-// import registerUser from "../../actions/registerUser";
 import Api from "../../utils/api";
 import { Welcome } from "./../partials/";
 import '../../../styles/index.scss';
@@ -17,6 +15,12 @@ class UpdatePassword extends React.Component {
       message: "",
       updateButtonClassName: "btn waves-effect waves-light"
     };
+  }
+
+  onChange(e) {
+    this.setState({
+        [e.target.name]: e.target.value
+    });
   }
 
   onFocus() {

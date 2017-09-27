@@ -1,10 +1,8 @@
-import React from "react";
+import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 // import { connect } from "react-redux";
-// import Auth from "./../containers/";
-// import registerUser from "../../actions/registerUser";
-import Api from "../../utils/api";
-import { Welcome } from "./../partials/";
+import Api from '../../utils/api';
+import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
 
 class ResetPassword extends React.Component {
@@ -43,6 +41,13 @@ class ResetPassword extends React.Component {
         }
     );
   }
+
+  onChange(e) {
+    this.setState({
+        [e.target.name]: e.target.value
+    });
+  }
+
   closeError(e) {
     e.preventDefault();
     this.setState({
