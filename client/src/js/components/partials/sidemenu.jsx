@@ -1,6 +1,6 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import '../../../styles/index.scss';
@@ -8,13 +8,13 @@ import '../../../styles/index.scss';
 class SideMenu extends React.Component {
 	constructor(props) {
 		super(props);
-		// this.addAUser = this.addAUser.bind(this);
+		// this.toggleSideNavOff = this.toggleSideNavOff.bind(this);
 		this.state = {
-			error: "",
+			error: '',
 			userGroups: null,
 			currentGroup: null,
-			username: props.username || "",
-			fullName: props.fullName || "",
+			username: props.username || '',
+			fullName: props.fullName || '',
 			activeClassList: false,
 			activeClassAnchor: false
 		};
@@ -26,12 +26,15 @@ class SideMenu extends React.Component {
 			userGroups: !isEmpty(userGroups) ? userGroups : null,
 			currentGroup: !isEmpty(currentGroup) ? currentGroup : null,
 			username: username ? username : '',
-			fullName: fullName ? fullName : '',
+			fullName: fullName ? fullName : ''
 		});
 	}
 
-	// this.props.handleOnResetCurrentGroup()
-	
+	// toggleSideNavOff(e) {
+	// 	e.preventDefault();
+	// 	console.log('toggle sidenav off')
+	// }
+
 	openNextMessageBoard(userGroup){
 		const { currentGroup } = this.state;
 		// get the crrentGroup Id from the location and strip out the url
@@ -53,9 +56,10 @@ class SideMenu extends React.Component {
 				activeClassList, activeClassAnchor } = this.state;
 		return (
 			<div id="roomsView"
-				className="col s2 m3 l2 blue-grey darken-4 white-text">
+				className={`col s2 m3 l2 blue-grey darken-4 white-text ${this.props.sideNavStatus ? '' : 'hidden'}`}>
 				<div className="right-align">
-					<i className="icon ion-navicon x3 waves-effect waves-light button-collapse"></i>
+					<i id="side-navic" className="icon ion-navicon x3 waves-effect waves-light"></i>
+					<i onClick={this.props.toggleSideNav} id="side-back-navic" className="icon ion-ios-undo-outline x3 waves-effect waves-light"></i>
 				</div>
 				<img className="profilePic"
 					src={`https://robohash.org/${username}`} alt="Profile" />

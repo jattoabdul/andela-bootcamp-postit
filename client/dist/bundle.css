@@ -728,3 +728,59 @@ input#group_name-create, textarea#group_desc-create {
 .link_disabled {
   pointer-events: none;
   color: #ccc; }
+
+.alt-logo {
+  position: absolute;
+  top: 5%;
+  font-size: 1.5rem;
+  left: 2rem;
+  display: none; }
+
+.home-mobile {
+  text-align: center; }
+
+#main-navic {
+  display: none; }
+
+#side-back-navic {
+  display: none; }
+
+.fName {
+  font-size: 3em; }
+
+@media screen and (min-width: 599px) {
+  .hidden {
+    display: inline; } }
+
+@media screen and (max-width: 600px) {
+  .alt-logo {
+    display: block; }
+  .home-mobile {
+    width: 100%;
+    text-align: center;
+    display: block;
+    position: absolute;
+    left: -24%; }
+  #roomsView {
+    height: 100vh;
+    overflow-y: auto;
+    position: relative;
+    min-width: 20em; }
+  #chatArea.padTop {
+    padding-top: 3rem;
+    margin-bottom: 134px; }
+  nav .brand-logo.center {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0; }
+  #main-navic {
+    display: inline;
+    padding-left: 0.5em; }
+  #side-navic {
+    display: none; }
+  #side-back-navic {
+    display: inline; }
+  .hidden {
+    display: none; }
+  .fName {
+    font-size: 3em !important; } }

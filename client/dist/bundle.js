@@ -11796,7 +11796,7 @@ exports.shallow = function (source) {
 
 var _prodInvariant = __webpack_require__(48);
 
-var ReactCurrentOwner = __webpack_require__(29);
+var ReactCurrentOwner = __webpack_require__(30);
 
 var invariant = __webpack_require__(4);
 var warning = __webpack_require__(6);
@@ -12606,7 +12606,7 @@ exports.shr64_lo = shr64_lo;
 
 var Hoek = __webpack_require__(19);
 var Ref = __webpack_require__(38);
-var Errors = __webpack_require__(30);
+var Errors = __webpack_require__(31);
 var Alternatives = null;                // Delay-loaded to prevent circular dependencies
 var Cast = null;
 
@@ -13763,6 +13763,25 @@ module.exports = ReactUpdates;
 
 /***/ }),
 /* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(612);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(332);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(613);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
+
+
+
+
+
+
+/***/ }),
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13796,7 +13815,7 @@ var ReactCurrentOwner = {
 module.exports = ReactCurrentOwner;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Load modules
@@ -14099,7 +14118,7 @@ internals.annotate = function () {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14369,25 +14388,6 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
   }
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 32 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(612);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(332);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(613);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
-
-
-
-
-
 
 /***/ }),
 /* 33 */
@@ -15027,7 +15027,7 @@ module.exports = PooledClass;
 
 var _assign = __webpack_require__(9);
 
-var ReactCurrentOwner = __webpack_require__(29);
+var ReactCurrentOwner = __webpack_require__(30);
 
 var warning = __webpack_require__(6);
 var canDefineProperty = __webpack_require__(90);
@@ -17909,7 +17909,7 @@ module.exports = ReactInstanceMap;
 
 
 
-var SyntheticEvent = __webpack_require__(31);
+var SyntheticEvent = __webpack_require__(32);
 
 var getEventTarget = __webpack_require__(120);
 
@@ -25419,7 +25419,7 @@ var Hoek = __webpack_require__(19);
 var Any = __webpack_require__(27);
 var Cast = __webpack_require__(61);
 var Ref = __webpack_require__(38);
-var Errors = __webpack_require__(30);
+var Errors = __webpack_require__(31);
 
 
 // Declare internals
@@ -25574,7 +25574,7 @@ module.exports = new internals.Alternatives();
 // Load modules
 
 var Any = __webpack_require__(27);
-var Errors = __webpack_require__(30);
+var Errors = __webpack_require__(31);
 var Ref = __webpack_require__(38);
 var Hoek = __webpack_require__(19);
 var Moment = __webpack_require__(0);
@@ -26981,7 +26981,7 @@ module.exports = ReactErrorUtils;
 
 var _prodInvariant = __webpack_require__(8);
 
-var ReactCurrentOwner = __webpack_require__(29);
+var ReactCurrentOwner = __webpack_require__(30);
 var ReactInstanceMap = __webpack_require__(66);
 var ReactInstrumentation = __webpack_require__(24);
 var ReactUpdates = __webpack_require__(28);
@@ -31534,7 +31534,7 @@ module.exports = Array.isArray || function (arr) {
 // Load modules
 
 var Any = __webpack_require__(27);
-var Errors = __webpack_require__(30);
+var Errors = __webpack_require__(31);
 var Hoek = __webpack_require__(19);
 
 
@@ -31582,7 +31582,7 @@ module.exports = new internals.Boolean();
 
 var Any = __webpack_require__(27);
 var Ref = __webpack_require__(38);
-var Errors = __webpack_require__(30);
+var Errors = __webpack_require__(31);
 var Hoek = __webpack_require__(19);
 
 
@@ -31774,7 +31774,7 @@ var Hoek = __webpack_require__(19);
 var Topo = __webpack_require__(691);
 var Any = __webpack_require__(27);
 var Cast = __webpack_require__(61);
-var Errors = __webpack_require__(30);
+var Errors = __webpack_require__(31);
 
 
 // Declare internals
@@ -32536,7 +32536,7 @@ var Isemail = __webpack_require__(476);
 var Any = __webpack_require__(27);
 var Ref = __webpack_require__(38);
 var JoiDate = __webpack_require__(102);
-var Errors = __webpack_require__(30);
+var Errors = __webpack_require__(31);
 var Uri = __webpack_require__(483);
 var Ip = __webpack_require__(482);
 
@@ -46914,7 +46914,7 @@ var DOMLazyTree = __webpack_require__(45);
 var DOMProperty = __webpack_require__(37);
 var React = __webpack_require__(47);
 var ReactBrowserEventEmitter = __webpack_require__(84);
-var ReactCurrentOwner = __webpack_require__(29);
+var ReactCurrentOwner = __webpack_require__(30);
 var ReactDOMComponentTree = __webpack_require__(10);
 var ReactDOMContainerInfo = __webpack_require__(556);
 var ReactDOMFeatureFlags = __webpack_require__(558);
@@ -48101,7 +48101,7 @@ module.exports = setTextContent;
 
 var _prodInvariant = __webpack_require__(8);
 
-var ReactCurrentOwner = __webpack_require__(29);
+var ReactCurrentOwner = __webpack_require__(30);
 var REACT_ELEMENT_TYPE = __webpack_require__(572);
 
 var getIteratorFn = __webpack_require__(606);
@@ -50112,7 +50112,7 @@ module.exports = REACT_ELEMENT_TYPE;
 
 
 
-var ReactCurrentOwner = __webpack_require__(29);
+var ReactCurrentOwner = __webpack_require__(30);
 var ReactComponentTreeHook = __webpack_require__(20);
 var ReactElement = __webpack_require__(40);
 
@@ -52717,7 +52717,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(108);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(29);
 
 var _reactRouterDom = __webpack_require__(17);
 
@@ -53766,29 +53766,88 @@ PEMEncoder.prototype.encode = function encode(data, options) {
 "use strict";
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _partials = __webpack_require__(33);
+var _reactRedux = __webpack_require__(29);
 
 var _reactRouterDom = __webpack_require__(17);
+
+var _propTypes = __webpack_require__(7);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _partials = __webpack_require__(33);
 
 __webpack_require__(13);
 
 function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : { default: obj };
+  return obj && obj.__esModule ? obj : { default: obj };
 }
 
-var Home = function Home() {
-    return _react2.default.createElement("div", { id: "indexContainer", className: "teal lighten-5" }, _react2.default.createElement("div", { id: "mainContainer", className: "row" }, _react2.default.createElement(_partials.Welcome, null), _react2.default.createElement("div", { className: "col s12 m6 indexSideTwo flexCentered" }, _react2.default.createElement(_reactRouterDom.Link, { to: "/login", className: "teal btn waves-effect waves-light" }, "Login"), _react2.default.createElement("p", { className: "flow-text" }, "New to POSTiT?"), _react2.default.createElement(_reactRouterDom.Link, { to: "/register", className: "btn cyan waves-effect waves-light" }, "Create an account"))));
-};
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-exports.default = Home;
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Home = function (_React$Component) {
+  _inherits(Home, _React$Component);
+
+  function Home(props) {
+    _classCallCheck(this, Home);
+
+    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+  }
+
+  _createClass(Home, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      if (sessionStorage.getItem('user') !== null) {
+        // redirecting
+        this.props.history.push('/dashboard');
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement("div", { id: "indexContainer", className: "teal lighten-5" }, _react2.default.createElement("div", { id: "mainContainer", className: "row" }, _react2.default.createElement(_partials.Welcome, null), _react2.default.createElement("div", { className: "col s12 m6 indexSideTwo flexCentered" }, _react2.default.createElement("h3", { className: "alt-logo center-align" }, _react2.default.createElement("i", { className: "icon ion-speakerphone" }), " POSTiT"), _react2.default.createElement("div", { className: "home-mobile" }, _react2.default.createElement(_reactRouterDom.Link, { to: "/login", className: "teal btn waves-effect waves-light" }, "Login"), _react2.default.createElement("p", { className: "flow-text" }, "New to POSTiT?"), _react2.default.createElement(_reactRouterDom.Link, { to: "/register", className: "btn cyan waves-effect waves-light" }, "Create an account")))));
+    }
+  }]);
+
+  return Home;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(Home);
 
 /***/ }),
 /* 374 */
@@ -53864,7 +53923,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(29);
 
 var _reactRouterDom = __webpack_require__(17);
 
@@ -54145,7 +54204,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(29);
 
 var _reactRouterDom = __webpack_require__(17);
 
@@ -54410,6 +54469,14 @@ function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { default: obj };
 }
 
+function _defineProperty(obj, key, value) {
+    if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+    } else {
+        obj[key] = value;
+    }return obj;
+}
+
 function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
@@ -54428,8 +54495,6 @@ function _inherits(subClass, superClass) {
     }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 // import { connect } from "react-redux";
-// import Auth from "./../containers/";
-// import registerUser from "../../actions/registerUser";
 
 
 var ResetPassword = function (_React$Component) {
@@ -54451,19 +54516,19 @@ var ResetPassword = function (_React$Component) {
     }
 
     _createClass(ResetPassword, [{
-        key: "onRequestReset",
+        key: 'onRequestReset',
         value: function onRequestReset(e) {
             var _this2 = this;
 
             e.preventDefault();
-            if (this.state.responseMessage === "password reset link sent,\n         please check your email") {
+            if (this.state.responseMessage === 'password reset link sent,\n         please check your email') {
                 this.setState({
                     responseMessage: "",
                     requestButtonClassName: "btn waves-effect waves-light"
                 });
                 return null;
             }
-            var email = "email=" + this.email.value;
+            var email = 'email=' + this.email.value;
             (0, _api2.default)(email, "/api/v1/users/reset/request/", "POST", null).then(function (response) {
                 console.log(response);
                 if (response.data.error === undefined) {
@@ -54476,7 +54541,12 @@ var ResetPassword = function (_React$Component) {
             });
         }
     }, {
-        key: "closeError",
+        key: 'onChange',
+        value: function onChange(e) {
+            this.setState(_defineProperty({}, e.target.name, e.target.value));
+        }
+    }, {
+        key: 'closeError',
         value: function closeError(e) {
             e.preventDefault();
             this.setState({
@@ -54484,22 +54554,22 @@ var ResetPassword = function (_React$Component) {
             });
         }
     }, {
-        key: "render",
+        key: 'render',
         value: function render() {
             var _this3 = this;
 
-            return _react2.default.createElement("div", { id: "indexContainer", className: "teal lighten-5" }, _react2.default.createElement("div", { id: "mainContainer", className: "row" }, _react2.default.createElement(_partials.Welcome, null), _react2.default.createElement("div", { className: "col s12 m6 indexSideTwo flexCentered" }, _react2.default.createElement("div", { id: "authCapsules" }, _react2.default.createElement(_reactRouterDom.Link, { to: "/register", className: "capsule btn teal" }, "Sign Up"), _react2.default.createElement(_reactRouterDom.Link, { to: "/login", className: "capsule btn cyan" }, "Sign In")), _react2.default.createElement("p", null, "Forgot Password?"), _react2.default.createElement("form", { id: "forgotPass", className: "row" }, _react2.default.createElement("p", { className: "flow-text center-align" }, "It\u2019s normal for humans to forget"), this.state.hasStatus && _react2.default.createElement("div", { className: "chip green white-text center", style: {
+            return _react2.default.createElement('div', { id: 'indexContainer', className: 'teal lighten-5' }, _react2.default.createElement('div', { id: 'mainContainer', className: 'row' }, _react2.default.createElement(_partials.Welcome, null), _react2.default.createElement('div', { className: 'col s12 m6 indexSideTwo flexCentered' }, _react2.default.createElement('div', { id: 'authCapsules' }, _react2.default.createElement(_reactRouterDom.Link, { to: '/register', className: 'capsule btn teal' }, 'Sign Up'), _react2.default.createElement(_reactRouterDom.Link, { to: '/login', className: 'capsule btn cyan' }, 'Sign In')), _react2.default.createElement('p', null, 'Forgot Password?'), _react2.default.createElement('form', { id: 'forgotPass', className: 'row' }, _react2.default.createElement('p', { className: 'flow-text center-align' }, "It\u2019s normal for humans to forget"), this.state.hasStatus && _react2.default.createElement('div', { className: 'chip green white-text center', style: {
                     width: "100%",
                     fontSize: "12px"
-                } }, this.state.responseMessage, _react2.default.createElement("i", { className: "close material-icons" }, "close")), _react2.default.createElement("div", { className: "input-field col s12" }, _react2.default.createElement("input", { className: "center",
-                type: "email",
-                id: "email_forgot",
+                } }, this.state.responseMessage, _react2.default.createElement('i', { className: 'close material-icons' }, 'close')), _react2.default.createElement('div', { className: 'input-field col s12' }, _react2.default.createElement('input', { className: 'center',
+                type: 'email',
+                id: 'email_forgot',
                 ref: function ref(input) {
                     _this3.email = input;
-                } }), _react2.default.createElement("label", { htmlFor: "email_forgot",
-                className: "amber-text" }, "What\u2019s your email?"), _react2.default.createElement("div", { className: "input-field col s12 center center-align" }, _react2.default.createElement("button", { onClick: this.onRequestReset,
+                } }), _react2.default.createElement('label', { htmlFor: 'email_forgot',
+                className: 'amber-text' }, "What\u2019s your email?"), _react2.default.createElement('div', { className: 'input-field col s12 center center-align' }, _react2.default.createElement('button', { onClick: this.onRequestReset,
                 className: this.state.requestButtonClassName,
-                type: "submit" }, "Reset my password"), _react2.default.createElement("p", { className: "center" }, _react2.default.createElement(_reactRouterDom.Link, { to: "/login" }, _react2.default.createElement("span", null, "SIGN IN")))))))));
+                type: 'submit' }, 'Reset my password'), _react2.default.createElement('p', { className: 'center' }, _react2.default.createElement(_reactRouterDom.Link, { to: '/login' }, _react2.default.createElement('span', null, 'SIGN IN')))))))));
         }
     }]);
 
@@ -54549,6 +54619,14 @@ function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }return obj;
+}
+
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -54567,8 +54645,6 @@ function _inherits(subClass, superClass) {
   }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 // import { connect } from "react-redux";
-// import Auth from "./../containers/";
-// import registerUser from "../../actions/registerUser";
 
 
 var UpdatePassword = function (_React$Component) {
@@ -54590,6 +54666,11 @@ var UpdatePassword = function (_React$Component) {
   }
 
   _createClass(UpdatePassword, [{
+    key: "onChange",
+    value: function onChange(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
     key: "onFocus",
     value: function onFocus() {
       this.setState({
@@ -54718,16 +54799,16 @@ function _inherits(subClass, superClass) {
 var MainNav = function (_React$Component) {
   _inherits(MainNav, _React$Component);
 
-  function MainNav() {
+  function MainNav(props) {
     _classCallCheck(this, MainNav);
 
-    return _possibleConstructorReturn(this, (MainNav.__proto__ || Object.getPrototypeOf(MainNav)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (MainNav.__proto__ || Object.getPrototypeOf(MainNav)).call(this, props));
   }
 
   _createClass(MainNav, [{
-    key: "render",
+    key: 'render',
     value: function render() {
-      return _react2.default.createElement("nav", { className: "blue-grey darken-4" }, _react2.default.createElement("div", { className: "nav-wrapper" }, _react2.default.createElement(_reactRouterDom.Link, { to: "/dashboard", className: "brand-logo center" }, "POSTiT", _react2.default.createElement("i", { className: "icon ion-speakerphone left x2" }), _react2.default.createElement("sub", null, _react2.default.createElement("small", null, "you dont have to shout, just POSTiT")))));
+      return _react2.default.createElement('nav', { className: 'blue-grey darken-4' }, _react2.default.createElement('div', { className: 'nav-wrapper' }, _react2.default.createElement('div', { className: 'left-align' }, _react2.default.createElement('i', { onClick: this.props.toggleSideNav, id: 'main-navic', className: 'icon ion-navicon x3 waves-effect waves-light' })), _react2.default.createElement(_reactRouterDom.Link, { to: '/dashboard', className: 'brand-logo center' }, 'POSTiT', _react2.default.createElement('i', { className: 'icon ion-speakerphone left x2' }), _react2.default.createElement('sub', null, _react2.default.createElement('small', { className: 'hide-on-small-only' }, 'you dont have to shout, just POSTiT')))));
     }
   }]);
 
@@ -55137,7 +55218,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(17);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(29);
 
 var _propTypes = __webpack_require__(7);
 
@@ -55177,15 +55258,15 @@ var SideMenu = function (_React$Component) {
 	function SideMenu(props) {
 		_classCallCheck(this, SideMenu);
 
-		// this.addAUser = this.addAUser.bind(this);
+		// this.toggleSideNavOff = this.toggleSideNavOff.bind(this);
 		var _this = _possibleConstructorReturn(this, (SideMenu.__proto__ || Object.getPrototypeOf(SideMenu)).call(this, props));
 
 		_this.state = {
-			error: "",
+			error: '',
 			userGroups: null,
 			currentGroup: null,
-			username: props.username || "",
-			fullName: props.fullName || "",
+			username: props.username || '',
+			fullName: props.fullName || '',
 			activeClassList: false,
 			activeClassAnchor: false
 		};
@@ -55193,7 +55274,7 @@ var SideMenu = function (_React$Component) {
 	}
 
 	_createClass(SideMenu, [{
-		key: "componentWillReceiveProps",
+		key: 'componentWillReceiveProps',
 		value: function componentWillReceiveProps(nextProps) {
 			var username = nextProps.username,
 			    fullName = nextProps.fullName,
@@ -55208,10 +55289,13 @@ var SideMenu = function (_React$Component) {
 			});
 		}
 
-		// this.props.handleOnResetCurrentGroup()
+		// toggleSideNavOff(e) {
+		// 	e.preventDefault();
+		// 	console.log('toggle sidenav off')
+		// }
 
 	}, {
-		key: "openNextMessageBoard",
+		key: 'openNextMessageBoard',
 		value: function openNextMessageBoard(userGroup) {
 			var currentGroup = this.state.currentGroup;
 			// get the crrentGroup Id from the location and strip out the url
@@ -55226,7 +55310,7 @@ var SideMenu = function (_React$Component) {
 			}
 		}
 	}, {
-		key: "render",
+		key: 'render',
 		value: function render() {
 			var _this2 = this;
 
@@ -55238,22 +55322,22 @@ var SideMenu = function (_React$Component) {
 			    activeClassList = _state.activeClassList,
 			    activeClassAnchor = _state.activeClassAnchor;
 
-			return _react2.default.createElement("div", { id: "roomsView",
-				className: "col s2 m3 l2 blue-grey darken-4 white-text" }, _react2.default.createElement("div", { className: "right-align" }, _react2.default.createElement("i", { className: "icon ion-navicon x3 waves-effect waves-light button-collapse" })), _react2.default.createElement("img", { className: "profilePic",
-				src: "https://robohash.org/" + username, alt: "Profile" }), _react2.default.createElement("p", { className: "flow-text center profileName" }, fullName, _react2.default.createElement("small", null, _react2.default.createElement("br", null), _react2.default.createElement("a", { href: "", className: "username" }, "@", username))), _react2.default.createElement("br", null), _react2.default.createElement("h4", { className: "sideheading" }, "Groups ", _react2.default.createElement("i", { className: "icon ion-ios-people" }), _react2.default.createElement(_reactRouterDom.Link, { to: "/dashboard/create-group" }, _react2.default.createElement("i", { className: "icon ion-plus-circled channels right" }))), _react2.default.createElement("ul", null, this.props.userGroups !== null ? this.props.userGroups.map(function (userGroup) {
-				return _react2.default.createElement("li", { className: currentGroup && userGroup.id === currentGroup.id ? 'channels activeChannel' : 'channels',
-					key: userGroup.id }, _react2.default.createElement("a", {
+			return _react2.default.createElement('div', { id: 'roomsView',
+				className: 'col s2 m3 l2 blue-grey darken-4 white-text ' + (this.props.sideNavStatus ? '' : 'hidden') }, _react2.default.createElement('div', { className: 'right-align' }, _react2.default.createElement('i', { id: 'side-navic', className: 'icon ion-navicon x3 waves-effect waves-light' }), _react2.default.createElement('i', { onClick: this.props.toggleSideNav, id: 'side-back-navic', className: 'icon ion-ios-undo-outline x3 waves-effect waves-light' })), _react2.default.createElement('img', { className: 'profilePic',
+				src: 'https://robohash.org/' + username, alt: 'Profile' }), _react2.default.createElement('p', { className: 'flow-text center profileName' }, fullName, _react2.default.createElement('small', null, _react2.default.createElement('br', null), _react2.default.createElement('a', { href: '', className: 'username' }, '@', username))), _react2.default.createElement('br', null), _react2.default.createElement('h4', { className: 'sideheading' }, 'Groups ', _react2.default.createElement('i', { className: 'icon ion-ios-people' }), _react2.default.createElement(_reactRouterDom.Link, { to: '/dashboard/create-group' }, _react2.default.createElement('i', { className: 'icon ion-plus-circled channels right' }))), _react2.default.createElement('ul', null, this.props.userGroups !== null ? this.props.userGroups.map(function (userGroup) {
+				return _react2.default.createElement('li', { className: currentGroup && userGroup.id === currentGroup.id ? 'channels activeChannel' : 'channels',
+					key: userGroup.id }, _react2.default.createElement('a', {
 					className: currentGroup && userGroup.id === currentGroup.id ? 'white-text' : 'wheat-text',
 					onClick: function onClick() {
 						return _this2.openNextMessageBoard(userGroup);
 					} }, userGroup.name));
-			}) : this.state.userGroups), _react2.default.createElement("div", { className: "buttomNavs container" }, _react2.default.createElement("a", { className: "left channels",
+			}) : this.state.userGroups), _react2.default.createElement('div', { className: 'buttomNavs container' }, _react2.default.createElement('a', { className: 'left channels',
 				onClick: function onClick() {
 					return _this2.props.handleAddUserToGroup();
-				} }, _react2.default.createElement("i", { className: "icon ion-person-add" })), _react2.default.createElement("a", { onClick: function onClick() {
+				} }, _react2.default.createElement('i', { className: 'icon ion-person-add' })), _react2.default.createElement('a', { onClick: function onClick() {
 					return _this2.props.handleLogout();
 				},
-				className: "right channels" }, _react2.default.createElement("i", { className: "icon ion-android-exit" }))));
+				className: 'right channels' }, _react2.default.createElement('i', { className: 'icon ion-android-exit' }))));
 		}
 	}]);
 
@@ -55394,7 +55478,7 @@ function _interopRequireDefault(obj) {
 }
 
 var Welcome = function Welcome() {
-    return _react2.default.createElement("div", { className: "col s12 m6 indexSideOne" }, _react2.default.createElement("h3", { className: "center-align" }, _react2.default.createElement("i", { className: "icon ion-speakerphone" }), " POSTiT"), _react2.default.createElement("br", null), _react2.default.createElement("p", { className: "flow-text center-align" }, "You don\u2019t need to shout,", _react2.default.createElement("br", null), " Just POSTiT"), _react2.default.createElement("br", null), _react2.default.createElement("h5", null, _react2.default.createElement("span", null, "Quickstart")), _react2.default.createElement("ul", null, _react2.default.createElement("li", null, _react2.default.createElement("a", { href: "/#/register" }, "Create an Account")), _react2.default.createElement("li", null, _react2.default.createElement("a", { href: "/#/message" }, "Create a Message Board")), _react2.default.createElement("li", null, _react2.default.createElement("a", { href: "/#/user/add" }, "Add Members to Board")), _react2.default.createElement("li", null, _react2.default.createElement("a", { href: "/#/dashboard" }, "Just PostIt"))));
+    return _react2.default.createElement("div", { className: "col s12 m6 indexSideOne hide-on-small-only" }, _react2.default.createElement("h3", { className: "center-align" }, _react2.default.createElement("i", { className: "icon ion-speakerphone" }), " POSTiT"), _react2.default.createElement("br", null), _react2.default.createElement("p", { className: "flow-text center-align" }, "You don\u2019t need to shout,", _react2.default.createElement("br", null), " Just POSTiT"), _react2.default.createElement("br", null), _react2.default.createElement("h5", null, _react2.default.createElement("span", null, "Quickstart")), _react2.default.createElement("ul", null, _react2.default.createElement("li", null, _react2.default.createElement("a", { href: "/#/register" }, "Create an Account")), _react2.default.createElement("li", null, "Create a Group Board"), _react2.default.createElement("li", null, "Add Members to Board"), _react2.default.createElement("li", null, "Just PostIt")));
 };
 
 exports.default = Welcome;
@@ -55428,7 +55512,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(17);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(29);
 
 var _propTypes = __webpack_require__(7);
 
@@ -55664,7 +55748,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(17);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(29);
 
 var _propTypes = __webpack_require__(7);
 
@@ -55828,7 +55912,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(17);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(29);
 
 var _propTypes = __webpack_require__(7);
 
@@ -55912,7 +55996,7 @@ var Dashboard = function (_React$Component) {
           fullName = _props.fullName,
           username = _props.username;
 
-      return _react2.default.createElement("div", null, _react2.default.createElement("br", null), _react2.default.createElement("div", { id: "chatArea", className: "white-text" }, _react2.default.createElement("div", { className: "card-panel welcome teal-text" }, _react2.default.createElement("h2", { className: "center-align" }, "Welcome ", fullName), _react2.default.createElement("h4", { className: "left-align center" }, "You don\u2019t have to shout. ", _react2.default.createElement("br", null), _react2.default.createElement("span", { className: "right-align flow-text" }, "Just POSTiT!!!")), _react2.default.createElement("div", { className: "row" }, _react2.default.createElement("br", null), _react2.default.createElement("div", { className: "col m12" }, _react2.default.createElement("p", { className: "center" }, _react2.default.createElement(_reactRouterDom.Link, { className: "btn createGroup waves-effect",
+      return _react2.default.createElement("div", null, _react2.default.createElement("br", null), _react2.default.createElement("div", { id: "chatArea", className: "white-text" }, _react2.default.createElement("div", { className: "card-panel welcome teal-text" }, _react2.default.createElement("h2", { className: "fName center-align" }, "Welcome ", fullName), _react2.default.createElement("h4", { className: "left-align center" }, "You don\u2019t have to shout. ", _react2.default.createElement("br", null), _react2.default.createElement("span", { className: "right-align flow-text" }, "Just POSTiT!!!")), _react2.default.createElement("div", { className: "row" }, _react2.default.createElement("br", null), _react2.default.createElement("div", { className: "col m12" }, _react2.default.createElement("p", { className: "center" }, _react2.default.createElement(_reactRouterDom.Link, { className: "btn createGroup waves-effect",
         to: "/dashboard/create-group" }, "Create Group"))), _react2.default.createElement("br", null), _react2.default.createElement("br", null), _react2.default.createElement("br", null), _react2.default.createElement("br", null), _react2.default.createElement("div", { className: "aboutBox row" }, _react2.default.createElement("div", { className: "col s12" }, _react2.default.createElement("h5", { className: "left-align" }, "About Us"), _react2.default.createElement("p", null, "Is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once - a broadcast message. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.")))))));
     }
   }]);
@@ -56022,7 +56106,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(17);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(29);
 
 var _propTypes = __webpack_require__(7);
 
@@ -56079,11 +56163,13 @@ var BaseDashboard = function (_Component) {
 			currentGroupMembers: null,
 			groupMessages: null,
 			username: "",
-			fullName: ""
+			fullName: "",
+			sideNavStatus: false
 		};
 		_this.addAUser = _this.addAUser.bind(_this);
 		_this.openMessageBoard = _this.openMessageBoard.bind(_this);
 		_this.onLogOut = _this.onLogOut.bind(_this);
+		_this.toggleSideNav = _this.toggleSideNav.bind(_this);
 		return _this;
 	}
 	// check if user is authenticated!
@@ -56131,6 +56217,15 @@ var BaseDashboard = function (_Component) {
 			});
 		}
 	}, {
+		key: "toggleSideNav",
+		value: function toggleSideNav(e) {
+			e.preventDefault();
+			this.setState({
+				sideNavStatus: !this.state.sideNavStatus
+			});
+			console.log("this.state.sideNavStatus ==>:", this.state.sideNavStatus);
+		}
+	}, {
 		key: "onLogOut",
 		value: function onLogOut() {
 			this.props.onLogoutUser();
@@ -56161,16 +56256,21 @@ var BaseDashboard = function (_Component) {
 			    fullName = _state.fullName,
 			    username = _state.username,
 			    userGroups = _state.userGroups,
-			    currentGroup = _state.currentGroup;
+			    currentGroup = _state.currentGroup,
+			    sideNavStatus = _state.sideNavStatus;
 
 			return _react2.default.createElement("div", null, _react2.default.createElement("div", { id: "dashContainer", className: "teal lighten-5" }, _react2.default.createElement("div", { id: "appContainer", className: "row no-marginbtm" }, _react2.default.createElement(_partials.SideMenu, _extends({}, this.props, {
 				username: username,
 				fullName: fullName,
 				userGroups: userGroups,
 				currentGroup: currentGroup,
+				sideNavStatus: sideNavStatus,
 				handleOpenMessageBoard: this.openMessageBoard,
 				handleLogout: this.onLogOut,
-				handleAddUserToGroup: this.addAUser })), _react2.default.createElement("div", { id: "appBoard", className: "col s10 m9 l10 no-padding" }, _react2.default.createElement(_partials.MainNav, null), _react2.default.createElement("div", { className: "containers" }, _react2.default.createElement(_dashboardRoute2.default, _extends({}, this.props, this.state)))))));
+				handleAddUserToGroup: this.addAUser,
+				toggleSideNav: this.toggleSideNav })), _react2.default.createElement("div", { id: "appBoard", className: "col s12 m9 l10 no-padding" }, _react2.default.createElement(_partials.MainNav, {
+				sideNavStatus: sideNavStatus,
+				toggleSideNav: this.toggleSideNav }), _react2.default.createElement("div", { className: "containers" }, _react2.default.createElement(_dashboardRoute2.default, _extends({}, this.props, this.state)))))));
 		}
 	}]);
 
@@ -56236,7 +56336,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(17);
 
-var _reactRedux = __webpack_require__(32);
+var _reactRedux = __webpack_require__(29);
 
 var _propTypes = __webpack_require__(7);
 
@@ -68811,7 +68911,7 @@ module.exports = isEmail;
 
 var Any = __webpack_require__(27);
 var Cast = __webpack_require__(61);
-var Errors = __webpack_require__(30);
+var Errors = __webpack_require__(31);
 var Hoek = __webpack_require__(19);
 
 
@@ -69333,7 +69433,7 @@ module.exports = new internals.Array();
 /* WEBPACK VAR INJECTION */(function(Buffer) {// Load modules
 
 var Any = __webpack_require__(27);
-var Errors = __webpack_require__(30);
+var Errors = __webpack_require__(31);
 var Hoek = __webpack_require__(19);
 
 
@@ -100038,7 +100138,7 @@ var EventPropagators = __webpack_require__(65);
 var ExecutionEnvironment = __webpack_require__(14);
 var ReactDOMComponentTree = __webpack_require__(10);
 var ReactUpdates = __webpack_require__(28);
-var SyntheticEvent = __webpack_require__(31);
+var SyntheticEvent = __webpack_require__(32);
 
 var inputValueTracking = __webpack_require__(327);
 var getEventTarget = __webpack_require__(120);
@@ -101074,7 +101174,7 @@ var _prodInvariant = __webpack_require__(8),
 
 var React = __webpack_require__(47);
 var ReactComponentEnvironment = __webpack_require__(114);
-var ReactCurrentOwner = __webpack_require__(29);
+var ReactCurrentOwner = __webpack_require__(30);
 var ReactErrorUtils = __webpack_require__(115);
 var ReactInstanceMap = __webpack_require__(66);
 var ReactInstrumentation = __webpack_require__(24);
@@ -105589,7 +105689,7 @@ var ReactComponentEnvironment = __webpack_require__(114);
 var ReactInstanceMap = __webpack_require__(66);
 var ReactInstrumentation = __webpack_require__(24);
 
-var ReactCurrentOwner = __webpack_require__(29);
+var ReactCurrentOwner = __webpack_require__(30);
 var ReactReconciler = __webpack_require__(46);
 var ReactChildReconciler = __webpack_require__(551);
 
@@ -107014,7 +107114,7 @@ var EventPropagators = __webpack_require__(65);
 var ExecutionEnvironment = __webpack_require__(14);
 var ReactDOMComponentTree = __webpack_require__(10);
 var ReactInputSelection = __webpack_require__(318);
-var SyntheticEvent = __webpack_require__(31);
+var SyntheticEvent = __webpack_require__(32);
 
 var getActiveElement = __webpack_require__(154);
 var isTextInputElement = __webpack_require__(329);
@@ -107211,7 +107311,7 @@ var EventPropagators = __webpack_require__(65);
 var ReactDOMComponentTree = __webpack_require__(10);
 var SyntheticAnimationEvent = __webpack_require__(590);
 var SyntheticClipboardEvent = __webpack_require__(591);
-var SyntheticEvent = __webpack_require__(31);
+var SyntheticEvent = __webpack_require__(32);
 var SyntheticFocusEvent = __webpack_require__(594);
 var SyntheticKeyboardEvent = __webpack_require__(596);
 var SyntheticMouseEvent = __webpack_require__(85);
@@ -107435,7 +107535,7 @@ module.exports = SimpleEventPlugin;
 
 
 
-var SyntheticEvent = __webpack_require__(31);
+var SyntheticEvent = __webpack_require__(32);
 
 /**
  * @interface Event
@@ -107479,7 +107579,7 @@ module.exports = SyntheticAnimationEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(31);
+var SyntheticEvent = __webpack_require__(32);
 
 /**
  * @interface Event
@@ -107522,7 +107622,7 @@ module.exports = SyntheticClipboardEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(31);
+var SyntheticEvent = __webpack_require__(32);
 
 /**
  * @interface Event
@@ -107645,7 +107745,7 @@ module.exports = SyntheticFocusEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(31);
+var SyntheticEvent = __webpack_require__(32);
 
 /**
  * @interface Event
@@ -107826,7 +107926,7 @@ module.exports = SyntheticTouchEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(31);
+var SyntheticEvent = __webpack_require__(32);
 
 /**
  * @interface Event
@@ -108155,7 +108255,7 @@ module.exports = dangerousStyleValue;
 
 var _prodInvariant = __webpack_require__(8);
 
-var ReactCurrentOwner = __webpack_require__(29);
+var ReactCurrentOwner = __webpack_require__(30);
 var ReactDOMComponentTree = __webpack_require__(10);
 var ReactInstanceMap = __webpack_require__(66);
 
@@ -113438,7 +113538,7 @@ module.exports = onlyChild;
 
 var _prodInvariant = __webpack_require__(48);
 
-var ReactCurrentOwner = __webpack_require__(29);
+var ReactCurrentOwner = __webpack_require__(30);
 var REACT_ELEMENT_TYPE = __webpack_require__(347);
 
 var getIteratorFn = __webpack_require__(350);

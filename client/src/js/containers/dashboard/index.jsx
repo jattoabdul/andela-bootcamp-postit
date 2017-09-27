@@ -24,11 +24,13 @@ class BaseDashboard extends Component {
 			currentGroupMembers: null,
 			groupMessages: null,
 			username: "",
-			fullName: ""
+			fullName: "",
+			sideNavStatus: false
 		};
 		this.addAUser = this.addAUser.bind(this);
 		this.openMessageBoard = this.openMessageBoard.bind(this);
 		this.onLogOut = this.onLogOut.bind(this);
+		this.toggleSideNav = this.toggleSideNav.bind(this);
 	}
 	// check if user is authenticated!
 	componentWillMount() {
@@ -69,6 +71,14 @@ class BaseDashboard extends Component {
 			);
 	}
 
+	toggleSideNav(e) {
+    e.preventDefault();
+    this.setState({
+			sideNavStatus: !this.state.sideNavStatus
+		});
+		console.log(`this.state.sideNavStatus ==>:`, this.state.sideNavStatus);
+	}
+	
 	onLogOut() {
 		this.props.onLogoutUser();
 		// redirecting
@@ -91,7 +101,7 @@ class BaseDashboard extends Component {
 	  }
 
 	render() {
-		const { fullName, username, userGroups, currentGroup } = this.state;
+		const { fullName, username, userGroups, currentGroup, sideNavStatus } = this.state;
 		return (
 			<div>
 				<div id="dashContainer" className="teal lighten-5">
@@ -102,11 +112,15 @@ class BaseDashboard extends Component {
 							fullName={fullName}
 							userGroups={userGroups}
 							currentGroup={currentGroup}
+							sideNavStatus={sideNavStatus}
 							handleOpenMessageBoard={this.openMessageBoard}
 							handleLogout={this.onLogOut}
-							handleAddUserToGroup={this.addAUser} />
-						<div id="appBoard" className="col s10 m9 l10 no-padding">
-							<MainNav />
+							handleAddUserToGroup={this.addAUser}
+							toggleSideNav={this.toggleSideNav} />
+						<div id="appBoard" className="col s12 m9 l10 no-padding">
+							<MainNav
+								sideNavStatus={sideNavStatus}
+								toggleSideNav={this.toggleSideNav} />
 							<div className="containers">
 								<DashboardRoutes {...this.props} {...this.state} />
 							</div>
