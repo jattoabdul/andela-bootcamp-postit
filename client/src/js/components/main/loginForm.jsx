@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Spinner from 'react-spinner-material';
 // import Auth from "./../containers/";
 import {
     onLoginUser } from "../../actions/authAction";
@@ -20,6 +21,7 @@ class Login extends React.Component {
         username: '',
         password: '',
         error_message: '',
+        isLoading: false,
         hasError: false
     };
   }
@@ -40,6 +42,7 @@ class Login extends React.Component {
     username = username.trim();
     password = password;
     if (username !== "" && password !== '') {
+      this.setState({ isLoading: true });
       this.props.onLoginUser(this.state)
       .then(
           () => {
@@ -49,10 +52,13 @@ class Login extends React.Component {
                  || response.message === 'invalid password') {
                      this.setState({
                          error_message: response.message,
-                         hasError: true
+                         hasError: true,
+                         isLoading: false
                      })
                 return;
               }
+              // setting isLoading to false
+              this.setState({ isLoading: false });
               // redirecting
               this.props.history.push('/dashboard');
           }
@@ -134,6 +140,12 @@ class Login extends React.Component {
                                 type="submit">
                                 sign in
                             </button>
+                            {this.state.isLoading &&
+                            <Spinner
+                                size={40}
+                                spinnerColor={"#fff"}
+                                spinnerWidth={2}
+                                visible={true} /> }
                             <br/><br/>
                             <p>
                                 &nbsp;

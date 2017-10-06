@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Spinner from 'react-spinner-material';
 import {
   onLoginUser,
   onRegisterUser } from "../../actions/authAction";
@@ -23,7 +24,8 @@ class Register extends React.Component {
       phoneNumber: "",
       password: "",
       error_message: "",
-      hasError: false
+      hasError: false,
+      isLoading: false
     };
   }
 
@@ -65,6 +67,7 @@ class Register extends React.Component {
       this.setState({ error_message: "Error: phone number not correct" });
       return;
     }
+    this.setState({ isLoading: true });
     // dispatching onRegisterUser request
     this.props.onRegisterUser(this.state).then(
       (registerRes) => {
@@ -83,6 +86,7 @@ class Register extends React.Component {
                     })
                 return;
               }
+              this.setState({ isLoading: false });
               // redirecting
               this.props.history.push('/dashboard');
             }
@@ -191,10 +195,16 @@ class Register extends React.Component {
                           type="submit">
                              sign Up
                         </button>
+                        {this.state.isLoading &&
+                          <Spinner
+                              size={40}
+                              spinnerColor={"#fff"}
+                              spinnerWidth={2}
+                              visible={true} /> }
                         <p>
-                            <Link to="/login">
-                                <span>Already have an account</span>
-                            </Link>
+                          <Link to="/login">
+                              <span>Already have an account</span>
+                          </Link>
                         </p>
                         </div>
                     </form>

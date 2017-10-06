@@ -34,22 +34,40 @@ describe('Auth Action', () => {
       const expectedPayload = { type: types.LOGIN_USER_SUCCESS, user };
       expect(actions).toEqual([expectedPayload]);
     });
-  });
 
-  describe('OnLoginUser Action', () => {
-    it('should create loginSuccess action if right message in response', () => {
+    it('should dispatch setCurrentUser action', () => {
+      // Instantiate the response passed to the action
+      const currentUserData = {
+        token: 'yyyy',
+        message: 'login successful'
+      };
+      // Initialize mockstore with empty/initial state
+      const initialState = {
+        isAuthenticated: true,
+        currentUserData
+      };
+
+      const store = mockStore(initialState);
+
+      // Dispatch the action (loginSuccess)
+      store.dispatch(authData.setCurrentUser(currentUserData));
+
+      // Test if your store dispatched the expected actions
+      const actions = store.getActions();
+      const expectedPayload = {
+        type: types.SET_CURRENT_USER,
+        currentUserData
+      };
+      expect(actions).toEqual([expectedPayload]);
+    });
+  });
+  describe('Login Fail Action', () => {
+    it('should dispatch Login Fail action', () => {
       // Instantiate the response passed to the action
       const user = {
-        username: 'jattoade',
-        password: 'jasabs93'
+        isAuthenticated: false,
+        message: 'login fail'
       };
-
-      // Instantiate the response recieved back by the action
-      const userLoad = {
-        token: 'somethingTokenIsh',
-        message: 'login succesful'
-      };
-
       // Initialize mockstore with empty/initial state
       const initialState = {
         isAuthenticated: false,
@@ -57,16 +75,32 @@ describe('Auth Action', () => {
       };
       const store = mockStore(initialState);
 
-      // Dispatch the Async action (onLoginUser)
-      store.dispatch(authData.onLoginUser(user));
+      // Dispatch the action (loginFail)
+      store.dispatch(authData.loginFail(user));
 
       // Test if your store dispatched the expected actions
       const actions = store.getActions();
-      const expectedPayload = { type: types.LOGIN_USER_SUCCESS, userLoad };
+      const expectedPayload = { type: types.LOGIN_USER_FAIL, user };
       expect(actions).toEqual([expectedPayload]);
     });
-    // it('should create loginFail action if certain messages in response', () => {
+  });
+  describe('Logout Success Action', () => {
+    it('should dispatch logoutSuccess action', () => {
+      // Initialize mockstore with empty/initial state
+      const initialState = {
+        isAuthenticated: true,
+        user: '{}'
+      };
 
-    // });
+      const store = mockStore(initialState);
+
+      // Dispatch the action (loginFail)
+      store.dispatch(authData.logoutSuccess());
+
+      // Test if your store dispatched the expected actions
+      const actions = store.getActions();
+      const expectedPayload = { type: types.LOGOUT_USER };
+      expect(actions).toEqual([expectedPayload]);
+    });
   });
 });
