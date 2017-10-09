@@ -86,19 +86,19 @@ class BaseDashboard extends Component {
 	}
 
 	// add a user to currentGroup
-	  addAUser(){
-			const path = this.props.location.pathname;
-			const isInGroup= !!path.match('/dashboard/message');
-			if (!isInGroup) {
-				Materialize.toast('Please Select A Group', 2000);
-			}
-			else if(isInGroup) {
-				const locationUrl =this.props.location.pathname;
-				const groupId = locationUrl.split('/')[3];
-				// console.log(groupId);
-				this.props.history.push(`/dashboard/${groupId}/addusertogroup`);
-			}
-	  }
+	addAUser(){
+		const path = this.props.location.pathname;
+		const isInGroup= !!path.match('/dashboard/message');
+		if (!isInGroup) {
+			Materialize.toast('Please Select A Group', 2000);
+		}
+		else if(isInGroup) {
+			const locationUrl =this.props.location.pathname;
+			const groupId = locationUrl.split('/')[3];
+			// console.log(groupId);
+			this.props.history.push(`/dashboard/${groupId}/addusertogroup`);
+		}
+	}
 
 	render() {
 		const { fullName, username, userGroups, currentGroup, sideNavStatus } = this.state;

@@ -10,10 +10,9 @@ const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 // const expect = chai.expect;
 
-describe('Auth Reducer', () => {
-  describe('on setCurrentUser Action', () => {
-    it('should add current user to the store as currentUser', () => {
-      
-    });
-  });
-});
+// describe('Auth Reducer', () => {
+//   describe('on setCurrentUser Action', () => {
+//     it('should add current user to the store as currentUser', () => {    
+//     });
+//   });
+// });
