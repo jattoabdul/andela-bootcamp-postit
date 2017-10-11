@@ -9,8 +9,6 @@ import {
   RECEIVE_MESSAGES,
   RECEIVE_MESSAGES_SUCCESS,
   RECEIVE_MESSAGES_FAIL,
-  ADD_USER_SUCCESS,
-  ADD_USER_FAIL,
   REMOVE_GROUP_MEMBER_SUCCESS,
   GET_GROUP_MEMBERS_SUCCESS,
   GET_GROUP_MEMBERS_FAIL,
@@ -48,9 +46,7 @@ const groupData = (state = initialState, action) => {
     currentGroupMembers,
     message,
     isLoadingGroups,
-    userId,
-    matchedUsers,
-    userAdded } = action;
+    userId } = action;
 
   switch (type) {
     case GET_GROUPS:
@@ -96,8 +92,8 @@ const groupData = (state = initialState, action) => {
         groupMembersError
       };
     case REMOVE_GROUP_MEMBER_SUCCESS: {
-      const newGroupMembers = newState.currentGroupMembers.filter(member => member.id !== userId);
-    
+      const newGroupMembers = newState.currentGroupMembers
+        .filter(member => member.id !== userId);
       return {
         ...newState,
         currentGroupMembers: [...newGroupMembers]

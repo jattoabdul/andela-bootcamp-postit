@@ -1,21 +1,25 @@
-import React from "react";
-// import { connect } from "react-redux";
-// import Auth from "./../containers/";
-// import registerUser from "../../actions/registerUser";
-// import api from "../helpers/api";
+import React from 'react';
 import '../../../styles/index.scss';
 
-class NotFound extends React.Component {
+/**
+ * 
+ * @param {*} props
+ * @return {dom} DomeElement 
+ */
+const NotFound = ({ history, handlePageNotFound }) => {
+  /**
+   * @return {void} void
+   */
+  const goHome = () => {
+    history.push('/');
+  };
 
-  render() {
-    return (
-        <div>
-            <h2>
-                Page Not Found goes in here
-            </h2>
-        </div>
-    );
-  }
-}
+  return (
+    <div className="center">
+      <h2>Page Not Found</h2>
+      <button onClick={goHome}>Go Home</button>
+    </div>
+  );
+};
 
 export default NotFound;

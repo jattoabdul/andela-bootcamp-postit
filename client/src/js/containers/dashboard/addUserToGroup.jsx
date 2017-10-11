@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty'; 
+import isEmpty from 'lodash/isEmpty';
 import classNames from 'classnames';
 import {
   onAddUser,
@@ -11,12 +11,29 @@ import {
 import '../../../styles/index.scss';
 
 
+/**
+ * 
+ * @param {*} val
+ * @return {object} classNames
+ */
+const computeClass = val => classNames({
+  link_disabled: val,
+  channels: true
+});
+
+/**
+ * @class AddUserToGroupBoard
+ */
 class AddUserToGroupBoard extends React.Component {
+  /**
+   * 
+   * @param {*} props 
+   */
   constructor(props) {
     super(props);
     // this.onCreateGroup = this.onCreateGroup.bind(this);
     this.state = {
-      error: "",
+      error: '',
       currentGroup: null,
       selectedUsers: [],
       currentGroupId: null
@@ -24,29 +41,46 @@ class AddUserToGroupBoard extends React.Component {
     this.onSearchUserInGroup = this.onSearchUserInGroup.bind(this);
     this.onAddUserToGroup = this.onAddUserToGroup.bind(this);
     this.onShowGroupMessages = this.onShowGroupMessages.bind(this);
-    this.computeClass = this.computeClass.bind(this);
+    // this.computeClass = this.computeClass.bind(this);
   }
 
+  /**
+   * @param {void} void
+   * @return {void}
+   */
   componentDidMount() {
-    const locationUrl =this.props.location.pathname;
-    const group = {id: locationUrl.split('/')[2]}
-
+    // eslint-disable-next-line
+    const locationUrl = this.props.location.pathname;
+    const group = { id: locationUrl.split('/')[2] };
+    // eslint-disable-next-line
     this.setState({
+      // eslint-disable-next-line
       currentGroupId: parseInt(group.id)
-    })
+    });
   }
 
+  /**
+   * 
+   * @param {*} nextProps 
+   * @return {void}
+   */
   componentWillReceiveProps(nextProps) {
-		const { authData: { currentUserData },
+    const { authData: { currentUserData },
       groupData: { userGroups, currentGroup } } = nextProps;
-		this.setState({
-			currentGroup: !isEmpty(currentGroup) ? currentGroup : {}
-		});
+    this.setState({
+      currentGroup: !isEmpty(currentGroup) ? currentGroup : {}
+    });
   }
-  
+
   // onSearchUserInGroup Method
-  onSearchUserInGroup(e) {
-    e.preventDefault();
+  /**
+   * 
+   * @param {*} event
+   * @return {void}
+   */
+  onSearchUserInGroup(event) {
+    event.preventDefault();
+    // eslint-disable-next-line
     const id = `${this.props.match.params.groupId}`;
     const searchText = this.selectedUser.value;
     if (!searchText) {
@@ -65,40 +99,53 @@ class AddUserToGroupBoard extends React.Component {
   }
 
   // onAddUserToGroup Method
+  /**
+   * 
+   * @param {*} uId
+   * @return {void} 
+   */
   onAddUserToGroup(uId) {
     // e.preventDefault();
+    // eslint-disable-next-line
     const id = `${this.props.match.params.groupId}`;
-    //call addUser action
+    // call addUser action
     this.props.onAddUser(uId, id).then(
+      // eslint-disable-next-line
       (item) => {
+        // eslint-disable-next-line
         Materialize.toast(`user with ID: ${uId} was added succesfully`, 3000);
       }
     );
   }
-  computeClass(val) {
-    return classNames({
-      link_disabled: val,
-      channels: true
-    });
-  }
 
-  onShowGroupMessages(e) {
-    e.preventDefault();
-    //get this id from the currentGroup Object in store
+  /**
+   * 
+   * @param {*} event
+   * @return {promise} fetchMessages
+   */
+  onShowGroupMessages(event) {
+    event.preventDefault();
+    // get this id from the currentGroup Object in store
     // const gId = `${this.props.match.params.groupId}`;
     const group = this.state.currentGroup;
     const groupIdB = this.state.currentGroupId;
     const gId = group.id || groupIdB;
-    //call enter group and load message
+    // call enter group and load message
     this.props.fetchMessages(gId).then(
+      // eslint-disable-next-line
       (item) => {
         // redirect to the message board
-        this.props.history.push(`/dashboard/messages/${gId}`)
+        // eslint-disable-next-line
+        this.props.history.push(`/dashboard/messages/${gId}`);
       }
     );
   }
 
   // render Method
+  /**
+   * 
+   * @return {dom} DomElement
+   */
   render() {
     const { currentGroupId } = this.state;
     return (
@@ -110,8 +157,8 @@ class AddUserToGroupBoard extends React.Component {
               <form className="centerForm">
                 <div className="center col s12 teal-text">
                   <span>Search For Registered User and Add to Group Below:</span>
-                  <br/>
-                    <div className="input-field inline">
+                  <br />
+                  <div className="input-field inline">
                     <input
                       id="add_users"
                       type="search"
@@ -120,7 +167,8 @@ class AddUserToGroupBoard extends React.Component {
                         this.selectedUser = input;
                       }
                       }
-                      onKeyUp={this.onSearchUserInGroup} />
+                      onKeyUp={this.onSearchUserInGroup}
+                    />
                     <label htmlFor="add_users">Users</label>
                   </div>
                 </div>
@@ -130,29 +178,43 @@ class AddUserToGroupBoard extends React.Component {
                                         and display the badge based on that and
                                         add disabled to the anchor tag */}
                     {this.state.selectedUsers.length >= 1 ?
-                      this.state.selectedUsers.map(selectedUser => <li key={selectedUser.id}>
+                      this.state.selectedUsers.map(selectedUser => (<li
+                        key={selectedUser.id}
+                      >
                         <a
-                          className={this.computeClass(selectedUser.groups.map( group =>
-                          group.id).includes(currentGroupId))}
+                          className={computeClass(
+                            selectedUser.groups.map(group =>
+                              group.id).includes(currentGroupId))}
+                          role="button"
+                          tabIndex={-1}
                           onClick={
                             () => this.onAddUserToGroup(selectedUser.id)
-                          }>
+                          }
+                        >
                           @{selectedUser.username}
                         </a>
-                        { selectedUser.groups.map( group => group.id).includes(currentGroupId) &&  
-                          <span className="new badge" data-badge-caption="Member"></span>
+                        { selectedUser.groups.map(
+                          group => group.id).includes(currentGroupId) &&
+                          <span
+                            className="new badge"
+                            data-badge-caption="Member"
+                          />
                         }
-                      </li>)
-                      : <li></li>
+                      </li>))
+                      : <li />
                     }
                   </ul>
                 </div>
                 <div className="col s12">
                   <p className="center">
-                    <button className="btn-large waves-effect waves-light"
-                      onClick={this.onSearchUserInGroup}>Search</button> or
-                    <button className="btn-large waves-effect waves-light"
-                      onClick={this.onShowGroupMessages}>Enter Group</button>
+                    <button
+                      className="btn-large waves-effect waves-light"
+                      onClick={this.onSearchUserInGroup}
+                    >Search</button> or
+                    <button
+                      className="btn-large waves-effect waves-light"
+                      onClick={this.onShowGroupMessages}
+                    >Enter Group</button>
                   </p>
                 </div>
               </form>
@@ -169,21 +231,28 @@ AddUserToGroupBoard.propTypes = {
   onAddUser: PropTypes.func,
   fetchMessages: PropTypes.func,
   groupData: PropTypes.object,
-	authData: PropTypes.object
-}
+  authData: PropTypes.object
+};
 
 const mapDispatchToProps = {
   onSearchUser,
   onAddUser,
   fetchMessages
-}
+};
 
-function mapStateToProps({ authData, groupData }){
+/**
+ * 
+ * @param {object} state, AuthData, groupData
+ * @return {onbject} state, authData, groupData
+ */
+function mapStateToProps({ authData, groupData }) {
   return {
-      authData,
-      groupData
-  }
+    authData,
+    groupData
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddUserToGroupBoard));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)(withRouter(AddUserToGroupBoard));
 

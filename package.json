@@ -17,7 +17,7 @@
   },
   "scripts": {
     "production": "NODE_ENV=production npm run build",
-    "start": "nodemon --watch server --exec babel-node -- server/bin/www",
+    "start": "node server/dist/bin/www",
     "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
     "test": "npm run test:server",
     "start:dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",

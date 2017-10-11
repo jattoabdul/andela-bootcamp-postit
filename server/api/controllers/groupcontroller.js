@@ -8,6 +8,12 @@ import models from '../models/db';
 
 let userID = 0;
 export default {
+  /**
+   * 
+   * @param {*} req
+   * @param {*} res
+   * @return {object} user
+   */
   createGroup(req, res) {
     const userName = req.authToken.data.username;
     if (!req.body.name || req.body.name.trim() === '') {
@@ -50,6 +56,13 @@ export default {
       })
       .catch(error => res.status(400).send(error));
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} groups
+   */
   viewGroups(req, res) {
     const userId = req.authToken.data.id;
     return models.Groups

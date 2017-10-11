@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import Api from '../utils/api';
 import {
   ADD_GROUP_FAIL,
@@ -9,9 +8,9 @@ import {
   REMOVE_CURRENT_GROUP,
   RECEIVE_MESSAGES,
   RECEIVE_MESSAGES_SUCCESS,
-  RECEIVE_MESSAGES_FAIL,
-  ADD_USER_SUCCESS,
-  ADD_USER_FAIL,
+  // RECEIVE_MESSAGES_FAIL,
+  // ADD_USER_SUCCESS,
+  // ADD_USER_FAIL,
   GET_GROUP_MEMBERS_SUCCESS,
   GET_GROUP_MEMBERS_FAIL,
   REMOVE_GROUP_MEMBER_SUCCESS,
@@ -170,7 +169,9 @@ export function removeGroupMember(userId) {
     userId
   };
 }
-
+/**
+ * @return {void}
+ */
 export const fetchUserGroups = () => (dispatch) => {
   dispatch(getGroup());
   // making call to the get all groups API endpoint
@@ -183,6 +184,12 @@ export const fetchUserGroups = () => (dispatch) => {
   });
 };
 
+/**
+ * 
+ * @param {*} name 
+ * @param {*} desc
+ * @return {void}
+ */
 export const createGroup = (name, desc) => (dispatch) => {
   const groupCreateParams = `name=${name}&desc=${desc}`;
   // making calls to the create group API endpoint
@@ -200,6 +207,12 @@ export const createGroup = (name, desc) => (dispatch) => {
 
 
   // onSearchUserInGroup Method
+  /**
+   * 
+   * @param {*} id 
+   * @param {*} searchText
+   * @return {void}
+   */
 export const onSearchUser = (id, searchText) => dispatch => Api(
   null,
   `/api/v1/groups/${id}/usersearch?search=${searchText}`,
@@ -209,6 +222,11 @@ export const onSearchUser = (id, searchText) => dispatch => Api(
   );
 
   // TODO: fix users in a group and deleting user from group UI & backend
+  /**
+   * 
+   * @param {*} groupId
+   * @return {void}
+   */
 export const setSelectedGroupMembers = groupId => (dispatch) => {
   // TODO: make API call to get users of a group from the server
   return Api(null, `/api/v1/groups/${groupId}/users/`, 'GET').then(
@@ -226,6 +244,12 @@ export const setSelectedGroupMembers = groupId => (dispatch) => {
 };
 
   // onAddUserToGroup Method
+  /**
+   * 
+   * @param {*} userId 
+   * @param {*} groupId
+   * @return {object} addUserToGroupResponse
+   */
 export const onAddUser = (userId, groupId) => (dispatch) => {
   const addUserParams = `userId=${userId}`;
   return Api(addUserParams, `/api/v1/groups/${groupId}/user/`, 'POST').then(
@@ -239,34 +263,57 @@ export const onAddUser = (userId, groupId) => (dispatch) => {
 };
 
 // onAddUserToGroup Method
+/**
+ * 
+ * @param {*} userId 
+ * @param {*} groupId 
+ * @return {object} removeUserFromGroupResponse
+ */
 export const onRemoveUser = (userId, groupId) => (dispatch) => {
   const removeUserParams = `?usersId=${userId}`;
-  return Api(null, `/api/v1/groups/${groupId}/user/${removeUserParams}`, 'DELETE').then(
-    (removeUserFromGroupResponse) => {
-      console.log('removeUserFromGroupResponse========>', removeUserFromGroupResponse);
-      if (removeUserFromGroupResponse.message === 'User Is not an Admin') {
+  return Api(
+    null,
+    `/api/v1/groups/${groupId}/user/${removeUserParams}`,
+    'DELETE')
+    .then(
+      (removeUserFromGroupResponse) => {
+        if (removeUserFromGroupResponse.message === 'User Is not an Admin') {
+          return removeUserFromGroupResponse;
+        }
+        if (removeUserFromGroupResponse.message === 'You cannot remove yourself') {
+          return removeUserFromGroupResponse;
+        }
+        // call remove groupmember action
+        dispatch(removeGroupMember(userId));
         return removeUserFromGroupResponse;
       }
-      if (removeUserFromGroupResponse.message === 'You cannot remove yourself') {
-        return removeUserFromGroupResponse;
-      }
-      // call remove groupmember action
-      dispatch(removeGroupMember(userId));
-      return removeUserFromGroupResponse;
-    }
-  );
+    );
 };
 
+/**
+ * 
+ * @param {*} group
+ * @return {void}
+ */
 export const setSelectedGroupAsCurrent = group => (dispatch) => {
   // setting current group to store
   dispatch(setCurrentGroup(group));
 };
 
+/**
+ * @return {void}
+ */
 export const resetCurrentGroup = () => (dispatch) => {
   // setting current group to store
   dispatch(removeCurrentGroup());
 };
 
+/**
+ * 
+ * @param {*} groupId 
+ * @param {*} dispatch 
+ * @return {object} groupMessages
+ */
 const fetchTheMessages = (groupId, dispatch) => {
   dispatch(getGroupMessages());
   return Api(null, `/api/v1/groups/${groupId}/messages/`, 'GET').then(
@@ -277,8 +324,21 @@ const fetchTheMessages = (groupId, dispatch) => {
   );
 };
 
-export const fetchMessages = groupId => dispatch => fetchTheMessages(groupId, dispatch);
+/**
+ * 
+ * @param {*} groupId
+ * @return {object} messageResponse
+ */
+export const fetchMessages = groupId => dispatch =>
+  fetchTheMessages(groupId, dispatch);
 
+/**
+ * 
+ * @param {*} groupId 
+ * @param {*} priority 
+ * @param {*} text 
+ * @return {object} messageResponse
+ */
 export const handleSendMessage = (groupId, priority, text) => (dispatch) => {
   dispatch(addMessage());
   // make Api call to send msg here
@@ -290,17 +350,5 @@ export const handleSendMessage = (groupId, priority, text) => (dispatch) => {
       return messageResponse;
     });
 };
-// TODO: fix this and abstract from messageboard component
-// export const updateReadBy = id => (dispatch) => {
-//   const updateMessageParams = `id=${id}`;
-//   const gId = `${this.props.match.params.groupId}`;
-//   // make API call to the read message endpoint
-//   Api(updateMessageParams, `/api/v1/groups/${gId}/message/read`, 'POST')
-//     .then((response) => {
-//       console.log('Response: ', response);
-//     });
-// };
-
-// TODO: fix responsiveness css
 
 // TODO: abstract all other API calls in component

@@ -11,6 +11,13 @@ import models from '../models/db';
 
 let userID = 0;
 
+/**
+ * 
+ * @param {*} email 
+ * @param {*} message 
+ * @param {*} priority 
+ * @return {object} info
+ */
 const sendEmail = (email, message, priority) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -38,6 +45,11 @@ const sendEmail = (email, message, priority) => {
   });
 };
 
+/**
+ * 
+ * @param {*} groupId 
+ * @return {object} group
+ */
 const fetchMembersEmail = groupId =>
   new Promise((resolve) => {
     models.Groups.findOne({
@@ -57,6 +69,12 @@ const fetchMembersEmail = groupId =>
   });
 
 export default {
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} result
+   */
   sendMsg(req, res) {
     const userName = req.authToken.data.username;
     if (!req.body.text || req.body.text.trim() === '') {
@@ -132,6 +150,13 @@ export default {
       })
       .catch(error => res.status(400).send(error));
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} messages
+   */
   getMsg(req, res) {
     models.Messages
       .findAll({
@@ -154,6 +179,13 @@ export default {
       .then(messages => res.status(200).send(messages))
       .catch(error => res.status(404).send(error));
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} message
+   */
   updateReadBy(req, res) {
     models.Messages
       .findOne({

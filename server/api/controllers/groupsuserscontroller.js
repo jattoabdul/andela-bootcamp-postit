@@ -7,6 +7,12 @@ import models from '../models/db';
 
 // let userName = "";
 export default {
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} response
+   */
   addMember(req, res) {
     if (!req.body.userId) {
       res.status(400)
@@ -48,6 +54,13 @@ export default {
           });
       });
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} members
+   */
   viewMembers(req, res) {
     return models.Groups
       .findAll({
@@ -68,12 +81,26 @@ export default {
         res.status(400).send(error);
       });
   },
+  
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} groupMembers
+   */
   viewAllGroupMembers(req, res) {
     return models.GroupsUsers
       .findAll()
       .then(groupMembers => res.status(200).send(groupMembers))
       .catch(error => res.status(400).send(error));
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} user
+   */
   removeMember(req, res) {
     const currentUserId = req.authToken.data.id;
     models.GroupsUsers
@@ -128,6 +155,13 @@ export default {
         });
       });
   },
+
+  /**
+   * 
+   * @param {*} req
+   * @param {*} res
+   * @return {array} searchItemResult
+   */
   searchMember(req, res) {
     if (req.query.search) {
       models.GroupsUsers
