@@ -147,6 +147,10 @@ form a.forgotPass {
  float: right;
 }
 
+.indexSideTwo form p {
+  margin-top: 0px;
+}
+
 .nopadding {
    padding: 0 !important;
 }
@@ -449,6 +453,11 @@ input#group_name-create, textarea#group_desc-create{
   font-size: 3em;
 }
 
+.spinner {
+  display: inline !important;
+  margin: -3px;
+  position: absolute;
+}
 
 @media screen and (min-width:599px) {
   .hidden {

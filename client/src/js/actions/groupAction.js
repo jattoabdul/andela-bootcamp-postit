@@ -270,10 +270,8 @@ export const onRemoveUser = (userId, groupId) => (dispatch) => {
     'DELETE')
     .then(
       (removeUserFromGroupResponse) => {
-        if (removeUserFromGroupResponse.message === 'User Is not an Admin') {
-          return removeUserFromGroupResponse;
-        }
-        if (removeUserFromGroupResponse.message === 'You cannot remove yourself') {
+        if (removeUserFromGroupResponse.message ===
+          'User Is not an Admin' || 'You cannot remove yourself') {
           return removeUserFromGroupResponse;
         }
         // call remove groupmember action

@@ -8,7 +8,6 @@ import 'materialize-css';
 import 'materialize-css/dist/js/materialize.min';
 import jwt from 'jsonwebtoken';
 
-// import { setCurrentUser } from './actions/authAction';
 import '../styles/index.scss';
 import configureStore from './stores/configureStore';
 import './htmlAction';
@@ -18,7 +17,7 @@ import {
   Register,
   Login,
   ResetPassword,
-  UpdatePassword,
+  UpdatePasswordForm,
   NotFound
 } from './components/main';
 import BaseDashboard from './containers/dashboard';
@@ -50,7 +49,7 @@ render(
         <Route path="/resetpassword" component={ResetPassword} />
         <Route
           path="/updatepassword/:hash"
-          component={UpdatePassword}
+          component={UpdatePasswordForm}
         />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />

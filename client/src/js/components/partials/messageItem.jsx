@@ -21,7 +21,7 @@ class MessageItem extends React.Component {
    */
   render() {
     const now = new Date(this.props.createdAt).toTimeString();
-    const hhmmss = now.split(' ')[0];
+    const readableTime = now.split(' ')[0];
     return (
       <div id={this.props.id} className="chat card">
         <img
@@ -53,7 +53,7 @@ class MessageItem extends React.Component {
               />
             )}
             <br />
-            <span className="time">{hhmmss}</span>
+            <span className="time">{readableTime}</span>
           </p>
         </div>
       </div>

@@ -164,12 +164,13 @@ class Login extends React.Component {
                 </Link>
               </div>
               <div className="input-field col s12">
+                {!this.state.isLoading &&
                 <button
                   className="btn waves-effect waves-light"
                   type="submit"
                 >
                   sign in
-                </button>
+                </button> }
                 {this.state.isLoading &&
                   <Spinner
                     size={40}

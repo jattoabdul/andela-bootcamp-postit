@@ -7,7 +7,7 @@ import '../../../styles/index.scss';
 /**
  * @class UpdatePassword
  */
-class UpdatePassword extends React.Component {
+class UpdatePasswordForm extends React.Component {
   /**
    * 
    * @param {*} props 
@@ -172,4 +172,4 @@ class UpdatePassword extends React.Component {
   }
 }
 
-export default UpdatePassword;
+export default UpdatePasswordForm;

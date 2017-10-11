@@ -113,7 +113,7 @@ export default {
           if (user.isAdmin === '1') {
             if (req.query.usersId) {
               if (user.userId === req.query.usersId) {
-                return res.status(400).send({
+                return res.status(403).send({
                   message: 'You cannot remove yourself'
                 });
               }
