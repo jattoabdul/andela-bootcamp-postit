@@ -17,7 +17,8 @@
   },
   "scripts": {
     "production": "NODE_ENV=production npm run build",
-    "start": "node server/dist/bin/www",
+    "start": "npm run production && npm run start:prod",
+    "start:prod": "node server/dist/bin/www",
     "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
     "test": "npm run test:server",
     "start:dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
@@ -82,6 +83,7 @@
     "crypto-js": "^3.1.9-1",
     "css-loader": "^0.28.4",
     "cssnano": "^3.10.0",
+    "dotenv": "^4.0.0",
     "enzyme": "^2.9.1",
     "eslint": "^4.1.1",
     "expect": "^21.0.2",

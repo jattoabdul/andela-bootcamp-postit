@@ -44,19 +44,25 @@ class CreateGroupBoard extends React.Component {
   onCreateGroup(event) {
     event.preventDefault();
     const { name, desc } = this.state;
-    console.log('creategroup param', name, desc);
     if (name === '') {
-      console.log('name cannot be empty');
+      // eslint-disable-next-line
+      Materialize.toast('name cannot be empty', 2000);
     }
     if (desc === '') {
-      console.log('desc cannot be empty');
+      // eslint-disable-next-line
+      Materialize.toast('desc cannot be empty', 2000);
     }
     // making calls to the create group API endpoint
     this.props.createGroup(name, desc).then((item) => {
-      this.props.fetchUserGroups();
-      // redirect
-      // eslint-disable-next-line
-      this.props.history.push(`/dashboard/${item.id}/addusertogroup`);
+      if (item) {
+        this.props.fetchUserGroups();
+        // redirect
+        // eslint-disable-next-line
+        this.props.history.push(`/dashboard/${item.id}/addusertogroup`);
+      } else {
+        // eslint-disable-next-line
+        Materialize.toast('Group Already Exists', 2000);
+      }
     });
   }
 

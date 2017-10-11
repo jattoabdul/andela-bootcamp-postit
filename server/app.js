@@ -28,11 +28,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 /**
  * Default routes.
  */
-// app.get('/', (req, res) => {
-//   res
-//     .status(200)
-//     .send({ message: 'Welcome to the beginning of nothingness.' });
-// });
+app.get('/', (req, res) => {
+  res
+    .status(200)
+    .sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 /**
  * API routes call.

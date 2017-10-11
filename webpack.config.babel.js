@@ -10,8 +10,6 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 // const debug = process.env.NODE_ENV !== 'production';
-// ./client/src/js/index.js
-// ./client/src/js/app.jsx
 module.exports = {
   entry: ['./client/src/js/index.jsx'],
   output: {
@@ -84,7 +82,7 @@ module.exports = {
   ], // plugins
   devServer: {
     proxy: {
-      '/api/v1': 'http://localhost:7000'
+      '/api/v1': process.env.PORT || 'http://localhost:7000'
     },
     hot: true,
     historyApiFallback: true

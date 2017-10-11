@@ -8,9 +8,6 @@ import {
   REMOVE_CURRENT_GROUP,
   RECEIVE_MESSAGES,
   RECEIVE_MESSAGES_SUCCESS,
-  // RECEIVE_MESSAGES_FAIL,
-  // ADD_USER_SUCCESS,
-  // ADD_USER_FAIL,
   GET_GROUP_MEMBERS_SUCCESS,
   GET_GROUP_MEMBERS_FAIL,
   REMOVE_GROUP_MEMBER_SUCCESS,
@@ -202,6 +199,7 @@ export const createGroup = (name, desc) => (dispatch) => {
     }
   ).catch((addError) => {
     dispatch(addGroupFail(addError));
+    throw addError;
   });
 };
 
@@ -213,7 +211,7 @@ export const createGroup = (name, desc) => (dispatch) => {
    * @param {*} searchText
    * @return {void}
    */
-export const onSearchUser = (id, searchText) => dispatch => Api(
+export const onSearchUser = (id, searchText) => () => Api(
   null,
   `/api/v1/groups/${id}/usersearch?search=${searchText}`,
   'GET')
@@ -227,9 +225,9 @@ export const onSearchUser = (id, searchText) => dispatch => Api(
    * @param {*} groupId
    * @return {void}
    */
-export const setSelectedGroupMembers = groupId => (dispatch) => {
+export const setSelectedGroupMembers = groupId => dispatch =>
   // TODO: make API call to get users of a group from the server
-  return Api(null, `/api/v1/groups/${groupId}/users/`, 'GET').then(
+  Api(null, `/api/v1/groups/${groupId}/users/`, 'GET').then(
     (currentGroupMembers) => {
       // setting current group members response from server to store
       dispatch(setCurrentGroupUsersSuccess(currentGroupMembers));
@@ -240,25 +238,20 @@ export const setSelectedGroupMembers = groupId => (dispatch) => {
       // setting error response from server when getting members of group
       dispatch(setCurrentGroupUsersFail(groupMembersError));
       return groupMembersError;
-    });
-};
+    })
+;
 
-  // onAddUserToGroup Method
-  /**
+// onAddUserToGroup Method
+/**
    * 
    * @param {*} userId 
    * @param {*} groupId
    * @return {object} addUserToGroupResponse
    */
-export const onAddUser = (userId, groupId) => (dispatch) => {
+export const onAddUser = (userId, groupId) => () => {
   const addUserParams = `userId=${userId}`;
   return Api(addUserParams, `/api/v1/groups/${groupId}/user/`, 'POST').then(
-    (addUserToGroupResponse) => {
-      // check if response, i.e user added, set message state to "user added"
-      // check for users in a group and update UI to add mark icon
-      return addUserToGroupResponse;
-    }
-
+    addUserToGroupResponse => addUserToGroupResponse
   );
 };
 
