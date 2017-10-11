@@ -31,7 +31,6 @@ class AddUserToGroupBoard extends React.Component {
    */
   constructor(props) {
     super(props);
-    // this.onCreateGroup = this.onCreateGroup.bind(this);
     this.state = {
       error: '',
       currentGroup: null,
@@ -41,7 +40,6 @@ class AddUserToGroupBoard extends React.Component {
     this.onSearchUserInGroup = this.onSearchUserInGroup.bind(this);
     this.onAddUserToGroup = this.onAddUserToGroup.bind(this);
     this.onShowGroupMessages = this.onShowGroupMessages.bind(this);
-    // this.computeClass = this.computeClass.bind(this);
   }
 
   /**
@@ -126,7 +124,6 @@ class AddUserToGroupBoard extends React.Component {
   onShowGroupMessages(event) {
     event.preventDefault();
     // get this id from the currentGroup Object in store
-    // const gId = `${this.props.match.params.groupId}`;
     const group = this.state.currentGroup;
     const groupIdB = this.state.currentGroupId;
     const gId = group.id || groupIdB;
@@ -174,9 +171,6 @@ class AddUserToGroupBoard extends React.Component {
                 </div>
                 <div className="col s12">
                   <ul>
-                    {/* check if user is a member of currentGroup 
-                                        and display the badge based on that and
-                                        add disabled to the anchor tag */}
                     {this.state.selectedUsers.length >= 1 ?
                       this.state.selectedUsers.map(selectedUser => (<li
                         key={selectedUser.id}

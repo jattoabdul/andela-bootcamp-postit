@@ -77,7 +77,6 @@ export default {
         res.status(200).send(members[0].users);
       })
       .catch((error) => {
-        console.log(error);
         res.status(400).send(error);
       });
   },
@@ -113,8 +112,6 @@ export default {
         (user) => {
           if (user.isAdmin === '1') {
             if (req.query.usersId) {
-              // console.log('req.query.usersId: user ID of the user to be removed:', req.query.usersId);
-              // console.log('userID requesting removal of a user:', user.userId);
               if (user.userId === req.query.usersId) {
                 return res.status(400).send({
                   message: 'You cannot remove yourself'
@@ -194,7 +191,6 @@ export default {
                 groupUsersId,
                 searchItemResult
               };
-              console.log(data);
               return res.status(200).send(data);
             }).catch(error => res.status(400).send(error));
         }).catch(error => res.status(400).send(error));

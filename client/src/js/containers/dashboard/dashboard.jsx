@@ -39,6 +39,7 @@ class Dashboard extends React.Component {
   callToaster(username) {
     // Add a toastr welcome mesage here.
     if (this.state.hasShownToaster !== true) {
+      // eslint-disable-next-line
       Materialize.toast(`Welcome ${username}, let's PostiT`, 3000);
       this.setState({
         hasShownToaster: true
@@ -100,7 +101,6 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  // fetchUserGroups: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
   fullName: PropTypes.string.isRequired
 };

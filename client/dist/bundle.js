@@ -16238,9 +16238,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var Api = function Api(body, url, method) {
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
     if (sessionStorage.getItem('user') !== null) {
       headers.append('x-access-token', JSON.parse(sessionStorage.getItem('user')).token);
     }
@@ -16255,6 +16256,8 @@ var Api = function Api(body, url, method) {
         return response.json();
       }).then(function (response) {
         resolve(response);
+      }).catch(function (error) {
+        reject(error);
       });
     } else if (method.toUpperCase() === 'DELETE') {
       fetch(url, { method: method,
@@ -16263,6 +16266,8 @@ var Api = function Api(body, url, method) {
         return response.json();
       }).then(function (response) {
         resolve(response);
+      }).catch(function (error) {
+        reject(error);
       });
     } else {
       fetch(url, { method: method,
@@ -16272,6 +16277,8 @@ var Api = function Api(body, url, method) {
         return response.json();
       }).then(function (response) {
         resolve(response);
+      }).catch(function (error) {
+        reject(error);
       });
     }
   });
@@ -18285,6 +18292,7 @@ var createGroup = exports.createGroup = function createGroup(name, desc) {
       return group;
     }).catch(function (addError) {
       dispatch(addGroupFail(addError));
+      throw addError;
     });
   };
 };
@@ -18297,7 +18305,7 @@ var createGroup = exports.createGroup = function createGroup(name, desc) {
  * @return {void}
  */
 var onSearchUser = exports.onSearchUser = function onSearchUser(id, searchText) {
-  return function (dispatch) {
+  return function () {
     return (0, _api2.default)(null, '/api/v1/groups/' + id + '/usersearch?search=' + searchText, 'GET').then(function (userSearchResult) {
       return userSearchResult.searchItemResult;
     });
@@ -18312,32 +18320,32 @@ var onSearchUser = exports.onSearchUser = function onSearchUser(id, searchText) 
  */
 var setSelectedGroupMembers = exports.setSelectedGroupMembers = function setSelectedGroupMembers(groupId) {
   return function (dispatch) {
-    // TODO: make API call to get users of a group from the server
-    return (0, _api2.default)(null, '/api/v1/groups/' + groupId + '/users/', 'GET').then(function (currentGroupMembers) {
-      // setting current group members response from server to store
-      dispatch(setCurrentGroupUsersSuccess(currentGroupMembers));
-      return currentGroupMembers;
-    }).catch(function (groupMembersError) {
-      // setting error response from server when getting members of group
-      dispatch(setCurrentGroupUsersFail(groupMembersError));
-      return groupMembersError;
-    });
+    return (
+      // TODO: make API call to get users of a group from the server
+      (0, _api2.default)(null, '/api/v1/groups/' + groupId + '/users/', 'GET').then(function (currentGroupMembers) {
+        // setting current group members response from server to store
+        dispatch(setCurrentGroupUsersSuccess(currentGroupMembers));
+        return currentGroupMembers;
+      }).catch(function (groupMembersError) {
+        // setting error response from server when getting members of group
+        dispatch(setCurrentGroupUsersFail(groupMembersError));
+        return groupMembersError;
+      })
+    );
   };
 };
 
 // onAddUserToGroup Method
 /**
- * 
- * @param {*} userId 
- * @param {*} groupId
- * @return {object} addUserToGroupResponse
- */
+   * 
+   * @param {*} userId 
+   * @param {*} groupId
+   * @return {object} addUserToGroupResponse
+   */
 var onAddUser = exports.onAddUser = function onAddUser(userId, groupId) {
-  return function (dispatch) {
+  return function () {
     var addUserParams = 'userId=' + userId;
     return (0, _api2.default)(addUserParams, '/api/v1/groups/' + groupId + '/user/', 'POST').then(function (addUserToGroupResponse) {
-      // check if response, i.e user added, set message state to "user added"
-      // check for users in a group and update UI to add mark icon
       return addUserToGroupResponse;
     });
   };
@@ -24542,11 +24550,6 @@ var onRegisterUser = exports.onRegisterUser = function onRegisterUser(userData) 
         email = userData.email,
         password = userData.password,
         phoneNumber = userData.phoneNumber;
-    // const username = userData.username,
-    //   fullName = userData.fullName,
-    //   email = userData.email,
-    //   password = userData.password,
-    //   phoneNumber = userData.phoneNumber;
 
     var userString = 'username=' + username + '&fullName=' + fullName + '&email=' + email + '\n      &password=' + password + '&phoneNumber=' + phoneNumber;
     return (0, _api2.default)(userString, '/api/v1/users/signup', 'POST', null);
@@ -54385,10 +54388,6 @@ function _inherits(subClass, superClass) {
     throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
   }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
-// import Auth from "./../containers/";
-
-// import Api from "../../utils/api";
-
 
 /**
  * @class Login
@@ -54516,9 +54515,8 @@ var Login = function (_React$Component) {
         id: 'username_login',
         name: 'username',
         value: this.state.username,
-        onChange: this.onChange
-        /* ref={(input) => { this.username = input; }} */
-        , maxLength: '15',
+        onChange: this.onChange,
+        maxLength: '15',
         pattern: '(?=^.{6,15}$)(?!.*\\s).*$',
         required: true
       }), _react2.default.createElement('label', { htmlFor: 'username_login' }, 'Username')), _react2.default.createElement('div', { className: 'input-field col s12 m7 no-padding' }, _react2.default.createElement('input', {
@@ -54527,13 +54525,11 @@ var Login = function (_React$Component) {
         id: 'password_login',
         name: 'password',
         value: this.state.password,
-        onChange: this.onChange
-        /* ref={(input) => { this.password = input; }} */
-        , pattern: '(?=^.{6,12}$)(?!.*\\s).*$',
+        onChange: this.onChange,
+        pattern: '(?=^.{6,12}$)(?!.*\\s).*$',
         title: '6 to 12 characters required',
         required: true
       }), _react2.default.createElement('label', { htmlFor: 'password_login' }, 'Password')), _react2.default.createElement('div', { className: 'input-field col s12 m5 nopadding' }, _react2.default.createElement(_reactRouterDom.Link, { to: '/resetpassword', className: 'forgotPass' }, 'forgot password')), _react2.default.createElement('div', { className: 'input-field col s12' }, _react2.default.createElement('button', {
-        /* onClick= { this.onLoginUser } */
         className: 'btn waves-effect waves-light',
         type: 'submit'
       }, 'sign in'), this.state.isLoading && _react2.default.createElement(_reactSpinnerMaterial2.default, {
@@ -54568,10 +54564,6 @@ function mapStateToProps(_ref) {
     authData: authData
   };
 }
-
-// const mapDispatchToProps = dispatch => ({
-//     onLoginUser: user => dispatch(loginUser(user))
-// });
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _reactRouterDom.withRouter)(Login));
 
@@ -54779,9 +54771,7 @@ var Register = function (_React$Component) {
         return;
       }
       this.setState({ isLoading: true });
-      // dispatching onRegisterUser request
       this.props.onRegisterUser(this.state).then(function (registerRes) {
-        // console.log(registerRes.err);
         if (registerRes.err === undefined) {
           // login dispatch
           _this2.props.onLoginUser(_this2.state).then(function () {
@@ -54850,18 +54840,16 @@ var Register = function (_React$Component) {
         id: 'fullname_signup',
         name: 'fullName',
         value: this.state.fullName,
-        onChange: this.onChange
-        /* ref = {(input) => { this.fullname = input; }} */
-        , required: true
+        onChange: this.onChange,
+        required: true
       }), _react2.default.createElement('label', { htmlFor: 'fullname_signup' }, 'Fullname')), _react2.default.createElement('div', { className: 'input-field col s6' }, _react2.default.createElement('input', {
         onFocus: this.onFocus,
         type: 'text',
         id: 'username_signup',
         name: 'username',
         value: this.state.username,
-        onChange: this.onChange
-        /* ref = {(input) => { this.username = input; }} */
-        , maxLength: '15',
+        onChange: this.onChange,
+        maxLength: '15',
         pattern: '(?=^.{6,15}$)(?!.*\\s).*$',
         required: true
       }), _react2.default.createElement('label', { htmlFor: 'username_signup' }, 'Username')), _react2.default.createElement('div', { className: 'input-field col s6' }, _react2.default.createElement('input', {
@@ -54870,9 +54858,8 @@ var Register = function (_React$Component) {
         id: 'password_signup',
         name: 'password',
         value: this.state.password,
-        onChange: this.onChange
-        /* ref = {(input) => { this.password = input; }} */
-        , pattern: '(?=^.{6,12}$)(?!.*\\s).*$',
+        onChange: this.onChange,
+        pattern: '(?=^.{6,12}$)(?!.*\\s).*$',
         title: '6 to 12 characters required',
         required: true
       }), _react2.default.createElement('label', { htmlFor: 'password_signup' }, 'Password')), _react2.default.createElement('div', { className: 'input-field col s6' }, _react2.default.createElement('input', {
@@ -54881,9 +54868,8 @@ var Register = function (_React$Component) {
         id: 'email_signup',
         name: 'email',
         value: this.state.email,
-        onChange: this.onChange
-        /* ref = {(input) => { this.email = input; }} */
-        , required: true
+        onChange: this.onChange,
+        required: true
       }), _react2.default.createElement('label', { htmlFor: 'email_signup' }, 'Email')), _react2.default.createElement('div', { className: 'input-field col s12' }, _react2.default.createElement('input', {
         onFocus: this.onFocus,
         type: 'tel',
@@ -54891,11 +54877,9 @@ var Register = function (_React$Component) {
         name: 'phoneNumber',
         pattern: '^\\d{11}$',
         value: this.state.phoneNumber,
-        onChange: this.onChange
-        /* ref = {(input) => { this.phoneNumber = input; }} */
-        , required: true
+        onChange: this.onChange,
+        required: true
       }), _react2.default.createElement('label', { htmlFor: 'phone_signup' }, 'Phone Number')), _react2.default.createElement('div', { className: 'input-field col s12' }, _react2.default.createElement('button', {
-        /* onClick= { this.onRegisterUser } */
         className: 'btn waves-effect waves-light',
         type: 'submit'
       }, 'sign Up'), this.state.isLoading && _react2.default.createElement(_reactSpinnerMaterial2.default, {
@@ -54929,10 +54913,6 @@ function mapStateToProps(state) {
     authData: state.authData
   };
 }
-
-// const mapDispatchToProps = dispatch => ({
-//   onLoginUser: user => dispatch(loginUser(user))
-// });
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)((0, _reactRouterDom.withRouter)(Register));
 
@@ -55002,8 +54982,6 @@ function _inherits(subClass, superClass) {
     throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
   }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
-// import { connect } from "react-redux";
-
 
 /**
  * 
@@ -55192,8 +55170,6 @@ function _inherits(subClass, superClass) {
     throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
   }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
-// import { connect } from "react-redux";
-
 
 /**
  * @class UpdatePassword
@@ -55274,7 +55250,6 @@ var UpdatePassword = function (_React$Component) {
           return;
         }
         var password = 'password=' + this.password.value;
-        console.log(password);
         (0, _api2.default)(password, '/api/v1/users/reset/' + hash + '/', 'POST', null).then(function (response) {
           if (response.data.error === undefined) {
             _this2.setState({
@@ -55979,7 +55954,6 @@ var SideMenu = function (_React$Component) {
   function SideMenu(props) {
     _classCallCheck(this, SideMenu);
 
-    // this.toggleSideNavOff = this.toggleSideNavOff.bind(this);
     var _this = _possibleConstructorReturn(this, (SideMenu.__proto__ || Object.getPrototypeOf(SideMenu)).call(this, props));
 
     _this.state = {
@@ -56050,10 +56024,7 @@ var SideMenu = function (_React$Component) {
       var _state = this.state,
           username = _state.username,
           fullName = _state.fullName,
-          currentGroup = _state.currentGroup,
-          userGroups = _state.userGroups,
-          activeClassList = _state.activeClassList,
-          activeClassAnchor = _state.activeClassAnchor;
+          currentGroup = _state.currentGroup;
 
       return _react2.default.createElement('div', {
         id: 'roomsView',
@@ -56106,7 +56077,12 @@ SideMenu.propTypes = {
   handleLogout: _propTypes2.default.func,
   handleSetCurrentGroup: _propTypes2.default.func,
   groupData: _propTypes2.default.object,
-  authData: _propTypes2.default.object
+  authData: _propTypes2.default.object,
+  userGroups: _propTypes2.default.array,
+  handleOpenMessageBoard: _propTypes2.default.func,
+  handleAddUserToGroup: _propTypes2.default.func,
+  toggleSideNav: _propTypes2.default.func,
+  sideNavStatus: _propTypes2.default.any
 };
 
 exports.default = (0, _reactRouterDom.withRouter)(SideMenu);
@@ -56354,7 +56330,6 @@ var AddUserToGroupBoard = function (_React$Component) {
   function AddUserToGroupBoard(props) {
     _classCallCheck(this, AddUserToGroupBoard);
 
-    // this.onCreateGroup = this.onCreateGroup.bind(this);
     var _this = _possibleConstructorReturn(this, (AddUserToGroupBoard.__proto__ || Object.getPrototypeOf(AddUserToGroupBoard)).call(this, props));
 
     _this.state = {
@@ -56366,7 +56341,6 @@ var AddUserToGroupBoard = function (_React$Component) {
     _this.onSearchUserInGroup = _this.onSearchUserInGroup.bind(_this);
     _this.onAddUserToGroup = _this.onAddUserToGroup.bind(_this);
     _this.onShowGroupMessages = _this.onShowGroupMessages.bind(_this);
-    // this.computeClass = this.computeClass.bind(this);
     return _this;
   }
 
@@ -56471,7 +56445,6 @@ var AddUserToGroupBoard = function (_React$Component) {
 
       event.preventDefault();
       // get this id from the currentGroup Object in store
-      // const gId = `${this.props.match.params.groupId}`;
       var group = this.state.currentGroup;
       var groupIdB = this.state.currentGroupId;
       var gId = group.id || groupIdB;
@@ -56691,19 +56664,25 @@ var CreateGroupBoard = function (_React$Component) {
           name = _state.name,
           desc = _state.desc;
 
-      console.log('creategroup param', name, desc);
       if (name === '') {
-        console.log('name cannot be empty');
+        // eslint-disable-next-line
+        Materialize.toast('name cannot be empty', 2000);
       }
       if (desc === '') {
-        console.log('desc cannot be empty');
+        // eslint-disable-next-line
+        Materialize.toast('desc cannot be empty', 2000);
       }
       // making calls to the create group API endpoint
       this.props.createGroup(name, desc).then(function (item) {
-        _this2.props.fetchUserGroups();
-        // redirect
-        // eslint-disable-next-line
-        _this2.props.history.push('/dashboard/' + item.id + '/addusertogroup');
+        if (item) {
+          _this2.props.fetchUserGroups();
+          // redirect
+          // eslint-disable-next-line
+          _this2.props.history.push('/dashboard/' + item.id + '/addusertogroup');
+        } else {
+          // eslint-disable-next-line
+          Materialize.toast('Group Already Exists', 2000);
+        }
       });
     }
 
@@ -56748,13 +56727,6 @@ var mapDispatchToProps = {
   createGroup: _groupAction.createGroup,
   fetchUserGroups: _groupAction.fetchUserGroups
 };
-
-// function mapStateToProps({ authData, groupData }){
-//   return {
-//       authData,
-//       groupData
-//   }
-// }
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)((0, _reactRouterDom.withRouter)(CreateGroupBoard));
 
@@ -56864,6 +56836,7 @@ var Dashboard = function (_React$Component) {
     value: function callToaster(username) {
       // Add a toastr welcome mesage here.
       if (this.state.hasShownToaster !== true) {
+        // eslint-disable-next-line
         Materialize.toast('Welcome ' + username + ', let\'s PostiT', 3000);
         this.setState({
           hasShownToaster: true
@@ -56891,7 +56864,6 @@ var Dashboard = function (_React$Component) {
 }(_react2.default.Component);
 
 Dashboard.propTypes = {
-  // fetchUserGroups: PropTypes.func.isRequired,
   username: _propTypes2.default.string.isRequired,
   fullName: _propTypes2.default.string.isRequired
 };

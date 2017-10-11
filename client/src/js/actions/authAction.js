@@ -103,11 +103,6 @@ export const onLoginUser = user => (dispatch) => {
  */
 export const onRegisterUser = userData => () => {
   const { username, fullName, email, password, phoneNumber } = userData;
-  // const username = userData.username,
-  //   fullName = userData.fullName,
-  //   email = userData.email,
-  //   password = userData.password,
-  //   phoneNumber = userData.phoneNumber;
   const userString = `username=${username}&fullName=${fullName}&email=${email}
       &password=${password}&phoneNumber=${phoneNumber}`;
   return Api(userString, '/api/v1/users/signup', 'POST', null);

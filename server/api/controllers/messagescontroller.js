@@ -6,7 +6,6 @@
 // importing services
 import Nexmo from 'nexmo';
 import nodemailer from 'nodemailer';
-// import _ from "lodash";
 import models from '../models/db';
 
 let userID = 0;
@@ -37,10 +36,8 @@ const sendEmail = (email, message, priority) => {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      // console.log(error);
       return error;
     }
-    // console.log(`Message ${info.messageId} sent: ${info.response}`);
     return info;
   });
 };
@@ -88,7 +85,6 @@ export default {
       })
       .then((user) => {
         userID = user.id;
-        // console.log(`user id: ${userID}`);
         return models.Messages
           .create({
             userId: userID,
@@ -101,8 +97,6 @@ export default {
             if (req.body.priority === 'Critical') {
               fetchMembersEmail(req.params.id).then(
                 (results) => {
-                  // console.log('========>resolved critical res',
-                  //   results.map(result => result.dataValues.email));
                   results.map((result) => {
                     sendEmail(result.dataValues.email,
                       `${userID}: ${req.body.text}`, 'Critical');
@@ -122,10 +116,8 @@ export default {
                     \n${userID}: ${req.body.text}`,
                         (err, responseData) => {
                           if (err) {
-                            // console.log(err);
                             return err;
                           }
-                          // console.log(responseData);
                           return responseData;
                         }
                       );
@@ -137,8 +129,6 @@ export default {
             if (req.body.priority === 'Urgent') {
               fetchMembersEmail(req.params.id).then(
                 (results) => {
-                  // console.log('========>resolved urgent res',
-                  //   results.map(result => result.dataValues.email));
                   results.map(result =>
                     sendEmail(result.dataValues.email,
                       `${userID}: ${req.body.text}`, 'Urgent'));
@@ -195,7 +185,6 @@ export default {
       })
       .then((message) => {
         const userName = req.authToken.data.username;
-        // console.log('==========> message readby: ', message.readBy);
         if (message.readBy.includes(userName) === false) {
           message.readBy.push(userName);
           message.update({

@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Spinner from 'react-spinner-material';
-// import Auth from "./../containers/";
 import {
   onLoginUser
 } from '../../actions/authAction';
-// import Api from "../../utils/api";
 import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
 
@@ -140,7 +138,6 @@ class Login extends React.Component {
                   name="username"
                   value={this.state.username}
                   onChange={this.onChange}
-                  /* ref={(input) => { this.username = input; }} */
                   maxLength="15"
                   pattern="(?=^.{6,15}$)(?!.*\s).*$"
                   required
@@ -155,7 +152,6 @@ class Login extends React.Component {
                   name="password"
                   value={this.state.password}
                   onChange={this.onChange}
-                  /* ref={(input) => { this.password = input; }} */
                   pattern="(?=^.{6,12}$)(?!.*\s).*$"
                   title="6 to 12 characters required"
                   required
@@ -169,7 +165,6 @@ class Login extends React.Component {
               </div>
               <div className="input-field col s12">
                 <button
-                  /* onClick= { this.onLoginUser } */
                   className="btn waves-effect waves-light"
                   type="submit"
                 >
@@ -217,9 +212,5 @@ function mapStateToProps({ authData }) {
     authData
   };
 }
-
-// const mapDispatchToProps = dispatch => ({
-//     onLoginUser: user => dispatch(loginUser(user))
-// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));

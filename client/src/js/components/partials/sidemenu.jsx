@@ -15,7 +15,6 @@ class SideMenu extends React.Component {
    */
   constructor(props) {
     super(props);
-    // this.toggleSideNavOff = this.toggleSideNavOff.bind(this);
     this.state = {
       error: '',
       userGroups: null,
@@ -67,10 +66,7 @@ class SideMenu extends React.Component {
     const {
       username,
       fullName,
-      currentGroup,
-      userGroups,
-      activeClassList,
-      activeClassAnchor
+      currentGroup
     } = this.state;
     return (
       <div
@@ -81,7 +77,6 @@ class SideMenu extends React.Component {
           : 'hidden'}`}
       >
         <div className="right-align">
-          {/* <i id="side-navic" className="icon ion-navicon x3 waves-effect waves-light"></i> */}
           <i
             onClick={this.props.toggleSideNav}
             id="side-back-navic"
@@ -166,7 +161,12 @@ SideMenu.propTypes = {
   handleLogout: PropTypes.func,
   handleSetCurrentGroup: PropTypes.func,
   groupData: PropTypes.object,
-  authData: PropTypes.object
+  authData: PropTypes.object,
+  userGroups: PropTypes.array,
+  handleOpenMessageBoard: PropTypes.func,
+  handleAddUserToGroup: PropTypes.func,
+  toggleSideNav: PropTypes.func,
+  sideNavStatus: PropTypes.any
 };
 
 export default withRouter(SideMenu);

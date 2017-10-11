@@ -207,7 +207,7 @@ export default {
         if (!error.err) {
           error.err = { message: err.errors[0].message };
         }
-        res.status(400).send(error); // {error, data: req.body}
+        res.status(400).send(error);
       });
   },
 

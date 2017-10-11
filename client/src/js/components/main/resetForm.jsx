@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-// import { connect } from "react-redux";
 import Api from '../../utils/api';
 import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
@@ -124,8 +123,6 @@ class ResetPassword extends React.Component {
                     this.email = input;
                   }}
                 />
-                {/* <!-- you can apply autofocus here,
-                                its gives an awesome user experience  --> */}
                 <label htmlFor="email_forgot" className="amber-text">
                   What&rsquo;s your email?
                 </label>

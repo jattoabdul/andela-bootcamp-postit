@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-// import { connect } from "react-redux";
 import Api from '../../utils/api';
 import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
@@ -69,7 +68,6 @@ class UpdatePassword extends React.Component {
         return;
       }
       const password = `password=${this.password.value}`;
-      console.log(password);
       Api(
         password,
         `/api/v1/users/reset/${hash}/`,

@@ -26,20 +26,5 @@ export default (sequelize, DataTypes) => {
     }
   });
 
-  // associations can be defined here
-  // GroupsUsers.belongsto(models.Groups, {
-  //   foreignkey: {
-  //     name: "groupId",
-  //     allowNull: false
-  //   }
-  // });
-
-  // GroupsUsers.hasMany(models.Users, {
-  //   foreignkey: {
-  //     name: "userId",
-  //     allowNull: false
-  //   }
-  // });
-
   return GroupsUsers;
 };

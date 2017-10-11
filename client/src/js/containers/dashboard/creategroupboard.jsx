@@ -129,11 +129,4 @@ const mapDispatchToProps = {
   fetchUserGroups
 };
 
-// function mapStateToProps({ authData, groupData }){
-//   return {
-//       authData,
-//       groupData
-//   }
-// }
-
 export default connect(null, mapDispatchToProps)(withRouter(CreateGroupBoard));

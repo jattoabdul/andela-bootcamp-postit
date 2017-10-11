@@ -79,11 +79,9 @@ class Register extends React.Component {
       return;
     }
     this.setState({ isLoading: true });
-    // dispatching onRegisterUser request
     this.props
       .onRegisterUser(this.state)
       .then((registerRes) => {
-        // console.log(registerRes.err);
         if (registerRes.err === undefined) {
           // login dispatch
           this.props.onLoginUser(this.state).then(() => {
@@ -175,7 +173,6 @@ class Register extends React.Component {
                   name="fullName"
                   value={this.state.fullName}
                   onChange={this.onChange}
-                  /* ref = {(input) => { this.fullname = input; }} */
                   required
                 />
                 <label htmlFor="fullname_signup">Fullname</label>
@@ -188,7 +185,6 @@ class Register extends React.Component {
                   name="username"
                   value={this.state.username}
                   onChange={this.onChange}
-                  /* ref = {(input) => { this.username = input; }} */
                   maxLength="15"
                   pattern="(?=^.{6,15}$)(?!.*\s).*$"
                   required
@@ -203,7 +199,6 @@ class Register extends React.Component {
                   name="password"
                   value={this.state.password}
                   onChange={this.onChange}
-                  /* ref = {(input) => { this.password = input; }} */
                   pattern="(?=^.{6,12}$)(?!.*\s).*$"
                   title="6 to 12 characters required"
                   required
@@ -218,7 +213,6 @@ class Register extends React.Component {
                   name="email"
                   value={this.state.email}
                   onChange={this.onChange}
-                  /* ref = {(input) => { this.email = input; }} */
                   required
                 />
                 <label htmlFor="email_signup">Email</label>
@@ -232,14 +226,12 @@ class Register extends React.Component {
                   pattern="^\d{11}$"
                   value={this.state.phoneNumber}
                   onChange={this.onChange}
-                  /* ref = {(input) => { this.phoneNumber = input; }} */
                   required
                 />
                 <label htmlFor="phone_signup">Phone Number</label>
               </div>
               <div className="input-field col s12">
                 <button
-                  /* onClick= { this.onRegisterUser } */
                   className="btn waves-effect waves-light"
                   type="submit"
                 >
@@ -286,10 +278,6 @@ function mapStateToProps(state) {
     authData: state.authData
   };
 }
-
-// const mapDispatchToProps = dispatch => ({
-//   onLoginUser: user => dispatch(loginUser(user))
-// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   withRouter(Register)
