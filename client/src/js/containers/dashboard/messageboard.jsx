@@ -2,6 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import isEmpty from 'lodash/isEmpty';
 import Api from '../../utils/api';
 import {
@@ -97,15 +99,20 @@ class MessageBoard extends React.Component {
   removeGroupMember(userId) {
     const group = this.state.currentGroup;
     const groupId = group.id;
-    const checkConfirmation = confirm(
-      'are you sure you want to delete this user?'
-    );
-    if (checkConfirmation) {
-      this.props.onRemoveUser(userId, groupId).then((res) => {
+    confirmAlert({
+      title: 'Confirm',
+      message: 'Are you sure to do this.',
+      childrenElement: () => <div>Custom UI</div>,
+      confirmLabel: 'Confirm',
+      cancelLabel: 'Cancel',
+      onConfirm: () => this.props.onRemoveUser(userId, groupId)
+        .then((res) => {
         // eslint-disable-next-line
         Materialize.toast(res.message, 3000);
-      });
-    }
+        }),
+      // eslint-disable-next-line
+      onCancel: () => Materialize.toast('thanks for changing your mind', 3000),
+    });
   }
 
   /**

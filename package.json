@@ -120,6 +120,7 @@
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
+    "react-confirm-alert": "^1.0.7",
     "react-dom": "^15.6.1",
     "react-dropdown": "^1.3.2",
     "react-menu": "0.0.10",

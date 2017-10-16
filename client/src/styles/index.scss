@@ -463,6 +463,10 @@ input#group_name-create, textarea#group_desc-create{
   position: absolute;
 }
 
+.react-confirm-alert > h1 {
+  font-size: x-large !important;
+}
+
 @media screen and (min-width:599px) {
   .hidden {
     display: inline;
