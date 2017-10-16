@@ -44,6 +44,31 @@ class MainNav extends React.Component {
               </small>
             </sub>
           </Link>
+          <div className="right-align">
+            <i
+              id="mainavic-option"
+              role="button"
+              tabIndex={-1}
+              data-activates="dropdown1"
+              className="dropdown-button icon ion-android-more-vertical x3 waves-effect waves-light"
+            />
+            <ul
+              id="dropdown1"
+              className="dropdown-content"
+            >
+              <li>
+                <a
+                  onClick={() => this.props.handleLogout()}
+                  role="button"
+                  tabIndex={-1}
+                  className="channels"
+                >
+                  <i className="icon ion-android-exit" />
+                  logout
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     );
@@ -51,7 +76,8 @@ class MainNav extends React.Component {
 }
 
 MainNav.propTypes = {
-  toggleSideNav: PropTypes.func.isRequired
+  toggleSideNav: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func.isRequired
 };
 
 export default MainNav;

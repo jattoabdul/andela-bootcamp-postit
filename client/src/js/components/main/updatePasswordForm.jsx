@@ -1,6 +1,11 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import Api from '../../utils/api';
+// import Api from '../../utils/api';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import {
+  updatePassword
+} from '../../actions/authAction';
 import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
 
@@ -62,27 +67,23 @@ class UpdatePasswordForm extends React.Component {
     }
     if (this.password.value !== '') {
       const hash = window.location.href.split('/')[5];
-      //   console.log(hash);
       if (hash === undefined) {
         window.location = '/#/login';
+        // redirecting
+        // this.props.history.push('/login');
         return;
       }
-      const password = `password=${this.password.value}`;
-      Api(
-        password,
-        `/api/v1/users/reset/${hash}/`,
-        'POST',
-        null
-      ).then((response) => {
-        if (response.data.error === undefined) {
-          this.setState({
-            status: 'success',
-            message: `password has been changed succesfully,
+      this.props.updatePassword(this.password.value, hash)
+        .then((response) => {
+          if (response.data.error === undefined) {
+            this.setState({
+              status: 'success',
+              message: `password has been changed succesfully,
                please login with your new password`,
-            updateButtonClassName: 'btn waves-effect waves-light disabled'
-          });
-        }
-      });
+              updateButtonClassName: 'btn waves-effect waves-light disabled'
+            });
+          }
+        });
     }
   }
 
@@ -172,4 +173,13 @@ class UpdatePasswordForm extends React.Component {
   }
 }
 
-export default UpdatePasswordForm;
+UpdatePasswordForm.propTypes = {
+  updatePassword: PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = {
+  updatePassword
+};
+
+export default connect(null,
+  mapDispatchToProps)(withRouter(UpdatePasswordForm));

@@ -8,6 +8,12 @@ import app from '../../server/app';
 import models from '../../server/api/models/db';
 
 // importing my controllers for unit testing
+// import {
+//   userController,
+//   groupsController,
+//   messagesController,
+//   groupsUsersController
+// } from '../../server/api/controllers';
 
 // importing my routes for unit testing
 
@@ -92,7 +98,7 @@ models
 
 // describe user signup endpoint
 describe('POST /api/v1/users/signup', () => {
-  it('should should create a new user', (done) => {
+  it('should create a new user', (done) => {
     chai
       .request(app)
       .post('/api/v1/users/signup')
@@ -325,7 +331,7 @@ describe('POST /api/v1/users/signup', () => {
         done();
       });
   });
-  // TODOS
+  // TODO:
   // ===============================================================
   // it should only accept 8 digits of passwords
   // it should raise an error if wrong /empty value is passed as params
@@ -545,7 +551,7 @@ describe('POST /api/v1/groups/:id/user', () => {
 });
 
 // describe send message to a group by a logged in user endpoint
-describe('POST /api/v1/group/:id/message', () => {
+describe('POST /api/v1/groups/:id/message', () => {
   it('should send a message to a group via POST /api/groups/:id/message/',
     (done) => {
       chai.request(app)
@@ -589,7 +595,7 @@ describe('POST /api/v1/group/:id/message', () => {
 });
 
 // describe retrieve/receive group messages endpoint
-describe('GET /api/v1/group/:id/messages', () => {
+describe('GET /api/v1/groups/:id/messages', () => {
   it('should get all messages in a group via GET /api/groups/:id/messages/',
     (done) => {
       chai.request(app)
@@ -604,10 +610,10 @@ describe('GET /api/v1/group/:id/messages', () => {
     });
 });
 
-// TODOS
+// TODO:
 // ===============================================================
 // describe all controllers
-// describe group model 
+// describe group model
 // describe message model
 // describe user model
 // ===============================================================

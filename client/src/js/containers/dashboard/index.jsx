@@ -170,6 +170,7 @@ class BaseDashboard extends Component {
               <MainNav
                 sideNavStatus={sideNavStatus}
                 toggleSideNav={this.toggleSideNav}
+                handleLogout={this.onLogOut}
               />
               <div className="containers">
                 <DashboardRoutes {...this.props} {...this.state} />

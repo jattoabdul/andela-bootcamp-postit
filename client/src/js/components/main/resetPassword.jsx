@@ -1,6 +1,11 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import Api from '../../utils/api';
+// import Api from '../../utils/api';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import {
+  requestResetPassword
+} from '../../actions/authAction';
 import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
 
@@ -43,12 +48,11 @@ class ResetPassword extends React.Component {
       });
       return null;
     }
-    const email = `email=${this.email.value}`;
-    Api(email, '/api/v1/users/reset/request/', 'POST', null)
+    this.props.requestResetPassword(this.email.value)
       .then((response) => {
         if (response.data.error === undefined) {
           this.setState({
-            responseMessage: 'password reset link sent, please check your email',
+            responseMessage: 'password reset link sent to your email',
             hasStatus: true,
             requestButtonClassName: 'btn waves-effect waves-light disabled'
           });
@@ -149,4 +153,12 @@ class ResetPassword extends React.Component {
   }
 }
 
-export default ResetPassword;
+ResetPassword.propTypes = {
+  requestResetPassword: PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = {
+  requestResetPassword
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(ResetPassword));

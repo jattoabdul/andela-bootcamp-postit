@@ -125,3 +125,24 @@ export const setCurrentUserData = () => (dispatch) => {
   const decodedToken = jwt.decode(token);
   dispatch(setCurrentUser(decodedToken));
 };
+
+
+/**
+ * @param {string} email
+ * @return {void}
+ */
+export const requestResetPassword = email => () => {
+  const emailString = `email=${email}`;
+  return Api(emailString, '/api/v1/users/reset/request/', 'POST', null);
+};
+
+
+/**
+ * @param {string} password
+ * @param {string} hash
+ * @return {void}
+ */
+export const updatePassword = (password, hash) => () => {
+  const passwordString = `password=${password}`;
+  return Api(passwordString, `/api/v1/users/reset/${hash}/`, 'POST', null);
+};

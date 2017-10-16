@@ -99,5 +99,6 @@ export default (app) => {
 
   // API route for authenticated users to view messages in a group he belongs
   // where :id is group id and group is currently active
-  app.get('/api/v1/groups/:id/messages/', controllers.messagesController.getMsg);
+  app.get('/api/v1/groups/:id/messages/',
+    controllers.messagesController.getMsg);
 };

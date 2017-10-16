@@ -16,15 +16,17 @@ Access the API Here[https://jatto-postit-app.herokuapp.com/api/v1]
 view a Template Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
 
 **TECHNOLOGIES**
-> - Front-end: React/Redux + SASS / Materialize
-> - Back-end: Node/Expressjs + Sequelize/Postgres
+> - Front-end: React/Redux + SASS/Materialize
+> - Back-end: Expressjs + Sequelize
 > - Libraries: jsonwebtoken, es6, Babel-Node, Gulp, eslint, Mocha/Chai + chai-http, Enzyme
-
+> - System Dependencies: Node + Postgres
 **FOLDER STRUCTURE**
 > - client: to contain React/Redux implementation of the frontend
 > - server: contains the project API developed in Node/express + Sequelize/postgres 
 > - template: contains the UI design with HTML/CSS/BOOTSTRAP
 
+**API DOCUMENTATION**
+>- [https://app.apiary.io/postit3]
 
 **INSTALLATION**
 > - Clone the repo
@@ -34,7 +36,7 @@ view a Template Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
 > - setup your db according to settings in `server/api/config/config.json`
 > - then run `$ sequelize db:migrate`
 
-**HOW TO DEMO**
+**HOW TO DEMO/RUN THE APP**
 
 # SERVER
 -Backend API's are in the server folder
@@ -52,10 +54,6 @@ view a Template Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
 
 >- To run eslint test, Run
    `$ npm run eslint`
-
-**API DOCUMENTATION**
->- [https://app.apiary.io/postit3]
-
 
 # TEMPLATES
 -All user interfaces design are in the template folder
@@ -84,7 +82,7 @@ view a Template Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
     `$ git commit -m "Adding 'build' to source control"`
     `$ git push origin <branch>`
 
-# BEAST MODE APP
+# RUN APP IN BEAST MODE
 - To run both client and server in Development on local machine
     `$ npm run start:dev` // proxy activated
 
@@ -93,5 +91,18 @@ view a Template Demo of the UI Here[https://postit-c5714.firebaseapp.com/]
 
 - App Deployed Online With Heroku
     [https://jatto-postit-app.herokuapp.com/]
+
+**FAQ**
+>- view Frequently Asked Questions Here[https://github.com/jattoabdul/andela-bootcamp-postit/wiki/FAQ's]
+
+**CONTRIBUTING**
+- Fork the repository
+- Create your feature branch: git checkout -b my-new-feature
+- Commit your changes: git commit -am 'Add some feature'
+- Push to the branch: git push origin my-new-feature
+- Submit a PR (pull request)
+
+**LICENSE**
+>- MIT License[https://github.com/jattoabdul/andela-bootcamp-postit/blob/master/LICENSE]
 
 >- **Author: Aminujatto Abdulqahhar**

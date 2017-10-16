@@ -146,7 +146,10 @@ class SideMenu extends React.Component {
             onClick={() => this.props.handleLogout()}
             role="button"
             tabIndex={-1}
-            className="right channels"
+            className={`right channels ${this.props
+              .sideNavStatus
+              ? ''
+              : 'hide'}`}
           >
             <i className="icon ion-android-exit" />
           </a>
@@ -157,16 +160,21 @@ class SideMenu extends React.Component {
 }
 
 SideMenu.propTypes = {
-  fetchUserGroups: PropTypes.func,
   handleLogout: PropTypes.func,
-  handleSetCurrentGroup: PropTypes.func,
-  groupData: PropTypes.object,
-  authData: PropTypes.object,
-  userGroups: PropTypes.array,
+  userGroups: PropTypes.arrayOf(PropTypes.object),
   handleOpenMessageBoard: PropTypes.func,
   handleAddUserToGroup: PropTypes.func,
   toggleSideNav: PropTypes.func,
-  sideNavStatus: PropTypes.any
+  sideNavStatus: PropTypes.bool
+};
+
+SideMenu.defaultProps = {
+  handleLogout: () => {},
+  userGroups: [],
+  handleOpenMessageBoard: () => {},
+  handleAddUserToGroup: () => {},
+  toggleSideNav: () => {},
+  sideNavStatus: ''
 };
 
 export default withRouter(SideMenu);
