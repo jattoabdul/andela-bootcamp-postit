@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import '../../../styles/index.scss';
@@ -103,7 +104,19 @@ class SideMenu extends React.Component {
         <h4 className="sideheading">
           Groups <i className="icon ion-ios-people" />
           <Link to="/dashboard/create-group">
-            <i className="icon ion-plus-circled channels right" />
+            <i
+              className="icon ion-plus-circled channels right"
+              data-tip
+              data-for="gCreate"
+            />
+            <ReactTooltip
+              id="gCreate"
+              place="right"
+              type="info"
+              effect="float"
+            >
+              Create New Group
+            </ReactTooltip>
           </Link>
         </h4>
         <ul>
@@ -139,9 +152,19 @@ class SideMenu extends React.Component {
             onClick={() => this.props.handleAddUserToGroup()}
             role="button"
             tabIndex={-1}
+            data-tip
+            data-for="gUserAdd"
           >
             <i className="icon ion-person-add" />
           </a>
+          <ReactTooltip
+            id="gUserAdd"
+            place="right"
+            type="info"
+            effect="float"
+          >
+            Add a user to current group
+          </ReactTooltip>
           <a
             onClick={() => this.props.handleLogout()}
             role="button"
