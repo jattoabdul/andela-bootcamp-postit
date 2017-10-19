@@ -19,7 +19,6 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: true
-        // is: ["[a-z]", "i"]alphanumeric
       }
     },
     priority: {

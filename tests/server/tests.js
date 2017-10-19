@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-
+import Promise from 'bluebird';
+import sinon from 'sinon';
 // import app
 import app from '../../server/app';
 
@@ -8,8 +9,12 @@ import app from '../../server/app';
 import models from '../../server/api/models/db';
 
 // importing my controllers for unit testing
-
-// importing my routes for unit testing
+// import {
+//   userController,
+//   groupsController,
+//   messagesController,
+//   groupsUsersController
+// } from '../../server/api/controllers';
 
 // setting my dev environment to test
 process.env.NODE_ENV = 'test';
@@ -23,34 +28,6 @@ chai.use(chaiHttp);
 
 // global variables
 let authToken;
-
-/*
-* describing the GET / root route default
-* to be 200 welcome message
-*/
-
-describe('GET / route', () => {
-  it('responds with a 200 and welcome message in json', (done) => {
-    chai
-      .request(app)
-      .get('/')
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        // expect the response message body to be equal the message sent as JSON
-        // expect(res.body.message)
-        //   .to
-        //   .equal("Welcome to the beginning of nothingness.");
-        // expect response response to have status code 200-OK
-        expect(res)
-          .to
-          .have
-          .status(200);
-        done();
-      });
-  });
-});
 
 // resetting database by deleting data created by test and reseting identity
 models
@@ -86,13 +63,64 @@ models
     resetIdentity: true
   });
 
+/*
+* describing the GET / root route default
+* to be 200 welcome message
+*/
+
+const userTestId = 1;
+describe('GET / route', () => {
+  it('responds with a 200 and welcome message in json', (done) => {
+    chai
+      .request(app)
+      .get('/')
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        // expect the response message body to be equal the message sent as JSON
+        // expect(res.body.message)
+        //   .to
+        //   .equal("Welcome to the beginning of nothingness.");
+        // expect response response to have status code 200-OK
+        expect(res)
+          .to
+          .have
+          .status(200);
+        done();
+      });
+  });
+});
+
+
 /* describe API route
 * ===============================
 */
+describe('GET /api/v1 route', () => {
+  it('responds with a 200 and welcome message in json', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/')
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message)
+          .to
+          .equal('Welcome to Andela Bootcamp PostIt Project API');
+        expect(res)
+          .to
+          .have
+          .status(200);
+        done();
+      });
+  });
+});
+
 
 // describe user signup endpoint
 describe('POST /api/v1/users/signup', () => {
-  it('should should create a new user', (done) => {
+  it('should create a new user', (done) => {
     chai
       .request(app)
       .post('/api/v1/users/signup')
@@ -115,9 +143,34 @@ describe('POST /api/v1/users/signup', () => {
           'johndoe',
           'username sent is correct'
         );
-        // res.body.email.should.equal("johndoe@test.com");
         res.should.have.status(201);
-        // expect(res).to.have.status(201);
+        done();
+      });
+  });
+  it('should create a real second new user', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/users/signup')
+      .type('form')
+      .send({
+        username: 'amakafemi',
+        email: 'bajdlass1@gmail.com',
+        password: 'amaka123',
+        fullName: 'amaka femi',
+        phoneNumber: '08168861541'
+      })
+      .end((err, res) => {
+        assert.strictEqual(
+          res.body.data.email,
+          'bajdlass1@gmail.com',
+          'email sent is correct'
+        );
+        assert.strictEqual(
+          res.body.data.username,
+          'amakafemi',
+          'username sent is correct'
+        );
+        res.should.have.status(201);
         done();
       });
   });
@@ -325,12 +378,41 @@ describe('POST /api/v1/users/signup', () => {
         done();
       });
   });
-  // TODOS
+  // TODO:
   // ===============================================================
   // it should only accept 8 digits of passwords
   // it should raise an error if wrong /empty value is passed as params
   // ===============================================================
 });
+
+// describe reset password and update password
+describe('POST /api/v1/users/reset/request', () => {
+  it('should raise 400 error without email parameter', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/reset/request')
+      .type('form')
+      .send({
+        email: undefined
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+  it('should update password when correct hash', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/reset/:hash')
+      .type('form')
+      .send({
+        password: undefined
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+});
+
 
 // describe user signin/login endpoint
 describe('POST /api/v1/user/signin', () => {
@@ -522,30 +604,54 @@ describe('POST /api/v1/group', () => {
         done();
       });
   });
+  it('should get return error if user no userId', () => {
+    chai.request(app)
+      .get('/api/v1/groups/')
+      .set('x-access-token', null)
+      .end((err, res) => {
+        res.status.have.status(404);
+      });
+  });
 });
 
 // describe group member addition endpoint
 describe('POST /api/v1/groups/:id/user', () => {
-  it('should add user to a group-1 via POST /api/v1/groups/:id/user', (done) => {
-    chai.request(app)
-      .post('/api/v1/groups/1/user')
-      .set('x-access-token', authToken)
-      .type('form')
-      .send({
-        userId: 12,
-        groupId: 1,
-        isAdmin: '0'
-      })
-      .end((err, res) => {
-        res.should.have.status(201);
-        done();
-      });
-  });
-  // it returns erro for errors
+  it('should return error if no ID of user to be added to a group-1',
+    (done) => {
+      chai.request(app)
+        .post('/api/v1/groups/1/user')
+        .set('x-access-token', authToken)
+        .type('form')
+        .send({
+          groupId: 1,
+          isAdmin: '0'
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
+
+  it('should add user to a group-1 via POST /api/v1/groups/:id/user',
+    (done) => {
+      chai.request(app)
+        .post('/api/v1/groups/1/user')
+        .set('x-access-token', authToken)
+        .type('form')
+        .send({
+          userId: 12,
+          groupId: 1,
+          isAdmin: '0'
+        })
+        .end((err, res) => {
+          res.should.have.status(201);
+          done();
+        });
+    });
 });
 
 // describe send message to a group by a logged in user endpoint
-describe('POST /api/v1/group/:id/message', () => {
+describe('POST /api/v1/groups/:id/message', () => {
   it('should send a message to a group via POST /api/groups/:id/message/',
     (done) => {
       chai.request(app)
@@ -564,6 +670,29 @@ describe('POST /api/v1/group/:id/message', () => {
           assert.strictEqual(
             res.body.text,
             'my test message 2',
+            'message sent with rght data'
+          );
+          done();
+        });
+    });
+
+  it('should send a message with priority of critical to a group and email ',
+    (done) => {
+      chai.request(app)
+        .post('/api/v1/groups/1/message/')
+        .set('x-access-token', authToken)
+        .type('form')
+        .send({
+          userId: 1,
+          text: 'my test message 3',
+          groupId: 1,
+          priority: 'Critical'
+        })
+        .end((err, res) => {
+          res.status.should.equal(201);
+          assert.strictEqual(
+            res.body.text,
+            'my test message 3',
             'message sent with rght data'
           );
           done();
@@ -589,7 +718,7 @@ describe('POST /api/v1/group/:id/message', () => {
 });
 
 // describe retrieve/receive group messages endpoint
-describe('GET /api/v1/group/:id/messages', () => {
+describe('GET /api/v1/groups/:id/messages', () => {
   it('should get all messages in a group via GET /api/groups/:id/messages/',
     (done) => {
       chai.request(app)
@@ -602,12 +731,130 @@ describe('GET /api/v1/group/:id/messages', () => {
           done();
         });
     });
+
+  it('should not update message read in a group if already read',
+    (done) => {
+      chai.request(app)
+        .post('/api/v1/groups/1/message/read')
+        .set('x-access-token', authToken)
+        .send({
+          id: 1
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          // assert.strictEqual(
+          //   res.body.message,
+          //   'message has been read by you',
+          //   'message read table was not re-updated'
+          // );
+          done();
+        });
+    });
 });
 
-// TODOS
+// describe remove group member endpoint
+describe('DELETE /api/v1/groups/:id/user/', () => {
+  it('should add user to a group-1 via POST /api/v1/groups/:id/user',
+    (done) => {
+      chai.request(app)
+        .post(`/api/v1/groups/${userTestId}/user`)
+        .set('x-access-token', authToken)
+        .type('form')
+        .send({
+          userId: 12,
+          groupId: userTestId
+        })
+        .end((err, res) => {
+          res.should.have.status(201);
+          done();
+        });
+    });
+
+  it('should remove user from group-1 via DELETE /api/v1/groups/:id/user/',
+    (done) => {
+      chai.request(app)
+        .del(`/api/v1/groups/${userTestId}/user`)
+        .set('x-access-token', authToken)
+        .query({ usersId: 12 })
+        .end((err, res) => {
+          res.should.have.status(202);
+          done();
+        });
+    });
+
+  it('should not remove user from group-1 via DELETE /api/v1/groups/:id/user/',
+    (done) => {
+      chai.request(app)
+        .del('/api/v1/groups/8/user')
+        .set('x-access-token', authToken)
+        .query({ usersId: 1000 })
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
+});
+
+// describe view group member endpoint
+describe('GET /api/v1/groups/users/', () => {
+  it('should return all groups members', (done) => {
+    chai.request(app)
+      .get('/api/v1/groups/users/')
+      .set('x-access-token', authToken)
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it('should return members of current group via /api/v1/groups/:id/users/',
+    (done) => {
+      chai.request(app)
+        .get(`/api/v1/groups/${userTestId}/users/`)
+        .set('x-access-token', authToken)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+});
+
+describe('GET /api/v1/groups/:id/usersearch', () => {
+  it('should return a list of users', (done) => {
+    chai.request(app)
+      .get(`/api/v1/groups/${userTestId}/usersearch`)
+      .set('x-access-token', authToken)
+      .query({ search: 'j' })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+});
+
+// TODO:
 // ===============================================================
 // describe all controllers
-// describe group model 
+// describe group model
 // describe message model
-// describe user model
 // ===============================================================
+
+// describe user model
+describe('USER MODEL', () => {
+  let sandbox;
+  let userFindStub;
+
+  before(() => {
+    sandbox = sinon.sandbox.create();
+    userFindStub = sandbox.stub(models.Users, 'find');
+  });
+
+  it('should catch error', () => {
+    userFindStub.returns(Promise.reject(new Error('test-error')));
+    return models.Users.find({})
+      .catch((err) => {
+        should.exist(err);
+        err.message.should.equal('test-error');
+      });
+  });
+});

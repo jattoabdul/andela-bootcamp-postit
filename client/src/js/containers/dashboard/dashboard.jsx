@@ -1,41 +1,57 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
-import Api from "../../utils/api";
-import { onLogoutUser } from "../../actions/authAction";
-import { fetchUserGroups } from "../../actions/groupAction";
 import '../../../styles/index.scss';
 
+/**
+ * @class Dashboard
+ */
 class Dashboard extends React.Component {
+  /**
+   * constructor function
+   * @param {*} props 
+   */
   constructor(props) {
     super(props);
     this.state = {
       hasShownToaster: false
-    }
+    };
     this.callToaster = this.callToaster.bind(this);
   }
 
+  /**
+   * 
+   * @param {*} nextProps
+   * @return {void}
+   */
   componentWillReceiveProps(nextProps) {
-    const { username } = nextProps
+    const { username } = nextProps;
     if (username) {
       this.callToaster(username);
     }
   }
 
-
+  /**
+   * 
+   * @param {*} username
+   * @return {void}
+   */
   callToaster(username) {
     // Add a toastr welcome mesage here.
     if (this.state.hasShownToaster !== true) {
+      // eslint-disable-next-line
       Materialize.toast(`Welcome ${username}, let's PostiT`, 3000);
       this.setState({
         hasShownToaster: true
       });
     }
   }
+
+  /**
+   * @return {dom} DomElement
+   */
   render() {
-    const { fullName, username } = this.props;
+    const { fullName } = this.props;
     return (
       <div>
         <br />
@@ -44,35 +60,35 @@ class Dashboard extends React.Component {
             <h2 className="fName center-align">Welcome {fullName}</h2>
             <h4 className="left-align center">
               You don&rsquo;t have to shout. <br />
-              <span className="right-align flow-text">
-                Just POSTiT!!!
-                        </span>
+              <span className="right-align flow-text">Just POSTiT!!!</span>
             </h4>
             <div className="row">
               <br />
               <div className="col m12">
                 <p className="center">
-                    <Link className="btn createGroup waves-effect"
-                      to="/dashboard/create-group">
-                      Create Group
-                    </Link>
+                  <Link
+                    className="btn createGroup waves-effect"
+                    to="/dashboard/create-group"
+                  >
+                    Create Group
+                  </Link>
                 </p>
               </div>
-              <br /><br /><br /><br />
+              <br />
+              <br />
+              <br />
+              <br />
               <div className="aboutBox row">
                 <div className="col s12">
                   <h5 className="left-align">About Us</h5>
                   <p>
-                    Is a simple application that allows
-                    friends and colleagues create groups
-                    for notifications. This way one person
-                    can post notifications to everyone by
-                    sending a message once - a broadcast
-                    message. The application allows people
-                    create accounts, create groups and add
-                    registered users to the groups, and
-                    then send messages out to these groups
-                    whenever they want.
+                    Is a simple application that allows friends and colleagues
+                    create groups for notifications. This way one person can
+                    post notifications to everyone by sending a message once - a
+                    broadcast message. The application allows people create
+                    accounts, create groups and add registered users to the
+                    groups, and then send messages out to these groups whenever
+                    they want.
                   </p>
                 </div>
               </div>
@@ -85,10 +101,8 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  // fetchUserGroups: PropTypes.func.isRequired,
-  username: PropTypes.string,
-  fullName: PropTypes.string
-}
-
+  username: PropTypes.string.isRequired,
+  fullName: PropTypes.string.isRequired
+};
 
 export default withRouter(Dashboard);

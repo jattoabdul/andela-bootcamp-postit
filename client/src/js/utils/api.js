@@ -1,6 +1,7 @@
-const Api = (body, url, method) => (new Promise((resolve) => {
+const Api = (body, url, method) => (new Promise((resolve, reject) => {
   const headers = new Headers();
   headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
   if (sessionStorage.getItem('user') !== null) {
     headers.append('x-access-token',
       JSON.parse(sessionStorage.getItem('user')).token);
@@ -16,6 +17,9 @@ const Api = (body, url, method) => (new Promise((resolve) => {
       .then(response => response.json())
       .then((response) => {
         resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
       });
   } else if (method.toUpperCase() === 'DELETE') {
     fetch(url, { method,
@@ -24,6 +28,9 @@ const Api = (body, url, method) => (new Promise((resolve) => {
       .then(response => response.json())
       .then((response) => {
         resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
       });
   } else {
     fetch(url, { method,
@@ -33,6 +40,9 @@ const Api = (body, url, method) => (new Promise((resolve) => {
       .then(response => response.json())
       .then((response) => {
         resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
       });
   }
 }));
