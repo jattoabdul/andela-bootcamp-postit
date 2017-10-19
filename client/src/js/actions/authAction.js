@@ -10,7 +10,7 @@ import {
 
 /**
  * @param {*} user
- * @return {*} empty
+ * @return {object} action
  */
 export function loginSuccess(user) {
   return {
@@ -21,7 +21,7 @@ export function loginSuccess(user) {
 
 /**
  * @param {*} user
- * @return {*} empty
+ * @return {object} action
  */
 export function loginFail(user) {
   return {
@@ -32,7 +32,7 @@ export function loginFail(user) {
 
 /**
  * @param {*} currentUserData
- * @return {*} empty
+ * @return {object} action
  */
 export function setCurrentUser(currentUserData) {
   return {
@@ -43,7 +43,7 @@ export function setCurrentUser(currentUserData) {
 
 /**
  * @param {*} empty
- * @return {*} empty
+ * @return {object} action
  */
 export function removeCurrentUser() {
   return {
@@ -53,7 +53,7 @@ export function removeCurrentUser() {
 
 /**
  * @param {*} empty
- * @return {*} empty
+ * @return {object} type
  */
 export function logoutSuccess() {
   return {
@@ -61,7 +61,11 @@ export function logoutSuccess() {
   };
 }
 
-
+/**
+ * 
+ * @param {*} user
+ * @return {void}
+ */
 export const onLoginUser = user => (dispatch) => {
   const { username, password } = user;
   // const username = user.username,
@@ -92,27 +96,53 @@ export const onLoginUser = user => (dispatch) => {
   );
 };
 
-
+/**
+ * 
+ * @param {*} userData
+ * @return {void}
+ */
 export const onRegisterUser = userData => () => {
   const { username, fullName, email, password, phoneNumber } = userData;
-  // const username = userData.username,
-  //   fullName = userData.fullName,
-  //   email = userData.email,
-  //   password = userData.password,
-  //   phoneNumber = userData.phoneNumber;
   const userString = `username=${username}&fullName=${fullName}&email=${email}
       &password=${password}&phoneNumber=${phoneNumber}`;
   return Api(userString, '/api/v1/users/signup', 'POST', null);
 };
 
+/**
+ * @return {void}
+ */
 export const onLogoutUser = () => (dispatch) => {
   sessionStorage.removeItem('user');
   dispatch(logoutSuccess());
   dispatch(removeCurrentUser());
 };
 
+/**
+ * @return {void}
+ */
 export const setCurrentUserData = () => (dispatch) => {
   const token = sessionStorage.getItem('user').token;
   const decodedToken = jwt.decode(token);
   dispatch(setCurrentUser(decodedToken));
+};
+
+
+/**
+ * @param {string} email
+ * @return {void}
+ */
+export const requestResetPassword = email => () => {
+  const emailString = `email=${email}`;
+  return Api(emailString, '/api/v1/users/reset/request/', 'POST', null);
+};
+
+
+/**
+ * @param {string} password
+ * @param {string} hash
+ * @return {void}
+ */
+export const updatePassword = (password, hash) => () => {
+  const passwordString = `password=${password}`;
+  return Api(passwordString, `/api/v1/users/reset/${hash}/`, 'POST', null);
 };

@@ -7,6 +7,12 @@ import models from '../models/db';
 
 // let userName = "";
 export default {
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} response
+   */
   addMember(req, res) {
     if (!req.body.userId) {
       res.status(400)
@@ -48,6 +54,13 @@ export default {
           });
       });
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} members
+   */
   viewMembers(req, res) {
     return models.Groups
       .findAll({
@@ -64,16 +77,29 @@ export default {
         res.status(200).send(members[0].users);
       })
       .catch((error) => {
-        console.log(error);
         res.status(400).send(error);
       });
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} groupMembers
+   */
   viewAllGroupMembers(req, res) {
     return models.GroupsUsers
       .findAll()
       .then(groupMembers => res.status(200).send(groupMembers))
       .catch(error => res.status(400).send(error));
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} user
+   */
   removeMember(req, res) {
     const currentUserId = req.authToken.data.id;
     models.GroupsUsers
@@ -86,10 +112,8 @@ export default {
         (user) => {
           if (user.isAdmin === '1') {
             if (req.query.usersId) {
-              // console.log('req.query.usersId: user ID of the user to be removed:', req.query.usersId);
-              // console.log('userID requesting removal of a user:', user.userId);
               if (user.userId === req.query.usersId) {
-                return res.status(400).send({
+                return res.status(403).send({
                   message: 'You cannot remove yourself'
                 });
               }
@@ -128,8 +152,16 @@ export default {
         });
       });
   },
+
+  /**
+   * 
+   * @param {*} req
+   * @param {*} res
+   * @return {array} searchItemResult
+   */
   searchMember(req, res) {
     if (req.query.search) {
+      console.log(req.query.search);
       models.GroupsUsers
         .findAll({
           where: { groupId: req.params.id },
@@ -160,7 +192,6 @@ export default {
                 groupUsersId,
                 searchItemResult
               };
-              console.log(data);
               return res.status(200).send(data);
             }).catch(error => res.status(400).send(error));
         }).catch(error => res.status(400).send(error));

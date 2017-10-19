@@ -13,7 +13,12 @@ import models from '../models/db';
 const salt = bcrypt.genSaltSync(5);
 const error = {};
 export default {
-
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} info
+   */
   passwordReset(req, res) {
     const email = req.body.email;
     const secret = req.body.email;
@@ -89,7 +94,22 @@ export default {
         }
       });
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} data
+   */
   updatePassword(req, res) {
+    const password = req.body.password;
+    if (password === undefined || password.trim() === '') {
+      res.status(400).send({
+        data: { error: { message: 'password is not defined or invalid' } }
+      });
+      return;
+    }
+
     const newPass = bcrypt
       .hashSync(req.body.password, salt, null);
     models.PasswordReset
@@ -117,7 +137,14 @@ export default {
           );
       });
   },
+
   // Signup Users (create user and save to db)
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} data (user)
+   */
   signUp(req, res) {
     if (!req.body.email || req.body.email.trim() === '') {
       return res.status(400)
@@ -188,9 +215,16 @@ export default {
         if (!error.err) {
           error.err = { message: err.errors[0].message };
         }
-        res.status(400).send(error); // {error, data: req.body}
+        res.status(400).send(error);
       });
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} auth (token, message)
+   */
   authenticate(req, res) {
     models.Users
       .findAll({
@@ -233,17 +267,28 @@ export default {
           });
       });
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} user
+   */
   getAllUsers(req, res) {
     return models.Users
       .findAll()
       .then(users => res.status(200).send({ users }))
       .catch(err => res.status(400).send({ err }));
   },
+
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @return {object} user - data
+   */
   getCurrentUser(req, res) {
     const username = req.authToken.data.username;
-    // console.log(username);
-    // const id = req.authToken.data;
-    // console.log(id);
     return models.Users
       .find({
         include: [{
