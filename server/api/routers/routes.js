@@ -84,7 +84,7 @@ export default (app) => {
     controllers.groupsUsersController.viewMembers);
 
   // API route 4 a user 2 view users 4rm all groups
-  app.get('/api/groups/users/',
+  app.get('/api/v1/groups/users/',
     controllers.groupsUsersController.viewAllGroupMembers);
 
   // API route for authenticated user to post message into rooms he belong to

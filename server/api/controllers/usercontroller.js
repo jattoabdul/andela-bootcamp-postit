@@ -102,6 +102,14 @@ export default {
    * @return {object} data
    */
   updatePassword(req, res) {
+    const password = req.body.password;
+    if (password === undefined || password.trim() === '') {
+      res.status(400).send({
+        data: { error: { message: 'password is not defined or invalid' } }
+      });
+      return;
+    }
+
     const newPass = bcrypt
       .hashSync(req.body.password, salt, null);
     models.PasswordReset

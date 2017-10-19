@@ -80,7 +80,7 @@ export default {
         res.status(400).send(error);
       });
   },
-  
+
   /**
    * 
    * @param {*} req 
@@ -161,6 +161,7 @@ export default {
    */
   searchMember(req, res) {
     if (req.query.search) {
+      console.log(req.query.search);
       models.GroupsUsers
         .findAll({
           where: { groupId: req.params.id },

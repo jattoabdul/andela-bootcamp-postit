@@ -192,7 +192,7 @@ export default {
           });
           return res.status(200).send(message);
         }
-        res.status(200).send({ message: 'message has been read by you' });
+        res.status(400).send({ message: 'message has been read by you' });
       })
       .catch(error => res.status(400).send(error));
   }

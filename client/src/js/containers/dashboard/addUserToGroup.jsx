@@ -103,7 +103,6 @@ class AddUserToGroupBoard extends React.Component {
    * @return {void} 
    */
   onAddUserToGroup(uId) {
-    // e.preventDefault();
     // eslint-disable-next-line
     const id = `${this.props.match.params.groupId}`;
     // call addUser action
@@ -111,7 +110,7 @@ class AddUserToGroupBoard extends React.Component {
       // eslint-disable-next-line
       (item) => {
         // eslint-disable-next-line
-        Materialize.toast(`user with ID: ${uId} was added succesfully`, 3000);
+        Materialize.toast(`user was added succesfully`, 3000);
       }
     );
   }
