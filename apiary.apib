@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: https://jatto-postit-app.herokuapp.com/api/v1
 
 # POSTIT
 
@@ -19,3 +19,381 @@ DELETE  : To delete resource
 - 401 `Unauthorized` - authentication failed or user doesn't have permissions for requested operation.
 - 404 `Not Found` - resource was not found.
 
+
+## Create a new user [/users/signup]
+### signup [POST]
+
++ Request (application/x-www-form-urlencoded)
+            
+            {
+                "username": "jhartman",
+                "email": jattoabdul@gmail.com,
+                "password": jasabs1993,
+                "fullName": Aminu Jatto Abdul,
+                "phoneNumber": 08162740850
+            }
+
+
+
++ Response 201 (application/json)
+
+        {
+            "data": {
+                "id": 90,
+                "username": "jhartman",
+                "email": "jattoabdul@gmail.com",
+                "fullName": "Amin Jatto Abdul",
+                "phoneNumber": "08162740850",
+                "lastLogin": "2017-09-11T10:51:01.145Z",
+                "createdAt": "2017-09-11T10:51:01.067Z"
+            }
+        }
+    
+        
++ Response 400 (application/json)
+
+        {
+            "err": {
+                "message": "username already exists"
+            }
+        }
+
+## Login a user [/users/signin]
+### signin [POST]
+
++ Request (application/x-www-form-urlencoded)
+
+            {
+                "username": "jhartman",
+                "password": "jasabs1993"
+            }
+
+
+
++ Response 202 (application/json)
+
+        {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjo4OCwidXNlcm5hbWUiOiJqYXR0b2FkZSIsImVtYWlsIjoiamF0dG9hZGVAZ21haWwuY29tIiwiZnVsbE5hbWUiOiJBbWludWphdHRvIEFiZHVscWFoaGFyIiwicGhvbmVOdW1iZXIiOiIwODE2Mjc0MDg1MCJ9LCJpYXQiOjE1MDUxMjczOTUsImV4cCI6MTUwNTIxMzc5NX0.k4rzXdeGLeBICBMOBh4TYim57taKXYoGNXOHuA8sHAc",
+            "message": "jhartman has successfully logged in"
+        }
+    
+        
++ Response 400 (application/json)
+
+        {
+            "message": "username does not exist"
+        }
+        
+## Request for a password change [/users/reset/request]
+### requestpassword [POST]
+
++ Request (application/x-www-form-urlencoded)
+
+            {
+                "email": "jattoabdul@gmail.com"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "message": {
+                    "accepted": [
+                        "jattoabdul@gmail.com"
+                    ],
+                    "rejected": [],
+                    "response": "250 2.0.0 OK 1505127850 o49sm1954305edo.69 - gsmtp",
+                    "envelope": {
+                        "from": "jattoade@gmail.com",
+                        "to": [
+                            "jattoabdul@gmail.com"
+                        ]
+                    },
+                    "messageId": "<1f494fe1-748c-70b5-5c00-97de9f9cb329@gmail.com>"
+                }
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "data": {
+                "error": {
+                    "message": "email is not valid"
+                }
+            }
+        }
+
+## Update password [/users/reset/${hash}]
+### Get password token [POST]
++ Parameters
+    + hash (required) - params for the url
+
++ Request (application/x-www-form-urlencoded)
+
+            {
+                "password": "NewJasabs"
+            }
+
+
++ Response 200 (application/json)
+
+        {
+            "data": { 
+                "message": "Password Reset Successful"
+            }
+        }
+    
+        
++ Response 400 (application/json)
+
+        {
+            "data": {
+                "error": {
+                    "message": "Expired or Invalid link"
+                }
+            }
+        }
+
+## Authenticated user creates a new Group [/groups]
+### Create Group [POST]
+
++ Request (application/x-www-form-urlencoded)
+            
+            {
+                name: Django Lovers,
+                desc: A brief description about the group,
+                isArchived: '0'
+            }
+
+
+
++ Response 201 (application/json)
+
+        {
+            "group": {
+                "id": 45,
+                "name": "My Beatiful Group",
+                "desc": "a brief desc about the beautiful group",
+                "isArchived": "0",
+                "updatedAt": "2017-09-11T11:28:17.660Z",
+                "createdAt": "2017-09-11T11:28:17.660Z"
+            },
+            "message": "group created successfully"
+        }
+    
+        
++ Response 400 (application/json)
+
+        {
+            "data": { 
+                "message": "Group Already Exist"
+            }
+        }
+
+### Get Groups [GET]
+
++ Request (application/x-www-form-urlencoded)
+
+    
+
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 17,
+                "name": "Django Developers",
+                "desc": "a group for developing django app by collaborating",
+                "isArchived": "0",
+                "createdAt": "2017-09-06T18:17:59.682Z",
+                "updatedAt": "2017-09-06T18:17:59.682Z",
+                "users": [
+                    {
+                        "id": 88,
+                        "username": "jattoade",
+                        "fullName": "Aminujatto Abdulqahhar",
+                        "lastLogin": "2017-09-06T18:13:23.483Z",
+                        "email": "jattoade@gmail.com",
+                        "phoneNumber": "08162740850",
+                        "createdAt": "2017-09-06T18:13:23.452Z",
+                        "updatedAt": "2017-09-06T18:13:23.452Z",
+                        "GroupsUsers": {}
+                    }
+                ]
+            },
+            {
+                "id": 18,
+                "name": "Django Developers",
+                "desc": "a group for developing django app by collaborating",
+                "isArchived": "0",
+                "createdAt": "2017-09-06T18:18:07.440Z",
+                "updatedAt": "2017-09-06T18:18:07.440Z",
+                "users": [
+                    {
+                        "id": 88,
+                        "username": "jattoade",
+                        "fullName": "Aminujatto Abdulqahhar",
+                        "lastLogin": "2017-09-06T18:13:23.483Z",
+                        "email": "jattoade@gmail.com",
+                        "phoneNumber": "08162740850",
+                        "createdAt": "2017-09-06T18:13:23.452Z",
+                        "updatedAt": "2017-09-06T18:13:23.452Z",
+                        "GroupsUsers": {}
+                    }
+                ]
+            }
+        ]
+        
+        
++ Response 400 (application/json)
+
+        [
+        
+        ]
+        
+
+
+## Add User to Created Group [/groups/${id}/user]
+### Post user to GroupUser [POST]
++ Parameters
+    + id (required) - Group ID params for the url
+
++ Request (application/x-www-form-urlencoded)
+
+        {
+            "userId": 3,
+            "groupId": id
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "userId": 89,
+            "groupId": 18,
+            "isAdmin": "0",
+            "updatedAt": "2017-09-11T11:58:28.149Z",
+            "createdAt": "2017-09-11T11:58:28.149Z",
+            "id": 63
+        }
+        
++ Response 400 (application/json)
+
+        {
+            "data": {
+                "error": {
+                    "message": "user already exist in group"
+                }
+            }
+        }
+
+## Add Message to Created Group [/groups/${id}/message]
+### Post message [POST]
++ Parameters
+    + id (required) - Group ID params for the url
+
++ Request (application/x-www-form-urlencoded)
+
+        {
+            "userId": 89,
+            "groupId": id,
+            "text": "hello, how do tyou do?",
+            "priority": "Normal"
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "isArchived": "0",
+            "id": 22,
+            "userId": 88,
+            "groupId": 18,
+            "text": "some newest text",
+            "priority": "Normal",
+            "readBy": [
+                "jhartman"
+            ],
+            "updatedAt": "2017-09-11T12:10:01.555Z",
+            "createdAt": "2017-09-11T12:10:01.555Z"
+        }
+        
++ Response 400 (application/json)
+
+        {
+            "data": {
+                "error": {
+                    "message": "error occured sending message"
+                }
+            }
+        }
+
+## Get Message From Group [/groups/${id}/messages]
+### Get Messages [GET]
++ Parameters
+    + id (required) - Group ID params for the url
+    
++ Request (application/x-www-form-urlencoded)
+    
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 20,
+                "text": "some new text",
+                "userId": 88,
+                "groupId": 18,
+                "priority": "Normal",
+                "readBy": [
+                    "jattoade"
+                ],
+                "createdAt": "2017-09-10T21:47:11.436Z",
+                "user": {
+                    "id": 88,
+                    "username": "jattoade",
+                    "fullName": "Aminujatto Abdulqahhar"
+                }
+            },
+            {
+                "id": 21,
+                "text": "some newest text",
+                "userId": 88,
+                "groupId": 18,
+                "priority": "Normal",
+                "readBy": [
+                    "jattoade"
+                ],
+                "createdAt": "2017-09-10T22:04:28.776Z",
+                "user": {
+                    "id": 88,
+                    "username": "jattoade",
+                    "fullName": "Aminujatto Abdulqahhar"
+                }
+            },
+            {
+                "id": 22,
+                "text": "some newest text",
+                "userId": 88,
+                "groupId": 18,
+                "priority": "Normal",
+                "readBy": [
+                    "jattoade"
+                ],
+                "createdAt": "2017-09-11T12:10:01.555Z",
+                "user": {
+                    "id": 88,
+                    "username": "jattoade",
+                    "fullName": "Aminujatto Abdulqahhar"
+                }
+            }
+        ]
+        
+        
++ Response 400 (application/json)
+
+        [
+        
+        ]
+        

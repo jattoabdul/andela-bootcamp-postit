@@ -3,22 +3,20 @@
  * handles every groups users related task and authentication
  */
 
-
-// importing services
-import models from "../models/db";
+import models from '../models/db';
 
 // let userName = "";
 export default {
   addMember(req, res) {
     if (!req.body.userId) {
       res.status(400)
-        .send({ error: { message: "userId parameter is required" } });
+        .send({ error: { message: 'userId parameter is required' } });
       return;
     }
 
     if (!req.params.id) {
       res.status(400)
-        .send({ error: { message: "GroupId parameter is required" } });
+        .send({ error: { message: 'GroupId parameter is required' } });
       return;
     }
 
@@ -33,26 +31,14 @@ export default {
         if (response) {
           return res.status(400)
             .send({
-              error: { message: "user already exist in group" }
+              error: { message: 'user already exist in group' }
             });
         }
-        // models.Users
-        //   .findOne({
-        //     where: { id: req.body.userId }
-        //   })
-        //   .then((user) => {
-        //     userName = user.username;
-        //   })
-        //   .catch(error => res.status(400).send(error));
-        // console.log(`===================> username of 
-        // current user to be added: ${userName}`);
-        // Then add username field to group user models and 
-        // include on param with necessary value
         return models.GroupsUsers
           .create({
             userId: req.body.userId,
             groupId: req.params.id,
-            isAdmin: "0"
+            isAdmin: '0'
           })
           .then((result) => {
             res.status(201).send(result);
@@ -69,16 +55,16 @@ export default {
         include: [{
           model: models.Users,
           through: {
-            attributes: ["id", "username"],
+            attributes: ['id', 'username'],
           },
-          as: "users"
+          as: 'users'
         }]
       })
       .then((members) => {
-        // console.log(`members with their user details: ${members}`);
-        res.status(200).send(members);
+        res.status(200).send(members[0].users);
       })
       .catch((error) => {
+        console.log(error);
         res.status(400).send(error);
       });
   },
@@ -89,20 +75,57 @@ export default {
       .catch(error => res.status(400).send(error));
   },
   removeMember(req, res) {
-    return models.GroupsUsers
-      .destroy({
+    const currentUserId = req.authToken.data.id;
+    models.GroupsUsers
+      .find({
         where: {
-          userId: req.body.usersId,
+          userId: currentUserId,
           groupId: req.params.id
-        },
-        force: true
-        // truncate: true, cascade: true
-      })
-      .then((result) => {
-        res.status(202).send(result);
-      })
-      .catch((error) => {
-        res.status(400).send(error);
+        }
+      }).then(
+        (user) => {
+          if (user.isAdmin === '1') {
+            if (req.query.usersId) {
+              // console.log('req.query.usersId: user ID of the user to be removed:', req.query.usersId);
+              // console.log('userID requesting removal of a user:', user.userId);
+              if (user.userId === req.query.usersId) {
+                return res.status(400).send({
+                  message: 'You cannot remove yourself'
+                });
+              }
+              return models.GroupsUsers
+                .destroy({
+                  where: {
+                    userId: req.query.usersId,
+                    groupId: req.params.id
+                  },
+                  force: true
+                // truncate: true, cascade: true
+                })
+                .then((result) => {
+                  res.status(202).send({
+                    result,
+                    message: 'User Removed Successfully'
+                  });
+                })
+                .catch((error) => {
+                  res.status(400).send({
+                    error,
+                    message: 'Error Occured While trying to remove User'
+                  });
+                });
+            }
+          } else {
+            return res.status(400).send({
+              message: 'User Is not an Admin'
+            });
+          }
+        }
+      ).catch((error) => {
+        res.status(400).send({
+          error,
+          message: 'Sorry user is not a member of the group'
+        });
       });
   },
   searchMember(req, res) {
@@ -110,7 +133,7 @@ export default {
       models.GroupsUsers
         .findAll({
           where: { groupId: req.params.id },
-          attributes: ["userId"]
+          attributes: ['userId']
         })
         .then((groupUsers) => {
           const groupUsersId = groupUsers
@@ -118,9 +141,19 @@ export default {
           models.Users
             .findAll({
               where: {
-                username: { $like: `%${req.query.search}%` }
+                username: {
+                  $like: `%${req.query.search}%`
+                }
               },
-              attributes: ["id", "username", "fullName"]
+              limit: 10,
+              attributes: ['id', 'username', 'fullName'],
+              include: [{
+                model: models.Groups,
+                as: 'groups',
+                required: false,
+                attributes: ['id'],
+                through: { attributes: [] }
+              }]
             })
             .then((searchItemResult) => {
               const data = {

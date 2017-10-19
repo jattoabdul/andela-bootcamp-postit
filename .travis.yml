@@ -1,7 +1,7 @@
 language: node_js
 branches:
   only:
-    - master
+    - develop
 node_js:
   - "6.10"
 install:
@@ -13,7 +13,7 @@ services:
 cache: 
   - npm install
 before_script:
-  - npm install sequelize-cli -g
+  - npm install sequelize-cli@2.8.0 -g
   - sequelize db:migrate
 after_script: 
   - nyc npm test && nyc report --reporter=text-lcov | coveralls

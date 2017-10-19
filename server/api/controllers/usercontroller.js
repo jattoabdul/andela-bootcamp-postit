@@ -4,11 +4,11 @@
  */
 
 // importing services
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt-nodejs";
-import nodemailer from "nodemailer";
-import crypto from "crypto";
-import models from "../models/db";
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt-nodejs';
+import nodemailer from 'nodemailer';
+import crypto from 'crypto';
+import models from '../models/db';
 
 const salt = bcrypt.genSaltSync(5);
 const error = {};
@@ -18,34 +18,34 @@ export default {
     const email = req.body.email;
     const secret = req.body.email;
     const hash = crypto
-      .createHash("sha256", secret)
+      .createHash('sha256', secret)
       .update(Date.now().toString())
-      .digest("hex");
+      .digest('hex');
     const date = new Date();
     date.setHours(date.getHours() + 1);
-    const expiresIn = `${date.toString().split(" ")[2]}
-      :${date.toString().split(" ")[4]}`;
-    if (email === undefined || email.trim() === "") {
+    const expiresIn = `${date.toString().split(' ')[2]}
+      :${date.toString().split(' ')[4]}`;
+    if (email === undefined || email.trim() === '') {
       res.status(400).send({
-        data: { error: { message: "email is not valid" } }
+        data: { error: { message: 'email is not valid' } }
       });
       return;
     }
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
       port: 465,
       auth: {
-        user: "jattoade@gmail.com",
-        pass: "jasabs93"
+        user: 'jattoade@gmail.com',
+        pass: 'jasabs93'
       }
     });
 
     const mailOptions = {
-      from: "no-reply <jattoade@gmail.com>",
+      from: 'no-reply <jattoade@gmail.com>',
       to: email,
-      subject: "Reset Password Link",
+      subject: 'Reset Password Link',
       html: `Hello ${email}, to reset your password, please click on
-       \n<a href="http://localhost:3006/updatepassword/${hash}">this Link</a>
+       \n<a href="http://localhost:8080/#/updatepassword/${hash}">this Link</a>
         to reset your password`
     };
 
@@ -62,7 +62,9 @@ export default {
             }).then(() => {
               transporter.sendMail(mailOptions, (errors, info) => {
                 if (errors) {
-                  res.status(503).send({ data: { error: { message: errors } } });
+                  res.status(503).send({
+                    data: { error: { message: errors } }
+                  });
                 } else {
                   res.status(200).send({ data: { message: info } });
                 }
@@ -96,11 +98,11 @@ export default {
       }).then((result) => {
         const email = result.dataValues.email;
         const date = new Date();
-        const now = `${date.toString().split(" ")[2]}
-        :${date.toString().split(" ")[4]}`;
+        const now = `${date.toString().split(' ')[2]}
+        :${date.toString().split(' ')[4]}`;
         if (now > result.dataValues.expiresIn) {
           res.status(200).send({
-            data: { error: { message: "Expired or Invalid link" } }
+            data: { error: { message: 'Expired or Invalid link' } }
           });
           return;
         }
@@ -110,45 +112,45 @@ export default {
             { where: { email } }
           ).then(() =>
             res.status(200).send({
-              data: { message: "Password Reset Successful" }
+              data: { message: 'Password Reset Successful' }
             })
           );
       });
   },
   // Signup Users (create user and save to db)
   signUp(req, res) {
-    if (!req.body.email || req.body.email.trim() === "") {
+    if (!req.body.email || req.body.email.trim() === '') {
       return res.status(400)
         .send({
-          error: { message: "email cannot be empty" }
+          error: { message: 'email cannot be empty' }
         });
     }
 
-    if (!req.body.username || req.body.username.trim() === "") {
+    if (!req.body.username || req.body.username.trim() === '') {
       return res.status(400)
         .send({
-          error: { message: "username cannot be empty" }
+          error: { message: 'username cannot be empty' }
         });
     }
 
-    if (!req.body.password || req.body.password.trim() === "") {
+    if (!req.body.password || req.body.password.trim() === '') {
       return res.status(400)
         .send({
-          error: { message: "password cannot be empty" }
+          error: { message: 'password cannot be empty' }
         });
     }
 
-    if (!req.body.fullName || req.body.fullName.trim() === "") {
+    if (!req.body.fullName || req.body.fullName.trim() === '') {
       return res.status(400)
         .send({
-          error: { message: "fullName not provided" }
+          error: { message: 'fullName not provided' }
         });
     }
 
-    if (!req.body.phoneNumber || req.body.phoneNumber.trim() === "") {
+    if (!req.body.phoneNumber || req.body.phoneNumber.trim() === '') {
       return res.status(400)
         .send({
-          error: { message: "phone cannot be empty" }
+          error: { message: 'phone cannot be empty' }
         });
     }
 
@@ -174,14 +176,14 @@ export default {
         res.status(201).send({ data });
       })
       .catch((err) => {
-        if (err.errors[0].message === "username must be unique") {
-          error.err = { message: "username already exists" };
+        if (err.errors[0].message === 'username must be unique') {
+          error.err = { message: 'username already exists' };
         }
-        if (err.errors[0].message === "email must be unique") {
-          error.err = { message: "email already exists" };
+        if (err.errors[0].message === 'email must be unique') {
+          error.err = { message: 'email already exists' };
         }
-        if (err.errors[0].message === "Validation isEmail on email failed") {
-          error.err = { message: "not an email" };
+        if (err.errors[0].message === 'Validation isEmail on email failed') {
+          error.err = { message: 'not an email' };
         }
         if (!error.err) {
           error.err = { message: err.errors[0].message };
@@ -202,20 +204,24 @@ export default {
           if (bcrypt.compareSync(password, user[0].password)) {
             // create an authToken for the user
             const token = jwt.sign({
-              data: user[0].username
-            }, "Jasabs93", { expiresIn: "24h" });
+              data: {
+                id: user[0].id,
+                username: user[0].username,
+                email: user[0].email,
+                fullName: user[0].fullName,
+                phoneNumber: user[0].phoneNumber
+              }
+            }, 'Jasabs93', { expiresIn: '24h' });
             res
               .status(202)
               .send({
                 token,
-                message: `${user[0].username} has successfully logged in`,
-                data: req.body
+                message: `${user[0].username} has successfully logged in`
               });
           } else {
             res.status(401)
               .send({
-                message: "invalid password",
-                data: req.body
+                message: 'invalid password'
               });
           }
           return;
@@ -223,8 +229,7 @@ export default {
 
         res.status(404)
           .send({
-            message: "username does not exist",
-            data: req.body
+            message: 'username does not exist'
           });
       });
   },
@@ -235,21 +240,28 @@ export default {
       .catch(err => res.status(400).send({ err }));
   },
   getCurrentUser(req, res) {
-    const username = req.authToken.data;
-    console.log(username);
+    const username = req.authToken.data.username;
+    // console.log(username);
     // const id = req.authToken.data;
     // console.log(id);
     return models.Users
       .find({
         include: [{
           model: models.Groups,
-          as: "groups",
+          as: 'groups',
           required: false,
-          attributes: ["id", "name", "desc", "isArchived"],
+          attributes: ['id', 'name', 'desc', 'isArchived'],
           through: { attributes: [] }
         }],
         where: { username },
-        attributes: ["id", "email", "username", "fullName", "lastLogin", "phoneNumber", "createdAt"]
+        attributes: [
+          'id',
+          'email',
+          'username',
+          'fullName',
+          'lastLogin',
+          'phoneNumber',
+          'createdAt']
       })
       .then((user) => {
         res.status(200).send({ data: user });

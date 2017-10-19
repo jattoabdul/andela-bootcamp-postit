@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const PasswordReset = sequelize.define("PasswordReset", {
+  const PasswordReset = sequelize.define('PasswordReset', {
     email: {
       allowNull: false,
       type: DataTypes.STRING,

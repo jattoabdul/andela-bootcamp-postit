@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const Users = sequelize.define("Users", {
+  const Users = sequelize.define('Users', {
     username: {
       allowNull: false,
       type: DataTypes.STRING,
@@ -22,7 +22,7 @@ export default (sequelize, DataTypes) => {
     lastLogin: {
       allowNull: true,
       type: DataTypes.DATE,
-      defaultValue: sequelize.fn("NOW")
+      defaultValue: sequelize.fn('NOW')
     },
     email: {
       allowNull: false,
@@ -36,20 +36,20 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
       validate: {
-        not: ["[a-z]", "i"]
+        not: ['[a-z]', 'i']
       }
     }
   });
   Users.associate = (models) => {
     Users.belongsToMany(models.Groups, {
-      through: "GroupsUsers",
-      as: "groups",
-      foreignKey: "userId"
+      through: 'GroupsUsers',
+      as: 'groups',
+      foreignKey: 'userId'
     });
 
     Users.hasMany(models.Messages, {
-      as: "messages",
-      foreignKey: "userId"
+      as: 'messages',
+      foreignKey: 'userId'
     });
   };
   return Users;
