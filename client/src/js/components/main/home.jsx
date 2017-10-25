@@ -4,7 +4,10 @@ import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
 
 /**
+ * Display Home
  * @class Home
+ * @param {any} props
+ * @extends {React.Component}
  */
 class Home extends React.Component {
   /**
@@ -19,7 +22,7 @@ class Home extends React.Component {
   }
 
   /**
-   * 
+   * Render Method
    * @return {dom} DomElement
    */
   render() {

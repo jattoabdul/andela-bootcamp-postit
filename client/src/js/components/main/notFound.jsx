@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../styles/index.scss';
 
 /**
- * 
+ * Display NotFound
  * @param {*} props
  * @return {dom} DomeElement 
  */

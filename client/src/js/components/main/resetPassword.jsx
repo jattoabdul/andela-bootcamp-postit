@@ -8,17 +8,23 @@ import {
 } from '../../actions/authAction';
 import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
+/**
+ * @typedef {object} event
+ */
 
 /**
- * 
+ * Display ResetPassword
  * @class ResetPassword
+ * @extends {React.Component}
+ * @param {any} props
  */
 class ResetPassword extends React.Component {
   /**
-     * 
-     * @param {*} props
-     * @return {void} 
-     */
+   * Creates an instance of ResetPassword
+   * @param {any} props
+   * @memberof ResetPassword
+   * @return {void}
+   */
   constructor(props) {
     super(props);
     this.onRequestReset = this.onRequestReset.bind(this);
@@ -31,8 +37,8 @@ class ResetPassword extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * onRequestReset password Method
+   * @param {event} event
    * @return {void} null
    */
   onRequestReset(event) {
@@ -61,8 +67,8 @@ class ResetPassword extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * onChange Method
+   * @param {event} event
    * @return {void}
    */
   onChange(event) {
@@ -72,8 +78,8 @@ class ResetPassword extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * closeError Method
+   * @param {event} event
    * @return {void}
    */
   closeError(event) {
@@ -84,7 +90,7 @@ class ResetPassword extends React.Component {
   }
 
   /**
-   * 
+   * Render method
    * @return {dom} DomEvent
    */
   render() {

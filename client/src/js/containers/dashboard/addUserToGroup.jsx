@@ -10,9 +10,12 @@ import {
   fetchMessages } from '../../actions/groupAction';
 import '../../../styles/index.scss';
 
+/**
+ * @typedef {object} event
+ */
 
 /**
- * 
+ * Compute className for elements
  * @param {*} val
  * @return {object} classNames
  */
@@ -22,12 +25,17 @@ const computeClass = val => classNames({
 });
 
 /**
+ * Display AddUserToGroupBoard
  * @class AddUserToGroupBoard
+ * @extends {React.Component}
+ * @param {any} props
  */
 class AddUserToGroupBoard extends React.Component {
   /**
-   * 
-   * @param {*} props 
+   * Creates an instance of AddUserToGroupBoard
+   * @param {any} props
+   * @memberof AddUserToGroupBoard
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -43,6 +51,7 @@ class AddUserToGroupBoard extends React.Component {
   }
 
   /**
+   * componentDidMount Life Cycle Method
    * @param {void} void
    * @return {void}
    */
@@ -59,7 +68,7 @@ class AddUserToGroupBoard extends React.Component {
 
   /**
    * 
-   * @param {*} nextProps 
+   * @param {object} nextProps 
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
@@ -70,10 +79,9 @@ class AddUserToGroupBoard extends React.Component {
     });
   }
 
-  // onSearchUserInGroup Method
   /**
-   * 
-   * @param {*} event
+   * onSearchUserInGroup Method
+   * @param {event} event
    * @return {void}
    */
   onSearchUserInGroup(event) {
@@ -96,10 +104,9 @@ class AddUserToGroupBoard extends React.Component {
     );
   }
 
-  // onAddUserToGroup Method
   /**
-   * 
-   * @param {*} uId
+   * onAddUserToGroup Method
+   * @param {number} uId
    * @return {void} 
    */
   onAddUserToGroup(uId) {
@@ -116,8 +123,8 @@ class AddUserToGroupBoard extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * onShowGroupMessages Method
+   * @param {event} event
    * @return {promise} fetchMessages
    */
   onShowGroupMessages(event) {
@@ -137,9 +144,8 @@ class AddUserToGroupBoard extends React.Component {
     );
   }
 
-  // render Method
   /**
-   * 
+   * Render Method
    * @return {dom} DomElement
    */
   render() {

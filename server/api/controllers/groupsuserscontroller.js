@@ -124,7 +124,6 @@ export default {
                     groupId: req.params.id
                   },
                   force: true
-                // truncate: true, cascade: true
                 })
                 .then((result) => {
                   res.status(202).send({

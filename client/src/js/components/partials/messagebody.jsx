@@ -2,11 +2,14 @@ import React from 'react';
 import '../../../styles/index.scss';
 
 /**
+ * Display MessageBody
  * @class MessageBody
+ * @extends {React.Component}
+ * @param {any} props
  */
 class MessageBody extends React.Component {
   /**
-   * 
+   * Render Method
    * @return {dom} DomElement
    */
   render() {

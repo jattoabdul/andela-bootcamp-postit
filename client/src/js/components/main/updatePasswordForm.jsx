@@ -10,12 +10,21 @@ import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
 
 /**
- * @class UpdatePassword
+ * @typedef {object} event
+ */
+
+/**
+ * Display UpdatePasswordForm
+ * @class UpdatePasswordForm
+ * @extends {React.Component}
+ * @param {any} props
  */
 class UpdatePasswordForm extends React.Component {
   /**
-   * 
-   * @param {*} props 
+   * Creates an instance of UpdatePasswordForm
+   * @param {any} props
+   * @memberof UpdatePasswordForm
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -29,8 +38,8 @@ class UpdatePasswordForm extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * onChange Method
+   * @param {event} event
    * @return {void} void
    */
   onChange(event) {
@@ -40,6 +49,7 @@ class UpdatePasswordForm extends React.Component {
   }
 
   /**
+   * onFocus Method
    * @param {void} empty
    * @return {void}
    */
@@ -51,9 +61,9 @@ class UpdatePasswordForm extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
-   * @return {void}
+   * onResetPassword
+   * @param {event} event
+   * @return {void} null
    */
   onResetPassword(event) {
     event.preventDefault();
@@ -88,7 +98,7 @@ class UpdatePasswordForm extends React.Component {
   }
 
   /**
-   * 
+   * Render Method
    * @return {dom} DomEvent
    */
   render() {

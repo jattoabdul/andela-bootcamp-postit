@@ -6,12 +6,21 @@ import { fetchUserGroups, createGroup } from '../../actions/groupAction';
 import '../../../styles/index.scss';
 
 /**
+ * @typedef {object} event
+ */
+
+/**
+ * Display CreateGroupBoard
  * @class CreateGroupBoard
+ * @extends {React.Component}
+ * @param {any} props
  */
 class CreateGroupBoard extends React.Component {
   /**
-   * constructor function
-   * @param {*} props 
+   * Creates an instance of CreateGroupBoard
+   * @param {any} props
+   * @memberof CreateGroupBoard
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -25,8 +34,8 @@ class CreateGroupBoard extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * onChange Method
+   * @param {event} event
    * @return {void} 
    */
   onChange(event) {
@@ -35,10 +44,9 @@ class CreateGroupBoard extends React.Component {
     });
   }
 
-  // OnCreateGroup Method
   /**
-   * 
-   * @param {*} event
+   * onCreateGroup Method
+   * @param {event} event
    * @return {void}
    */
   onCreateGroup(event) {
@@ -67,6 +75,7 @@ class CreateGroupBoard extends React.Component {
   }
 
   /**
+   * Render Method
    * @return {dom} DomElement
    */
   render() {

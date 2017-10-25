@@ -7,12 +7,17 @@ import isEmpty from 'lodash/isEmpty';
 import '../../../styles/index.scss';
 
 /**
+ * Display SideMenu
  * @class SideMenu
+ * @extends {React.Component}
+ * @param {any} props
  */
 class SideMenu extends React.Component {
   /**
-   * 
-   * @param {*} props 
+   * Creates an instance of SideMenu
+   * @param {any} props
+   * @memberof SideMenu
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -28,8 +33,8 @@ class SideMenu extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} nextProps
+   * ComponentWillReceiveProps Life Cycle Method
+   * @param {object} nextProps
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
@@ -43,8 +48,8 @@ class SideMenu extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} userGroup
+   * openNextMessageBoard Method
+   * @param {object} userGroup
    * @return {void}
    */
   openNextMessageBoard(userGroup) {
@@ -61,6 +66,7 @@ class SideMenu extends React.Component {
   }
 
   /**
+   * Render Method
    * @return {dom} DomElement
    */
   render() {

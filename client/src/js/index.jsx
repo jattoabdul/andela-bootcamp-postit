@@ -11,7 +11,6 @@ import jwt from 'jsonwebtoken';
 import '../styles/index.scss';
 import configureStore from './stores/configureStore';
 import './htmlAction';
-
 import {
   Home,
   Register,
@@ -28,6 +27,10 @@ const store = configureStore();
 
 const app = document.getElementById('root');
 
+/**
+ * @param {void} void
+ * @return {object} date
+ */
 const isTokenExpired = () => {
   const token = jwt.decode(JSON.parse(sessionStorage.getItem('user')).token);
   const date = new Date(0);
@@ -35,6 +38,10 @@ const isTokenExpired = () => {
   return date < new Date();
 };
 
+/**
+ * @param {void} void
+ * @return {object} authState
+ */
 const isAuthenticated = () => {
   const authState = sessionStorage.getItem('user') !== null &&
     isTokenExpired !== true;

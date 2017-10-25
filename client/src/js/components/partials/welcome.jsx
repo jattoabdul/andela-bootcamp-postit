@@ -1,6 +1,7 @@
 import React from 'react';
 
 /**
+ * Display Welcome
  * @return {dom} DomElement
  */
 const Welcome = () => (

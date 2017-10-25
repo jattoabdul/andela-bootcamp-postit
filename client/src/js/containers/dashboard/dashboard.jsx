@@ -4,12 +4,17 @@ import PropTypes from 'prop-types';
 import '../../../styles/index.scss';
 
 /**
+ * Display Dashboard
  * @class Dashboard
+ * @extends {React.Component}
+ * @param {any} props
  */
 class Dashboard extends React.Component {
   /**
-   * constructor function
-   * @param {*} props 
+   * Creates an instance of Dashboard
+   * @param {any} props
+   * @memberof Dashboard
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -20,8 +25,8 @@ class Dashboard extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} nextProps
+   * componentWillRecieveProps Life Cycle Method
+   * @param {object} nextProps
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
@@ -32,8 +37,8 @@ class Dashboard extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} username
+   * callToaster Method
+   * @param {string} username
    * @return {void}
    */
   callToaster(username) {
@@ -48,6 +53,7 @@ class Dashboard extends React.Component {
   }
 
   /**
+   * Render Methjod
    * @return {dom} DomElement
    */
   render() {

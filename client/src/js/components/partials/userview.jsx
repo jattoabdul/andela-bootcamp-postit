@@ -1,23 +1,63 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import classNames from 'classnames';
 import '../../../styles/index.scss';
 
 /**
+ * Compute classNames for and element
+ * @param {*} val
+ * @return {object} classNames
+ */
+const computeClass = val => classNames({
+  link_disabled: val,
+  channels: true
+});
+
+
+/**
+ * Display UserView
  * @class UserView
+ * @extends {React.Component}
+ * @param {any} props
  */
 class UserView extends React.Component {
   /**
-   * constructor function
-   * @param {*} props 
+   * Creates an instance of UserView
+   * @param {any} props
+   * @memberof UserView
+   * @return {void}
    */
   constructor(props) {
     super(props);
     this.state = {
       scroll: true
     };
+    this.onSearchingUserInGroup = this.onSearchingUserInGroup.bind(this);
   }
 
   /**
+   * componentDidMount Life Cycle Method
+   * @param {void} null
+   * @return {void} null
+   */
+  componentDidMount() {
+    $('.modal').modal();
+  }
+
+  /**
+   * onSearchUserInGroup Method
+   * @param {*} event
+   * @return {void}
+   */
+  onSearchingUserInGroup(event) {
+    event.preventDefault();
+    const id = this.props.currentGroup.id;
+    const searchText = this.selectedUser.value;
+    this.props.onSearchUserInGroup(id, searchText);
+  }
+
+  /**
+   * Render Method
    * @return {dom} DomElement
    */
   render() {
@@ -75,9 +115,63 @@ class UserView extends React.Component {
             </li>
           )}
         </ul>
-        <span className="bottomSearch waves-effect waves-teal">
-          <i className="icon ion-ios-search teal-text x25" />
+        <span className="bottomSearch">
+          <a className="modal-trigger" href="#modal1">
+            <i className="icon ion-person-add teal-text x25" />
+          </a>
         </span>
+
+        <div id="modal1" className="modal">
+          <div className="modal-content">
+            <h4 className="center teal-text">Add User to Group</h4>
+            <form className="row">
+              <div className="center col s12 m6 l6 input-field">
+                <input
+                  type="search"
+                  id="add_user"
+                  className="validate"
+                  ref={(input) => {
+                    this.selectedUser = input;
+                  }}
+                  onKeyUp={this.onSearchingUserInGroup}
+                  placeholder="type username"
+                />
+                <label htmlFor="add_user">Add User</label>
+              </div>
+              <div className="col s12 m12 l12">
+                <ul>
+                  {this.props.selectedUsers.length >= 1 ?
+                    this.props.selectedUsers.map(selectedUser => (<li
+                      key={selectedUser.id}
+                    >
+                      <a
+                        className={computeClass(
+                          selectedUser.groups.map(group =>
+                            group.id).includes(this.props.currentGroup.id))}
+                        role="button"
+                        tabIndex={-1}
+                        onClick={
+                          () => this.props.onAddUserToGroup(selectedUser.id)
+                        }
+                      >
+                      @{selectedUser.username}
+                      </a>
+                      { selectedUser.groups.map(
+                        group => group.id).includes(this.props.currentGroup.id) &&
+                        <span
+                          className="new badge"
+                          data-badge-caption="Member"
+                        />
+                      }
+                    </li>))
+                    : <li />
+                  }
+                </ul>
+              </div>
+            </form>
+          </div>
+        </div>
+
       </div>
     );
   }

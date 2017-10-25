@@ -6,6 +6,11 @@ import CreateGroupBoard from './../../containers/dashboard/creategroupboard';
 import AddUserToGroupBoard from './../../containers/dashboard/addUserToGroup';
 import MessageBoard from '../../containers/dashboard/messageboard';
 
+/**
+ * DashBoard Routes
+ * @param {*} props 
+ * @return {any} Route
+ */
 const DashboardRoutes = props => (
   <Switch>
     <Route exact path="/dashboard" render={() => <Dashboard {...props} />} />

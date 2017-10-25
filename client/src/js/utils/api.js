@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 const Api = (body, url, method) => (new Promise((resolve, reject) => {
   const headers = new Headers();
   headers.append('Content-Type', 'application/x-www-form-urlencoded');
