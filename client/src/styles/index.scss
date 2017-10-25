@@ -467,6 +467,12 @@ input#group_name-create, textarea#group_desc-create{
   font-size: x-large !important;
 }
 
+.notFoundImage {
+  align-items: center;
+  max-width:100%;
+  max-height:100%;
+}
+
 @media screen and (min-width:599px) {
   .hidden {
     display: inline;
@@ -510,11 +516,15 @@ nav .brand-logo.center {
 }
 
 #side-navic {
-  display: none
+  display: none;
 }
 
 #side-back-navic {
   display: inline;
+}
+
+#sendMsgButton {
+  display: none;
 }
 
 .hidden {

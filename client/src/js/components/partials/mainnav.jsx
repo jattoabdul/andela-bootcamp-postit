@@ -4,12 +4,17 @@ import PropTypes from 'prop-types';
 import '../../../styles/index.scss';
 
 /**
+ * Display MainNav
  * @class MainNav
+ * @extends {React.Component}
+ * @param {any} props
  */
 class MainNav extends React.Component {
   /**
-   * 
-   * @param {*} props 
+   * Creates an instance of MainNav
+   * @param {any} props
+   * @memberof MainNav
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -19,7 +24,15 @@ class MainNav extends React.Component {
   }
 
   /**
-   *
+   * @param {void} null
+   * @return {void} null
+   */
+  componentDidMount() {
+    $('.dropdown-button').dropdown();
+  }
+
+  /**
+   * Render Method
    * @return {dom} DomElement
    */
   render() {

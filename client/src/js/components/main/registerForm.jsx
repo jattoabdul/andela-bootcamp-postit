@@ -8,12 +8,20 @@ import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
 
 /**
+ * @typedef {object} event
+ */
+
+/**
+ * Display Register
  * @class Register
+ * @extends {React.Component}
+ * @param {any} props
  */
 class Register extends React.Component {
   /**
-   * 
-   * @param {*} props
+   * Creates an instance of Register
+   * @param {any} props
+   * @memberof Register
    * @return {void} 
    */
   constructor(props) {
@@ -35,8 +43,8 @@ class Register extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * onChange Method
+   * @param {event} event
    * @return {void}
    */
   onChange(event) {
@@ -46,6 +54,7 @@ class Register extends React.Component {
   }
 
   /**
+   * onFocus Method
    * @return {void}
    */
   onFocus() {
@@ -53,7 +62,8 @@ class Register extends React.Component {
   }
 
   /**
-   * @param {*} event
+   * onRegister Method
+   * @param {event} event
    * @return {void}
    */
   onRegisterUser(event) {
@@ -114,8 +124,8 @@ class Register extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * close Error Method
+   * @param {event} event
    * @return {void}
    */
   closeError(event) {
@@ -126,7 +136,7 @@ class Register extends React.Component {
   }
 
   /**
-   * 
+   * Render Method
    * @return {dom} DomELement
    */
   render() {
@@ -269,7 +279,7 @@ const mapDispatchToProps = {
   onLoginUser
 };
 /**
- * 
+ * mapStateToProps
  * @param {*} state
  * @return {object} AuthData-State
  */

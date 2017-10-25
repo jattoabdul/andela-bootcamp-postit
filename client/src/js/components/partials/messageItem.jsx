@@ -2,12 +2,17 @@ import React from 'react';
 import '../../../styles/index.scss';
 
 /**
+ * Display MessageItem
  * @class MessageItem
+ * @extends {React.Component}
+ * @param {any} props
  */
 class MessageItem extends React.Component {
   /**
-   * 
-   * @param {*} props
+   * Creates an instance of MessageItem
+   * @param {any} props
+   * @memberof MessageItem
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -17,6 +22,7 @@ class MessageItem extends React.Component {
   }
 
   /**
+   * Render Method
    * @return {dom} DomElement
    */
   render() {
@@ -46,7 +52,7 @@ class MessageItem extends React.Component {
               <i className="status icon ion-ios-checkmark x15" />
             ) : (
               <i
-                onClick={this.props.updateReadBy(this.props.id)}
+                onClick={() => this.props.updateReadBy(this.props.id)}
                 role="button"
                 tabIndex={-1}
                 className="status icon ion-email-unread x15"

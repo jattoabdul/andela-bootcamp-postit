@@ -14,12 +14,21 @@ import DashboardRoutes from './dashboardRoute';
 import { SideMenu, MainNav } from './../../components/partials/';
 
 /**
+ * @typedef {object} event
+ */
+
+/**
+ * Display BaseDashboard
  * @class BaseDashboard
+ * @extends {React.Component}
+ * @param {any} props
  */
 class BaseDashboard extends Component {
   /**
-   * constructor function
-   * @param {*} props 
+   * Creates an instance of BaseDashboard
+   * @param {any} props
+   * @memberof BaseDashboard
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -38,8 +47,9 @@ class BaseDashboard extends Component {
     this.onLogOut = this.onLogOut.bind(this);
     this.toggleSideNav = this.toggleSideNav.bind(this);
   }
-  // check if user is authenticated!
+
   /**
+   * conponentWIllMount Life Cycle Method - check if user is authenticated!
    * @return {void}
    */
   componentWillMount() {
@@ -47,7 +57,7 @@ class BaseDashboard extends Component {
   }
 
   /**
-   * 
+   * componentWillReceiveProps Life Cycle Mehtod
    * @param {*} nextProps
    * @return {void}
    */
@@ -80,6 +90,8 @@ class BaseDashboard extends Component {
   }
 
   /**
+   * onLogOut Method
+   * @param {void} void
    * @return {void}
    */
   onLogOut() {
@@ -90,8 +102,8 @@ class BaseDashboard extends Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * toggleSideNav Method
+   * @param {event} event
    * @return {void}
    */
   toggleSideNav(event) {
@@ -102,8 +114,8 @@ class BaseDashboard extends Component {
   }
 
   /**
-   * 
-   * @param {*} group 
+   * openMessageBoard
+   * @param {object} group 
    * @return {void}
    */
   openMessageBoard(group) {
@@ -119,8 +131,9 @@ class BaseDashboard extends Component {
     });
   }
 
-  // add a user to currentGroup
   /**
+   * add a user to currentGroup
+   * @param {void} void
    * @return {void}
    */
   addAUser() {
@@ -140,6 +153,7 @@ class BaseDashboard extends Component {
   }
 
   /**
+   * Render Method
    * @return {dom} DomElement
    */
   render() {

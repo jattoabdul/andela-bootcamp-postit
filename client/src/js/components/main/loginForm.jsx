@@ -10,13 +10,17 @@ import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
 
 /**
+ * Display Login
  * @class Login
+ * @extends {React.Component}
+ * @param {any} props
  */
 class Login extends React.Component {
   /**
-   * 
-   * @param {*} props
-   * @return {void} 
+   * Creates an instance of Login
+   * @param {any} props
+   * @memberof Login
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -34,8 +38,8 @@ class Login extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * onChange Method
+   * @param {event} event
    * @return {void}
    */
   onChange(event) {
@@ -45,7 +49,8 @@ class Login extends React.Component {
   }
 
   /**
-   * @param {*} void
+   * onFocus method
+   * @param {void} void
    * @return {void}
    */
   onFocus() {
@@ -53,8 +58,8 @@ class Login extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * onLoginUser Method
+   * @param {event} event
    * @return {void} 
    */
   onLoginUser(event) {
@@ -89,8 +94,8 @@ class Login extends React.Component {
     }
   }
   /**
-   * 
-   * @param {*} event
+   * closeError Method - flash message error
+   * @param {event} event
    * @return {void} 
    */
   closeError(event) {
@@ -101,7 +106,7 @@ class Login extends React.Component {
   }
 
   /**
-   * 
+   * Render Method
    * @return {dom} DomElement
    */
   render() {

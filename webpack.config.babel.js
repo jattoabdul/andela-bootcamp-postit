@@ -11,7 +11,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 
 // const debug = process.env.NODE_ENV !== 'production';
 module.exports = {
-  entry: ['./client/src/js/index.jsx'],
+  entry: ['whatwg-fetch', './client/src/js/index.jsx'],
   output: {
     path: path.resolve(__dirname, 'client/dist'),
     filename: 'bundle.js',
@@ -47,6 +47,13 @@ module.exports = {
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader']
         })
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          'url-loader?limit=10000',
+          'img-loader'
+        ]
       },
       // > MATERIALIZE LOADERS
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,

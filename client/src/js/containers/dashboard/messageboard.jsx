@@ -10,6 +10,8 @@ import {
   fetchMessages,
   handleSendMessage,
   resetCurrentGroup,
+  onAddUser,
+  onSearchUser,
   onRemoveUser
 } from '../../actions/groupAction';
 import {
@@ -20,12 +22,17 @@ import {
 import '../../../styles/index.scss';
 
 /**
+ * Display MessageBoard
  * @class MessageBoard
+ * @extends {React.Component}
+ * @param {any} props
  */
 class MessageBoard extends React.Component {
   /**
-   * constructor function
-   * @param {*} props 
+   * Creates an instance of MessageBoard
+   * @param {any} props
+   * @memberof MessageBoard
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -34,6 +41,7 @@ class MessageBoard extends React.Component {
       msg_err: '',
       username: '',
       fullName: '',
+      selectedUsers: [],
       currentGroup: !isEmpty(props.currentGroup) ? props.currentGroup : {},
       currentGroupMembers: !isEmpty(props.currentGroupMembers)
         ? props.currentGroupMembers
@@ -41,11 +49,13 @@ class MessageBoard extends React.Component {
     };
     this.appendChatMessage = this.appendChatMessage.bind(this);
     this.updateReadBy = this.updateReadBy.bind(this);
+    this.onSearchUserInGroup = this.onSearchUserInGroup.bind(this);
+    this.onAddUserToGroup = this.onAddUserToGroup.bind(this);
     this.removeGroupMember = this.removeGroupMember.bind(this);
   }
 
   /**
-   * 
+   * componentWillReceiveProps Life Cycle Method
    * @param {*} nextProps
    * @return {void}
    */
@@ -72,6 +82,7 @@ class MessageBoard extends React.Component {
   }
 
   /**
+   * componentWillUnmount Life Cycle Method
    * @return {void}
    */
   componentWillUnmount() {
@@ -79,7 +90,47 @@ class MessageBoard extends React.Component {
   }
 
   /**
-   * 
+   * onSearchUserInGroup Method
+   * @param {number} id
+   * @param {string} searchText
+   * @return {void}
+   */
+  onSearchUserInGroup(id, searchText) {
+    if (!searchText) {
+      this.setState({
+        selectedUsers: []
+      });
+    }
+    // call searchUserAction
+    this.props.onSearchUser(id, searchText).then(
+      (searchItem) => {
+        this.setState({
+          selectedUsers: searchItem
+        });
+      }
+    );
+  }
+
+  /**
+   * onAddUserToGroup Method
+   * @param {*} uId
+   * @return {void} 
+   */
+  onAddUserToGroup(uId) {
+    // eslint-disable-next-line
+    const id = `${this.props.match.params.groupId}`;
+    // call addUser action
+    this.props.onAddUser(uId, id).then(
+      // eslint-disable-next-line
+      (item) => {
+        // eslint-disable-next-line
+        Materialize.toast(`user was added succesfully`, 3000);
+      }
+    );
+  }
+
+  /**
+   * appendChatMessage Method
    * @param {*} priority 
    * @param {*} text
    * @return {void}
@@ -92,7 +143,7 @@ class MessageBoard extends React.Component {
   }
 
   /**
-   * 
+   * removeGroupMember Method
    * @param {*} userId
    * @return {void}
    */
@@ -116,7 +167,7 @@ class MessageBoard extends React.Component {
   }
 
   /**
-   * 
+   * updateReadBy Method
    * @param {*} id
    * @return {void}
    */
@@ -134,12 +185,15 @@ class MessageBoard extends React.Component {
   }
 
   /**
+   * Render Method
    * @return {dom} DomElement
    */
   render() {
     const {
       fullName,
       username,
+      selectedUsers,
+      currentGroup,
       currentGroupMembers,
       groupMessages
     } = this.state;
@@ -159,8 +213,12 @@ class MessageBoard extends React.Component {
           <MessageInputForm appendChatMessage={this.appendChatMessage} />
         </div>
         <UserView
+          selectedUsers={selectedUsers}
+          currentGroup={currentGroup}
           activeMessageReaders={currentGroupMembers}
           removeGroupMember={this.removeGroupMember}
+          onSearchUserInGroup={this.onSearchUserInGroup}
+          onAddUserToGroup={this.onAddUserToGroup}
         />
       </div>
     );
@@ -171,6 +229,8 @@ MessageBoard.propTypes = {
   fetchMessages: PropTypes.func,
   handleSendMessage: PropTypes.func,
   onRemoveUser: PropTypes.func,
+  onSearchUser: PropTypes.func,
+  onAddUser: PropTypes.func,
   handleOnResetCurrentGroup: PropTypes.func,
   resetCurrentGroup: PropTypes.func,
   groupData: PropTypes.object,
@@ -181,6 +241,8 @@ const mapDispatchToProps = {
   fetchMessages,
   handleSendMessage,
   resetCurrentGroup,
+  onSearchUser,
+  onAddUser,
   onRemoveUser
 };
 

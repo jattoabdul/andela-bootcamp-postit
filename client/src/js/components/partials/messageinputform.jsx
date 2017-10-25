@@ -2,6 +2,9 @@ import React from 'react';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 import '../../../styles/index.scss';
+/**
+ * @typedef {object} event
+ */
 
 const options = [
   { value: 'Normal', label: 'Normal' },
@@ -10,13 +13,17 @@ const options = [
 ];
 
 /**
- * 
+ * Display MessageInputForm
  * @class MessageInputForm
+ * @extends {React.Component}
+ * @param {any} props
  */
 class MessageInputForm extends React.Component {
   /**
-   * 
-   * @param {*} props 
+   * Creates an instance of MessageInputForm
+   * @param {any} props
+   * @memberof MessageInputForm
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -30,8 +37,8 @@ class MessageInputForm extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * Handle Change Method
+   * @param {event} event
    * @return {void}
    */
   handleChange(event) {
@@ -41,8 +48,8 @@ class MessageInputForm extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} option
+   * Handle priority select change
+   * @param {string} option
    * @return {void}
    */
   handleSelectChange(option) {
@@ -52,8 +59,8 @@ class MessageInputForm extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * handle submit of Message item
+   * @param {event} event
    * @return {void}
    */
   handleSubmit(event) {
@@ -66,14 +73,14 @@ class MessageInputForm extends React.Component {
   }
 
   /**
-   * 
+   * Render Method
    * @return {dom} DomElement
    */
   render() {
     return (
       <div id="messageBox" className="row">
         <form onSubmit={this.handleSubmit}>
-          <div className="col s3 m2 input-field">
+          <div className="col s4 m2 input-field">
             <Select
               name="priority"
               value={this.state.priority}
@@ -81,7 +88,7 @@ class MessageInputForm extends React.Component {
               onChange={this.handleSelectChange}
             />
           </div>
-          <div className="col s6 m8 input-field">
+          <div className="col s8 m8 input-field">
             <input
               type="text"
               id="message2send"
@@ -93,9 +100,10 @@ class MessageInputForm extends React.Component {
             />
           </div>
           <input
+            id="sendMsgButton"
             type="submit"
             value="Send"
-            className="col s3 m2 btn-large waves-effect waves-light"
+            className="col s3 m2 btn-large"
           />
         </form>
       </div>

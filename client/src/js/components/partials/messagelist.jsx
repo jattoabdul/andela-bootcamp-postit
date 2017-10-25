@@ -3,12 +3,17 @@ import { MessageItem } from './../partials/';
 import '../../../styles/index.scss';
 
 /**
+ * Display MessageList
  * @class MessageList
+ * @extends {React.Component}
+ * @param {any} props
  */
 class MessageList extends React.Component {
   /**
-   * 
-   * @param {*} props
+   * Creates an instance of MessageList
+   * @param {any} props
+   * @memberof MessageList
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -18,6 +23,7 @@ class MessageList extends React.Component {
   }
 
   /**
+   * Render Method
    * @return {dom} DomElement
    */
   render() {
