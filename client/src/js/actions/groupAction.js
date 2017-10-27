@@ -17,8 +17,8 @@ import {
 
 
 /**
- * @param {*} void
- * @return {*} empty
+ * @param {null} void
+ * @return {object} type
  */
 export function getGroup() {
   return {
@@ -27,8 +27,8 @@ export function getGroup() {
 }
 
 /**
- * @param {*} userGroups
- * @return {*} empty
+ * @param {object} userGroups
+ * @return {object} type & userGroups
  */
 export function getGroupSuccess(userGroups) {
   return {
@@ -38,8 +38,8 @@ export function getGroupSuccess(userGroups) {
 }
 
 /**
- * @param {*} groupError
- * @return {*} empty
+ * @param {object} groupError
+ * @return {object} type & groupError
  */
 export function getGroupFail(groupError) {
   return {
@@ -49,8 +49,8 @@ export function getGroupFail(groupError) {
 }
 
 /**
- * @param {*} currentGroup
- * @return {*} empty
+ * @param {object} currentGroup
+ * @return {object} type and currentGroup
  */
 export function setCurrentGroup(currentGroup) {
   return {
@@ -60,8 +60,8 @@ export function setCurrentGroup(currentGroup) {
 }
 
 /**
- * @param {*} currentGroupMembers
- * @return {*} empty
+ * @param {object} currentGroupMembers
+ * @return {object} empty
  */
 export function setCurrentGroupUsersSuccess(currentGroupMembers) {
   return {
@@ -71,8 +71,8 @@ export function setCurrentGroupUsersSuccess(currentGroupMembers) {
 }
 
 /**
- * @param {*} groupMembersError
- * @return {*} empty
+ * @param {object} groupMembersError
+ * @return {object} empty
  */
 export function setCurrentGroupUsersFail(groupMembersError) {
   return {
@@ -84,7 +84,7 @@ export function setCurrentGroupUsersFail(groupMembersError) {
 
 /**
  * @param {*} void
- * @return {*} empty
+ * @return {object} empty
  */
 export function removeCurrentGroup() {
   return {

@@ -5,7 +5,7 @@ import React from 'react';
  * @return {dom} DomElement
  */
 const Welcome = () => (
-  <div className="col s12 m6 indexSideOne hide-on-small-only">
+  <div className="col s12 m6 l6 indexSideOne hide-on-small-only">
     <h3 className="center-align">
       <i className="icon ion-speakerphone" /> POSTiT
     </h3>
@@ -19,9 +19,7 @@ const Welcome = () => (
       <span>Quickstart</span>
     </h5>
     <ul>
-      <li>
-        <a href="/#/register">Create an Account</a>
-      </li>
+      <li>Create an Account</li>
       <li>Create a Group Board</li>
       <li>Add Members to Board</li>
       <li>Just PostIt</li>

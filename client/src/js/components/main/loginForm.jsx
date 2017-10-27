@@ -149,7 +149,7 @@ class Login extends React.Component {
                 />
                 <label htmlFor="username_login">Username</label>
               </div>
-              <div className="input-field col s12 m7 no-padding">
+              <div className="input-field col s12 m7 l7 no-padding">
                 <input
                   onFocus={this.onFocus}
                   type="password"
@@ -163,7 +163,7 @@ class Login extends React.Component {
                 />
                 <label htmlFor="password_login">Password</label>
               </div>
-              <div className="input-field col s12 m5 nopadding">
+              <div className="input-field col s12 m5 l5 nopadding">
                 <Link to="/resetpassword" className="forgotPass">
                   forgot password
                 </Link>

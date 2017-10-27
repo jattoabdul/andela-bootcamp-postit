@@ -107,9 +107,9 @@ class ResetPassword extends React.Component {
                 Sign In
               </Link>
             </div>
-            <p>Forgot Password?</p>
             <form id="forgotPass" className="row">
               <p className="flow-text center-align">
+                <span>Forgot Password?</span>
                 It&rsquo;s normal for humans to forget
               </p>
               {this.state.hasStatus && (
@@ -124,7 +124,7 @@ class ResetPassword extends React.Component {
                   <i className="close material-icons">close</i>
                 </div>
               )}
-              <div className="input-field col s12">
+              <div className="input-field col s12 m12 l12">
                 <input
                   className="center"
                   type="email"

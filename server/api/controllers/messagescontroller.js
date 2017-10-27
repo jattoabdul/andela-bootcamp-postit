@@ -11,10 +11,10 @@ import models from '../models/db';
 let userID = 0;
 
 /**
- * 
- * @param {*} email 
- * @param {*} message 
- * @param {*} priority 
+ * sendEmail
+ * @param {object} email 
+ * @param {object} message 
+ * @param {object} priority 
  * @return {object} info
  */
 const sendEmail = (email, message, priority) => {
@@ -43,8 +43,8 @@ const sendEmail = (email, message, priority) => {
 };
 
 /**
- * 
- * @param {*} groupId 
+ * fetchMembersEmail
+ * @param {object} groupId 
  * @return {object} group
  */
 const fetchMembersEmail = groupId =>
@@ -67,9 +67,9 @@ const fetchMembersEmail = groupId =>
 
 export default {
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * sendMsg
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} result
    */
   sendMsg(req, res) {
@@ -142,9 +142,9 @@ export default {
   },
 
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * getMsg
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} messages
    */
   getMsg(req, res) {
@@ -171,9 +171,9 @@ export default {
   },
 
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * updateReadBy
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} message
    */
   updateReadBy(req, res) {

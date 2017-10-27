@@ -9,7 +9,7 @@ import '../../../styles/index.scss';
  * @param {any} props
  * @extends {React.Component}
  */
-class Home extends React.Component {
+export class Home extends React.Component {
   /**
    * @param {void} void
    * @return {void} void
