@@ -9,9 +9,9 @@ import models from '../models/db';
 let userID = 0;
 export default {
   /**
-   * 
-   * @param {*} req
-   * @param {*} res
+   * createGroup
+   * @param {object} req
+   * @param {object} res
    * @return {object} user
    */
   createGroup(req, res) {
@@ -63,9 +63,9 @@ export default {
   },
 
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * viewGroups
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} groups
    */
   viewGroups(req, res) {

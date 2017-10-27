@@ -14,9 +14,9 @@ const salt = bcrypt.genSaltSync(5);
 const error = {};
 export default {
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * passwordReset
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} info
    */
   passwordReset(req, res) {
@@ -96,10 +96,10 @@ export default {
   },
 
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
-   * @return {object} data
+   * updatePassword
+   * @param {object} req 
+   * @param {object} res 
+   * @return {object} data (message)
    */
   updatePassword(req, res) {
     const password = req.body.password;
@@ -138,11 +138,10 @@ export default {
       });
   },
 
-  // Signup Users (create user and save to db)
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * signUp
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} data (user)
    */
   signUp(req, res) {
@@ -220,9 +219,9 @@ export default {
   },
 
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * authenticate
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} auth (token, message)
    */
   authenticate(req, res) {
@@ -269,9 +268,9 @@ export default {
   },
 
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * getAllUsers
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} user
    */
   getAllUsers(req, res) {
@@ -282,9 +281,9 @@ export default {
   },
 
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * getCurrentUser
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} user - data
    */
   getCurrentUser(req, res) {

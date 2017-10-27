@@ -175,7 +175,7 @@ class Register extends React.Component {
                   </i>
                 </div>
               )}
-              <div className="input-field col s6">
+              <div className="input-field col s12 m6 l6">
                 <input
                   onFocus={this.onFocus}
                   type="text"
@@ -187,7 +187,7 @@ class Register extends React.Component {
                 />
                 <label htmlFor="fullname_signup">Fullname</label>
               </div>
-              <div className="input-field col s6">
+              <div className="input-field col s12 m6 l6">
                 <input
                   onFocus={this.onFocus}
                   type="text"
@@ -201,7 +201,7 @@ class Register extends React.Component {
                 />
                 <label htmlFor="username_signup">Username</label>
               </div>
-              <div className="input-field col s6">
+              <div className="input-field col s12 m6 l6">
                 <input
                   onFocus={this.onFocus}
                   type="password"
@@ -215,7 +215,7 @@ class Register extends React.Component {
                 />
                 <label htmlFor="password_signup">Password</label>
               </div>
-              <div className="input-field col s6">
+              <div className="input-field col s12 m6 l6">
                 <input
                   onFocus={this.onFocus}
                   type="email"

@@ -5,12 +5,11 @@
 
 import models from '../models/db';
 
-// let userName = "";
 export default {
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * addMember
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} response
    */
   addMember(req, res) {
@@ -56,9 +55,9 @@ export default {
   },
 
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * viewMembers
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} members
    */
   viewMembers(req, res) {
@@ -82,9 +81,9 @@ export default {
   },
 
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * viewAllGroupMembers
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} groupMembers
    */
   viewAllGroupMembers(req, res) {
@@ -95,9 +94,9 @@ export default {
   },
 
   /**
-   * 
-   * @param {*} req 
-   * @param {*} res 
+   * removeMember
+   * @param {object} req 
+   * @param {object} res 
    * @return {object} user
    */
   removeMember(req, res) {
@@ -153,9 +152,9 @@ export default {
   },
 
   /**
-   * 
-   * @param {*} req
-   * @param {*} res
+   * searchMember
+   * @param {object} req
+   * @param {object} res
    * @return {array} searchItemResult
    */
   searchMember(req, res) {

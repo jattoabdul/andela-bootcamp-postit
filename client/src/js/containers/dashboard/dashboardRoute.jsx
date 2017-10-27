@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-// import { NotFound } from '../../components/main';
+import { NotFound } from '../../components/main';
 import Dashboard from './../../containers/dashboard/dashboard';
 import CreateGroupBoard from './../../containers/dashboard/creategroupboard';
 import AddUserToGroupBoard from './../../containers/dashboard/addUserToGroup';
@@ -26,6 +26,7 @@ const DashboardRoutes = props => (
       path="/dashboard/messages/:groupId"
       render={() => <MessageBoard {...props} />}
     />
+    <Route component={NotFound} />
   </Switch>
 );
 

@@ -16,17 +16,13 @@ if (env === 'production') {
   app.use('/', express.static(path.resolve(__dirname, '../client/dist')));
 }
 
-// Log requests to the console.
-app.use(logger('dev'));
-
-// Parse incoming requests data (https://github.com/expressjs/body-parser)
+app.use(logger('dev')); // Log requests to the console.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 /**
  * API routes call.
 */
-
 routes(app);
 
 module.exports = app;

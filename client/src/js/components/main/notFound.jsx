@@ -9,6 +9,7 @@ import '../../../styles/index.scss';
  */
 const NotFound = ({ history, handlePageNotFound }) => {
   /**
+   * Go Home
    * @return {void} void
    */
   const goHome = () => {

@@ -134,7 +134,7 @@ class UpdatePasswordForm extends React.Component {
                   <i className="close material-icons">close</i>
                 </div>
               )}
-              <div className="input-field col s12">
+              <div className="input-field col s12 m12 l12">
                 {this.state.status === '' ? (
                   <input
                     className="center"

@@ -136,6 +136,30 @@ describe('Group Action Reducers', () => {
       }));
   });
 
+  it('should call add group fail', () => {
+    expect(
+      groupData({
+        userGroups: [],
+        currentGroup: {},
+        matchedUsers: [],
+        groupError: {},
+        addError: {},
+        addMsgErr: {},
+        message: {},
+        groupMessages: [],
+        currentGroupMembers: [],
+        isLoadingMessages: false,
+        isAddingMessage: false,
+        isLoadingGroups: false,
+        userAdded: false
+      }, {
+        type: types.ADD_GROUP_FAIL,
+        addError: {
+          message: 'add group failure'
+        }
+      }));
+  });
+  
   it('should remove current group', () => {
     expect(
       groupData({
@@ -204,6 +228,79 @@ describe('Group Action Reducers', () => {
             GroupsUsers: {}
           }
         ]
+      }));
+  });
+
+  it('should call remove group members success', () => {
+    expect(
+      groupData({
+        userGroups: [],
+        currentGroup: {
+          id: 6,
+          name: 'Search Engine',
+          desc: 'a google user group',
+          isArchived: '0',
+          updatedAt: '2017-10-24T11:28:25.840Z',
+          createdAt: '2017-10-24T11:28:25.840Z'
+        },
+        matchedUsers: [],
+        groupError: {},
+        addError: {},
+        addMsgErr: {},
+        message: {},
+        groupMessages: [],
+        currentGroupMembers: [
+          {
+            id: 14,
+            username: 'jattoade',
+            password: '$2a$05$yE3V3lcy4IofbD4gDA7qs.edYXWn3A2rRf2RiVh.vVfzv43vKn/Hu',
+            fullName: 'Aminujatto Abdulqahhar',
+            lastLogin: '2017-10-20T12:45:12.430Z',
+            email: 'jattoade@gmail.com',
+            phoneNumber: '08162740850',
+            createdAt: '2017-10-20T12:45:12.398Z',
+            updatedAt: '2017-10-20T12:45:12.398Z',
+            GroupsUsers: {}
+          }
+        ],
+        isLoadingMessages: false,
+        isAddingMessage: false,
+        isLoadingGroups: false,
+        userAdded: false
+      }, {
+        type: types.REMOVE_GROUP_MEMBER_SUCCESS,
+        currentGroupMembers: []
+      }));
+  });
+
+  it('should call get group members fail', () => {
+    expect(
+      groupData({
+        userGroups: [],
+        currentGroup: {
+          id: 6,
+          name: 'Search Engine',
+          desc: 'a google user group',
+          isArchived: '0',
+          updatedAt: '2017-10-24T11:28:25.840Z',
+          createdAt: '2017-10-24T11:28:25.840Z'
+        },
+        matchedUsers: [],
+        groupError: {},
+        addError: {},
+        addMsgErr: {},
+        message: {},
+        groupMessages: [],
+        currentGroupMembers: [],
+        isLoadingMessages: false,
+        isAddingMessage: false,
+        isLoadingGroups: false,
+        userAdded: false
+      }, {
+        type: types.GET_GROUP_MEMBERS_FAIL,
+        groupMembersError: {
+          message: 'get group members fail'
+        }
       }));
   });
 });
@@ -286,6 +383,37 @@ describe('Group Message Action Reducers', () => {
         ]
       }));
   });
+
+  it('should call recieve message fail', () => {
+    expect(
+      groupData({
+        userGroups: [],
+        currentGroup: {
+          id: 6,
+          name: 'Search Engine',
+          desc: 'a google user group',
+          isArchived: '0',
+          updatedAt: '2017-10-24T11:28:25.840Z',
+          createdAt: '2017-10-24T11:28:25.840Z'
+        },
+        matchedUsers: [],
+        groupError: {},
+        addError: {},
+        addMsgErr: {},
+        message: {},
+        groupMessages: [],
+        currentGroupMembers: [],
+        isLoadingMessages: false,
+        isAddingMessage: false,
+        isLoadingGroups: false,
+        userAdded: false
+      }, {
+        type: types.RECEIVE_MESSAGES_FAIL,
+        groupMessages: [],
+        isLoadingMessages: false
+      }));
+  });
+
 
   it('should call ADD_MESSAGE reducer', () => {
     expect(
@@ -388,6 +516,55 @@ describe('Group Message Action Reducers', () => {
           ],
           updatedAt: '2017-10-24T15:11:18.188Z',
           createdAt: '2017-10-24T15:11:18.188Z'
+        }
+      }));
+  });
+
+  it('should call ADD_MESSAGE_FAIL reducer', () => {
+    expect(
+      groupData({
+        userGroups: [],
+        currentGroup: {
+          id: 6,
+          name: 'Search Engine',
+          desc: 'a google user group',
+          isArchived: '0',
+          updatedAt: '2017-10-24T11:28:25.840Z',
+          createdAt: '2017-10-24T11:28:25.840Z'
+        },
+        matchedUsers: [],
+        groupError: {},
+        addError: {},
+        addMsgErr: {},
+        message: {},
+        groupMessages: [
+          {
+            id: 6,
+            text: 'hello people',
+            userId: 14,
+            groupId: 6,
+            priority: 'Normal',
+            readBy: [
+              'jattoade'
+            ],
+            createdAt: '2017-10-24T12:03:27.836Z',
+            user: {
+              id: 14,
+              username: 'jattoade',
+              fullName: 'Aminujatto Abdulqahhar'
+            }
+          }
+        ],
+        currentGroupMembers: [],
+        isLoadingMessages: false,
+        isAddingMessage: true,
+        isLoadingGroups: false,
+        userAdded: false
+      }, {
+        type: types.ADD_MESSAGE_FAIL,
+        isAddingMessage: false,
+        assMsgErr: {
+          message: 'error adding message'
         }
       }));
   });
