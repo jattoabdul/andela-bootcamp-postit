@@ -23,7 +23,7 @@
     "client:dev": "webpack-dev-server --hot",
     "server:dev": "nodemon --watch server --exec babel-node -- server/bin/www",
     "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
-    "build:client": "webpack --config webpack.config.babel.js",
+    "build:client": "webpack -p --config webpack.config.babel.js",
     "build:server": "rimraf server/dist/ && babel ./server --out-dir server/dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "test": "npm run test:server",
     "test:client": "nyc --reporter=html --reporter=text mocha --reporter spec tests/client/testSetup.js \"tests/client/*.test.js\" --compilers js:babel-register",
@@ -173,6 +173,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
     "jshint": "^2.9.5",
+    "mock-local-storage": "^1.0.5",
     "react-test-renderer": "^16.0.0"
   }
 }
