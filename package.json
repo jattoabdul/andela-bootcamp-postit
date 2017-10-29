@@ -17,7 +17,7 @@
   },
   "scripts": {
     "production": "NODE_ENV=production npm run build",
-    "start:prod": "node server/dist/bin/www",
+    "start:prod": "node --optimize_for_size --max_old_space_size=920 --gc_interval=100 server/dist/bin/www",
     "start": "npm run production && npm run start:prod",
     "start:dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "client:dev": "webpack-dev-server --hot",
