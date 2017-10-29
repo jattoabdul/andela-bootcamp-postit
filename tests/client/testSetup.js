@@ -1,5 +1,6 @@
 // process.env.NODE_ENV = 'test';
 const jsdom = require('jsdom');
+const sessionStorage = require('mock-local-storage');
 
 const { JSDOM } = jsdom;
 const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>', {
@@ -8,6 +9,7 @@ const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>', {
 global.document = dom.window.document;
 global.window = document.defaultView;
 global.navigator = global.window.navigator;
+global.sessionStorage = window.sessionStorage;
 
 const exposedProperties = ['window', 'navigator', 'document'];
 
@@ -18,7 +20,14 @@ Object.keys(document.defaultView).forEach((property) => {
   }
 });
 
+const user = {
+  message: 'jattoade has successfully logged in',
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxNCwidXNlcm5hbWUiOiJqYXR0b2FkZSIsImVtYWlsIjoiamF0dG9hZGVAZ21haWwuY29tIiwiZnVsbE5hbWUiOiJBbWludWphdHRvIEFiZHVscWFoaGFyIiwicGhvbmVOdW1iZXIiOiIwODE2Mjc0MDg1MCJ9LCJpYXQiOjE1MDg1MDM1MTIsImV4cCI6MTUwODU4OTkxMn0.W01Xjf3f1UpReT-qfX6RbncKxIfhamo9GSVOWV16uI8'
+};
+
 global.HTMLElement = window.HTMLElement;
+
+Object.defineProperty(sessionStorage, 'sessionStorage', { value: { user } });
 
 const noop = () => null;
 
@@ -30,14 +39,3 @@ require.extensions['.svg'] = noop;
 require.extensions['.jpg'] = noop;
 require.extensions['.jpeg'] = noop;
 require.extensions['.gif'] = noop;
-
-const user = {
-  name: '',
-  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
-  'eyJpZCI6NSwidXNlcm5hbWUiOiJqb2hhZGkxMCIsImVtYWlsIjoi' +
-  'am9oYWRpMTBAeWFob28uY29tIiwiZnVsbG5hbWUiOiJqaW1vaCBoYWRp' +
-  'IiwiaWF0IjoxNTAyOTczMDkzfQ.g97_4_2d_Pkt7aGmsRiuH8' +
-  'QIQiNxakgD2gv1kyl-t7c'
-};
-
-Object.defineProperty(window, 'sessionStorage', { value: { user } });
