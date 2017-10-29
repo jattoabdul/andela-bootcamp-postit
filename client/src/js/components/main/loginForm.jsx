@@ -3,22 +3,24 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Spinner from 'react-spinner-material';
-// import Auth from "./../containers/";
 import {
   onLoginUser
 } from '../../actions/authAction';
-// import Api from "../../utils/api";
 import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
 
 /**
+ * Display Login
  * @class Login
+ * @extends {React.Component}
+ * @param {any} props
  */
 class Login extends React.Component {
   /**
-   * 
-   * @param {*} props
-   * @return {void} 
+   * Creates an instance of Login
+   * @param {any} props
+   * @memberof Login
+   * @return {void}
    */
   constructor(props) {
     super(props);
@@ -36,8 +38,8 @@ class Login extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * onChange Method
+   * @param {event} event
    * @return {void}
    */
   onChange(event) {
@@ -47,7 +49,8 @@ class Login extends React.Component {
   }
 
   /**
-   * @param {*} void
+   * onFocus method
+   * @param {void} void
    * @return {void}
    */
   onFocus() {
@@ -55,8 +58,8 @@ class Login extends React.Component {
   }
 
   /**
-   * 
-   * @param {*} event
+   * onLoginUser Method
+   * @param {event} event
    * @return {void} 
    */
   onLoginUser(event) {
@@ -91,8 +94,8 @@ class Login extends React.Component {
     }
   }
   /**
-   * 
-   * @param {*} event
+   * closeError Method - flash message error
+   * @param {event} event
    * @return {void} 
    */
   closeError(event) {
@@ -103,7 +106,7 @@ class Login extends React.Component {
   }
 
   /**
-   * 
+   * Render Method
    * @return {dom} DomElement
    */
   render() {
@@ -140,14 +143,13 @@ class Login extends React.Component {
                   name="username"
                   value={this.state.username}
                   onChange={this.onChange}
-                  /* ref={(input) => { this.username = input; }} */
                   maxLength="15"
                   pattern="(?=^.{6,15}$)(?!.*\s).*$"
                   required
                 />
                 <label htmlFor="username_login">Username</label>
               </div>
-              <div className="input-field col s12 m7 no-padding">
+              <div className="input-field col s12 m7 l7 no-padding">
                 <input
                   onFocus={this.onFocus}
                   type="password"
@@ -155,26 +157,25 @@ class Login extends React.Component {
                   name="password"
                   value={this.state.password}
                   onChange={this.onChange}
-                  /* ref={(input) => { this.password = input; }} */
                   pattern="(?=^.{6,12}$)(?!.*\s).*$"
                   title="6 to 12 characters required"
                   required
                 />
                 <label htmlFor="password_login">Password</label>
               </div>
-              <div className="input-field col s12 m5 nopadding">
+              <div className="input-field col s12 m5 l5 nopadding">
                 <Link to="/resetpassword" className="forgotPass">
                   forgot password
                 </Link>
               </div>
               <div className="input-field col s12">
+                {!this.state.isLoading &&
                 <button
-                  /* onClick= { this.onLoginUser } */
                   className="btn waves-effect waves-light"
                   type="submit"
                 >
                   sign in
-                </button>
+                </button> }
                 {this.state.isLoading &&
                   <Spinner
                     size={40}
@@ -217,9 +218,5 @@ function mapStateToProps({ authData }) {
     authData
   };
 }
-
-// const mapDispatchToProps = dispatch => ({
-//     onLoginUser: user => dispatch(loginUser(user))
-// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));

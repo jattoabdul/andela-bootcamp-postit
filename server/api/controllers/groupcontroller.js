@@ -8,11 +8,21 @@ import models from '../models/db';
 
 let userID = 0;
 export default {
+  /**
+   * createGroup
+   * @param {object} req
+   * @param {object} res
+   * @return {object} user
+   */
   createGroup(req, res) {
     const userName = req.authToken.data.username;
     if (!req.body.name || req.body.name.trim() === '') {
-      res.status(400).send({ message: 'Name parameter is required' });
-      return;
+      return res.status(400)
+        .send({ message: 'Name parameter is required' });
+    }
+    if (req.body.name.length > 30 || req.body.desc.length > 120) {
+      return res.status(400)
+        .send({ error: 'Text too long' });
     }
 
     return models.Groups
@@ -29,7 +39,6 @@ export default {
             })
             .then((user) => {
               userID = user.id;
-              // console.log(`user id: ${userID}`);
               models.GroupsUsers
                 .create({
                   isAdmin: '1',
@@ -45,11 +54,20 @@ export default {
                 .catch(error => res.status(400).send(error));
             })
             .catch(error => res.status(400).send(error));
-          // console.log(`group id: ${group.id}`);
         }
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).send({
+        error: error.errors[0].message,
+        message: 'Group Already Exists'
+      }));
   },
+
+  /**
+   * viewGroups
+   * @param {object} req 
+   * @param {object} res 
+   * @return {object} groups
+   */
   viewGroups(req, res) {
     const userId = req.authToken.data.id;
     return models.Groups

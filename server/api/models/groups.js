@@ -1,6 +1,7 @@
 export default (sequelize, DataTypes) => {
   const Groups = sequelize.define('Groups', {
     name: {
+      unique: true,
       allowNull: false,
       type: DataTypes.STRING,
       validate: {

@@ -8,17 +8,15 @@ import 'materialize-css';
 import 'materialize-css/dist/js/materialize.min';
 import jwt from 'jsonwebtoken';
 
-// import { setCurrentUser } from './actions/authAction';
 import '../styles/index.scss';
 import configureStore from './stores/configureStore';
 import './htmlAction';
-
 import {
   Home,
   Register,
   Login,
   ResetPassword,
-  UpdatePassword,
+  UpdatePasswordForm,
   NotFound
 } from './components/main';
 import BaseDashboard from './containers/dashboard';
@@ -29,6 +27,10 @@ const store = configureStore();
 
 const app = document.getElementById('root');
 
+/**
+ * @param {void} void
+ * @return {object} date
+ */
 const isTokenExpired = () => {
   const token = jwt.decode(JSON.parse(sessionStorage.getItem('user')).token);
   const date = new Date(0);
@@ -36,6 +38,10 @@ const isTokenExpired = () => {
   return date < new Date();
 };
 
+/**
+ * @param {void} void
+ * @return {object} authState
+ */
 const isAuthenticated = () => {
   const authState = sessionStorage.getItem('user') !== null &&
     isTokenExpired !== true;
@@ -50,7 +56,7 @@ render(
         <Route path="/resetpassword" component={ResetPassword} />
         <Route
           path="/updatepassword/:hash"
-          component={UpdatePassword}
+          component={UpdatePasswordForm}
         />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />

@@ -2,13 +2,18 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import isEmpty from 'lodash/isEmpty';
 import Api from '../../utils/api';
 import {
   fetchMessages,
   handleSendMessage,
   resetCurrentGroup,
-  onRemoveUser } from '../../actions/groupAction';
+  onAddUser,
+  onSearchUser,
+  onRemoveUser
+} from '../../actions/groupAction';
 import {
   UserView,
   MessageList,
@@ -16,7 +21,19 @@ import {
 } from './../../components/partials';
 import '../../../styles/index.scss';
 
+/**
+ * Display MessageBoard
+ * @class MessageBoard
+ * @extends {React.Component}
+ * @param {any} props
+ */
 class MessageBoard extends React.Component {
+  /**
+   * Creates an instance of MessageBoard
+   * @param {any} props
+   * @memberof MessageBoard
+   * @return {void}
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -24,32 +41,100 @@ class MessageBoard extends React.Component {
       msg_err: '',
       username: '',
       fullName: '',
+      selectedUsers: [],
       currentGroup: !isEmpty(props.currentGroup) ? props.currentGroup : {},
-      currentGroupMembers: !isEmpty(props.currentGroupMembers) ? props.currentGroupMembers : []
+      currentGroupMembers: !isEmpty(props.currentGroupMembers)
+        ? props.currentGroupMembers
+        : []
     };
     this.appendChatMessage = this.appendChatMessage.bind(this);
     this.updateReadBy = this.updateReadBy.bind(this);
+    this.onSearchUserInGroup = this.onSearchUserInGroup.bind(this);
+    this.onAddUserToGroup = this.onAddUserToGroup.bind(this);
     this.removeGroupMember = this.removeGroupMember.bind(this);
   }
 
+  /**
+   * componentWillReceiveProps Life Cycle Method
+   * @param {*} nextProps
+   * @return {void}
+   */
   componentWillReceiveProps(nextProps) {
-		const { authData: { currentUserData },
-			groupData: { currentGroup, groupMessages, currentGroupMembers } } = nextProps;
-		this.setState({
-      username: !isEmpty(currentUserData) && !isEmpty(currentUserData.data)
-      ? currentUserData.data.username : '',
-      fullName: !isEmpty(currentUserData) && !isEmpty(currentUserData.data)
-      ? currentUserData.data.fullName : '',
+    const {
+      authData: { currentUserData },
+      groupData: { currentGroup, groupMessages, currentGroupMembers }
+    } = nextProps;
+    this.setState({
+      username:
+        !isEmpty(currentUserData) && !isEmpty(currentUserData.data)
+          ? currentUserData.data.username
+          : '',
+      fullName:
+        !isEmpty(currentUserData) && !isEmpty(currentUserData.data)
+          ? currentUserData.data.fullName
+          : '',
       groupMessages: !isEmpty(groupMessages) ? groupMessages : [],
       currentGroup: !isEmpty(currentGroup) ? currentGroup : null,
-      currentGroupMembers: !isEmpty(currentGroupMembers) ? currentGroupMembers : [],
-		});
+      currentGroupMembers: !isEmpty(currentGroupMembers)
+        ? currentGroupMembers
+        : []
+    });
   }
 
+  /**
+   * componentWillUnmount Life Cycle Method
+   * @return {void}
+   */
   componentWillUnmount() {
     this.props.resetCurrentGroup();
   }
 
+  /**
+   * onSearchUserInGroup Method
+   * @param {number} id
+   * @param {string} searchText
+   * @return {void}
+   */
+  onSearchUserInGroup(id, searchText) {
+    if (!searchText) {
+      this.setState({
+        selectedUsers: []
+      });
+    }
+    // call searchUserAction
+    this.props.onSearchUser(id, searchText).then(
+      (searchItem) => {
+        this.setState({
+          selectedUsers: searchItem
+        });
+      }
+    );
+  }
+
+  /**
+   * onAddUserToGroup Method
+   * @param {*} uId
+   * @return {void} 
+   */
+  onAddUserToGroup(uId) {
+    // eslint-disable-next-line
+    const id = `${this.props.match.params.groupId}`;
+    // call addUser action
+    this.props.onAddUser(uId, id).then(
+      // eslint-disable-next-line
+      (item) => {
+        // eslint-disable-next-line
+        Materialize.toast(`user was added succesfully`, 3000);
+      }
+    );
+  }
+
+  /**
+   * appendChatMessage Method
+   * @param {*} priority 
+   * @param {*} text
+   * @return {void}
+   */
   appendChatMessage(priority, text) {
     const group = this.state.currentGroup;
     const groupId = group.id;
@@ -57,47 +142,84 @@ class MessageBoard extends React.Component {
     this.props.handleSendMessage(groupId, priority, text);
   }
 
+  /**
+   * removeGroupMember Method
+   * @param {*} userId
+   * @return {void}
+   */
   removeGroupMember(userId) {
     const group = this.state.currentGroup;
     const groupId = group.id;
-    const checkConfirmation = confirm('are you sure you want to delete this user?');
-    if (checkConfirmation) {
-      this.props.onRemoveUser(userId, groupId).then(
-        (res) => {
-          Materialize.toast(res.message, 3000);
-        }
-      );
-    }
+    confirmAlert({
+      title: 'Confirm',
+      message: 'Are you sure to do this.',
+      childrenElement: () => <div>Custom UI</div>,
+      confirmLabel: 'Confirm',
+      cancelLabel: 'Cancel',
+      onConfirm: () => this.props.onRemoveUser(userId, groupId)
+        .then((res) => {
+        // eslint-disable-next-line
+        Materialize.toast(res.message, 3000);
+        }),
+      // eslint-disable-next-line
+      onCancel: () => Materialize.toast('thanks for changing your mind', 3000),
+    });
   }
 
+  /**
+   * updateReadBy Method
+   * @param {*} id
+   * @return {void}
+   */
   updateReadBy(id) {
     const updateMessageParams = `id=${id}`;
+    // eslint-disable-next-line
     const gId = `${this.props.match.params.groupId}`;
-    Api(updateMessageParams, `/api/v1/groups/${gId}/message/read`, "POST")
-      .then((response) => {
-        // console.log("Response: ", response);
-      });
+    Api(
+      updateMessageParams,
+      `/api/v1/groups/${gId}/message/read`,
+      'POST'
+    ).then((response) => {
+      // console.log("Response: ", response);
+    });
   }
 
+  /**
+   * Render Method
+   * @return {dom} DomElement
+   */
   render() {
-    const { fullName, username, currentGroup, currentGroupMembers, groupMessages } = this.state;
+    const {
+      fullName,
+      username,
+      selectedUsers,
+      currentGroup,
+      currentGroupMembers,
+      groupMessages
+    } = this.state;
     return (
       <div id="chatArea" className="white-text row no-marginbtm">
         <div id="chatBoard" className="col s11">
-          {
-            isEmpty(groupMessages) ?
-            <p className="center grey-text">No Messages Yet</p> :
-            <MessageList updateReadBy={this.updateReadBy}
+          {isEmpty(groupMessages) ? (
+            <p className="center grey-text">No Messages Yet</p>
+          ) : (
+            <MessageList
+              updateReadBy={this.updateReadBy}
               username={username}
               fullName={fullName}
-              messages={groupMessages} />
-
-          }
+              messages={groupMessages}
+            />
+          )}
           <MessageInputForm appendChatMessage={this.appendChatMessage} />
         </div>
         <UserView
-          activeMessageReaders={this.state.currentGroupMembers}
-          removeGroupMember={this.removeGroupMember} />
+          selectedUsers={selectedUsers}
+          currentGroup={currentGroup}
+          activeMessageReaders={currentGroupMembers}
+          removeGroupMember={this.removeGroupMember}
+          onSearchUserInGroup={this.onSearchUserInGroup}
+          onAddUserToGroup={this.onAddUserToGroup}
+        />
       </div>
     );
   }
@@ -107,24 +229,36 @@ MessageBoard.propTypes = {
   fetchMessages: PropTypes.func,
   handleSendMessage: PropTypes.func,
   onRemoveUser: PropTypes.func,
+  onSearchUser: PropTypes.func,
+  onAddUser: PropTypes.func,
   handleOnResetCurrentGroup: PropTypes.func,
   resetCurrentGroup: PropTypes.func,
   groupData: PropTypes.object,
-	authData: PropTypes.object
-}
+  authData: PropTypes.object
+};
 
 const mapDispatchToProps = {
   fetchMessages,
   handleSendMessage,
   resetCurrentGroup,
+  onSearchUser,
+  onAddUser,
   onRemoveUser
-}
+};
 
-function mapStateToProps({ authData, groupData }){
+/**
+ * 
+ * @param {object} authData
+ * @param {object} groupData
+ * @return {void}
+ */
+function mapStateToProps({ authData, groupData }) {
   return {
-      authData,
-      groupData
-  }
+    authData,
+    groupData
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MessageBoard));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withRouter(MessageBoard)
+);
