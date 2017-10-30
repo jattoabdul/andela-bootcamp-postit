@@ -156,7 +156,7 @@
     "style-loader": "^0.18.2",
     "supertest": "^3.0.0",
     "toastr": "^2.1.2",
-    "uglify-js": "^3.0.24",
+    "uglify-js": "^2.8.23",
     "url-loader": "^0.5.9",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "1.6.1",
