@@ -94,6 +94,7 @@ class CreateGroupBoard extends React.Component {
                     value={this.state.name}
                     onChange={this.onChange}
                     pattern="(?=^.{6,20}$).*$"
+                    title="6 to 20 characters required"
                     required
                   />
                   <label htmlFor="group_name-create">Group Name</label>
@@ -106,6 +107,8 @@ class CreateGroupBoard extends React.Component {
                     id="group_desc-create"
                     className="materialize-textarea"
                     pattern="(?=^.{0,150}$).*$"
+                    title="maximum of 150 characters allowed"
+                    required
                   />
                   <label htmlFor="group_desc-create">Group Description</label>
                 </div>

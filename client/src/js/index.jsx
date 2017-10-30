@@ -21,8 +21,6 @@ import {
 } from './components/main';
 import BaseDashboard from './containers/dashboard';
 
-import registerServiceWorker from './registerServiceWorker';
-
 const store = configureStore();
 
 const app = document.getElementById('root');
@@ -70,4 +68,3 @@ render(
       </Switch>
     </Router>
   </Provider>, app);
-registerServiceWorker();
