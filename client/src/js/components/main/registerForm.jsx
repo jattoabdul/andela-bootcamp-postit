@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Spinner from 'react-spinner-material';
+
 import { onLoginUser, onRegisterUser } from '../../actions/authAction';
 import { Welcome } from './../partials/';
 import '../../../styles/index.scss';
@@ -19,9 +20,12 @@ import '../../../styles/index.scss';
  */
 class Register extends React.Component {
   /**
-   * Creates an instance of Register
+   * @description Creates an instance of Register
+   * 
    * @param {any} props
+   * 
    * @memberof Register
+   * 
    * @return {void} 
    */
   constructor(props) {
@@ -36,6 +40,7 @@ class Register extends React.Component {
       email: '',
       phoneNumber: '',
       password: '',
+      confirmPassword: '',
       error_message: '',
       hasError: false,
       isLoading: false
@@ -68,12 +73,13 @@ class Register extends React.Component {
    */
   onRegisterUser(event) {
     event.preventDefault();
-    let { username, fullName, email, phoneNumber, password } = this.state;
+    let { username, fullName, email, phoneNumber, password, confirmPassword } = this.state;
     username = username.trim();
     fullName = fullName.trim();
     email = email.trim();
     phoneNumber = phoneNumber.trim();
     password = password;
+    confirmPassword = confirmPassword;
     if (
       username === '' ||
       fullName === '' ||
@@ -86,6 +92,12 @@ class Register extends React.Component {
     }
     if (phoneNumber.length !== 11) {
       this.setState({ error_message: 'Error: phone number not correct' });
+      return;
+    }
+    if (password !== confirmPassword) {
+      this.setState({ error_message: 'Error: password doesnot match' });
+      // eslint-disable-next-line
+      Materialize.toast(this.state.error_message, 3000);
       return;
     }
     this.setState({ isLoading: true });
@@ -204,6 +216,31 @@ class Register extends React.Component {
               <div className="input-field col s12 m6 l6">
                 <input
                   onFocus={this.onFocus}
+                  type="email"
+                  id="email_signup"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                  required
+                />
+                <label htmlFor="email_signup">Email</label>
+              </div>
+              <div className="input-field col s12 m6 l6">
+                <input
+                  onFocus={this.onFocus}
+                  type="tel"
+                  id="phone_signup"
+                  name="phoneNumber"
+                  pattern="^\d{11}$"
+                  value={this.state.phoneNumber}
+                  onChange={this.onChange}
+                  required
+                />
+                <label htmlFor="phone_signup">Phone Number</label>
+              </div>
+              <div className="input-field col s12 m6 l6">
+                <input
+                  onFocus={this.onFocus}
                   type="password"
                   id="password_signup"
                   name="password"
@@ -218,27 +255,16 @@ class Register extends React.Component {
               <div className="input-field col s12 m6 l6">
                 <input
                   onFocus={this.onFocus}
-                  type="email"
-                  id="email_signup"
-                  name="email"
-                  value={this.state.email}
+                  type="password"
+                  id="c_password_signup"
+                  name="confirmPassword"
+                  value={this.state.confirmPassword}
                   onChange={this.onChange}
+                  pattern="(?=^.{6,12}$)(?!.*\s).*$"
+                  title="6 to 12 characters required"
                   required
                 />
-                <label htmlFor="email_signup">Email</label>
-              </div>
-              <div className="input-field col s12">
-                <input
-                  onFocus={this.onFocus}
-                  type="tel"
-                  id="phone_signup"
-                  name="phoneNumber"
-                  pattern="^\d{11}$"
-                  value={this.state.phoneNumber}
-                  onChange={this.onChange}
-                  required
-                />
-                <label htmlFor="phone_signup">Phone Number</label>
+                <label htmlFor="c_password_signup">Confirm Password</label>
               </div>
               <div className="input-field col s12">
                 <button

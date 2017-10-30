@@ -152,8 +152,7 @@ class MessageBoard extends React.Component {
     const groupId = group.id;
     confirmAlert({
       title: 'Confirm',
-      message: 'Are you sure to do this.',
-      childrenElement: () => <div>Custom UI</div>,
+      message: 'Are you sure you want to do this.',
       confirmLabel: 'Confirm',
       cancelLabel: 'Cancel',
       onConfirm: () => this.props.onRemoveUser(userId, groupId)

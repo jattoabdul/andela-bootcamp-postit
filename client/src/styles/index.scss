@@ -32,6 +32,9 @@
   font-size: 5.5rem;
 }
 
+body {
+  font-family: $font-family-base !important;
+}
 // My Custom CSS
 #indexContainer {
   /* background: #e76f51 !important; */
@@ -92,6 +95,10 @@ a > span {
   position: relative;
 }
 
+input {
+  padding-left: 5px !important;
+}
+
 #loginForm {
   padding-top: 1rem;
 }
@@ -143,8 +150,8 @@ a > span {
 }
 
 form a.forgotPass {
-  margin-top: 1rem;
-  margin-right: 1rem;
+  margin-top: -1rem;
+  margin-right: 0rem;
   float: right;
 }
 
@@ -231,7 +238,7 @@ textarea#group_desc-create {
 .input-field input[type="search"],
 .input-field input[type="search"]:focus {
   margin-left: 0;
-  padding-left: 1rem;
+  padding-left: 4rem !important;
   border: 1px solid #009688;
   border-radius: 4rem;
   width: 25rem;
