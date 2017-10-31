@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { NotFound } from '../../components/main';
-import Dashboard from './../../containers/dashboard/dashboard';
-import CreateGroupBoard from './../../containers/dashboard/creategroupboard';
-import AddUserToGroupBoard from './../../containers/dashboard/addUserToGroup';
-import MessageBoard from '../../containers/dashboard/messageboard';
+import { NotFound } from '../../components/Main';
+import Dashboard from './../../containers/Dashboard/Dashboard';
+import CreateGroupBoard from './../../containers/Dashboard/CreateGroupBoard';
+import AddUserToGroupBoard from './../../containers/Dashboard/AddUserToGroupBoard';
+import MessageBoard from '../../containers/Dashboard/MessageBoard';
 
 /**
  * DashBoard Routes

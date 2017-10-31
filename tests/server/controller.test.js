@@ -657,7 +657,6 @@ describe('POST /api/v1/groups/:id/message', () => {
         })
         .end((err, res) => {
           res.status.should.equal(201);
-          // console.log(res.body);
           assert.strictEqual(
             res.body.text,
             'my test message 2',

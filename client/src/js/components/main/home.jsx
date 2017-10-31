@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Welcome } from './../partials/';
+import { Welcome } from './../Partials/';
 import '../../../styles/index.scss';
 
 /**

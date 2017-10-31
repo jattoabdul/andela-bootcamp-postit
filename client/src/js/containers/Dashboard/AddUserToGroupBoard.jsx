@@ -110,14 +110,12 @@ class AddUserToGroupBoard extends React.Component {
    * @return {void} 
    */
   onAddUserToGroup(uId) {
-    // eslint-disable-next-line
     const id = `${this.props.match.params.groupId}`;
     // call addUser action
     this.props.onAddUser(uId, id).then(
-      // eslint-disable-next-line
-      (item) => {
+      () => {
         // eslint-disable-next-line
-        Materialize.toast(`user was added succesfully`, 3000);
+        Materialize.toast('user was added succesfully', 3000);
       }
     );
   }
@@ -149,7 +147,7 @@ class AddUserToGroupBoard extends React.Component {
    * @return {dom} DomElement
    */
   render() {
-    const { currentGroupId } = this.state;
+    const { currentGroupId, selectedUsers } = this.state;
     return (
       <div>
         <br />
@@ -176,8 +174,8 @@ class AddUserToGroupBoard extends React.Component {
                 </div>
                 <div className="col s12">
                   <ul>
-                    {this.state.selectedUsers.length >= 1 ?
-                      this.state.selectedUsers.map(selectedUser => (<li
+                    {selectedUsers.length >= 1 ?
+                      selectedUsers.map(selectedUser => (<li
                         key={selectedUser.id}
                       >
                         <a

@@ -6,7 +6,7 @@ import Spinner from 'react-spinner-material';
 import {
   onLoginUser
 } from '../../actions/authAction';
-import { Welcome } from './../partials/';
+import { Welcome } from './../Partials/';
 import '../../../styles/index.scss';
 
 /**

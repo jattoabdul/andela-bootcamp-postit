@@ -12,7 +12,7 @@ import configureMockStore from 'redux-mock-store';
 import { Link } from 'react-router-dom';
 
 // import { Welcome } from './../../client/src/js/components/partials/welcome';
-import {Home} from '../../client/src/js/components/main/home';
+import {Home} from '../../client/src/js/components/Main/Home';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -26,8 +26,8 @@ describe('Home Components', () => {
   // });
 
   it('should have 6 div', () => {
-    // const wrapper = mount(<Home />);
-    // expect(wrapper).toBeDefined();
-    // expect(wrapper.find('div')).to.have.length(0);
+    const wrapper = mount(<Home />);
+    expect(wrapper).toBeDefined();
+    expect(wrapper.find('div')).to.have.length(0);
   });
 });

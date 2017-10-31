@@ -1,12 +1,12 @@
-import userController from './usercontroller';
-import groupsController from './groupcontroller';
-import messagesController from './messagescontroller';
-import groupsUsersController from './groupsuserscontroller';
+import user from './user';
+import groups from './group';
+import messages from './messages';
+import groupUsers from './groupUsers';
 
 const controllers = {
-  userController,
-  groupsController,
-  messagesController,
-  groupsUsersController
+  user,
+  groups,
+  messages,
+  groupUsers
 };
 export default controllers;

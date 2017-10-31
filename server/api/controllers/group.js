@@ -4,7 +4,7 @@
  */
 
 // importing services
-import models from '../models/db';
+import models from '../models';
 
 let userID = 0;
 export default {

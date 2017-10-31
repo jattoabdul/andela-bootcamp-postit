@@ -1,13 +1,13 @@
-import Home from './home';
-import Register from './registerForm';
-import Login from './loginForm';
-import ResetPassword from './resetPassword';
-import UpdatePasswordForm from './updatePasswordForm';
-import NotFound from './notFound';
+import Home from './Home';
+import Register from './Register';
+import Login from './Login';
+import ResetPassword from './ResetPassword';
+import UpdatePassword from './UpdatePassword';
+import NotFound from './NotFound';
 
 export { Home,
   Register,
   Login,
   ResetPassword,
-  UpdatePasswordForm,
+  UpdatePassword,
   NotFound };
