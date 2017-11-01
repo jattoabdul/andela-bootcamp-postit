@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import app from '../../server/app';
 
 // import my models for unit testing
-import models from '../../server/api/models/db';
+import models from '../../server/api/models';
 
 // setting my dev environment to test
 process.env.NODE_ENV = 'test';
