@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt-nodejs';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
-import models from '../models/db';
+import models from '../models';
 
 const salt = bcrypt.genSaltSync(5);
 const error = {};
@@ -39,6 +39,7 @@ export default {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       port: 465,
+      secure: true,
       auth: {
         user: 'jattoade@gmail.com',
         pass: 'jasabs93'
@@ -49,9 +50,13 @@ export default {
       from: 'no-reply <jattoade@gmail.com>',
       to: email,
       subject: 'Reset Password Link',
-      html: `Hello ${email}, to reset your password, please click on
-       \n<a href="http://localhost:8080/#/updatepassword/${hash}">this Link</a>
-        to reset your password`
+      html: process.env.NODE_ENV === 'production' ? `Hello ${email},
+      \nto reset your password, please click on
+      \n<a href="http://localhost:8080/#/updatepassword/${hash}">this Link</a>
+       to reset your password` : `Hello ${email},
+       \nto reset your password, please click on
+       \n<a href="https://jatto-postit-app-staging.herokuapp.com
+       /#/updatepassword/${hash}">this Link</a> to reset your password`
     };
 
     models.PasswordReset

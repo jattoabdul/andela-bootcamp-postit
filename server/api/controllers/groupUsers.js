@@ -3,7 +3,7 @@
  * handles every groups users related task and authentication
  */
 
-import models from '../models/db';
+import models from '../models';
 
 export default {
   /**
@@ -159,7 +159,6 @@ export default {
    */
   searchMember(req, res) {
     if (req.query.search) {
-      console.log(req.query.search);
       models.GroupsUsers
         .findAll({
           where: { groupId: req.params.id },

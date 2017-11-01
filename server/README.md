@@ -1,30 +1,11 @@
-# andela-bootcamp-postit
-My Andela Bootcamp LOS24 Postit Project
+### Andela Bootcamp Postit App (Server Side)
+My Andela Bootcamp LOS24 Postit Project - API's. Backend API's are in this `server` folder.
+#### How to Run
+>- To run server in development, Run `$ npm run server:dev`
+>- To run server in production, Run `$ npm start`
+>- Open PostMan and test URL End-points
 
-#TEMPLATES
-All user interfaces design are in the template folder
+>- To run server test, Run `$ npm run test:server`
+>- To run eslint test, Run `$ npm run eslint`
 
-#How to Run
-$cd template
-$npm install
-$bower install
-
-Open the index.html in you browser
-
-#To compile scss, run
-$ gulp
-
-To run In Development Mode, run
-$ gulp watch
-
-
-#SERVER
-Backend API's are in the server folder
-
-
-
-#CLIENT
-React Front End Are in the server folder
-
-
-Author: Aminujatto Abdulqahhar
+**Author:** Aminujatto Abdulqahhar

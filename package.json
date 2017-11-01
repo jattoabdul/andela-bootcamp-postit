@@ -105,6 +105,7 @@
     "jest": "^21.0.2",
     "jsdom": "^11.2.0",
     "jsonwebtoken": "^7.4.1",
+    "jusibe": "^1.0.1",
     "lite-server": "^2.3.0",
     "lodash": "^4.17.4",
     "material-ui": "^0.19.4",
@@ -156,7 +157,7 @@
     "style-loader": "^0.18.2",
     "supertest": "^3.0.0",
     "toastr": "^2.1.2",
-    "uglify-js": "^3.0.24",
+    "uglify-js": "^2.8.23",
     "url-loader": "^0.5.9",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "1.6.1",
@@ -173,6 +174,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
     "jshint": "^2.9.5",
+    "mock-local-storage": "^1.0.5",
     "react-test-renderer": "^16.0.0"
   }
 }

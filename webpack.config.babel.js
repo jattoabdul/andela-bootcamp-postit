@@ -9,7 +9,8 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 });
 
-// const debug = process.env.NODE_ENV !== 'production';
+const debug = process.env.NODE_ENV !== 'production';
+
 module.exports = {
   entry: ['whatwg-fetch', './client/src/js/index.jsx'],
   output: {
@@ -69,9 +70,31 @@ module.exports = {
     modules: ['node_modules', 'client/src'],
     extensions: ['.js', '.jsx', '.json', '.css', '.scss']
   }, // modules
-  plugins: [
+  plugins: debug ? [
     HtmlWebpackPluginConfig,
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new ExtractTextPlugin({
+      filename: 'bundle.css',
+      allChunks: true
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Hammer: 'hammerjs/hammer',
+      createDayLabel: 'jquery',
+      createWeekdayLabel: 'jquery',
+      activateOption: 'jquery',
+      leftPosition: 'jquery'
+    })
+  ] : [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
+    HtmlWebpackPluginConfig,
     new ExtractTextPlugin({
       filename: 'bundle.css',
       allChunks: true

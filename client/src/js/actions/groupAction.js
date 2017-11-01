@@ -248,10 +248,12 @@ export const setSelectedGroupMembers = groupId => dispatch =>
    * @param {*} groupId
    * @return {object} addUserToGroupResponse
    */
-export const onAddUser = (userId, groupId) => () => {
+export const onAddUser = (userId, groupId) => (dispatch) => {
   const addUserParams = `userId=${userId}`;
   return Api(addUserParams, `/api/v1/groups/${groupId}/user/`, 'POST').then(
-    addUserToGroupResponse => addUserToGroupResponse
+    () => {
+      dispatch(setSelectedGroupMembers(groupId));
+    }
   );
 };
 

@@ -1,16 +1,9 @@
 import React from 'react';
-import Select from 'react-select';
 import PropTypes from 'prop-types';
 import '../../../styles/index.scss';
 /**
  * @typedef {object} event
  */
-
-const options = [
-  { value: 'Normal', label: 'Normal' },
-  { value: 'Urgent', label: 'Urgent' },
-  { value: 'Critical', label: 'Critical' }
-];
 
 /**
  * Display MessageInputForm
@@ -33,7 +26,16 @@ class MessageInputForm extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
+    // this.handleSelectChange = this.handleSelectChange.bind(this);
+  }
+
+  /**
+   * @param {void} null
+   * @return {void} null
+   */
+  componentDidMount() {
+    $('select').material_select();
+    $('#priority').on('change', this.handleChange);
   }
 
   /**
@@ -44,17 +46,6 @@ class MessageInputForm extends React.Component {
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
-    });
-  }
-
-  /**
-   * Handle priority select change
-   * @param {string} option
-   * @return {void}
-   */
-  handleSelectChange(option) {
-    this.setState({
-      priority: option
     });
   }
 
@@ -81,12 +72,16 @@ class MessageInputForm extends React.Component {
       <div id="messageBox" className="row">
         <form onSubmit={this.handleSubmit}>
           <div className="col s4 m2 input-field">
-            <Select
+            <select
               name="priority"
+              id="priority"
+              onChange={this.handleChange}
               value={this.state.priority}
-              options={options}
-              onChange={this.handleSelectChange}
-            />
+            >
+              <option value="Normal">Normal</option>
+              <option value="Urgent">Urgent</option>
+              <option value="Critical">Critical</option>
+            </select>
           </div>
           <div className="col s8 m8 input-field">
             <input

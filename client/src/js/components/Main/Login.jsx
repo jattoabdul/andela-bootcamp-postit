@@ -6,7 +6,7 @@ import Spinner from 'react-spinner-material';
 import {
   onLoginUser
 } from '../../actions/authAction';
-import { Welcome } from './../partials/';
+import { Welcome } from './../Partials/';
 import '../../../styles/index.scss';
 
 /**
@@ -149,7 +149,7 @@ class Login extends React.Component {
                 />
                 <label htmlFor="username_login">Username</label>
               </div>
-              <div className="input-field col s12 m7 l7 no-padding">
+              <div className="input-field col s12 no-padding">
                 <input
                   onFocus={this.onFocus}
                   type="password"
@@ -162,11 +162,11 @@ class Login extends React.Component {
                   required
                 />
                 <label htmlFor="password_login">Password</label>
-              </div>
-              <div className="input-field col s12 m5 l5 nopadding">
-                <Link to="/resetpassword" className="forgotPass">
-                  forgot password
-                </Link>
+                <span>
+                  <Link to="/resetpassword" className="forgotPass">
+                    forgot password
+                  </Link>
+                </span>
               </div>
               <div className="input-field col s12">
                 {!this.state.isLoading &&
@@ -187,7 +187,7 @@ class Login extends React.Component {
                 <p>
                   &nbsp;
                   <Link to="/register" className="alternative">
-                    Don&rsquo; have an Account? &nbsp;
+                    Don&rsquo;t have an Account? &nbsp;
                     <span>SIGN UP NOW</span>
                   </Link>
                 </p>

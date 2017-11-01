@@ -10,17 +10,20 @@ import {
   fetchMessages,
   setSelectedGroupMembers
 } from '../../actions/groupAction';
-import DashboardRoutes from './dashboardRoute';
-import { SideMenu, MainNav } from './../../components/partials/';
+import DashboardRoutes from './DashboardRoutes';
+import { SideMenu, MainNav } from './../../components/Partials/';
 
 /**
  * @typedef {object} event
  */
 
 /**
- * Display BaseDashboard
+ * @description Display BaseDashboard
+ * 
  * @class BaseDashboard
+ * 
  * @extends {React.Component}
+ * 
  * @param {any} props
  */
 class BaseDashboard extends Component {

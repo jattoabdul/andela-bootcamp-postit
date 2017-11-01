@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Welcome } from './../partials/';
+import { Welcome } from './../Partials/';
 import '../../../styles/index.scss';
 
 /**
@@ -9,7 +9,7 @@ import '../../../styles/index.scss';
  * @param {any} props
  * @extends {React.Component}
  */
-export class Home extends React.Component {
+class Home extends React.Component {
   /**
    * @param {void} void
    * @return {void} void

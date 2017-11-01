@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {
   updatePassword
 } from '../../actions/authAction';
-import { Welcome } from './../partials/';
+import { Welcome } from './../Partials/';
 import '../../../styles/index.scss';
 
 /**
@@ -19,7 +19,7 @@ import '../../../styles/index.scss';
  * @extends {React.Component}
  * @param {any} props
  */
-class UpdatePasswordForm extends React.Component {
+class UpdatePassword extends React.Component {
   /**
    * Creates an instance of UpdatePasswordForm
    * @param {any} props
@@ -183,7 +183,7 @@ class UpdatePasswordForm extends React.Component {
   }
 }
 
-UpdatePasswordForm.propTypes = {
+UpdatePassword.propTypes = {
   updatePassword: PropTypes.func.isRequired
 };
 
@@ -192,4 +192,4 @@ const mapDispatchToProps = {
 };
 
 export default connect(null,
-  mapDispatchToProps)(withRouter(UpdatePasswordForm));
+  mapDispatchToProps)(withRouter(UpdatePassword));

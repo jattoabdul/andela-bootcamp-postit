@@ -16,12 +16,10 @@ import {
   Register,
   Login,
   ResetPassword,
-  UpdatePasswordForm,
+  UpdatePassword,
   NotFound
-} from './components/main';
-import BaseDashboard from './containers/dashboard';
-
-import registerServiceWorker from './registerServiceWorker';
+} from './components/Main';
+import BaseDashboard from './containers/Dashboard';
 
 const store = configureStore();
 
@@ -56,7 +54,7 @@ render(
         <Route path="/resetpassword" component={ResetPassword} />
         <Route
           path="/updatepassword/:hash"
-          component={UpdatePasswordForm}
+          component={UpdatePassword}
         />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
@@ -70,4 +68,3 @@ render(
       </Switch>
     </Router>
   </Provider>, app);
-registerServiceWorker();
