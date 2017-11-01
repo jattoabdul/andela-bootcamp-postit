@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {
   requestResetPassword
 } from '../../actions/authAction';
-import { Welcome } from './../partials/';
+import { Welcome } from './../Partials/';
 import '../../../styles/index.scss';
 /**
  * @typedef {object} event

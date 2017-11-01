@@ -1,17 +1,15 @@
-import Welcome from './welcome';
-import SideMenu from './sidemenu';
-import MainNav from './mainnav';
-import UserView from './userview';
-import MessageList from './messagelist';
-import MessageBody from './messagebody';
-import MessageItem from './messageItem';
-import MessageInputForm from './messageinputform';
+import Welcome from './Welcome';
+import SideMenu from './SideMenu';
+import MainNav from './MainNav';
+import UserView from './UserView';
+import MessageList from './MessageList';
+import MessageItem from './MessageItem';
+import MessageInputForm from './MessageInputForm';
 
 export { Welcome,
   SideMenu,
   MainNav,
   UserView,
   MessageList,
-  MessageBody,
   MessageItem,
   MessageInputForm };

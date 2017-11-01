@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageItem } from './../partials/';
+import { MessageItem } from './../Partials/';
 import '../../../styles/index.scss';
 
 /**

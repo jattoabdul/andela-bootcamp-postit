@@ -116,9 +116,22 @@ class UserView extends React.Component {
           )}
         </ul>
         <span className="bottomSearch">
-          <a className="modal-trigger" href="#modal1">
+          <a
+            data-tip
+            data-for="addUserInGroup"
+            className="modal-trigger"
+            href="#modal1"
+          >
             <i className="icon ion-person-add teal-text x25" />
           </a>
+          <ReactTooltip
+            id="addUserInGroup"
+            place="left"
+            type="info"
+            effect="float"
+          >
+            Add a user to current group
+          </ReactTooltip>
         </span>
 
         <div id="modal1" className="modal">
@@ -145,9 +158,9 @@ class UserView extends React.Component {
                       key={selectedUser.id}
                     >
                       <a
-                        className={computeClass(
+                        className={`${this.props.isSelected.includes(selectedUser.id) ? 'link_disabled' : ''} ${computeClass(
                           selectedUser.groups.map(group =>
-                            group.id).includes(this.props.currentGroup.id))}
+                            group.id).includes(this.props.currentGroup.id))}`}
                         role="button"
                         tabIndex={-1}
                         onClick={

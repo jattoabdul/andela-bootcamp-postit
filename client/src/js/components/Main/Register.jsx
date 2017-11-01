@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Spinner from 'react-spinner-material';
 
 import { onLoginUser, onRegisterUser } from '../../actions/authAction';
-import { Welcome } from './../partials/';
+import { Welcome } from './../Partials/';
 import '../../../styles/index.scss';
 
 /**

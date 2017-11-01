@@ -18,7 +18,7 @@ import {
   UserView,
   MessageList,
   MessageInputForm
-} from './../../components/partials';
+} from './../../components/Partials';
 import '../../../styles/index.scss';
 
 /**
@@ -42,6 +42,7 @@ class MessageBoard extends React.Component {
       username: '',
       fullName: '',
       selectedUsers: [],
+      isSelected: [],
       currentGroup: !isEmpty(props.currentGroup) ? props.currentGroup : {},
       currentGroupMembers: !isEmpty(props.currentGroupMembers)
         ? props.currentGroupMembers
@@ -87,6 +88,9 @@ class MessageBoard extends React.Component {
    */
   componentWillUnmount() {
     this.props.resetCurrentGroup();
+    this.setState({
+      isSelected: []
+    });
   }
 
   /**
@@ -123,6 +127,9 @@ class MessageBoard extends React.Component {
     this.props.onAddUser(uId, id).then(
       // eslint-disable-next-line
       (item) => {
+        this.setState({
+          isSelected: [...this.state.isSelected, uId]
+        });
         // eslint-disable-next-line
         Materialize.toast(`user was added succesfully`, 3000);
       }
@@ -179,7 +186,7 @@ class MessageBoard extends React.Component {
       `/api/v1/groups/${gId}/message/read`,
       'POST'
     ).then((response) => {
-      // console.log("Response: ", response);
+      Materialize.toast(response.message, 3000);
     });
   }
 
@@ -192,6 +199,7 @@ class MessageBoard extends React.Component {
       fullName,
       username,
       selectedUsers,
+      isSelected,
       currentGroup,
       currentGroupMembers,
       groupMessages
@@ -214,6 +222,7 @@ class MessageBoard extends React.Component {
         <UserView
           selectedUsers={selectedUsers}
           currentGroup={currentGroup}
+          isSelected={isSelected}
           activeMessageReaders={currentGroupMembers}
           removeGroupMember={this.removeGroupMember}
           onSearchUserInGroup={this.onSearchUserInGroup}

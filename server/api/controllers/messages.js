@@ -6,7 +6,7 @@
 // importing services
 import Nexmo from 'nexmo';
 import nodemailer from 'nodemailer';
-import models from '../models/db';
+import models from '../models';
 
 let userID = 0;
 

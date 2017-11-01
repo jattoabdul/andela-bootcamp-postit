@@ -15,17 +15,17 @@ export default (app) => {
 
   // reset password API route - for current user to request password reset link
   app.post('/api/v1/users/reset/request',
-    controllers.userController.passwordReset);
+    controllers.user.passwordReset);
 
   // update password API route - for current user's new password to be updated
   app.post('/api/v1/users/reset/:hash',
-    controllers.userController.updatePassword);
+    controllers.user.updatePassword);
 
   // signup API Route - for creating a user
-  app.post('/api/v1/users/signup', controllers.userController.signUp);
+  app.post('/api/v1/users/signup', controllers.user.signUp);
 
   // signin API Route - for authenticaticating a user
-  app.post('/api/v1/users/signin', controllers.userController.authenticate);
+  app.post('/api/v1/users/signin', controllers.user.authenticate);
 
   let token;
 
@@ -55,50 +55,50 @@ export default (app) => {
   // set after the above middleware to prevent access to unathourized
 
   // API route to get list of all users
-  app.get('/api/v1/users/', controllers.userController.getAllUsers);
+  app.get('/api/v1/users/', controllers.user.getAllUsers);
 
   // API route to get current user and their details and groups
-  app.get('/api/v1/user/', controllers.userController.getCurrentUser);
+  app.get('/api/v1/user/', controllers.user.getCurrentUser);
 
   // API route for only authenticated user to create a group
-  app.post('/api/v1/groups/', controllers.groupsController.createGroup);
+  app.post('/api/v1/groups/', controllers.groups.createGroup);
 
   // API route for only authenticated user to view list 
   // of all groups he belongs to
-  app.get('/api/v1/groups/', controllers.groupsController.viewGroups);
+  app.get('/api/v1/groups/', controllers.groups.viewGroups);
 
   // API route for the groupadmin to add other users to the group he created
   app.post('/api/v1/groups/:id/user/',
-    controllers.groupsUsersController.addMember);
+    controllers.groupUsers.addMember);
 
   // API  Route for searching users in the system and users in current group
   app.get('/api/v1/groups/:id/usersearch',
-    controllers.groupsUsersController.searchMember);
+    controllers.groupUsers.searchMember);
 
   // API route for the groupadmin/users to remove users from group he created
   app.delete('/api/v1/groups/:id/user/',
-    controllers.groupsUsersController.removeMember);
+    controllers.groupUsers.removeMember);
 
   // API route for user to view users from the current group he/she belongs/created
   app.get('/api/v1/groups/:id/users/',
-    controllers.groupsUsersController.viewMembers);
+    controllers.groupUsers.viewMembers);
 
   // API route 4 a user 2 view users 4rm all groups
   app.get('/api/v1/groups/users/',
-    controllers.groupsUsersController.viewAllGroupMembers);
+    controllers.groupUsers.viewAllGroupMembers);
 
   // API route for authenticated user to post message into rooms he belong to
   // where :id is group id
   app.post('/api/v1/groups/:id/message/',
-    controllers.messagesController.sendMsg);
+    controllers.messages.sendMsg);
 
   // API route for authenticated user to update message readBy status in a room
   // where :id is group id and message id is passed as body
   app.post('/api/v1/groups/:id/message/read',
-    controllers.messagesController.updateReadBy);
+    controllers.messages.updateReadBy);
 
   // API route for authenticated users to view messages in a group he belongs
   // where :id is group id and group is currently active
   app.get('/api/v1/groups/:id/messages/',
-    controllers.messagesController.getMsg);
+    controllers.messages.getMsg);
 };
