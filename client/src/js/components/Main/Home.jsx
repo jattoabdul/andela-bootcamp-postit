@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Welcome } from './../Partials/';
 import '../../../styles/index.scss';
 
@@ -52,5 +53,9 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = {
+  history: PropTypes.objectOf(String).isRequired
+};
 
 export default withRouter(Home);

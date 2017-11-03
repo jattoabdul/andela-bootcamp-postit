@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { MessageItem } from './../Partials/';
 import '../../../styles/index.scss';
 
@@ -48,5 +49,12 @@ class MessageList extends React.Component {
     );
   }
 }
+
+MessageList.propTypes = {
+  updateReadBy: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  fullName: PropTypes.string.isRequired,
+  messages: PropTypes.arrayOf(PropTypes.object).isRequired
+};
 
 export default MessageList;

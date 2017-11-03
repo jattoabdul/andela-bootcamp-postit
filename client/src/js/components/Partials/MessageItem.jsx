@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../../../styles/index.scss';
 
 /**
@@ -66,5 +67,17 @@ class MessageItem extends React.Component {
     );
   }
 }
+
+MessageItem.propTypes = {
+  updateReadBy: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  username: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  sender: PropTypes.string.isRequired,
+  senderFullName: PropTypes.string.isRequired,
+  readBy: PropTypes.arrayOf(String).isRequired
+};
+
 
 export default MessageItem;

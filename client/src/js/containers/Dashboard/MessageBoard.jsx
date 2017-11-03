@@ -7,7 +7,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import isEmpty from 'lodash/isEmpty';
 import Api from '../../utils/api';
 import {
-  fetchMessages,
   handleSendMessage,
   resetCurrentGroup,
   onAddUser,
@@ -179,13 +178,13 @@ class MessageBoard extends React.Component {
    */
   updateReadBy(id) {
     const updateMessageParams = `id=${id}`;
-    // eslint-disable-next-line
     const gId = `${this.props.match.params.groupId}`;
     Api(
       updateMessageParams,
       `/api/v1/groups/${gId}/message/read`,
       'POST'
     ).then((response) => {
+      // eslint-disable-next-line
       Materialize.toast(response.message, 3000);
     });
   }
@@ -234,19 +233,46 @@ class MessageBoard extends React.Component {
 }
 
 MessageBoard.propTypes = {
-  fetchMessages: PropTypes.func,
-  handleSendMessage: PropTypes.func,
-  onRemoveUser: PropTypes.func,
-  onSearchUser: PropTypes.func,
-  onAddUser: PropTypes.func,
-  handleOnResetCurrentGroup: PropTypes.func,
-  resetCurrentGroup: PropTypes.func,
-  groupData: PropTypes.object,
-  authData: PropTypes.object
+  handleSendMessage: PropTypes.func.isRequired,
+  onRemoveUser: PropTypes.func.isRequired,
+  onSearchUser: PropTypes.func.isRequired,
+  onAddUser: PropTypes.func.isRequired,
+  resetCurrentGroup: PropTypes.func.isRequired,
+  groupData: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object
+  ]).isRequired,
+  authData: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+    PropTypes.bool,
+    PropTypes.array
+  ]).isRequired,
+  match: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+    PropTypes.bool,
+    PropTypes.array
+  ]).isRequired,
+  currentGroupMembers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentGroup: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object
+  ]),
+  groupMessages: PropTypes.arrayOf(PropTypes.object).isRequired
+};
+
+MessageBoard.defaultProps = {
+  currentGroup: {},
+  groupMessages: [],
+  currentGroupMembers: []
 };
 
 const mapDispatchToProps = {
-  fetchMessages,
   handleSendMessage,
   resetCurrentGroup,
   onSearchUser,
