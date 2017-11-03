@@ -78,8 +78,9 @@ class Register extends React.Component {
     fullName = fullName.trim();
     email = email.trim();
     phoneNumber = phoneNumber.trim();
-    password = password;
-    confirmPassword = confirmPassword;
+    password = password.trim();
+    confirmPassword = confirmPassword.trim();
+
     if (
       username === '' ||
       fullName === '' ||
@@ -297,7 +298,9 @@ class Register extends React.Component {
 
 Register.propTypes = {
   onRegisterUser: PropTypes.func.isRequired,
-  onLoginUser: PropTypes.func.isRequired
+  onLoginUser: PropTypes.func.isRequired,
+  authData: PropTypes.objectOf(String).isRequired,
+  history: PropTypes.objectOf(String).isRequired
 };
 
 const mapDispatchToProps = {

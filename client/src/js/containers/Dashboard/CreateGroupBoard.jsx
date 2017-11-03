@@ -132,8 +132,8 @@ class CreateGroupBoard extends React.Component {
 }
 
 CreateGroupBoard.propTypes = {
-  createGroup: PropTypes.func,
-  fetchUserGroups: PropTypes.func
+  createGroup: PropTypes.func.isRequired,
+  fetchUserGroups: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = {

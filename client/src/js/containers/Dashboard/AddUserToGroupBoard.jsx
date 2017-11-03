@@ -56,7 +56,6 @@ class AddUserToGroupBoard extends React.Component {
    * @return {void}
    */
   componentDidMount() {
-    // eslint-disable-next-line
     const locationUrl = this.props.location.pathname;
     const group = { id: locationUrl.split('/')[2] };
     // eslint-disable-next-line
@@ -72,8 +71,7 @@ class AddUserToGroupBoard extends React.Component {
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
-    const { authData: { currentUserData },
-      groupData: { userGroups, currentGroup } } = nextProps;
+    const { groupData: { currentGroup } } = nextProps;
     this.setState({
       currentGroup: !isEmpty(currentGroup) ? currentGroup : {}
     });
@@ -86,7 +84,6 @@ class AddUserToGroupBoard extends React.Component {
    */
   onSearchUserInGroup(event) {
     event.preventDefault();
-    // eslint-disable-next-line
     const id = `${this.props.match.params.groupId}`;
     const searchText = this.selectedUser.value;
     if (!searchText) {
@@ -133,10 +130,8 @@ class AddUserToGroupBoard extends React.Component {
     const gId = group.id || groupIdB;
     // call enter group and load message
     this.props.fetchMessages(gId).then(
-      // eslint-disable-next-line
-      (item) => {
+      () => {
         // redirect to the message board
-        // eslint-disable-next-line
         this.props.history.push(`/dashboard/messages/${gId}`);
       }
     );
@@ -224,11 +219,28 @@ class AddUserToGroupBoard extends React.Component {
 }
 
 AddUserToGroupBoard.propTypes = {
-  onSearchUser: PropTypes.func,
-  onAddUser: PropTypes.func,
-  fetchMessages: PropTypes.func,
-  groupData: PropTypes.object,
-  authData: PropTypes.object
+  onSearchUser: PropTypes.func.isRequired,
+  onAddUser: PropTypes.func.isRequired,
+  fetchMessages: PropTypes.func.isRequired,
+  groupData: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+    PropTypes.array
+  ]).isRequired,
+  match: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+    PropTypes.array
+  ]).isRequired,
+  location: PropTypes.objectOf(PropTypes.string).isRequired,
+  history: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+    PropTypes.array
+  ]).isRequired
 };
 
 const mapDispatchToProps = {

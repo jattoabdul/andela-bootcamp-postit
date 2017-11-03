@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
@@ -194,7 +193,15 @@ SideMenu.propTypes = {
   handleOpenMessageBoard: PropTypes.func,
   handleAddUserToGroup: PropTypes.func,
   toggleSideNav: PropTypes.func,
-  sideNavStatus: PropTypes.bool
+  sideNavStatus: PropTypes.bool,
+  username: PropTypes.string,
+  fullName: PropTypes.string,
+  currentGroup: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object
+  ]),
+  location: PropTypes.objectOf(PropTypes.string).isRequired
 };
 
 SideMenu.defaultProps = {
@@ -203,7 +210,10 @@ SideMenu.defaultProps = {
   handleOpenMessageBoard: () => {},
   handleAddUserToGroup: () => {},
   toggleSideNav: () => {},
-  sideNavStatus: ''
+  sideNavStatus: '',
+  username: '',
+  fullName: '',
+  currentGroup: {}
 };
 
 export default withRouter(SideMenu);

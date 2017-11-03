@@ -127,7 +127,7 @@ class BaseDashboard extends Component {
     // get Group Members on enter of groups and fetching messages
     this.props.setSelectedGroupMembers(group.id).then(usersItem => usersItem);
     // call load messages action on enter of group
-    this.props.fetchMessages(group.id).then((item) => {
+    this.props.fetchMessages(group.id).then(() => {
       // redirect to the message board
       // eslint-disable-next-line
       this.props.history.push(`/dashboard/messages/${group.id}`);
@@ -202,12 +202,23 @@ class BaseDashboard extends Component {
 
 BaseDashboard.propTypes = {
   fetchUserGroups: PropTypes.func.isRequired,
-  setSelectedGroupAsCurrent: PropTypes.func,
-  setSelectedGroupMembers: PropTypes.func,
-  fetchMessages: PropTypes.func,
-  onLogoutUser: PropTypes.func,
-  groupData: PropTypes.object.isRequired,
-  authData: PropTypes.object.isRequired
+  setSelectedGroupAsCurrent: PropTypes.func.isRequired,
+  setSelectedGroupMembers: PropTypes.func.isRequired,
+  fetchMessages: PropTypes.func.isRequired,
+  onLogoutUser: PropTypes.func.isRequired,
+  groupData: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+    PropTypes.bool,
+    PropTypes.array
+  ]).isRequired,
+  authData: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+    PropTypes.bool
+  ]).isRequired
 };
 
 const mapDispatchToProps = {

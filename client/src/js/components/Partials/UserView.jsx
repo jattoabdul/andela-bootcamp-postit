@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import '../../../styles/index.scss';
 
@@ -189,5 +190,20 @@ class UserView extends React.Component {
     );
   }
 }
+
+UserView.propTypes = {
+  onAddUserToGroup: PropTypes.func.isRequired,
+  isSelected: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  activeMessageReaders: PropTypes.arrayOf(PropTypes.object).isRequired,
+  removeGroupMember: PropTypes.func.isRequired,
+  onSearchUserInGroup: PropTypes.func.isRequired,
+  currentGroup: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object
+  ]).isRequired
+};
+
 
 export default UserView;

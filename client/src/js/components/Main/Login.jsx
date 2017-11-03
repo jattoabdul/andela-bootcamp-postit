@@ -66,7 +66,8 @@ class Login extends React.Component {
     event.preventDefault();
     let { username, password } = this.state;
     username = username.trim();
-    password = password;
+    password = password.trim();
+
     if (username !== '' && password !== '') {
       this.setState({ isLoading: true });
       this.props.onLoginUser(this.state)
@@ -201,7 +202,9 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  onLoginUser: PropTypes.func.isRequired
+  onLoginUser: PropTypes.func.isRequired,
+  authData: PropTypes.objectOf(String).isRequired,
+  history: PropTypes.objectOf(String).isRequired
 };
 
 const mapDispatchToProps = {

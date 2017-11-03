@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-// import Api from '../../utils/api';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -79,7 +78,6 @@ class UpdatePassword extends React.Component {
       const hash = window.location.href.split('/')[5];
       if (hash === undefined) {
         window.location = '/#/login';
-        // redirecting
         // this.props.history.push('/login');
         return;
       }

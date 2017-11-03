@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import notFoundError from './../../../assets/img/404error.gif';
 import '../../../styles/index.scss';
 
@@ -7,7 +8,7 @@ import '../../../styles/index.scss';
  * @param {any} props
  * @return {dom} DomeElement 
  */
-const NotFound = ({ history, handlePageNotFound }) => {
+const NotFound = ({ history }) => {
   /**
    * Go Home
    * @return {void} void
@@ -51,6 +52,10 @@ const NotFound = ({ history, handlePageNotFound }) => {
       </div>
     </div>
   );
+};
+
+NotFound.propTypes = {
+  history: PropTypes.objectOf(String).isRequired
 };
 
 export default NotFound;
