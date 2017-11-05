@@ -25,6 +25,7 @@
     "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
     "build:client": "webpack --config webpack.config.babel.js",
     "build:server": "rimraf server/dist/ && babel ./server --out-dir server/dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "re:migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "test": "npm run test:server",
     "test:client": "nyc --reporter=html --reporter=text mocha --reporter spec tests/client/testSetup.js \"tests/client/*.test.js\" --compilers js:babel-register",
     "test:server": "nyc --reporter=html --reporter=text mocha tests/server/tests.js --compilers js:babel-register",

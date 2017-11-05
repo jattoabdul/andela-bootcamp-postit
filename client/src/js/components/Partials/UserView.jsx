@@ -193,7 +193,11 @@ class UserView extends React.Component {
 
 UserView.propTypes = {
   onAddUserToGroup: PropTypes.func.isRequired,
-  isSelected: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isSelected: PropTypes.PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array
+  ]).isRequired,
   selectedUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
   activeMessageReaders: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeGroupMember: PropTypes.func.isRequired,

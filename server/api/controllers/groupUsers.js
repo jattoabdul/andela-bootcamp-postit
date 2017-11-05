@@ -39,17 +39,31 @@ export default {
               error: { message: 'user already exist in group' }
             });
         }
-        return models.GroupsUsers
-          .create({
-            userId: req.body.userId,
-            groupId: req.params.id,
-            isAdmin: '0'
+        models.GroupsUsers
+          .find({
+            where: {
+              userId: req.authToken.data.id,
+              isAdmin: '1'
+            }
           })
-          .then((result) => {
-            res.status(201).send(result);
-          })
-          .catch((error) => {
-            res.status(400).send(error);
+          .then((admin) => {
+            if (!admin) {
+              return res.status().send({
+                message: 'User is not an admin'
+              });
+            }
+            return models.GroupsUsers
+              .create({
+                userId: req.body.userId,
+                groupId: req.params.id,
+                isAdmin: '0'
+              })
+              .then((result) => {
+                res.status(201).send(result);
+              })
+              .catch((error) => {
+                res.status(400).send(error);
+              });
           });
       });
   },

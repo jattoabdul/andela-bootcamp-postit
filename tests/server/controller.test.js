@@ -225,7 +225,7 @@ describe('POST /api/v1/users/signup', () => {
         done();
       });
   });
-  it('should raise 400 error with duplicate email', (done) => {
+  it('should raise 409 error with duplicate email', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .type('form')
@@ -237,11 +237,11 @@ describe('POST /api/v1/users/signup', () => {
         phoneNumber: '08162740860'
       })
       .end((err, res) => {
-        res.should.have.status(400);
+        res.should.have.status(409);
         done();
       });
   });
-  it('should raise 400 error with duplicate username', (done) => {
+  it('should raise 409 error with duplicate username', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup')
       .type('form')
@@ -253,7 +253,7 @@ describe('POST /api/v1/users/signup', () => {
         phoneNumber: '08162740860'
       })
       .end((err, res) => {
-        res.should.have.status(400);
+        res.should.have.status(409);
         done();
       });
   });
@@ -337,7 +337,7 @@ describe('POST /api/v1/users/signup', () => {
         done();
       });
   });
-  it('should raise an error if email exist', (done) => {
+  it('should raise a 409 error if email exist', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup/')
       .type('form')
@@ -349,11 +349,11 @@ describe('POST /api/v1/users/signup', () => {
         phoneNumber: '08162740850'
       })
       .end((err, res) => {
-        res.should.have.status(400);
+        res.should.have.status(409);
         done();
       });
   });
-  it('should raise an error if username exist', (done) => {
+  it('should raise a 409 error if username exist', (done) => {
     chai.request(app)
       .post('/api/v1/users/signup/')
       .type('form')
@@ -365,7 +365,7 @@ describe('POST /api/v1/users/signup', () => {
         phoneNumber: '08162740850'
       })
       .end((err, res) => {
-        res.should.have.status(400);
+        res.should.have.status(409);
         done();
       });
   });

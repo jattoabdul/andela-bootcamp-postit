@@ -20,6 +20,10 @@ export default {
       return res.status(400)
         .send({ message: 'Name parameter is required' });
     }
+    if (!req.body.desc || req.body.desc.trim() === '') {
+      return res.status(400)
+        .send({ message: 'Desc parameter is required' });
+    }
     if (req.body.name.length > 30 || req.body.desc.length > 120) {
       return res.status(400)
         .send({ error: 'Text too long' });
