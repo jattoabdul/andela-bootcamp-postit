@@ -257,7 +257,7 @@ MessageBoard.propTypes = {
     PropTypes.bool,
     PropTypes.array
   ]).isRequired,
-  currentGroupMembers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentGroupMembers: PropTypes.arrayOf(PropTypes.object),
   currentGroup: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

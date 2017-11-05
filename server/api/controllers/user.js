@@ -121,25 +121,30 @@ export default {
       .findOne({
         where: { hash: req.params.hash }
       }).then((result) => {
-        const email = result.dataValues.email;
-        const date = new Date();
-        const now = `${date.toString().split(' ')[2]}
-        :${date.toString().split(' ')[4]}`;
-        if (now > result.dataValues.expiresIn) {
-          res.status(200).send({
-            data: { error: { message: 'Expired or Invalid link' } }
-          });
-          return;
+        if (result) {
+          const email = result.dataValues.email;
+          const date = new Date();
+          const now = `${date.toString().split(' ')[2]}
+          :${date.toString().split(' ')[4]}`;
+          if (now > result.dataValues.expiresIn) {
+            res.status(400).send({
+              data: { error: { message: 'Expired or Invalid link' } }
+            });
+            return;
+          }
+          return models.Users
+            .update(
+              { password: newPass },
+              { where: { email } }
+            ).then(() =>
+              res.status(200).send({
+                data: { message: 'Password Reset Successful' }
+              })
+            );
         }
-        return models.Users
-          .update(
-            { password: newPass },
-            { where: { email } }
-          ).then(() =>
-            res.status(200).send({
-              data: { message: 'Password Reset Successful' }
-            })
-          );
+        return res.status(400).send({
+          message: 'Hash is invalid'
+        });
       });
   },
 
@@ -189,8 +194,8 @@ export default {
       .hashSync(req.body.password, salt, null);
     return models.Users
       .create({
-        username: req.body.username.trim(),
-        email: req.body.email.trim(),
+        username: req.body.username.trim().toLowerCase(),
+        email: req.body.email.trim().toLowerCase(),
         password: hashedPassword,
         fullName: req.body.fullName.trim(),
         phoneNumber: req.body.phoneNumber.trim()
@@ -209,17 +214,20 @@ export default {
       .catch((err) => {
         if (err.errors[0].message === 'username must be unique') {
           error.err = { message: 'username already exists' };
+          return res.status(409).send(error);
         }
         if (err.errors[0].message === 'email must be unique') {
           error.err = { message: 'email already exists' };
+          return res.status(409).send(error);
         }
         if (err.errors[0].message === 'Validation isEmail on email failed') {
           error.err = { message: 'not an email' };
+          return res.status(400).send(error);
         }
         if (!error.err) {
           error.err = { message: err.errors[0].message };
+          return res.status(500).send(error);
         }
-        res.status(400).send(error);
       });
   },
 
@@ -230,10 +238,18 @@ export default {
    * @return {object} auth (token, message)
    */
   authenticate(req, res) {
+    if (!req.body.username) {
+      return res.status(400)
+        .send({ error: 'Username is required', status: 400 });
+    }
+    if (!req.body.password) {
+      return res.status(400)
+        .send({ error: 'Password is required', status: 400 });
+    }
     models.Users
       .findAll({
         where: {
-          username: [req.body.username]
+          username: [req.body.username.toLowerCase()]
         }
       })
       .then((user) => {
@@ -259,7 +275,7 @@ export default {
           } else {
             res.status(401)
               .send({
-                message: 'invalid password'
+                message: 'invalid password and username'
               });
           }
           return;
@@ -318,7 +334,7 @@ export default {
       .catch((err) => {
         error.message = err.message;
         error.success = false;
-        res.status(400).send(error);
+        res.status(404).send(error);
       });
   }
 };

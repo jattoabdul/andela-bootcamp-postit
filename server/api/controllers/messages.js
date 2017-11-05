@@ -84,61 +84,76 @@ export default {
         where: { username: userName }
       })
       .then((user) => {
-        userID = user.id;
-        return models.Messages
-          .create({
-            userId: userID,
-            groupId: req.params.id,
-            text: req.body.text,
-            priority: req.body.priority,
-            readBy: [`${userName}`]
-          })
-          .then((message) => {
-            if (req.body.priority === 'Critical') {
-              fetchMembersEmail(req.params.id).then(
-                (results) => {
-                  results.map((result) => {
-                    sendEmail(result.dataValues.email,
-                      `${userID}: ${req.body.text}`, 'Critical');
-
-                    // send sms notification
-                    const nexmo = new Nexmo({
-                      apiKey: '2a78b29f',
-                      apiSecret: 'acf27ddd3a3ed3b3'
-                    });
-                    const frmUser = `${user.phoneNumber}`;
-                    const toUser = `${result.dataValues.phoneNumber}`;
-                    if (toUser !== frmUser) {
-                      nexmo.message.sendSms(
-                        frmUser, toUser,
-                        `just POSTIT: You have a message marked as 
-                    ${req.body.priority}
-                    \n${userID}: ${req.body.text}`,
-                        (err, responseData) => {
-                          if (err) {
-                            return err;
+        if (user) {
+          userID = user.id;
+          models.GroupsUsers
+            .find({
+              where: {
+                userId: userID,
+                groupId: req.params.id
+              }
+            })
+            .then((groupMember) => {
+              if (!groupMember) {
+                return res.status(401).send({
+                  message: 'User does not belong to group'
+                });
+              }
+              return models.Messages
+                .create({
+                  userId: userID,
+                  groupId: req.params.id,
+                  text: req.body.text,
+                  priority: req.body.priority,
+                  readBy: [`${userName}`]
+                })
+                .then((message) => {
+                  if (req.body.priority === 'Critical') {
+                    fetchMembersEmail(req.params.id).then(
+                      (results) => {
+                        results.map((result) => {
+                          sendEmail(result.dataValues.email,
+                            `${userID}: ${req.body.text}`, 'Critical');
+                          // send sms notification
+                          const nexmo = new Nexmo({
+                            apiKey: '2a78b29f',
+                            apiSecret: 'acf27ddd3a3ed3b3'
+                          });
+                          const frmUser = `${user.phoneNumber}`;
+                          const toUser = `${result.dataValues.phoneNumber}`;
+                          if (toUser !== frmUser) {
+                            nexmo.message.sendSms(
+                              frmUser, toUser,
+                              `just POSTIT: You have a message marked as 
+                          ${req.body.priority}
+                          \n${userID}: ${req.body.text}`,
+                              (err, responseData) => {
+                                if (err) {
+                                  return err;
+                                }
+                                return responseData;
+                              }
+                            );
                           }
-                          return responseData;
-                        }
-                      );
-                    }
-                    return result;
-                  });
-                });
-            }
-            if (req.body.priority === 'Urgent') {
-              fetchMembersEmail(req.params.id).then(
-                (results) => {
-                  results.map(result =>
-                    sendEmail(result.dataValues.email,
-                      `${userID}: ${req.body.text}`, 'Urgent'));
-                });
-            }
-            res.status(201).send(message);
-          })
-          .catch(error => res.status(400).send(error));
+                          return result;
+                        });
+                      });
+                  }
+                  if (req.body.priority === 'Urgent') {
+                    fetchMembersEmail(req.params.id).then(
+                      (results) => {
+                        results.map(result =>
+                          sendEmail(result.dataValues.email,
+                            `${userID}: ${req.body.text}`, 'Urgent'));
+                      });
+                  }
+                  res.status(201).send(message);
+                })
+                .catch(error => res.status(500).send(error));
+            });
+        }
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(404).send(error));
   },
 
   /**
