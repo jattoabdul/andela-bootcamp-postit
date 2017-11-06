@@ -6,13 +6,13 @@
 // importing services
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt-nodejs';
-import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 import models from '../models';
+import { sendMessage } from '../utils';
 
 const salt = bcrypt.genSaltSync(5);
 const error = {};
-export default {
+export const user = {
   /**
    * passwordReset
    * @param {object} req 
@@ -36,28 +36,16 @@ export default {
       });
       return;
     }
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      port: 465,
-      secure: true,
-      auth: {
-        user: 'jattoade@gmail.com',
-        pass: 'jasabs93'
-      }
-    });
 
-    const mailOptions = {
-      from: 'no-reply <jattoade@gmail.com>',
-      to: email,
-      subject: 'Reset Password Link',
-      html: process.env.NODE_ENV === 'production' ? `Hello ${email},
+    const subject = 'Reset Password Link',
+      message = process.env.NODE_ENV === 'production' ? `Hello ${email},
       \nto reset your password, please click on
-      \n<a href="http://localhost:8080/#/updatepassword/${hash}">this Link</a>
-       to reset your password` : `Hello ${email},
-       \nto reset your password, please click on
-       \n<a href="https://jatto-postit-app-staging.herokuapp.com
-       /#/updatepassword/${hash}">this Link</a> to reset your password`
-    };
+      \n<a href="https://jatto-postit-app-staging.herokuapp.com
+      /#/updatepassword/${hash}">this Link</a> to reset your password`
+        : `Hello ${email},
+      \n to reset your password, please click on
+      \n<a href="http://localhost:8080
+      /#/updatepassword/${hash}">this Link</a> to reset your password`;
 
     models.PasswordReset
       .findOne({
@@ -70,15 +58,7 @@ export default {
               expiresIn,
               hash
             }).then(() => {
-              transporter.sendMail(mailOptions, (errors, info) => {
-                if (errors) {
-                  res.status(503).send({
-                    data: { error: { message: errors } }
-                  });
-                } else {
-                  res.status(200).send({ data: { message: info } });
-                }
-              });
+              sendMessage.email(email, subject, message);
             });
         } else {
           response
@@ -86,17 +66,15 @@ export default {
               hash,
               expiresIn
             }).then(() => {
-              transporter.sendMail(mailOptions, (errors, info) => {
-                if (errors) {
-                  res.status(503).send({
-                    data: { error: { message: errors } }
-                  });
-                } else {
-                  res.status(200).send({ data: { message: info } });
-                }
-              });
+              sendMessage.email(email, subject, message);
             });
         }
+        if (process.env.NODE_ENV === 'test') {
+          return res.status(200)
+            .send({ message: 'Password Request Successful', hash });
+        }
+        return res.status(200)
+          .send({ message: 'Password Request Successful' });
       });
   },
 
@@ -200,15 +178,15 @@ export default {
         fullName: req.body.fullName.trim(),
         phoneNumber: req.body.phoneNumber.trim()
       })
-      .then((user) => {
+      .then((newUser) => {
         const data = {};
-        data.id = user.id;
-        data.username = user.username;
-        data.email = user.email;
-        data.fullName = user.fullName;
-        data.phoneNumber = user.phoneNumber;
-        data.lastLogin = user.lastLogin;
-        data.createdAt = user.createdAt;
+        data.id = newUser.id;
+        data.username = newUser.username;
+        data.email = newUser.email;
+        data.fullName = newUser.fullName;
+        data.phoneNumber = newUser.phoneNumber;
+        data.lastLogin = newUser.lastLogin;
+        data.createdAt = newUser.createdAt;
         res.status(201).send({ data });
       })
       .catch((err) => {
@@ -252,25 +230,25 @@ export default {
           username: [req.body.username.toLowerCase()]
         }
       })
-      .then((user) => {
+      .then((userObj) => {
         const password = req.body.password;
-        if (user[0]) {
-          if (bcrypt.compareSync(password, user[0].password)) {
+        if (userObj[0]) {
+          if (bcrypt.compareSync(password, userObj[0].password)) {
             // create an authToken for the user
             const token = jwt.sign({
               data: {
-                id: user[0].id,
-                username: user[0].username,
-                email: user[0].email,
-                fullName: user[0].fullName,
-                phoneNumber: user[0].phoneNumber
+                id: userObj[0].id,
+                username: userObj[0].username,
+                email: userObj[0].email,
+                fullName: userObj[0].fullName,
+                phoneNumber: userObj[0].phoneNumber
               }
             }, 'Jasabs93', { expiresIn: '24h' });
             res
               .status(202)
               .send({
                 token,
-                message: `${user[0].username} has successfully logged in`
+                message: `${userObj[0].username} has successfully logged in`
               });
           } else {
             res.status(401)
@@ -328,8 +306,8 @@ export default {
           'phoneNumber',
           'createdAt']
       })
-      .then((user) => {
-        res.status(200).send({ data: user });
+      .then((currentUser) => {
+        res.status(200).send({ data: currentUser });
       })
       .catch((err) => {
         error.message = err.message;

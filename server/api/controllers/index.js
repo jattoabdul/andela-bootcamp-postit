@@ -1,12 +1,4 @@
-import user from './user';
-import groups from './group';
-import messages from './messages';
-import groupUsers from './groupUsers';
-
-const controllers = {
-  user,
-  groups,
-  messages,
-  groupUsers
-};
-export default controllers;
+export { user } from './user';
+export { groups } from './group';
+export { messages } from './messages';
+export { groupUsers } from './groupUsers';

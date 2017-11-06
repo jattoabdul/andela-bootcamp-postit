@@ -7,7 +7,7 @@
 import models from '../models';
 
 let userID = 0;
-export default {
+export const groups = {
   /**
    * createGroup
    * @param {object} req
@@ -87,8 +87,8 @@ export default {
         }]
         }
       )
-      .then((groups) => {
-        res.status(200).send(groups);
+      .then((allGroups) => {
+        res.status(200).send(allGroups);
       })
       .catch(error => res.status(404).send(error));
   }
