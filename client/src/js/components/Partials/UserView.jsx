@@ -199,14 +199,19 @@ UserView.propTypes = {
     PropTypes.array
   ]).isRequired,
   selectedUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  activeMessageReaders: PropTypes.arrayOf(PropTypes.object).isRequired,
+  activeMessageReaders: PropTypes.arrayOf(PropTypes.object),
   removeGroupMember: PropTypes.func.isRequired,
   onSearchUserInGroup: PropTypes.func.isRequired,
   currentGroup: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.object
-  ]).isRequired
+  ])
+};
+
+UserView.defaultProps = {
+  currentGroup: {},
+  activeMessageReaders: []
 };
 
 

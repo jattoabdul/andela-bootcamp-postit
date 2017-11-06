@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
 import { user, groups, groupUsers, messages } from '../controllers';
+import { authenticate } from '../middlewares';
 
 export default (app) => {
 /**
@@ -27,78 +27,52 @@ export default (app) => {
   // signin API Route - for authenticaticating a user
   app.post('/api/v1/users/signin', user.authenticate);
 
-  let token;
-
-  // setting a middleware to protect all other routes
-  app.use((req, res, next) => {
-    token = req.body.token || req.query.token ||
-      req.headers['x-access-token'];
-    jwt.verify(token, 'Jasabs93', (err, authToken) => {
-      if (err) {
-        res.status(401)
-          .send({
-            message: 'sorry, user not authenticated, invalid access token'
-          });
-        return;
-      }
-      // if authenticated with auth token, 
-      // save auth token and to request for use in other routes
-      req.authToken = authToken;
-      authToken = JSON.stringify(authToken);
-      // testing for saving user data
-      res.append('user', authToken);
-      next();
-    });
-  });
-
-  // protected routes
-  // set after the above middleware to prevent access to unathourized
-
+  // Protected Routes
   // API route to get list of all users
-  app.get('/api/v1/users/', user.getAllUsers);
+  app.get('/api/v1/users/', authenticate.user, user.getAllUsers);
 
   // API route to get current user and their details and groups
-  app.get('/api/v1/user/', user.getCurrentUser);
+  app.get('/api/v1/user/', authenticate.user, user.getCurrentUser);
 
   // API route for only authenticated user to create a group
-  app.post('/api/v1/groups/', groups.createGroup);
+  app.post('/api/v1/groups/', authenticate.user, groups.createGroup);
 
   // API route for only authenticated user to view list 
   // of all groups he belongs to
-  app.get('/api/v1/groups/', groups.viewGroups);
+  app.get('/api/v1/groups/', authenticate.user, groups.viewGroups);
 
   // API route for the groupadmin to add other users to the group he created
   app.post('/api/v1/groups/:id/user/',
-    groupUsers.addMember);
+    authenticate.user, groupUsers.addMember);
 
   // API  Route for searching users in the system and users in current group
   app.get('/api/v1/groups/:id/usersearch',
-    groupUsers.searchMember);
+    authenticate.user, groupUsers.searchMember);
 
   // API route for the groupadmin/users to remove users from group he created
   app.delete('/api/v1/groups/:id/user/',
-    groupUsers.removeMember);
+    authenticate.user, groupUsers.removeMember);
 
-  // API route for user to view users from the current group he/she belongs/created
+  // API route for user to view users from the current group he belongs/created
   app.get('/api/v1/groups/:id/users/',
-    groupUsers.viewMembers);
+    authenticate.user, groupUsers.viewMembers);
 
   // API route 4 a user 2 view users 4rm all groups
   app.get('/api/v1/groups/users/',
-    groupUsers.viewAllGroupMembers);
+    authenticate.user, groupUsers.viewAllGroupMembers);
 
   // API route for authenticated user to post message into rooms he belong to
   // where :id is group id
   app.post('/api/v1/groups/:id/message/',
-    messages.sendMsg);
+    authenticate.user, messages.sendMsg);
 
   // API route for authenticated user to update message readBy status in a room
   // where :id is group id and message id is passed as body
   app.post('/api/v1/groups/:id/message/read',
-    messages.updateReadBy);
+    authenticate.user, messages.updateReadBy);
 
   // API route for authenticated users to view messages in a group he belongs
   // where :id is group id and group is currently active
   app.get('/api/v1/groups/:id/messages/',
-    messages.getMsg);
+    authenticate.user, messages.getMsg);
 };

@@ -178,8 +178,8 @@ export const groupUsers = {
           where: { groupId: req.params.id },
           attributes: ['userId']
         })
-        .then((groupUsers) => {
-          const groupUsersId = groupUsers
+        .then((allGroupUsers) => {
+          const groupUsersId = allGroupUsers
             .map(groupUser => `${groupUser.userId}`);
           models.Users
             .findAll({
