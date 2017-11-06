@@ -5,7 +5,7 @@
 
 import models from '../models';
 
-export default {
+export const groupUsers = {
   /**
    * addMember
    * @param {object} req 

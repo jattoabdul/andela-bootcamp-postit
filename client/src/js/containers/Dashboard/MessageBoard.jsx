@@ -263,7 +263,7 @@ MessageBoard.propTypes = {
     PropTypes.number,
     PropTypes.object
   ]),
-  groupMessages: PropTypes.arrayOf(PropTypes.object).isRequired
+  groupMessages: PropTypes.arrayOf(PropTypes.object)
 };
 
 MessageBoard.defaultProps = {

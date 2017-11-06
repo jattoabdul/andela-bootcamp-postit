@@ -4,43 +4,10 @@
  */
 
 // importing services
-import Nexmo from 'nexmo';
-import nodemailer from 'nodemailer';
 import models from '../models';
+import { sendMessage } from '../utils';
 
 let userID = 0;
-
-/**
- * sendEmail
- * @param {object} email 
- * @param {object} message 
- * @param {object} priority 
- * @return {object} info
- */
-const sendEmail = (email, message, priority) => {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    port: 465,
-    auth: {
-      user: 'jattoade@gmail.com',
-      pass: 'jasabs93'
-    }
-  });
-
-  const mailOptions = {
-    from: "'POSTIT' <jattoade@gmail.com>",
-    to: email,
-    subject: `POSTIT: You have a new message of priority ${priority}`,
-    text: message
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return error;
-    }
-    return info;
-  });
-};
 
 /**
  * fetchMembersEmail
@@ -65,7 +32,7 @@ const fetchMembersEmail = groupId =>
       });
   });
 
-export default {
+export const messages = {
   /**
    * sendMsg
    * @param {object} req 
@@ -112,28 +79,19 @@ export default {
                     fetchMembersEmail(req.params.id).then(
                       (results) => {
                         results.map((result) => {
-                          sendEmail(result.dataValues.email,
-                            `${userID}: ${req.body.text}`, 'Critical');
+                          const email = result.dataValues.email,
+                            subject = 'You have a new message of Critical priority',
+                            htmlMessage = `<p>${req.body.text}</p>
+                            \n<a href="https://jatto-postit-app-staging.herokuapp.com">
+                              View Detail</a>`;
+                          sendMessage.email(email, subject, htmlMessage);
                           // send sms notification
-                          const nexmo = new Nexmo({
-                            apiKey: '2a78b29f',
-                            apiSecret: 'acf27ddd3a3ed3b3'
-                          });
-                          const frmUser = `${user.phoneNumber}`;
-                          const toUser = `${result.dataValues.phoneNumber}`;
+                          const frmUser = `${user.fullName}`,
+                            toUser = `${result.dataValues.phoneNumber}`,
+                            text = `Just POSTiT: You have a marked as ${req.body.priority}
+                              \n${req.body.text}`;
                           if (toUser !== frmUser) {
-                            nexmo.message.sendSms(
-                              frmUser, toUser,
-                              `just POSTIT: You have a message marked as 
-                          ${req.body.priority}
-                          \n${userID}: ${req.body.text}`,
-                              (err, responseData) => {
-                                if (err) {
-                                  return err;
-                                }
-                                return responseData;
-                              }
-                            );
+                            sendMessage.sms(toUser, frmUser, text);
                           }
                           return result;
                         });
@@ -142,9 +100,15 @@ export default {
                   if (req.body.priority === 'Urgent') {
                     fetchMembersEmail(req.params.id).then(
                       (results) => {
-                        results.map(result =>
-                          sendEmail(result.dataValues.email,
-                            `${userID}: ${req.body.text}`, 'Urgent'));
+                        results.map((result) => {
+                          const email = result.dataValues.email,
+                            subject = 'You have a new message of Urgent priority',
+                            htmlMessage = `<p>${req.body.text}</p>
+                            \n<a href="https://jatto-postit-app-staging.herokuapp.com">
+                            View Detail</a>`;
+                          sendMessage.email(email, subject, htmlMessage);
+                          return result;
+                        });
                       });
                   }
                   res.status(201).send(message);
@@ -181,7 +145,7 @@ export default {
           as: 'user'
         }]
       })
-      .then(messages => res.status(200).send(messages))
+      .then(allMessages => res.status(200).send(allMessages))
       .catch(error => res.status(404).send(error));
   },
 
