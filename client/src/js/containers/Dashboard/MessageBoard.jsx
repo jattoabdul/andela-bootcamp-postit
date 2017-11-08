@@ -41,6 +41,7 @@ class MessageBoard extends React.Component {
       username: '',
       fullName: '',
       selectedUsers: [],
+      totalPageCount: 0,
       isSelected: [],
       currentGroup: !isEmpty(props.currentGroup) ? props.currentGroup : {},
       currentGroupMembers: !isEmpty(props.currentGroupMembers)
@@ -94,21 +95,28 @@ class MessageBoard extends React.Component {
 
   /**
    * onSearchUserInGroup Method
+   * 
    * @param {number} id
+   * 
    * @param {string} searchText
+   * 
+   * @param {string} page
+   * 
    * @return {void}
    */
-  onSearchUserInGroup(id, searchText) {
+  onSearchUserInGroup(id, searchText, page = 1) {
     if (!searchText) {
       this.setState({
-        selectedUsers: []
+        selectedUsers: [],
+        totalPageCount: 1
       });
     }
     // call searchUserAction
-    this.props.onSearchUser(id, searchText).then(
+    this.props.onSearchUser(id, searchText, page).then(
       (searchItem) => {
         this.setState({
-          selectedUsers: searchItem
+          selectedUsers: searchItem.rows,
+          totalPageCount: searchItem.count
         });
       }
     );
@@ -198,6 +206,7 @@ class MessageBoard extends React.Component {
       fullName,
       username,
       selectedUsers,
+      totalPageCount,
       isSelected,
       currentGroup,
       currentGroupMembers,
@@ -220,6 +229,7 @@ class MessageBoard extends React.Component {
         </div>
         <UserView
           selectedUsers={selectedUsers}
+          totalPageCount={totalPageCount}
           currentGroup={currentGroup}
           isSelected={isSelected}
           activeMessageReaders={currentGroupMembers}

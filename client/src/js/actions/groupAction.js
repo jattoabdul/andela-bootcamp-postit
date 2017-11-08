@@ -207,13 +207,17 @@ export const createGroup = (name, desc) => (dispatch) => {
   // onSearchUserInGroup Method
   /**
    * 
-   * @param {*} id 
+   * @param {*} id
+   * 
    * @param {*} searchText
+   * 
+   * @param {string} page
+   * 
    * @return {void}
    */
-export const onSearchUser = (id, searchText) => () => Api(
+export const onSearchUser = (id, searchText, page) => () => Api(
   null,
-  `/api/v1/groups/${id}/usersearch?search=${searchText}`,
+  `/api/v1/groups/${id}/${page}/usersearch?search=${searchText}`,
   'GET')
   .then(
     userSearchResult => userSearchResult.searchItemResult

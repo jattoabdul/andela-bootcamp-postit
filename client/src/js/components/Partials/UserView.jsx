@@ -2,6 +2,7 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { Pagination } from '../Partials';
 import '../../../styles/index.scss';
 
 /**
@@ -31,9 +32,11 @@ class UserView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      scroll: true
+      scroll: true,
+      searchQuery: ''
     };
     this.onSearchingUserInGroup = this.onSearchingUserInGroup.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
   }
 
   /**
@@ -47,14 +50,34 @@ class UserView extends React.Component {
 
   /**
    * onSearchUserInGroup Method
-   * @param {*} event
+   * 
+   * @param {object} event
+   * 
    * @return {void}
    */
   onSearchingUserInGroup(event) {
     event.preventDefault();
     const id = this.props.currentGroup.id;
     const searchText = this.selectedUser.value;
-    this.props.onSearchUserInGroup(id, searchText);
+    const page = 1;
+    this.props.onSearchUserInGroup(id, searchText, page);
+    this.setState({
+      searchQuery: searchText
+    });
+  }
+
+  /**
+   * HandlePageClick Method
+   * 
+   * @param {object} page
+   * 
+   * @return {void}
+   */
+  handlePageClick(page) {
+    const selectedPage = Math.ceil(page.selected * 2);
+    const id = this.props.currentGroup.id;
+    const searchText = this.state.searchQuery;
+    this.props.onSearchUserInGroup(id, searchText, selectedPage);
   }
 
   /**
@@ -181,6 +204,10 @@ class UserView extends React.Component {
                     : <li />
                   }
                 </ul>
+                <Pagination
+                  pageCount={this.props.totalPageCount}
+                  handlePageClick={this.handlePageClick}
+                />
               </div>
             </form>
           </div>
@@ -193,6 +220,7 @@ class UserView extends React.Component {
 
 UserView.propTypes = {
   onAddUserToGroup: PropTypes.func.isRequired,
+  totalPageCount: PropTypes.number,
   isSelected: PropTypes.PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -211,7 +239,8 @@ UserView.propTypes = {
 
 UserView.defaultProps = {
   currentGroup: {},
-  activeMessageReaders: []
+  activeMessageReaders: [],
+  totalPageCount: 0
 };
 
 

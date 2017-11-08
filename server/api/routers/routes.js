@@ -46,7 +46,7 @@ export default (app) => {
     authenticate.user, groupUsers.addMember);
 
   // API  Route for searching users in the system and users in current group
-  app.get('/api/v1/groups/:id/usersearch',
+  app.get('/api/v1/groups/:id/:page/usersearch',
     authenticate.user, groupUsers.searchMember);
 
   // API route for the groupadmin/users to remove users from group he created
