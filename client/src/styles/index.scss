@@ -484,6 +484,10 @@ textarea#group_desc-create {
   height: 200px;
 }
 
+.pagination li.active {
+  background-color: #607d8b !important;
+}
+
 @media screen and (min-width: 599px) {
   .hidden {
     display: inline;

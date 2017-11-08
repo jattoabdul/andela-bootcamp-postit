@@ -86,16 +86,17 @@ class AddUserToGroupBoard extends React.Component {
     event.preventDefault();
     const id = `${this.props.match.params.groupId}`;
     const searchText = this.selectedUser.value;
+    const page = 1;
     if (!searchText) {
       this.setState({
         selectedUsers: []
       });
     }
     // call searchUserAction
-    this.props.onSearchUser(id, searchText).then(
+    this.props.onSearchUser(id, searchText, page).then(
       (searchItem) => {
         this.setState({
-          selectedUsers: searchItem
+          selectedUsers: searchItem.rows
         });
       }
     );

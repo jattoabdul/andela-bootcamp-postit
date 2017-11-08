@@ -4,6 +4,7 @@ import MainNav from './MainNav';
 import UserView from './UserView';
 import MessageList from './MessageList';
 import MessageItem from './MessageItem';
+import Pagination from './Pagination';
 import MessageInputForm from './MessageInputForm';
 
 export { Welcome,
@@ -12,4 +13,5 @@ export { Welcome,
   UserView,
   MessageList,
   MessageItem,
+  Pagination,
   MessageInputForm };

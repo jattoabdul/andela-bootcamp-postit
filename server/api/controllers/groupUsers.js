@@ -172,39 +172,38 @@ export const groupUsers = {
    * @return {array} searchItemResult
    */
   searchMember(req, res) {
+    if (req.params.page < 0) {
+      return res.status(401)
+        .send({
+          error: { message: 'Page must be a positive number' }
+        });
+    }
     if (req.query.search) {
-      models.GroupsUsers
-        .findAll({
-          where: { groupId: req.params.id },
-          attributes: ['userId']
+      return models.Users
+        .findAndCountAll({
+          where: {
+            username: {
+              $iLike: `%${req.query.search}%`,
+              $ne: req.authToken.data.username
+            }
+          },
+          distinct: true,
+          limit: 2,
+          offset: req.params.page,
+          attributes: ['id', 'username', 'fullName'],
+          include: [{
+            model: models.Groups,
+            as: 'groups',
+            required: false,
+            attributes: ['id'],
+            through: { attributes: [] }
+          }]
         })
-        .then((allGroupUsers) => {
-          const groupUsersId = allGroupUsers
-            .map(groupUser => `${groupUser.userId}`);
-          models.Users
-            .findAll({
-              where: {
-                username: {
-                  $like: `%${req.query.search}%`
-                }
-              },
-              limit: 10,
-              attributes: ['id', 'username', 'fullName'],
-              include: [{
-                model: models.Groups,
-                as: 'groups',
-                required: false,
-                attributes: ['id'],
-                through: { attributes: [] }
-              }]
-            })
-            .then((searchItemResult) => {
-              const data = {
-                groupUsersId,
-                searchItemResult
-              };
-              return res.status(200).send(data);
-            }).catch(error => res.status(400).send(error));
+        .then((searchItems) => {
+          const data = {
+            searchItemResult: searchItems
+          };
+          res.status(200).send(data);
         }).catch(error => res.status(400).send(error));
     }
   }

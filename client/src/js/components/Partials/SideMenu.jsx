@@ -153,24 +153,6 @@ class SideMenu extends React.Component {
         </ul>
         <div className="buttomNavs container">
           <a
-            className="left channels"
-            onClick={() => this.props.handleAddUserToGroup()}
-            role="button"
-            tabIndex={-1}
-            data-tip
-            data-for="gUserAdd"
-          >
-            <i className="icon ion-person-add" />
-          </a>
-          <ReactTooltip
-            id="gUserAdd"
-            place="right"
-            type="info"
-            effect="float"
-          >
-            Add a user to current group
-          </ReactTooltip>
-          <a
             onClick={() => this.props.handleLogout()}
             role="button"
             tabIndex={-1}
@@ -191,7 +173,6 @@ SideMenu.propTypes = {
   handleLogout: PropTypes.func,
   userGroups: PropTypes.arrayOf(PropTypes.object),
   handleOpenMessageBoard: PropTypes.func,
-  handleAddUserToGroup: PropTypes.func,
   toggleSideNav: PropTypes.func,
   sideNavStatus: PropTypes.bool,
   username: PropTypes.string,
@@ -208,7 +189,6 @@ SideMenu.defaultProps = {
   handleLogout: () => {},
   userGroups: [],
   handleOpenMessageBoard: () => {},
-  handleAddUserToGroup: () => {},
   toggleSideNav: () => {},
   sideNavStatus: '',
   username: '',
