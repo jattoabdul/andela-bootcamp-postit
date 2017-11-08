@@ -809,10 +809,10 @@ describe('GET /api/v1/groups/users/', () => {
     });
 });
 
-describe('GET /api/v1/groups/:id/usersearch', () => {
+describe('GET /api/v1/groups/:id/:page/usersearch', () => {
   it('should return a list of users', (done) => {
     chai.request(app)
-      .get(`/api/v1/groups/${userTestId}/usersearch`)
+      .get(`/api/v1/groups/${userTestId}/1/usersearch`)
       .set('x-access-token', authToken)
       .query({ search: 'j' })
       .end((err, res) => {
