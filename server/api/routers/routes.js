@@ -1,5 +1,5 @@
 import { user, groups, groupUsers, messages } from '../controllers';
-import { authenticate } from '../middlewares';
+import { authenticate, validate } from '../middlewares';
 
 export default (app) => {
 /**
@@ -22,10 +22,10 @@ export default (app) => {
     user.updatePassword);
 
   // signup API Route - for creating a user
-  app.post('/api/v1/users/signup', user.signUp);
+  app.post('/api/v1/users/signup', validate.signUp, user.signUp);
 
   // signin API Route - for authenticaticating a user
-  app.post('/api/v1/users/signin', user.authenticate);
+  app.post('/api/v1/users/signin', validate.signIn, user.authenticate);
 
   // Protected Routes
   // API route to get list of all users
@@ -39,7 +39,7 @@ export default (app) => {
 
   // API route for only authenticated user to view list 
   // of all groups he belongs to
-  app.get('/api/v1/groups/', authenticate.user, groups.viewGroups);
+  app.get('/api/v1/groups/', authenticate.user, groups.viewUserGroups);
 
   // API route for the groupadmin to add other users to the group he created
   app.post('/api/v1/groups/:id/user/',

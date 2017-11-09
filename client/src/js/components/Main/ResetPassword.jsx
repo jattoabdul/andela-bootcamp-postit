@@ -56,7 +56,7 @@ class ResetPassword extends React.Component {
     }
     this.props.requestResetPassword(this.email.value)
       .then((response) => {
-        if (response.data.error === undefined) {
+        if (response.error === undefined) {
           this.setState({
             responseMessage: 'password reset link sent to your email',
             hasStatus: true,

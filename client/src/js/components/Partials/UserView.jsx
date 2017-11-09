@@ -204,10 +204,13 @@ class UserView extends React.Component {
                     : <li />
                   }
                 </ul>
-                <Pagination
-                  pageCount={this.props.totalPageCount}
-                  handlePageClick={this.handlePageClick}
-                />
+                {
+                  this.props.selectedUsers.length > 0 ?
+                    <Pagination
+                      pageCount={this.props.totalPageCount}
+                      handlePageClick={this.handlePageClick}
+                    /> : null
+                }
               </div>
             </form>
           </div>

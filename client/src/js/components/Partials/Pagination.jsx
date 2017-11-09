@@ -6,7 +6,11 @@ const Pagination = ({ handlePageClick, pageCount }) => (
   <ReactPaginate
     previousLabel={'previous'}
     nextLabel={'next'}
-    breakLabel={<a href="">...</a>}
+    breakLabel={<a
+      role="button"
+      tabIndex="0"
+      onClick={e => e.preventDefault()}
+    >...</a>}
     breakClassName={'break-me'}
     pageCount={pageCount / 2}
     marginPagesDisplayed={2}

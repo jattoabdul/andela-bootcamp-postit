@@ -9,9 +9,11 @@ import models from '../models';
 let userID = 0;
 export const groups = {
   /**
-   * createGroup
+   * createGroup - create a group
+   * 
    * @param {object} req
    * @param {object} res
+   * 
    * @return {object} user
    */
   createGroup(req, res) {
@@ -67,12 +69,14 @@ export const groups = {
   },
 
   /**
-   * viewGroups
+   * viewUserGroups - view all groups of a user
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} groups
    */
-  viewGroups(req, res) {
+  viewUserGroups(req, res) {
     const userId = req.authToken.data.id;
     return models.Groups
       .findAll(

@@ -10,8 +10,10 @@ import { sendMessage } from '../utils';
 let userID = 0;
 
 /**
- * fetchMembersEmail
+ * fetchMembersEmail - fetch Email Address of Member's of a group
+ * 
  * @param {object} groupId 
+ * 
  * @return {object} group
  */
 const fetchMembersEmail = groupId =>
@@ -34,9 +36,11 @@ const fetchMembersEmail = groupId =>
 
 export const messages = {
   /**
-   * sendMsg
-   * @param {object} req 
+   * sendMsg - send message to group board and members
+   * 
+   * @param {object} req
    * @param {object} res 
+   * 
    * @return {object} result
    */
   sendMsg(req, res) {
@@ -121,9 +125,11 @@ export const messages = {
   },
 
   /**
-   * getMsg
+   * getMsg - retrieve messages of a group
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} messages
    */
   getMsg(req, res) {
@@ -151,8 +157,10 @@ export const messages = {
 
   /**
    * updateReadBy
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} message
    */
   updateReadBy(req, res) {

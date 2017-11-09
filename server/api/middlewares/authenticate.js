@@ -6,9 +6,7 @@ export const authenticate = {
  * authenticate user Function
  * 
  * @param {object} req
- * 
  * @param {object} res
- * 
  * @param {func} next
  * 
  * @return {void}

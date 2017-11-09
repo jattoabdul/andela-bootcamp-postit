@@ -105,20 +105,22 @@ class Register extends React.Component {
     this.props
       .onRegisterUser(this.state)
       .then((registerRes) => {
-        if (registerRes.err === undefined) {
+        if (registerRes.error === undefined) {
           // login dispatch
           this.props.onLoginUser(this.state).then(() => {
             const response = JSON.parse(this.props.authData.user);
             // set error messages
-            if (
-              response.message === 'username does not exist' ||
-              response.message === 'invalid password'
-            ) {
-              this.setState({
-                error_message: response.message,
-                hasError: true
-              });
-              return;
+            if (response && response.error !== undefined) {
+              if (
+                response.error.message === 'username does not exist' ||
+                  response.error.message === 'invalid password and username'
+              ) {
+                this.setState({
+                  error_message: response.error.message,
+                  hasError: true
+                });
+                return;
+              }
             }
             this.setState({ isLoading: false });
             // redirecting
@@ -126,7 +128,7 @@ class Register extends React.Component {
           });
         } else {
           this.setState({
-            error_message: registerRes.err.message,
+            error_message: registerRes.error.message,
             hasError: true
           });
         }
