@@ -86,6 +86,7 @@ class MessageInputForm extends React.Component {
             <input
               type="text"
               id="message2send"
+              autoComplete="off"
               name="message"
               placeholder="Type your message and hit enter to send or click send"
               value={this.state.message}
