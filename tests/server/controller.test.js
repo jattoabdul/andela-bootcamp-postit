@@ -434,7 +434,7 @@ describe('POST /api/v1/user/signin', () => {
       })
       .end((err, res) => {
         res.should.have.status(404);
-        res.body.message.should.equal('username does not exist');
+        res.body.error.message.should.equal('username does not exist');
         done();
       });
   });
@@ -643,7 +643,7 @@ describe('POST /api/v1/groups/:id/user', () => {
 
 // describe send message to a group by a logged in user endpoint
 describe('POST /api/v1/groups/:id/message', () => {
-  it('should send a message to a group via POST /api/groups/:id/message/',
+  it('should send a message to a group via POST /api/v1/groups/:id/message/',
     (done) => {
       chai.request(app)
         .post('/api/v1/groups/1/message/')
@@ -660,7 +660,7 @@ describe('POST /api/v1/groups/:id/message', () => {
           assert.strictEqual(
             res.body.text,
             'my test message 2',
-            'message sent with rght data'
+            'message sent with right data'
           );
           done();
         });

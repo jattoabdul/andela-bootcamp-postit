@@ -77,13 +77,12 @@ class UpdatePassword extends React.Component {
     if (this.password.value !== '') {
       const hash = window.location.href.split('/')[5];
       if (hash === undefined) {
-        window.location = '/#/login';
-        // this.props.history.push('/login');
+        this.props.history.push('/login');
         return;
       }
       this.props.updatePassword(this.password.value, hash)
         .then((response) => {
-          if (response.data.error === undefined) {
+          if (response.error === undefined) {
             this.setState({
               status: 'success',
               message: `password has been changed succesfully,
@@ -182,7 +181,13 @@ class UpdatePassword extends React.Component {
 }
 
 UpdatePassword.propTypes = {
-  updatePassword: PropTypes.func.isRequired
+  updatePassword: PropTypes.func.isRequired,
+  history: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+    PropTypes.array
+  ]).isRequired
 };
 
 const mapDispatchToProps = {

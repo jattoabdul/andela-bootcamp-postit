@@ -74,15 +74,17 @@ class Login extends React.Component {
         .then(
           () => {
             const response = JSON.parse(this.props.authData.user);
-            // set error messages
-            if (response.message === 'username does not exist'
-            || response.message === 'invalid password') {
-              this.setState({
-                error_message: response.message,
-                hasError: true,
-                isLoading: false
-              });
-              return;
+            if (response && response.error !== undefined) {
+              // set error messages
+              if (response.error.message === 'username does not exist'
+              || response.error.message === 'invalid password and username') {
+                this.setState({
+                  error_message: response.error.message,
+                  hasError: true,
+                  isLoading: false
+                });
+                return;
+              }
             }
             // setting isLoading to false
             this.setState({ isLoading: false });

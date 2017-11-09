@@ -7,9 +7,11 @@ import models from '../models';
 
 export const groupUsers = {
   /**
-   * addMember
+   * addMember - add a user to members of a group
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} response
    */
   addMember(req, res) {
@@ -69,9 +71,11 @@ export const groupUsers = {
   },
 
   /**
-   * viewMembers
+   * viewMembers - view members of a single group
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} members
    */
   viewMembers(req, res) {
@@ -95,9 +99,11 @@ export const groupUsers = {
   },
 
   /**
-   * viewAllGroupMembers
+   * viewAllGroupMembers - view all members of all groups
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} groupMembers
    */
   viewAllGroupMembers(req, res) {
@@ -108,9 +114,11 @@ export const groupUsers = {
   },
 
   /**
-   * removeMember
+   * removeMember - remove a user from a group membership
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} user
    */
   removeMember(req, res) {
@@ -166,9 +174,11 @@ export const groupUsers = {
   },
 
   /**
-   * searchMember
+   * searchMember - search for a user in the app and in a group
+   * 
    * @param {object} req
    * @param {object} res
+   * 
    * @return {array} searchItemResult
    */
   searchMember(req, res) {

@@ -14,9 +14,11 @@ const salt = bcrypt.genSaltSync(5);
 const error = {};
 export const user = {
   /**
-   * passwordReset
+   * passwordReset - request & send password change/update link to user's email
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} info
    */
   passwordReset(req, res) {
@@ -32,7 +34,7 @@ export const user = {
       :${date.toString().split(' ')[4]}`;
     if (email === undefined || email.trim() === '') {
       res.status(400).send({
-        data: { error: { message: 'email is not valid' } }
+        error: { message: 'email is not valid' }
       });
       return;
     }
@@ -71,24 +73,30 @@ export const user = {
         }
         if (process.env.NODE_ENV === 'test') {
           return res.status(200)
-            .send({ message: 'Password Request Successful', hash });
+            .send({
+              data: { message: 'Password Request Successful', hash }
+            });
         }
         return res.status(200)
-          .send({ message: 'Password Request Successful' });
+          .send({
+            data: { message: 'Password Request Successful' }
+          });
       });
   },
 
   /**
-   * updatePassword
+   * updatePassword - update the user's password in the database
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} data (message)
    */
   updatePassword(req, res) {
     const password = req.body.password;
     if (password === undefined || password.trim() === '') {
       res.status(400).send({
-        data: { error: { message: 'password is not defined or invalid' } }
+        error: { message: 'password is not defined or invalid' }
       });
       return;
     }
@@ -106,7 +114,7 @@ export const user = {
           :${date.toString().split(' ')[4]}`;
           if (now > result.dataValues.expiresIn) {
             res.status(400).send({
-              data: { error: { message: 'Expired or Invalid link' } }
+              error: { message: 'Expired or Invalid link' }
             });
             return;
           }
@@ -121,59 +129,26 @@ export const user = {
             );
         }
         return res.status(400).send({
-          message: 'Hash is invalid'
+          error: { message: 'Hash is invalid' }
         });
       });
   },
 
   /**
-   * signUp
+   * signUp - create a user in the app
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} data (user)
    */
   signUp(req, res) {
-    if (!req.body.email || req.body.email.trim() === '') {
-      return res.status(400)
-        .send({
-          error: { message: 'email cannot be empty' }
-        });
-    }
-
-    if (!req.body.username || req.body.username.trim() === '') {
-      return res.status(400)
-        .send({
-          error: { message: 'username cannot be empty' }
-        });
-    }
-
-    if (!req.body.password || req.body.password.trim() === '') {
-      return res.status(400)
-        .send({
-          error: { message: 'password cannot be empty' }
-        });
-    }
-
-    if (!req.body.fullName || req.body.fullName.trim() === '') {
-      return res.status(400)
-        .send({
-          error: { message: 'fullName not provided' }
-        });
-    }
-
-    if (!req.body.phoneNumber || req.body.phoneNumber.trim() === '') {
-      return res.status(400)
-        .send({
-          error: { message: 'phone cannot be empty' }
-        });
-    }
-
     const hashedPassword = bcrypt
       .hashSync(req.body.password, salt, null);
     return models.Users
       .create({
         username: req.body.username.trim().toLowerCase(),
-        email: req.body.email.trim().toLowerCase(),
+        email: req.body.email.trim(),
         password: hashedPassword,
         fullName: req.body.fullName.trim(),
         phoneNumber: req.body.phoneNumber.trim()
@@ -191,39 +166,33 @@ export const user = {
       })
       .catch((err) => {
         if (err.errors[0].message === 'username must be unique') {
-          error.err = { message: 'username already exists' };
-          return res.status(409).send(error);
+          err = { error: { message: 'username already exists' } };
+          return res.status(409).send(err);
         }
         if (err.errors[0].message === 'email must be unique') {
-          error.err = { message: 'email already exists' };
-          return res.status(409).send(error);
+          err = { error: { message: 'email already exists' } };
+          return res.status(409).send(err);
         }
         if (err.errors[0].message === 'Validation isEmail on email failed') {
-          error.err = { message: 'not an email' };
-          return res.status(400).send(error);
+          err = { error: { message: 'not an email' } };
+          return res.status(400).send(err);
         }
-        if (!error.err) {
-          error.err = { message: err.errors[0].message };
-          return res.status(500).send(error);
+        if (!err) {
+          err = { error: { message: err.errors[0].message } };
+          return res.status(500).send(err);
         }
       });
   },
 
   /**
-   * authenticate
+   * authenticate - authenticate and signin a user
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} auth (token, message)
    */
   authenticate(req, res) {
-    if (!req.body.username) {
-      return res.status(400)
-        .send({ error: 'Username is required', status: 400 });
-    }
-    if (!req.body.password) {
-      return res.status(400)
-        .send({ error: 'Password is required', status: 400 });
-    }
     models.Users
       .findAll({
         where: {
@@ -244,32 +213,33 @@ export const user = {
                 phoneNumber: userObj[0].phoneNumber
               }
             }, 'Jasabs93', { expiresIn: '24h' });
-            res
+            return res
               .status(202)
               .send({
                 token,
                 message: `${userObj[0].username} has successfully logged in`
               });
-          } else {
-            res.status(401)
-              .send({
-                message: 'invalid password and username'
-              });
           }
-          return;
+          return res.status(401)
+            .send({ error: {
+              message: 'invalid password and username'
+            }
+            });
         }
-
-        res.status(404)
-          .send({
+        return res.status(404)
+          .send({ error: {
             message: 'username does not exist'
+          }
           });
       });
   },
 
   /**
-   * getAllUsers
+   * getAllUsers - get all registered users
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} user
    */
   getAllUsers(req, res) {
@@ -280,9 +250,11 @@ export const user = {
   },
 
   /**
-   * getCurrentUser
+   * getCurrentUser - get current authenticated user
+   * 
    * @param {object} req 
    * @param {object} res 
+   * 
    * @return {object} user - data
    */
   getCurrentUser(req, res) {
