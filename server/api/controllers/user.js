@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt-nodejs';
 import crypto from 'crypto';
 import models from '../models';
-import { sendMessage } from '../utils';
+import { sendMessage, emailTemplate } from '../utils';
 
 const salt = bcrypt.genSaltSync(5);
 const error = {};
@@ -40,14 +40,9 @@ export const user = {
     }
 
     const subject = 'Reset Password Link',
-      message = process.env.NODE_ENV === 'production' ? `Hello ${email},
-      \nto reset your password, please click on
-      \n<a href="https://jatto-postit-app-staging.herokuapp.com
-      /#/updatepassword/${hash}">this Link</a> to reset your password`
-        : `Hello ${email},
-      \n to reset your password, please click on
-      \n<a href="http://localhost:8080
-      /#/updatepassword/${hash}">this Link</a> to reset your password`;
+      messaged = emailTemplate.resetPassword(email, hash);
+    const message = process.env.NODE_ENV === 'production' ? messaged
+      : messaged;
 
     models.PasswordReset
       .findOne({

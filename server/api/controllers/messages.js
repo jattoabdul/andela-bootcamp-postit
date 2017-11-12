@@ -5,7 +5,7 @@
 
 // importing services
 import models from '../models';
-import { sendMessage } from '../utils';
+import { sendMessage, emailTemplate } from '../utils';
 
 let userID = 0;
 
@@ -85,9 +85,10 @@ export const messages = {
                         results.map((result) => {
                           const email = result.dataValues.email,
                             subject = 'You have a new message of Critical priority',
-                            htmlMessage = `<p>${req.body.text}</p>
-                            \n<a href="https://jatto-postit-app-staging.herokuapp.com">
-                              View Detail</a>`;
+                            textMessage = `${req.body.text}`,
+                            priority = `${req.body.priority}`;
+                          const htmlMessage = emailTemplate
+                            .chatMessage(priority, textMessage);
                           sendMessage.email(email, subject, htmlMessage);
                           // send sms notification
                           const frmUser = `${user.fullName}`,
@@ -107,9 +108,10 @@ export const messages = {
                         results.map((result) => {
                           const email = result.dataValues.email,
                             subject = 'You have a new message of Urgent priority',
-                            htmlMessage = `<p>${req.body.text}</p>
-                            \n<a href="https://jatto-postit-app-staging.herokuapp.com">
-                            View Detail</a>`;
+                            textMessage = `${req.body.text}`,
+                            priority = `${req.body.priority}`;
+                          const htmlMessage = emailTemplate
+                            .chatMessage(priority, textMessage);
                           sendMessage.email(email, subject, htmlMessage);
                           return result;
                         });
