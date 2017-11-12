@@ -1,1 +1,1 @@
-import './controller.test';
+import './controllers/controller.test';

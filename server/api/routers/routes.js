@@ -57,7 +57,7 @@ export default (app) => {
   app.get('/api/v1/groups/:id/users/',
     authenticate.user, groupUsers.viewMembers);
 
-  // API route 4 a user 2 view users 4rm all groups
+  // API route 4 a user to view users from all groups
   app.get('/api/v1/groups/users/',
     authenticate.user, groupUsers.viewAllGroupMembers);
 
