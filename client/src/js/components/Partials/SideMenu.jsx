@@ -7,15 +7,21 @@ import '../../../styles/index.scss';
 
 /**
  * Display SideMenu
+ * 
  * @class SideMenu
+ * 
  * @extends {React.Component}
+ * 
  * @param {any} props
  */
-class SideMenu extends React.Component {
+export class SideMenu extends React.Component {
   /**
    * Creates an instance of SideMenu
+   * 
    * @param {any} props
+   * 
    * @memberof SideMenu
+   * 
    * @return {void}
    */
   constructor(props) {
@@ -33,7 +39,9 @@ class SideMenu extends React.Component {
 
   /**
    * ComponentWillReceiveProps Life Cycle Method
+   * 
    * @param {object} nextProps
+   * 
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
@@ -48,11 +56,14 @@ class SideMenu extends React.Component {
 
   /**
    * openNextMessageBoard Method
+   * 
    * @param {object} userGroup
+   * 
    * @return {void}
    */
   openNextMessageBoard(userGroup) {
     const { currentGroup } = this.state;
+
     // get the crrentGroup Id from the location and strip out the url
     const path = this.props.location.pathname;
     const currGroupId = currentGroup && currentGroup.id;
@@ -66,6 +77,7 @@ class SideMenu extends React.Component {
 
   /**
    * Render Method
+   * 
    * @return {dom} DomElement
    */
   render() {

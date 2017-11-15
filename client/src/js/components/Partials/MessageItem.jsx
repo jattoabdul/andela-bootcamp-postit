@@ -8,7 +8,7 @@ import '../../../styles/index.scss';
  * @extends {React.Component}
  * @param {any} props
  */
-class MessageItem extends React.Component {
+export class MessageItem extends React.Component {
   /**
    * Creates an instance of MessageItem
    * @param {any} props

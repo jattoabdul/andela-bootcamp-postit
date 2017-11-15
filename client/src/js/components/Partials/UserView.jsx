@@ -22,7 +22,7 @@ const computeClass = val => classNames({
  * @extends {React.Component}
  * @param {any} props
  */
-class UserView extends React.Component {
+export class UserView extends React.Component {
   /**
    * Creates an instance of UserView
    * @param {any} props

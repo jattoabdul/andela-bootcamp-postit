@@ -8,7 +8,7 @@ import '../../../styles/index.scss';
  * @param {any} props
  * @return {dom} DomeElement 
  */
-const NotFound = ({ history }) => {
+export const NotFound = ({ history }) => {
   /**
    * Go Home
    * @return {void} void

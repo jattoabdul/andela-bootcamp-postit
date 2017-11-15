@@ -1,6 +1,7 @@
-// process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'test';
 const jsdom = require('jsdom');
 const sessionStorage = require('mock-local-storage');
+const sinon = require('sinon');
 
 const { JSDOM } = jsdom;
 const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>', {
@@ -10,6 +11,30 @@ global.document = dom.window.document;
 global.window = document.defaultView;
 global.navigator = global.window.navigator;
 global.sessionStorage = window.sessionStorage;
+global.$ = () => ({
+  tabs: () => null,
+  attr: () => null,
+  sideNav: () => null,
+  modal: () => null,
+  parallax: () => null,
+  show: () => null,
+  hide: () => null,
+  tooltip: () => null,
+  dropdown: () => null,
+  material_select: () => null,
+  on: () => null
+});
+
+global.event = {
+  target: {
+    name: 'input',
+    value: 'input'
+  }
+};
+
+global.Materialize = {
+  toast: sinon.spy()
+};
 
 const exposedProperties = ['window', 'navigator', 'document'];
 

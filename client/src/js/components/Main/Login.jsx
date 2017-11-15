@@ -11,15 +11,21 @@ import '../../../styles/index.scss';
 
 /**
  * Display Login
+ * 
  * @class Login
+ * 
  * @extends {React.Component}
+ * 
  * @param {any} props
  */
-class Login extends React.Component {
+export class Login extends React.Component {
   /**
    * Creates an instance of Login
+   * 
    * @param {any} props
+   * 
    * @memberof Login
+   * 
    * @return {void}
    */
   constructor(props) {
@@ -39,7 +45,9 @@ class Login extends React.Component {
 
   /**
    * onChange Method
+   * 
    * @param {event} event
+   * 
    * @return {void}
    */
   onChange(event) {
@@ -50,7 +58,9 @@ class Login extends React.Component {
 
   /**
    * onFocus method
+   * 
    * @param {void} void
+   * 
    * @return {void}
    */
   onFocus() {
@@ -59,7 +69,9 @@ class Login extends React.Component {
 
   /**
    * onLoginUser Method
+   * 
    * @param {event} event
+   * 
    * @return {void} 
    */
   onLoginUser(event) {
@@ -86,8 +98,10 @@ class Login extends React.Component {
                 return;
               }
             }
+
             // setting isLoading to false
             this.setState({ isLoading: false });
+
             // redirecting
             this.props.history.push('/dashboard');
           }
@@ -98,7 +112,9 @@ class Login extends React.Component {
   }
   /**
    * closeError Method - flash message error
+   * 
    * @param {event} event
+   * 
    * @return {void} 
    */
   closeError(event) {
@@ -110,6 +126,7 @@ class Login extends React.Component {
 
   /**
    * Render Method
+   * 
    * @return {dom} DomElement
    */
   render() {
@@ -134,9 +151,19 @@ class Login extends React.Component {
             >
               <p className="flow-text"> &nbsp; Sign In</p>
               {this.state.hasError &&
-                <div className="chip red white-text center" style={{ width: '20rem' }}>
+                <div
+                  className="chip red white-text center"
+                  style={{ width: '20rem' }}
+                >
                   {this.state.error_message}
-                  <i className="close material-icons" tabIndex={-1} role="button" onClick={this.closeError}>close</i>
+                  <i
+                    className="close material-icons"
+                    tabIndex={-1}
+                    role="button"
+                    onClick={this.closeError}
+                  >
+                    close
+                  </i>
                 </div>}
               <div className="input-field col s12">
                 <input
@@ -216,6 +243,7 @@ const mapDispatchToProps = {
 /**
  * 
  * @param {object} Authdata
+ * 
  * @return {object} authData 
  */
 function mapStateToProps({ authData }) {

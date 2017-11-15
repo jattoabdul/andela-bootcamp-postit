@@ -1,3 +1,4 @@
+/* global Materialize */
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -11,15 +12,21 @@ import '../../../styles/index.scss';
 
 /**
  * Display CreateGroupBoard
+ * 
  * @class CreateGroupBoard
+ * 
  * @extends {React.Component}
+ * 
  * @param {any} props
  */
-class CreateGroupBoard extends React.Component {
+export class CreateGroupBoard extends React.Component {
   /**
    * Creates an instance of CreateGroupBoard
+   * 
    * @param {any} props
+   * 
    * @memberof CreateGroupBoard
+   * 
    * @return {void}
    */
   constructor(props) {
@@ -53,22 +60,20 @@ class CreateGroupBoard extends React.Component {
     event.preventDefault();
     const { name, desc } = this.state;
     if (name === '') {
-      // eslint-disable-next-line
       Materialize.toast('name cannot be empty', 2000);
     }
     if (desc === '') {
-      // eslint-disable-next-line
       Materialize.toast('desc cannot be empty', 2000);
     }
+
     // making calls to the create group API endpoint
     this.props.createGroup(name, desc).then((item) => {
       if (item) {
         this.props.fetchUserGroups();
-        // redirect
-        // eslint-disable-next-line
+
+        // redirect to dashboard
         this.props.history.push(`/dashboard/${item.id}/addusertogroup`);
       } else {
-        // eslint-disable-next-line
         Materialize.toast('Group Already Exists', 2000);
       }
     });
@@ -76,6 +81,7 @@ class CreateGroupBoard extends React.Component {
 
   /**
    * Render Method
+   * 
    * @return {dom} DomElement
    */
   render() {
@@ -133,7 +139,13 @@ class CreateGroupBoard extends React.Component {
 
 CreateGroupBoard.propTypes = {
   createGroup: PropTypes.func.isRequired,
-  fetchUserGroups: PropTypes.func.isRequired
+  fetchUserGroups: PropTypes.func.isRequired,
+  history: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+    PropTypes.array
+  ]).isRequired
 };
 
 const mapDispatchToProps = {

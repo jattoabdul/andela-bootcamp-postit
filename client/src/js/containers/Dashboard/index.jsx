@@ -1,3 +1,4 @@
+/* global Materialize */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -26,7 +27,7 @@ import { SideMenu, MainNav } from './../../components/Partials/';
  * 
  * @param {any} props
  */
-class BaseDashboard extends Component {
+export class BaseDashboard extends Component {
   /**
    * Creates an instance of BaseDashboard
    * @param {any} props
@@ -94,13 +95,15 @@ class BaseDashboard extends Component {
 
   /**
    * onLogOut Method
+   * 
    * @param {void} void
+   * 
    * @return {void}
    */
   onLogOut() {
     this.props.onLogoutUser();
+
     // redirecting
-    // eslint-disable-next-line
     this.props.history.push('/login');
   }
 
@@ -118,39 +121,40 @@ class BaseDashboard extends Component {
 
   /**
    * openMessageBoard
+   * 
    * @param {object} group 
+   * 
    * @return {void}
    */
   openMessageBoard(group) {
     // setCurrentGroup in redux store
     this.props.setSelectedGroupAsCurrent(group);
+
     // get Group Members on enter of groups and fetching messages
     this.props.setSelectedGroupMembers(group.id).then(usersItem => usersItem);
+
     // call load messages action on enter of group
     this.props.fetchMessages(group.id).then(() => {
       // redirect to the message board
-      // eslint-disable-next-line
       this.props.history.push(`/dashboard/messages/${group.id}`);
     });
   }
 
   /**
    * add a user to currentGroup
+   * 
    * @param {void} void
+   * 
    * @return {void}
    */
   addAUser() {
-    // eslint-disable-next-line
     const path = this.props.location.pathname;
     const isInGroup = !!path.match('/dashboard/message');
     if (!isInGroup) {
-      // eslint-disable-next-line
       Materialize.toast('Please Select A Group', 2000);
     } else if (isInGroup) {
-      // eslint-disable-next-line
       const locationUrl = this.props.location.pathname;
       const groupId = locationUrl.split('/')[3];
-      // eslint-disable-next-line
       this.props.history.push(`/dashboard/${groupId}/addusertogroup`);
     }
   }
@@ -218,6 +222,13 @@ BaseDashboard.propTypes = {
     PropTypes.number,
     PropTypes.object,
     PropTypes.bool
+  ]).isRequired,
+  location: PropTypes.objectOf(PropTypes.string).isRequired,
+  history: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+    PropTypes.array
   ]).isRequired
 };
 

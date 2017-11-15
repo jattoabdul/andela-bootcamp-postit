@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-// import Api from '../../utils/api';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -8,21 +7,24 @@ import {
 } from '../../actions/authAction';
 import { Welcome } from './../Partials/';
 import '../../../styles/index.scss';
-/**
- * @typedef {object} event
- */
 
 /**
  * Display ResetPassword
+ * 
  * @class ResetPassword
+ * 
  * @extends {React.Component}
+ * 
  * @param {any} props
  */
-class ResetPassword extends React.Component {
+export class ResetPassword extends React.Component {
   /**
    * Creates an instance of ResetPassword
+   * 
    * @param {any} props
+   * 
    * @memberof ResetPassword
+   * 
    * @return {void}
    */
   constructor(props) {
@@ -38,7 +40,9 @@ class ResetPassword extends React.Component {
 
   /**
    * onRequestReset password Method
+   * 
    * @param {event} event
+   * 
    * @return {void} null
    */
   onRequestReset(event) {
@@ -68,7 +72,9 @@ class ResetPassword extends React.Component {
 
   /**
    * onChange Method
+   * 
    * @param {event} event
+   * 
    * @return {void}
    */
   onChange(event) {
@@ -79,7 +85,9 @@ class ResetPassword extends React.Component {
 
   /**
    * closeError Method
+   * 
    * @param {event} event
+   * 
    * @return {void}
    */
   closeError(event) {
@@ -91,6 +99,7 @@ class ResetPassword extends React.Component {
 
   /**
    * Render method
+   * 
    * @return {dom} DomEvent
    */
   render() {

@@ -1,3 +1,4 @@
+/* global Materialize */
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -9,11 +10,14 @@ import '../../../styles/index.scss';
  * @extends {React.Component}
  * @param {any} props
  */
-class Dashboard extends React.Component {
+export class Dashboard extends React.Component {
   /**
    * Creates an instance of Dashboard
+   * 
    * @param {any} props
+   * 
    * @memberof Dashboard
+   * 
    * @return {void}
    */
   constructor(props) {
@@ -26,7 +30,9 @@ class Dashboard extends React.Component {
 
   /**
    * componentWillRecieveProps Life Cycle Method
+   * 
    * @param {object} nextProps
+   * 
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
@@ -38,13 +44,14 @@ class Dashboard extends React.Component {
 
   /**
    * callToaster Method
+   * 
    * @param {string} username
+   * 
    * @return {void}
    */
   callToaster(username) {
     // Add a toastr welcome mesage here.
     if (this.state.hasShownToaster !== true) {
-      // eslint-disable-next-line
       Materialize.toast(`Welcome ${username}, let's PostiT`, 3000);
       this.setState({
         hasShownToaster: true
@@ -53,7 +60,8 @@ class Dashboard extends React.Component {
   }
 
   /**
-   * Render Methjod
+   * Render Method
+   * 
    * @return {dom} DomElement
    */
   render() {

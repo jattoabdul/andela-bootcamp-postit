@@ -1,3 +1,4 @@
+/* global Materialize */
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -26,7 +27,7 @@ import '../../../styles/index.scss';
  * @extends {React.Component}
  * @param {any} props
  */
-class MessageBoard extends React.Component {
+export class MessageBoard extends React.Component {
   /**
    * Creates an instance of MessageBoard
    * @param {any} props
@@ -111,6 +112,7 @@ class MessageBoard extends React.Component {
         totalPageCount: 1
       });
     }
+
     // call searchUserAction
     this.props.onSearchUser(id, searchText, page).then(
       (searchItem) => {
@@ -128,17 +130,15 @@ class MessageBoard extends React.Component {
    * @return {void} 
    */
   onAddUserToGroup(uId) {
-    // eslint-disable-next-line
     const id = `${this.props.match.params.groupId}`;
+
     // call addUser action
     this.props.onAddUser(uId, id).then(
-      // eslint-disable-next-line
-      (item) => {
+      () => {
         this.setState({
           isSelected: [...this.state.isSelected, uId]
         });
-        // eslint-disable-next-line
-        Materialize.toast(`user was added succesfully`, 3000);
+        Materialize.toast('user was added succesfully', 3000);
       }
     );
   }
@@ -152,6 +152,7 @@ class MessageBoard extends React.Component {
   appendChatMessage(priority, text) {
     const group = this.state.currentGroup;
     const groupId = group.id;
+
     // make Api call to send msg here
     this.props.handleSendMessage(groupId, priority, text);
   }
@@ -171,17 +172,17 @@ class MessageBoard extends React.Component {
       cancelLabel: 'Cancel',
       onConfirm: () => this.props.onRemoveUser(userId, groupId)
         .then((res) => {
-        // eslint-disable-next-line
-        Materialize.toast(res.message, 3000);
+          Materialize.toast(res.message, 3000);
         }),
-      // eslint-disable-next-line
       onCancel: () => Materialize.toast('thanks for changing your mind', 3000),
     });
   }
 
   /**
    * updateReadBy Method
+   * 
    * @param {*} id
+   * 
    * @return {void}
    */
   updateReadBy(id) {
@@ -192,7 +193,6 @@ class MessageBoard extends React.Component {
       `/api/v1/groups/${gId}/message/read`,
       'POST'
     ).then((response) => {
-      // eslint-disable-next-line
       Materialize.toast(response.message, 3000);
     });
   }
