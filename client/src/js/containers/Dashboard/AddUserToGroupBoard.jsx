@@ -1,3 +1,4 @@
+/* global Materialize */
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -30,7 +31,7 @@ const computeClass = val => classNames({
  * @extends {React.Component}
  * @param {any} props
  */
-class AddUserToGroupBoard extends React.Component {
+export class AddUserToGroupBoard extends React.Component {
   /**
    * Creates an instance of AddUserToGroupBoard
    * @param {any} props
@@ -52,22 +53,23 @@ class AddUserToGroupBoard extends React.Component {
 
   /**
    * componentDidMount Life Cycle Method
+   * 
    * @param {void} void
+   * 
    * @return {void}
    */
   componentDidMount() {
     const locationUrl = this.props.location.pathname;
     const group = { id: locationUrl.split('/')[2] };
-    // eslint-disable-next-line
     this.setState({
-      // eslint-disable-next-line
-      currentGroupId: parseInt(group.id)
+      currentGroupId: parseInt(group.id, 10)
     });
   }
 
   /**
    * 
    * @param {object} nextProps 
+   * 
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
@@ -79,7 +81,9 @@ class AddUserToGroupBoard extends React.Component {
 
   /**
    * onSearchUserInGroup Method
+   * 
    * @param {event} event
+   * 
    * @return {void}
    */
   onSearchUserInGroup(event) {
@@ -104,15 +108,17 @@ class AddUserToGroupBoard extends React.Component {
 
   /**
    * onAddUserToGroup Method
+   * 
    * @param {number} uId
+   * 
    * @return {void} 
    */
   onAddUserToGroup(uId) {
     const id = `${this.props.match.params.groupId}`;
+
     // call addUser action
     this.props.onAddUser(uId, id).then(
       () => {
-        // eslint-disable-next-line
         Materialize.toast('user was added succesfully', 3000);
       }
     );
@@ -120,15 +126,19 @@ class AddUserToGroupBoard extends React.Component {
 
   /**
    * onShowGroupMessages Method
+   * 
    * @param {event} event
+   * 
    * @return {promise} fetchMessages
    */
   onShowGroupMessages(event) {
     event.preventDefault();
+
     // get this id from the currentGroup Object in store
     const group = this.state.currentGroup;
     const groupIdB = this.state.currentGroupId;
     const gId = group.id || groupIdB;
+
     // call enter group and load message
     this.props.fetchMessages(gId).then(
       () => {
@@ -140,6 +150,7 @@ class AddUserToGroupBoard extends React.Component {
 
   /**
    * Render Method
+   * 
    * @return {dom} DomElement
    */
   render() {
@@ -152,7 +163,9 @@ class AddUserToGroupBoard extends React.Component {
             <div className="card-panel formPanel">
               <form className="centerForm">
                 <div className="center col s12 teal-text">
-                  <span>Search For Registered User and Add to Group Below:</span>
+                  <span>
+                    Search For Registered User and Add to Group Below:
+                  </span>
                   <br />
                   <div className="input-field inline">
                     <input

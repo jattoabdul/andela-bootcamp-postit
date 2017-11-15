@@ -1,15 +1,6 @@
-import chai from 'chai';
 import expect from 'expect';
-import thunk from 'redux-thunk';
-import nock from 'nock';
-import configureMockStore from 'redux-mock-store';
 import * as types from '../../client/src/js/constants';
 import groupData from './../../client/src/js/reducers/group';
-
-const middleware = [thunk];
-const mockStore = configureMockStore(middleware);
-
-// const expect = chai.expect;
 
 describe('Group Action Reducers', () => {
   it('should return the initial state', () => {
@@ -159,7 +150,7 @@ describe('Group Action Reducers', () => {
         }
       }));
   });
-  
+
   it('should remove current group', () => {
     expect(
       groupData({

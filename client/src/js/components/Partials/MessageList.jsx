@@ -9,7 +9,7 @@ import '../../../styles/index.scss';
  * @extends {React.Component}
  * @param {any} props
  */
-class MessageList extends React.Component {
+export class MessageList extends React.Component {
   /**
    * Creates an instance of MessageList
    * @param {any} props

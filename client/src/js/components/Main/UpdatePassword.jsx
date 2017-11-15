@@ -18,7 +18,7 @@ import '../../../styles/index.scss';
  * @extends {React.Component}
  * @param {any} props
  */
-class UpdatePassword extends React.Component {
+export class UpdatePassword extends React.Component {
   /**
    * Creates an instance of UpdatePasswordForm
    * @param {any} props

@@ -9,7 +9,7 @@ import '../../../styles/index.scss';
  * @extends {React.Component}
  * @param {any} props
  */
-class MainNav extends React.Component {
+export class MainNav extends React.Component {
   /**
    * Creates an instance of MainNav
    * @param {any} props

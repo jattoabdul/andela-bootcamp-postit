@@ -7,9 +7,7 @@ const configureStore = (initialState =>
     rootReducer,
     initialState,
     compose(
-      applyMiddleware(thunk),
-      // eslint-disable-next-line
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+      applyMiddleware(thunk)
     )
   ));
 

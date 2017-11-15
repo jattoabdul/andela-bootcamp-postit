@@ -1,3 +1,4 @@
+/* global Materialize */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
@@ -18,7 +19,7 @@ import '../../../styles/index.scss';
  * @extends {React.Component}
  * @param {any} props
  */
-class Register extends React.Component {
+export class Register extends React.Component {
   /**
    * @description Creates an instance of Register
    * 
@@ -97,7 +98,6 @@ class Register extends React.Component {
     }
     if (password !== confirmPassword) {
       this.setState({ error_message: 'Error: password doesnot match' });
-      // eslint-disable-next-line
       Materialize.toast(this.state.error_message, 3000);
       return;
     }
@@ -109,6 +109,7 @@ class Register extends React.Component {
           // login dispatch
           this.props.onLoginUser(this.state).then(() => {
             const response = JSON.parse(this.props.authData.user);
+
             // set error messages
             if (response && response.error !== undefined) {
               if (
@@ -123,6 +124,7 @@ class Register extends React.Component {
               }
             }
             this.setState({ isLoading: false });
+
             // redirecting
             this.props.history.push('/dashboard');
           });
@@ -140,7 +142,9 @@ class Register extends React.Component {
 
   /**
    * close Error Method
+   * 
    * @param {event} event
+   * 
    * @return {void}
    */
   closeError(event) {
@@ -152,6 +156,7 @@ class Register extends React.Component {
 
   /**
    * Render Method
+   * 
    * @return {dom} DomELement
    */
   render() {
