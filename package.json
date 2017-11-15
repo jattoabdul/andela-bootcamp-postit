@@ -16,9 +16,10 @@
     }
   },
   "scripts": {
+    "postinstall": "[ \"$NODE_ENV\" != production ] && exit 0; npm run production",
     "production": "NODE_ENV=production npm run build",
     "start:prod": "node server/dist/bin/www",
-    "start": "npm run production && npm run start:prod",
+    "start": "npm run start:prod",
     "start:dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "client:dev": "webpack-dev-server --hot",
     "server:dev": "nodemon --watch server --exec babel-node -- server/bin/www",
