@@ -47,27 +47,6 @@ models
     restartIdentity: true
   });
 
-/*
-* describing the GET / root route default
-* to have status code => 200
-*/
-describe('GET / route', () => {
-  it('should responds with a 200', (done) => {
-    chai
-      .request(app)
-      .get('/')
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res)
-          .to
-          .have
-          .status(200);
-        done();
-      });
-  });
-});
 
 /*
 * describing the GET /api/v1 root route default
