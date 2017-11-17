@@ -3,7 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import { NotFound } from '../../components/Main';
 import Dashboard from './../../containers/Dashboard/Dashboard';
 import CreateGroupBoard from './../../containers/Dashboard/CreateGroupBoard';
-import AddUserToGroupBoard from './../../containers/Dashboard/AddUserToGroupBoard';
+import
+AddUserToGroupBoard from './../../containers/Dashboard/AddUserToGroupBoard';
 import MessageBoard from '../../containers/Dashboard/MessageBoard';
 
 /**

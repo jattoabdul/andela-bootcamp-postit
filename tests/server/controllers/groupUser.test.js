@@ -244,22 +244,5 @@ describe('GroupUsers Controllers Tests', () => {
             done();
           });
       });
-
-    it('should return a 400 status as user does not exist in the group',
-      (done) => {
-        chai.request(app)
-          .del('/api/v1/groups/3/user')
-          .set('x-access-token', authToken)
-          .query({ usersId: 8 })
-          .end((err, res) => {
-            res.should.have.status(400);
-            assert.strictEqual(
-              res.body.message,
-              'Sorry user is not a member of the group',
-              'Sorry user is not a member of the group'
-            );
-            done();
-          });
-      });
   });
 });

@@ -9,7 +9,7 @@ import {
   onAddUser,
   onSearchUser,
   fetchMessages } from '../../actions/groupAction';
-import '../../../styles/index.scss';
+import { Pagination } from '../../components/Partials';
 
 /**
  * @typedef {object} event
@@ -44,11 +44,14 @@ export class AddUserToGroupBoard extends React.Component {
       error: '',
       currentGroup: null,
       selectedUsers: [],
+      isSelected: [],
+      totalPageCount: 0,
       currentGroupId: null
     };
     this.onSearchUserInGroup = this.onSearchUserInGroup.bind(this);
     this.onAddUserToGroup = this.onAddUserToGroup.bind(this);
     this.onShowGroupMessages = this.onShowGroupMessages.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
   }
 
   /**
@@ -93,17 +96,21 @@ export class AddUserToGroupBoard extends React.Component {
     const page = 1;
     if (!searchText) {
       this.setState({
-        selectedUsers: []
+        selectedUsers: [],
+        totalPageCount: 0
       });
     }
     // call searchUserAction
-    this.props.onSearchUser(id, searchText, page).then(
-      (searchItem) => {
-        this.setState({
-          selectedUsers: searchItem.rows
-        });
-      }
-    );
+    if (searchText !== '') {
+      this.props.onSearchUser(id, searchText, page).then(
+        (searchItem) => {
+          this.setState({
+            selectedUsers: searchItem.rows,
+            totalPageCount: searchItem.count
+          });
+        }
+      );
+    }
   }
 
   /**
@@ -119,6 +126,9 @@ export class AddUserToGroupBoard extends React.Component {
     // call addUser action
     this.props.onAddUser(uId, id).then(
       () => {
+        this.setState({
+          isSelected: [...this.state.isSelected, uId]
+        });
         Materialize.toast('user was added succesfully', 3000);
       }
     );
@@ -146,6 +156,20 @@ export class AddUserToGroupBoard extends React.Component {
         this.props.history.push(`/dashboard/messages/${gId}`);
       }
     );
+  }
+
+  /**
+   * HandlePageClick Method
+   * 
+   * @param {object} page
+   * 
+   * @return {void}
+   */
+  handlePageClick(page) {
+    const selectedPage = Math.ceil(page.selected * 2);
+    const id = `${this.props.match.params.groupId}`;
+    const searchText = this.state.searchQuery;
+    this.props.onSearchUser(id, searchText, selectedPage);
   }
 
   /**
@@ -188,9 +212,9 @@ export class AddUserToGroupBoard extends React.Component {
                         key={selectedUser.id}
                       >
                         <a
-                          className={computeClass(
+                          className={`${this.state.isSelected.includes(selectedUser.id) ? 'link_disabled' : ''} ${computeClass(
                             selectedUser.groups.map(group =>
-                              group.id).includes(currentGroupId))}
+                              group.id).includes(currentGroupId))}`}
                           role="button"
                           tabIndex={-1}
                           onClick={
@@ -210,6 +234,13 @@ export class AddUserToGroupBoard extends React.Component {
                       : <li />
                     }
                   </ul>
+                  {
+                    this.state.selectedUsers.length > 0 ?
+                      <Pagination
+                        pageCount={this.state.totalPageCount}
+                        handlePageClick={this.handlePageClick}
+                      /> : null
+                  }
                 </div>
                 <div className="col s12">
                   <p className="center">

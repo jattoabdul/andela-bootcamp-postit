@@ -7,7 +7,6 @@ import Spinner from 'react-spinner-material';
 
 import { onLoginUser, onRegisterUser } from '../../actions/authAction';
 import { Welcome } from './../Partials/';
-import '../../../styles/index.scss';
 
 /**
  * @typedef {object} event

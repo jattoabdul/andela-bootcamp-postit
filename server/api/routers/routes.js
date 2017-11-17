@@ -43,7 +43,7 @@ export default (app) => {
 
   // API route for the groupadmin to add other users to the group he created
   app.post('/api/v1/groups/:id/user/',
-    authenticate.user, groupUsers.addMember);
+    authenticate.user, authenticate.isGroupAdmin, groupUsers.addMember);
 
   // API  Route for searching users in the system and users in current group
   app.get('/api/v1/groups/:id/:page/usersearch',
@@ -51,7 +51,7 @@ export default (app) => {
 
   // API route for the groupadmin/users to remove users from group he created
   app.delete('/api/v1/groups/:id/user/',
-    authenticate.user, groupUsers.removeMember);
+    authenticate.user, authenticate.isGroupAdmin, groupUsers.removeMember);
 
   // API route for user to view users from the current group he belongs/created
   app.get('/api/v1/groups/:id/users/',

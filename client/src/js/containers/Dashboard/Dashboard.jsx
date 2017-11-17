@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import '../../../styles/index.scss';
 
 /**
  * Display Dashboard

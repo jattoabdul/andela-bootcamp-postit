@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import models from '../models';
 
 export const authenticate = {
 
@@ -29,5 +30,35 @@ export const authenticate = {
       res.append('user', authToken);
       next();
     });
+  },
+
+  /**
+   * isGroupAdmin of a group methhod
+   * 
+   * @param {object} req
+ * @param {object} res
+ * @param {func} next
+   * 
+   * @return {void}
+   */
+  isGroupAdmin(req, res, next) {
+    const userId = req.authToken.data.id;
+    const groupId = req.params.id || req.params.groupId;
+    models.GroupsUsers
+      .find({
+        where: {
+          userId,
+          groupId,
+          isAdmin: '1'
+        }
+      }).then((user) => {
+        if (!user) {
+          return res.status(401)
+            .send({
+              message: 'User is not an admin'
+            });
+        }
+        next();
+      });
   }
 };

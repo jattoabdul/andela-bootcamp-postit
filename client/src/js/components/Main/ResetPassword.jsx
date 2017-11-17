@@ -6,7 +6,6 @@ import {
   requestResetPassword
 } from '../../actions/authAction';
 import { Welcome } from './../Partials/';
-import '../../../styles/index.scss';
 
 /**
  * Display ResetPassword

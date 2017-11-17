@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MessageItem } from './../Partials/';
-import '../../../styles/index.scss';
 
 /**
  * Display MessageList

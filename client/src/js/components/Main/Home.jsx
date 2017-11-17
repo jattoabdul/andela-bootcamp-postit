@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Welcome } from './../Partials/';
-import '../../../styles/index.scss';
 
 /**
  * Display Home

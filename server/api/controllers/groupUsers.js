@@ -41,31 +41,17 @@ export const groupUsers = {
               error: { message: 'user already exist in group' }
             });
         }
-        models.GroupsUsers
-          .find({
-            where: {
-              userId: req.authToken.data.id,
-              isAdmin: '1'
-            }
+        return models.GroupsUsers
+          .create({
+            userId: req.body.userId,
+            groupId: req.params.id,
+            isAdmin: '0'
           })
-          .then((admin) => {
-            if (!admin) {
-              return res.status().send({
-                message: 'User is not an admin'
-              });
-            }
-            return models.GroupsUsers
-              .create({
-                userId: req.body.userId,
-                groupId: req.params.id,
-                isAdmin: '0'
-              })
-              .then((result) => {
-                res.status(201).send(result);
-              })
-              .catch((error) => {
-                res.status(400).send(error);
-              });
+          .then((result) => {
+            res.status(201).send(result);
+          })
+          .catch((error) => {
+            res.status(400).send(error);
           });
       });
   },
@@ -123,54 +109,33 @@ export const groupUsers = {
    */
   removeMember(req, res) {
     const currentUserId = req.authToken.data.id;
-    models.GroupsUsers
-      .find({
-        where: {
-          userId: currentUserId,
-          groupId: req.params.id
-        }
-      }).then(
-        (user) => {
-          if (user.isAdmin === '1') {
-            if (req.query.usersId) {
-              if (user.userId === req.query.usersId) {
-                return res.status(403).send({
-                  message: 'You cannot remove yourself'
-                });
-              }
-              return models.GroupsUsers
-                .destroy({
-                  where: {
-                    userId: req.query.usersId,
-                    groupId: req.params.id
-                  },
-                  force: true
-                })
-                .then((result) => {
-                  res.status(202).send({
-                    result,
-                    message: 'User Removed Successfully'
-                  });
-                })
-                .catch((error) => {
-                  res.status(400).send({
-                    error,
-                    message: 'Error Occured While trying to remove User'
-                  });
-                });
-            }
-          } else {
-            return res.status(400).send({
-              message: 'User Is not an Admin'
-            });
-          }
-        }
-      ).catch((error) => {
-        res.status(400).send({
-          error,
-          message: 'Sorry user is not a member of the group'
+    if (req.query.usersId) {
+      if (currentUserId === parseInt(req.query.usersId, 10)) {
+        return res.status(403).send({
+          message: 'You cannot remove yourself'
         });
-      });
+      }
+      return models.GroupsUsers
+        .destroy({
+          where: {
+            userId: req.query.usersId,
+            groupId: req.params.id
+          },
+          force: true
+        })
+        .then((result) => {
+          res.status(202).send({
+            result,
+            message: 'User Removed Successfully'
+          });
+        })
+        .catch((error) => {
+          res.status(400).send({
+            error,
+            message: 'Error Occured While trying to remove User'
+          });
+        });
+    }
   },
 
   /**
@@ -188,7 +153,7 @@ export const groupUsers = {
           error: { message: 'Page must be a positive number' }
         });
     }
-    if (req.query.search) {
+    if (req.query.search && req.query.search !== '') {
       return models.Users
         .findAndCountAll({
           where: {
