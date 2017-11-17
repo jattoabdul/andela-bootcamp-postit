@@ -28,7 +28,7 @@
     "build:server": "rimraf server/dist/ && babel ./server --out-dir server/dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "re:migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "test": "npm run test:server",
-    "test:client": "nyc --reporter=html --reporter=text mocha --reporter spec tests/client/testSetup.js \"tests/client/*.test.js\" --compilers js:babel-register",
+    "test:client": "nyc -e .jsx -x \"**/utils/**\" --reporter=html --reporter=text mocha --reporter spec tests/client/testSetup.js \"tests/client/**/*.test.js\" \"tests/client/**/*.test.jsx\" --compilers js:babel-register",
     "test:server": "nyc --reporter=html --reporter=text mocha tests/server/tests.js --compilers js:babel-register",
     "eslint": "eslint --fix **/*.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
