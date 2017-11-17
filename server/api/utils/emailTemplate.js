@@ -26,7 +26,7 @@ export const emailTemplate = {
         <p style="font-size: 1.4em;">You recently requested
         to reset your password for your POSTiT account.
         Click the button below to reset it.</p>
-        <a href="https://jatto-postit-app-staging.herokuapp.com/#/reset-password/${hash}" 
+        <a href="https://jatto-postit-app-staging.herokuapp.com/#/updatepassword/${hash}" 
         style="color: white;
         text-decoration: none;
         text-align: center;
@@ -48,8 +48,8 @@ export const emailTemplate = {
         <hr>
         <p>If you are having trouble clicking the password reset button,
         copy and paste the url below into your web browser.</p>
-        <a href="https://jatto-postit-app-staging.herokuapp.com/#/reset-password/${hash}">
-        https://jatto-postit-app-staging.herokuapp.com/#/reset-password/${hash}
+        <a href="https://jatto-postit-app-staging.herokuapp.com/#/updatepassword/${hash}">
+        https://jatto-postit-app-staging.herokuapp.com/#/updatepassword/${hash}
         </a>
       </div>
       <div style="left: 0;
