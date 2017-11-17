@@ -3,7 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
-import '../../../styles/index.scss';
 
 /**
  * Display SideMenu

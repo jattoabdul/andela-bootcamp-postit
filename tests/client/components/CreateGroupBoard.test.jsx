@@ -41,6 +41,10 @@ describe('<CreateGroupBoard />', () => {
     expect(wrapper.find('.centerContainerForForms').exists()).toBe(true);
   });
 
+  it('should contain the createGroup container formPanel', () => {
+    expect(wrapper.find('.formPanel').at(0).exists()).toBe(true);
+  });
+
   it('should contain the createGroup Form', () => {
     expect(wrapper.find('form').at(0).exists()).toBe(true);
   });

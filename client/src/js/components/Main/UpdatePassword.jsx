@@ -6,7 +6,6 @@ import {
   updatePassword
 } from '../../actions/authAction';
 import { Welcome } from './../Partials/';
-import '../../../styles/index.scss';
 
 /**
  * @typedef {object} event

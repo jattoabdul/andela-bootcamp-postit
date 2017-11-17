@@ -2,7 +2,6 @@
 const http = require('http');
 const app = require('../app'); // The express app we just created
 const models = require('../api/models');
-// const io = require('socket.io')(server);
 
 const port = parseInt(process.env.PORT, 10) || process.env.PORT || 7000;
 app.set('port', port);

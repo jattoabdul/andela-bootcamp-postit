@@ -57,6 +57,11 @@ describe('<AddUserToGroupBoard />', () => {
       .toBe('Search For Registered User and Add to Group Below:');
   });
 
+  it('Should have not react paginate component without values in selectedUser',
+    () => {
+      expect(wrapper.find('ReactPaginate').exists()).toBe(false);
+    });
+
   it('Should check that there is a ul element that holds search result', () => {
     expect(wrapper.find('ul').at(0).exists()).toBe(true);
   });

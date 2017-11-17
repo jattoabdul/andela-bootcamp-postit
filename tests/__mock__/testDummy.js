@@ -68,6 +68,10 @@ export default {
       path: '/sidemenu'
     }
   },
+  paginationProps: {
+    handlePageClick: sinon.spy(),
+    pageCount: 1
+  },
   baseDashboardProps: {
     fetchUserGroups: sinon.spy(),
     setSelectedGroupAsCurrent: sinon.spy(),

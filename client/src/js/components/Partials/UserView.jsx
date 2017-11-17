@@ -3,7 +3,6 @@ import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Pagination } from '../Partials';
-import '../../../styles/index.scss';
 
 /**
  * Compute classNames for and element

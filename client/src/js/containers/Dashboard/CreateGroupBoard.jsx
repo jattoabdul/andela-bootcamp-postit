@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchUserGroups, createGroup } from '../../actions/groupAction';
-import '../../../styles/index.scss';
 
 /**
  * @typedef {object} event

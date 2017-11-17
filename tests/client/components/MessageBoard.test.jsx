@@ -95,6 +95,11 @@ describe('<MessageBoard />', () => {
       expect(wrapper.find('#messageBox').at(0).length).toBe(1);
     });
 
+  it('Should have ReactTooltip component',
+    () => {
+      expect(wrapper.find('ReactTooltip').at(0).length).toBe(1);
+    });
+
   it('Should have an area in the UserView Component to search for users',
     () => {
       expect(wrapper.find('.bottomSearch').at(0).length).toBe(1);

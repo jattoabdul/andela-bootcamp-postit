@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../../../styles/index.scss';
+
 /**
  * @typedef {object} event
  */

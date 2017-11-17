@@ -19,7 +19,6 @@ import {
   MessageList,
   MessageInputForm
 } from './../../components/Partials';
-import '../../../styles/index.scss';
 
 /**
  * Display MessageBoard
@@ -109,19 +108,21 @@ export class MessageBoard extends React.Component {
     if (!searchText) {
       this.setState({
         selectedUsers: [],
-        totalPageCount: 1
+        totalPageCount: 0
       });
     }
 
     // call searchUserAction
-    this.props.onSearchUser(id, searchText, page).then(
-      (searchItem) => {
-        this.setState({
-          selectedUsers: searchItem.rows,
-          totalPageCount: searchItem.count
-        });
-      }
-    );
+    if (searchText !== '') {
+      this.props.onSearchUser(id, searchText, page).then(
+        (searchItem) => {
+          this.setState({
+            selectedUsers: searchItem.rows,
+            totalPageCount: searchItem.count
+          });
+        }
+      );
+    }
   }
 
   /**
@@ -165,6 +166,8 @@ export class MessageBoard extends React.Component {
   removeGroupMember(userId) {
     const group = this.state.currentGroup;
     const groupId = group.id;
+    const index = this.state.currentGroupMembers
+      .findIndex(member => member.id === userId);
     confirmAlert({
       title: 'Confirm',
       message: 'Are you sure you want to do this.',
@@ -172,7 +175,15 @@ export class MessageBoard extends React.Component {
       cancelLabel: 'Cancel',
       onConfirm: () => this.props.onRemoveUser(userId, groupId)
         .then((res) => {
-          Materialize.toast(res.message, 3000);
+          if (res.message === 'User Removed Successfully') {
+            this.state.currentGroupMembers.splice(index, 1);
+            this.setState({
+              currentGroupMembers: this.state.currentGroupMembers
+            });
+            Materialize.toast(res.message, 3000);
+          } else {
+            Materialize.toast(res.message, 3000);
+          }
         }),
       onCancel: () => Materialize.toast('thanks for changing your mind', 3000),
     });

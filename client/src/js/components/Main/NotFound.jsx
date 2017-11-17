@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import notFoundError from './../../../assets/img/404error.gif';
-import '../../../styles/index.scss';
 
 /**
  * Display NotFound

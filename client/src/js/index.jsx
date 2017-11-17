@@ -9,6 +9,7 @@ import 'materialize-css/dist/js/materialize.min';
 import jwt from 'jsonwebtoken';
 
 import '../styles/index.scss';
+import './../../src/favicon.ico';
 import configureStore from './stores/configureStore';
 import './htmlAction';
 import {
