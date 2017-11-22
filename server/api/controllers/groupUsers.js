@@ -77,7 +77,8 @@ export const groupUsers = {
         }]
       })
       .then((members) => {
-        res.status(200).send(members[0].users);
+        const groupMembers = members[0].users;
+        res.status(200).send(groupMembers);
       })
       .catch((error) => {
         res.status(400).send(error);
@@ -186,10 +187,10 @@ export const groupUsers = {
           }]
         })
         .then((searchItems) => {
-          const data = {
+          const searchResult = {
             searchItemResult: searchItems
           };
-          res.status(200).send(data);
+          res.status(200).send(searchResult);
         }).catch(error => res.status(400).send(error));
     }
   }

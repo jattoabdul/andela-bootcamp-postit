@@ -37,12 +37,12 @@ describe('Users Controllers Tests', () => {
             })
             .end((err, res) => {
               assert.strictEqual(
-                res.body.data.email,
+                res.body.newUser.email,
                 mockData.validEmail,
                 'email sent is correct'
               );
               assert.strictEqual(
-                res.body.data.username,
+                res.body.newUser.username,
                 mockData.validUsername,
                 'username sent is correct'
               );

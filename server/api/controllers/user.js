@@ -148,16 +148,16 @@ export const user = {
         fullName: req.body.fullName.trim(),
         phoneNumber: req.body.phoneNumber.trim()
       })
-      .then((newUser) => {
-        const data = {};
-        data.id = newUser.id;
-        data.username = newUser.username;
-        data.email = newUser.email;
-        data.fullName = newUser.fullName;
-        data.phoneNumber = newUser.phoneNumber;
-        data.lastLogin = newUser.lastLogin;
-        data.createdAt = newUser.createdAt;
-        res.status(201).send({ data });
+      .then((response) => {
+        const newUser = {};
+        newUser.id = response.id;
+        newUser.username = response.username;
+        newUser.email = response.email;
+        newUser.fullName = response.fullName;
+        newUser.phoneNumber = response.phoneNumber;
+        newUser.lastLogin = response.lastLogin;
+        newUser.createdAt = response.createdAt;
+        res.status(201).send({ newUser });
       })
       .catch((err) => {
         if (err.errors[0].message === 'username must be unique') {
@@ -194,25 +194,25 @@ export const user = {
           username: [req.body.username.toLowerCase()]
         }
       })
-      .then((userObj) => {
+      .then((currentUser) => {
         const password = req.body.password;
-        if (userObj[0]) {
-          if (bcrypt.compareSync(password, userObj[0].password)) {
+        if (currentUser[0]) {
+          if (bcrypt.compareSync(password, currentUser[0].password)) {
             // create an authToken for the user
             const token = jwt.sign({
               data: {
-                id: userObj[0].id,
-                username: userObj[0].username,
-                email: userObj[0].email,
-                fullName: userObj[0].fullName,
-                phoneNumber: userObj[0].phoneNumber
+                id: currentUser[0].id,
+                username: currentUser[0].username,
+                email: currentUser[0].email,
+                fullName: currentUser[0].fullName,
+                phoneNumber: currentUser[0].phoneNumber
               }
             }, 'Jasabs93', { expiresIn: '24h' });
             return res
               .status(202)
               .send({
                 token,
-                message: `${userObj[0].username} has successfully logged in`
+                message: `${currentUser[0].username} has successfully logged in`
               });
           }
           return res.status(401)
