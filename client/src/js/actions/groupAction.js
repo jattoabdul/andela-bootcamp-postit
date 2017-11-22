@@ -173,9 +173,9 @@ export const fetchUserGroups = () => (dispatch) => {
   dispatch(getGroup());
 
   // making call to the get all groups API endpoint
-  return Api(null, '/api/v1/groups/', 'GET').then(
-    (userGroups) => {
-      dispatch(getGroupSuccess(userGroups));
+  return Api(null, '/api/v1/groups/?limit=20', 'GET').then(
+    (response) => {
+      dispatch(getGroupSuccess(response.allGroups));
     }
   ).catch((groupError) => {
     dispatch(getGroupFail(groupError));

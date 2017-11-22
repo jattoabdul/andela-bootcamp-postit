@@ -238,9 +238,20 @@ export const user = {
    * @return {object} user
    */
   getAllUsers(req, res) {
+    const limitValue = req.query.limit || 2;
+    const pageValue = (req.query.page - 1) || 0;
     return models.Users
-      .findAll()
-      .then(users => res.status(200).send({ users }))
+      .findAndCountAll({
+        limit: limitValue,
+        offset: pageValue * limitValue
+      })
+      .then(users => res.status(200).send({
+        page: (pageValue + 1),
+        totalCount: users.count,
+        pageCount: Math.ceil(users.count / limitValue),
+        pageSize: parseInt(users.rows.length, 10),
+        users: users.rows
+      }))
       .catch(err => res.status(400).send({ err }));
   },
 

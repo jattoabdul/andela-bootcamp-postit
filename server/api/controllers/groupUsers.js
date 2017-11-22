@@ -93,9 +93,20 @@ export const groupUsers = {
    * @return {object} groupMembers
    */
   viewAllGroupMembers(req, res) {
+    const limitValue = req.query.limit || 5;
+    const pageValue = (req.query.page - 1) || 0;
     return models.GroupsUsers
-      .findAll()
-      .then(groupMembers => res.status(200).send(groupMembers))
+      .findAndCountAll({
+        limit: limitValue,
+        offset: pageValue * limitValue
+      })
+      .then(groupMembers => res.status(200).send({
+        page: (pageValue + 1),
+        totalCount: groupMembers.count,
+        pageCount: Math.ceil(groupMembers.count / limitValue),
+        pageSize: parseInt(groupMembers.rows.length, 10),
+        groupMembers: groupMembers.rows
+      }))
       .catch(error => res.status(400).send(error));
   },
 

@@ -115,12 +115,12 @@ describe('Group Controllers Tests', () => {
         .set('x-access-token', authToken)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.should.be.an('array');
-          assert.isAtLeast(res.body.length, 1, 'length of group >= 1');
-          expect(res.body[0]).to.be.an('object');
-          expect(res.body[0])
+          res.body.allGroups.should.be.an('array');
+          assert.isAtLeast(res.body.allGroups.length, 1, 'length of group >= 1');
+          expect(res.body.allGroups[0]).to.be.an('object');
+          expect(res.body.allGroups[0])
             .to.have.property('name', mockData.groupName);
-          expect(res.body[0])
+          expect(res.body.allGroups[0])
             .to.have.property('desc', mockData.groupDesc);
           done();
         });

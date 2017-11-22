@@ -77,10 +77,14 @@ export const groups = {
    * @return {object} groups
    */
   viewUserGroups(req, res) {
+    const limitValue = req.query.limit || 5;
+    const pageValue = (req.query.page - 1) || 0;
     const userId = req.authToken.data.id;
     return models.Groups
-      .findAll(
-        { include: [{
+      .findAndCountAll({
+        limit: limitValue,
+        offset: pageValue * limitValue,
+        include: [{
           model: models.Users,
           where: { id: userId },
           attributes: { exclude: ['password'] },
@@ -89,10 +93,15 @@ export const groups = {
           },
           as: 'users'
         }]
-        }
-      )
+      })
       .then((allGroups) => {
-        res.status(200).send(allGroups);
+        res.status(200).send({
+          page: (pageValue + 1),
+          totalCount: allGroups.count,
+          pageCount: Math.ceil(allGroups.count / limitValue),
+          pageSize: parseInt(allGroups.rows.length, 10),
+          allGroups: allGroups.rows
+        });
       })
       .catch(error => res.status(404).send(error));
   }
