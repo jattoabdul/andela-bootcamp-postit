@@ -5,6 +5,7 @@
 
 // importing services
 import models from '../models';
+import paginate from '../utils/paginate';
 
 let userID = 0;
 export const groups = {
@@ -95,11 +96,9 @@ export const groups = {
         }]
       })
       .then((allGroups) => {
-        res.status(200).send({
-          page: (pageValue + 1),
-          totalCount: allGroups.count,
-          pageCount: Math.ceil(allGroups.count / limitValue),
-          pageSize: parseInt(allGroups.rows.length, 10),
+        const size = allGroups.rows.length;
+        return res.status(200).send({
+          pagination: paginate(allGroups.count, limitValue, pageValue, size),
           allGroups: allGroups.rows
         });
       })

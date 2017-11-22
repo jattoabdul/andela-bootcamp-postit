@@ -9,6 +9,7 @@ import * as authData from './../../client/src/js/actions/authAction';
 
 // import mock data
 import mockData from '../__mock__/dummy';
+import mockTestData from '../__mock__/testDummy';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -17,7 +18,8 @@ const expects = chai.expect;
 
 describe('Auth Action', () => {
   describe('Login Success Action', () => {
-    it('should dispatch Login Success action', () => {
+    it('should create an action and Successfully Login a user ' +
+    'when action type LOGIN_USER_SUCCESS is dispatched', () => {
       // Instantiate the response passed to the action
       const user = {
         token: mockData.staticToken,
@@ -43,7 +45,8 @@ describe('Auth Action', () => {
         }]);
     });
 
-    it('should dispatch setCurrentUser action', () => {
+    it('should create an action and set Current User ' +
+    'when action type SET_CURRENT_USER is dispatched', () => {
       // Instantiate the response passed to the action
       const currentUserData = {
         token: mockData.staticToken,
@@ -73,7 +76,8 @@ describe('Auth Action', () => {
   });
 
   describe('Login Fail Action', () => {
-    it('should dispatch Login Fail action', () => {
+    it('should create an action and Fail to Login a user ' +
+    'when action type LOGIN_USER_FAIL is dispatched', () => {
       // Instantiate the response passed to the action
       const user = {
         isAuthenticated: false,
@@ -96,7 +100,8 @@ describe('Auth Action', () => {
     });
   });
   describe('Logout Success Action', () => {
-    it('should dispatch logoutSuccess action', () => {
+    it('should create an action and logout a user Successfully ' +
+    'when action type LOGOUT_USER is dispatched', () => {
       // Initialize mockstore with empty/initial state
       const initialState = {
         isAuthenticated: true,
@@ -116,20 +121,8 @@ describe('Auth Action', () => {
   });
 
   describe('Set Current User Action', () => {
-    it('should dispatch setCurrentUser action', () => {
-      // Instantiate the response passed to the action
-      const currentUserData = {
-        data: {
-          email: mockData.validEmail,
-          fullName: mockData.validFullName,
-          id: mockData.usersId,
-          phoneNumber: mockData.validPhoneNumber,
-          username: mockData.validUsername
-        },
-        exp: 1508589912,
-        iat: 1508503512
-      };
-
+    it('should create an action and set Current User Successfully ' +
+    'when action type SET_CURRENT_USER is dispatched', () => {
       // Initialize mockstore with empty/initial state
       const initialState = {
         isAuthenticated: true,
@@ -141,36 +134,26 @@ describe('Auth Action', () => {
       const store = mockStore(initialState);
 
       // Dispatch the action
-      store.dispatch(authData.setCurrentUser(currentUserData));
+      store.dispatch(authData.setCurrentUser(mockTestData.currentUserData));
 
       // Test if your store dispatched the expected actions
       const actions = store.getActions();
-      const expectedPayload = { type: types.SET_CURRENT_USER, currentUserData };
+      const expectedPayload = {
+        type: types.SET_CURRENT_USER,
+        currentUserData: mockTestData.currentUserData };
       expect(actions).toEqual([expectedPayload]);
     });
   });
 
   describe('Remove Current User Action', () => {
-    it('should dispatch removeCurrentUser action', () => {
-      // Instantiate the response passed to the action
-      const currentUserData = {
-        data: {
-          email: mockData.validEmail,
-          fullName: mockData.validFullName,
-          id: mockData.usersId,
-          phoneNumber: mockData.validPhoneNumber,
-          username: mockData.validUsername
-        },
-        exp: 1508589912,
-        iat: 1508503512
-      };
-
+    it('should create an action and remove Current User Successfully ' +
+    'when action type REMOVE_CURRENT_USER is dispatched', () => {
       // Initialize mockstore with empty/initial state
       const initialState = {
         isAuthenticated: true,
         user: `{"token":"${mockData.staticToken}",
         "message":"jattoade has successfully logged in"}`,
-        currentUserData
+        currentUserData: mockTestData.currentUserData
       };
 
       const store = mockStore(initialState);
@@ -228,7 +211,7 @@ describe('Auth Action', () => {
     // mock fetch api calls
     before(() => fetchMock.post('/api/v1/users/reset/request', email));
 
-    it('should call requestResetPaassword', () => {
+    it('should call requestResetPaassword method and make api call', () => {
       // Initialize mockstore with empty/initial state
       const initialState = {
         isAuthenticated: false,
@@ -265,7 +248,7 @@ describe('Auth Action', () => {
       // mock fetch api calls
       before(() => fetchMock.post(`/api/v1/users/reset/${hash}`, password));
 
-      it('should call updatePassword', () => {
+      it('should call updatePassword method and make api call', () => {
       // Initialize mockstore with empty/initial state
         const initialState = {
           isAuthenticated: false,

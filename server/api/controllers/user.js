@@ -9,6 +9,7 @@ import bcrypt from 'bcrypt-nodejs';
 import crypto from 'crypto';
 import models from '../models';
 import { sendMessage, emailTemplate } from '../utils';
+import paginate from '../utils/paginate';
 
 const salt = bcrypt.genSaltSync(5);
 const error = {};
@@ -245,13 +246,13 @@ export const user = {
         limit: limitValue,
         offset: pageValue * limitValue
       })
-      .then(users => res.status(200).send({
-        page: (pageValue + 1),
-        totalCount: users.count,
-        pageCount: Math.ceil(users.count / limitValue),
-        pageSize: parseInt(users.rows.length, 10),
-        users: users.rows
-      }))
+      .then((users) => {
+        const size = users.rows.length;
+        return res.status(200).send({
+          pagination: paginate(users.count, limitValue, pageValue, size),
+          users: users.rows
+        });
+      })
       .catch(err => res.status(400).send({ err }));
   },
 

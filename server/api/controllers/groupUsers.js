@@ -4,6 +4,7 @@
  */
 
 import models from '../models';
+import paginate from '../utils/paginate';
 
 export const groupUsers = {
   /**
@@ -101,13 +102,13 @@ export const groupUsers = {
         limit: limitValue,
         offset: pageValue * limitValue
       })
-      .then(groupMembers => res.status(200).send({
-        page: (pageValue + 1),
-        totalCount: groupMembers.count,
-        pageCount: Math.ceil(groupMembers.count / limitValue),
-        pageSize: parseInt(groupMembers.rows.length, 10),
-        groupMembers: groupMembers.rows
-      }))
+      .then((groupMembers) => {
+        const size = groupMembers.rows.length;
+        return res.status(200).send({
+          pagination: paginate(groupMembers.count, limitValue, pageValue, size),
+          groupMembers: groupMembers.rows
+        });
+      })
       .catch(error => res.status(400).send(error));
   },
 

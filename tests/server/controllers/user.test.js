@@ -3,6 +3,7 @@ import chaiHttp from 'chai-http';
 
 // import mock data
 import mockData from '../../__mock__/dummy';
+import mockTestData from '../../__mock__/testDummy';
 
 // import app
 import app from '../../../server/app';
@@ -28,13 +29,7 @@ describe('Users Controllers Tests', () => {
             .request(app)
             .post('/api/v1/users/signup')
             .type('form')
-            .send({
-              username: mockData.validUsername,
-              email: mockData.validEmail,
-              password: mockData.validPassword,
-              fullName: mockData.validFullName,
-              phoneNumber: mockData.validPhoneNumber
-            })
+            .send(mockTestData.signupData)
             .end((err, res) => {
               assert.strictEqual(
                 res.body.newUser.email,
@@ -54,12 +49,7 @@ describe('Users Controllers Tests', () => {
         chai.request(app)
           .post('/api/v1/users/signup')
           .type('form')
-          .send({
-            username: mockData.username,
-            email: mockData.email,
-            fullName: mockData.fullName,
-            phoneNumber: mockData.phoneNumber
-          })
+          .send(mockTestData.invalidSignupData)
           .end((err, res) => {
             res.should.have.status(400);
             assert.strictEqual(
@@ -75,12 +65,7 @@ describe('Users Controllers Tests', () => {
         chai.request(app)
           .post('/api/v1/users/signup')
           .type('form')
-          .send({
-            email: mockData.email,
-            password: mockData.password,
-            fullName: mockData.fullName,
-            phoneNumber: mockData.phoneNumber
-          })
+          .send(mockTestData.invalidSignupData2)
           .end((err, res) => {
             res.should.have.status(400);
             assert.strictEqual(
@@ -96,12 +81,7 @@ describe('Users Controllers Tests', () => {
         chai.request(app)
           .post('/api/v1/users/signup')
           .type('form')
-          .send({
-            username: mockData.username,
-            password: mockData.password,
-            fullName: mockData.fullName,
-            phoneNumber: mockData.phoneNumber
-          })
+          .send(mockTestData.invalidSignupData3)
           .end((err, res) => {
             res.should.have.status(400);
             assert.strictEqual(
@@ -117,12 +97,7 @@ describe('Users Controllers Tests', () => {
         chai.request(app)
           .post('/api/v1/users/signup')
           .type('form')
-          .send({
-            username: mockData.username,
-            email: mockData.email,
-            password: mockData.password,
-            fullName: mockData.fullName
-          })
+          .send(mockTestData.invalidSignupData4)
           .end((err, res) => {
             res.should.have.status(400);
             assert.strictEqual(
@@ -138,13 +113,7 @@ describe('Users Controllers Tests', () => {
         chai.request(app)
           .post('/api/v1/users/signup')
           .type('form')
-          .send({
-            username: mockData.username,
-            email: mockData.validEmail,
-            password: mockData.password,
-            fullName: mockData.fullName,
-            phoneNumber: mockData.phoneNumber
-          })
+          .send(mockTestData.invalidSignupData5)
           .end((err, res) => {
             res.should.have.status(409);
             assert.strictEqual(
@@ -160,13 +129,7 @@ describe('Users Controllers Tests', () => {
         chai.request(app)
           .post('/api/v1/users/signup')
           .type('form')
-          .send({
-            username: mockData.validUsername,
-            email: mockData.email,
-            password: mockData.password,
-            fullName: mockData.fullName,
-            phoneNumber: mockData.phoneNumber
-          })
+          .send(mockTestData.invalidSignupData6)
           .end((err, res) => {
             res.should.have.status(409);
             assert.strictEqual(
@@ -182,13 +145,7 @@ describe('Users Controllers Tests', () => {
         chai.request(app)
           .post('/api/v1/users/signup')
           .type('form')
-          .send({
-            username: mockData.username,
-            email: mockData.inValidEmail,
-            password: mockData.password,
-            fullName: mockData.fullName,
-            phoneNumber: mockData.phoneNumber
-          })
+          .send(mockTestData.invalidSignupData7)
           .end((err, res) => {
             res.should.have.status(400);
             assert.strictEqual(
@@ -204,13 +161,7 @@ describe('Users Controllers Tests', () => {
         chai.request(app)
           .post('/api/v1/users/signup')
           .type('form')
-          .send({
-            username: mockData.username,
-            email: mockData.email,
-            password: '  ',
-            fullName: mockData.fullName,
-            phoneNumber: mockData.phoneNumber
-          })
+          .send(mockTestData.invalidSignupData8)
           .end((err, res) => {
             res.should.have.status(400);
             assert.strictEqual(
@@ -226,13 +177,7 @@ describe('Users Controllers Tests', () => {
         chai.request(app)
           .post('/api/v1/users/signup')
           .type('form')
-          .send({
-            username: '  ',
-            email: mockData.email,
-            password: mockData.password,
-            fullName: mockData.fullName,
-            phoneNumber: mockData.phoneNumber
-          })
+          .send(mockTestData.invalidSignupData9)
           .end((err, res) => {
             res.should.have.status(400);
             assert.strictEqual(
@@ -248,13 +193,7 @@ describe('Users Controllers Tests', () => {
         chai.request(app)
           .post('/api/v1/users/signup')
           .type('form')
-          .send({
-            username: mockData.username,
-            email: '  ',
-            password: mockData.password,
-            fullName: mockData.fullName,
-            phoneNumber: mockData.phoneNumber
-          })
+          .send(mockTestData.invalidSignupData10)
           .end((err, res) => {
             res.should.have.status(400);
             assert.strictEqual(
@@ -270,13 +209,7 @@ describe('Users Controllers Tests', () => {
         chai.request(app)
           .post('/api/v1/users/signup')
           .type('form')
-          .send({
-            username: mockData.username,
-            email: mockData.email,
-            password: mockData.password,
-            fullName: mockData.fullName,
-            phoneNumber: '  '
-          })
+          .send(mockTestData.invalidSignupData11)
           .end((err, res) => {
             res.should.have.status(400);
             assert.strictEqual(

@@ -1,43 +1,16 @@
 import expect from 'expect';
 import * as types from '../../client/src/js/constants';
 import groupData from './../../client/src/js/reducers/group';
+import mockTestData from '../__mock__/testDummy';
 
 describe('Group Action Reducers', () => {
   it('should return the initial state', () => {
-    expect(groupData(undefined, {})).toEqual({
-      userGroups: [],
-      currentGroup: {},
-      matchedUsers: [],
-      groupError: {},
-      addError: {},
-      addMsgErr: {},
-      message: {},
-      groupMessages: [],
-      currentGroupMembers: [],
-      isLoadingMessages: false,
-      isAddingMessage: false,
-      isLoadingGroups: false,
-      userAdded: false
-    });
+    expect(groupData(undefined, {})).toEqual(mockTestData.groupReducerState);
   });
 
   it('should handle get group', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {},
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState, {
         type: types.GET_GROUPS,
         isLoadingGroups: true
       }));
@@ -45,21 +18,7 @@ describe('Group Action Reducers', () => {
 
   it('should handle get group success', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {},
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: true,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState2, {
         type: types.GET_GROUPS_SUCCESS,
         userGroups: [
           {
@@ -77,21 +36,7 @@ describe('Group Action Reducers', () => {
 
   it('should handle get group fail', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {},
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: true,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState2, {
         type: types.GET_GROUPS_FAIL,
         groupError: undefined,
         isLoadingGroups: false
@@ -100,50 +45,15 @@ describe('Group Action Reducers', () => {
 
   it('should set current group', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {},
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState, {
         type: types.SET_CURRENT_GROUP,
-        currentGroup: {
-          id: 6,
-          name: 'Search Engine',
-          desc: 'a google user group',
-          isArchived: '0',
-          updatedAt: '2017-10-24T11:28:25.840Z',
-          createdAt: '2017-10-24T11:28:25.840Z'
-        }
+        currentGroup: mockTestData.groupReducerState3.currentGroup
       }));
   });
 
   it('should call add group fail', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {},
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState, {
         type: types.ADD_GROUP_FAIL,
         addError: {
           message: 'add group failure'
@@ -153,28 +63,7 @@ describe('Group Action Reducers', () => {
 
   it('should remove current group', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {
-          id: 6,
-          name: 'Search Engine',
-          desc: 'a google user group',
-          isArchived: '0',
-          updatedAt: '2017-10-24T11:28:25.840Z',
-          createdAt: '2017-10-24T11:28:25.840Z'
-        },
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState3, {
         type: types.REMOVE_CURRENT_GROUP,
         currentGroup: {}
       }));
@@ -182,83 +71,15 @@ describe('Group Action Reducers', () => {
 
   it('should get group members success', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {
-          id: 6,
-          name: 'Search Engine',
-          desc: 'a google user group',
-          isArchived: '0',
-          updatedAt: '2017-10-24T11:28:25.840Z',
-          createdAt: '2017-10-24T11:28:25.840Z'
-        },
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState3, {
         type: types.GET_GROUP_MEMBERS_SUCCESS,
-        currentGroupMembers: [
-          {
-            id: 14,
-            username: 'jattoade',
-            password: '$2a$05$yE3V3lcy4IofbD4gDA7qs.edYXWn3A2rRf2RiVh.vVfzv43vKn/Hu',
-            fullName: 'Aminujatto Abdulqahhar',
-            lastLogin: '2017-10-20T12:45:12.430Z',
-            email: 'jattoade@gmail.com',
-            phoneNumber: '08162740850',
-            createdAt: '2017-10-20T12:45:12.398Z',
-            updatedAt: '2017-10-20T12:45:12.398Z',
-            GroupsUsers: {}
-          }
-        ]
+        currentGroupMembers: mockTestData.currentGroupMembers
       }));
   });
 
   it('should call remove group members success', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {
-          id: 6,
-          name: 'Search Engine',
-          desc: 'a google user group',
-          isArchived: '0',
-          updatedAt: '2017-10-24T11:28:25.840Z',
-          createdAt: '2017-10-24T11:28:25.840Z'
-        },
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [],
-        currentGroupMembers: [
-          {
-            id: 14,
-            username: 'jattoade',
-            password: '$2a$05$yE3V3lcy4IofbD4gDA7qs.edYXWn3A2rRf2RiVh.vVfzv43vKn/Hu',
-            fullName: 'Aminujatto Abdulqahhar',
-            lastLogin: '2017-10-20T12:45:12.430Z',
-            email: 'jattoade@gmail.com',
-            phoneNumber: '08162740850',
-            createdAt: '2017-10-20T12:45:12.398Z',
-            updatedAt: '2017-10-20T12:45:12.398Z',
-            GroupsUsers: {}
-          }
-        ],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState4, {
         type: types.REMOVE_GROUP_MEMBER_SUCCESS,
         currentGroupMembers: []
       }));
@@ -266,28 +87,7 @@ describe('Group Action Reducers', () => {
 
   it('should call get group members fail', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {
-          id: 6,
-          name: 'Search Engine',
-          desc: 'a google user group',
-          isArchived: '0',
-          updatedAt: '2017-10-24T11:28:25.840Z',
-          createdAt: '2017-10-24T11:28:25.840Z'
-        },
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState3, {
         type: types.GET_GROUP_MEMBERS_FAIL,
         groupMembersError: {
           message: 'get group members fail'
@@ -300,105 +100,25 @@ describe('Group Message Action Reducers', () => {
   it('should call recieve message action and set isloadingMessages true',
     () => {
       expect(
-        groupData({
-          userGroups: [],
-          currentGroup: {
-            id: 6,
-            name: 'Search Engine',
-            desc: 'a google user group',
-            isArchived: '0',
-            updatedAt: '2017-10-24T11:28:25.840Z',
-            createdAt: '2017-10-24T11:28:25.840Z'
-          },
-          matchedUsers: [],
-          groupError: {},
-          addError: {},
-          addMsgErr: {},
-          message: {},
-          groupMessages: [],
-          currentGroupMembers: [],
-          isLoadingMessages: false,
-          isAddingMessage: false,
-          isLoadingGroups: false,
-          userAdded: false
-        }, {
+        groupData(mockTestData.groupReducerState3, {
           type: types.RECEIVE_MESSAGES,
           isLoadingMessages: true,
           groupMessages: []
         }));
     });
 
-  it('should call recieve message success', () => {
+  it('should call recieve message success and update the store', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {
-          id: 6,
-          name: 'Search Engine',
-          desc: 'a google user group',
-          isArchived: '0',
-          updatedAt: '2017-10-24T11:28:25.840Z',
-          createdAt: '2017-10-24T11:28:25.840Z'
-        },
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState3, {
         type: types.RECEIVE_MESSAGES_SUCCESS,
         isLoadingMessages: false,
-        groupMessages: [
-          {
-            id: 6,
-            text: 'hello people',
-            userId: 14,
-            groupId: 6,
-            priority: 'Normal',
-            readBy: [
-              'jattoade'
-            ],
-            createdAt: '2017-10-24T12:03:27.836Z',
-            user: {
-              id: 14,
-              username: 'jattoade',
-              fullName: 'Aminujatto Abdulqahhar'
-            }
-          }
-        ]
+        groupMessages: mockTestData.groupReducerState5.groupMessages
       }));
   });
 
-  it('should call recieve message fail', () => {
+  it('should call recieve message fail and empty groupMessages state', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {
-          id: 6,
-          name: 'Search Engine',
-          desc: 'a google user group',
-          isArchived: '0',
-          updatedAt: '2017-10-24T11:28:25.840Z',
-          createdAt: '2017-10-24T11:28:25.840Z'
-        },
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState3, {
         type: types.RECEIVE_MESSAGES_FAIL,
         groupMessages: [],
         isLoadingMessages: false
@@ -406,152 +126,26 @@ describe('Group Message Action Reducers', () => {
   });
 
 
-  it('should call ADD_MESSAGE reducer', () => {
+  it('should call add message and set isAdding message true', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {
-          id: 6,
-          name: 'Search Engine',
-          desc: 'a google user group',
-          isArchived: '0',
-          updatedAt: '2017-10-24T11:28:25.840Z',
-          createdAt: '2017-10-24T11:28:25.840Z'
-        },
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [
-          {
-            id: 6,
-            text: 'hello people',
-            userId: 14,
-            groupId: 6,
-            priority: 'Normal',
-            readBy: [
-              'jattoade'
-            ],
-            createdAt: '2017-10-24T12:03:27.836Z',
-            user: {
-              id: 14,
-              username: 'jattoade',
-              fullName: 'Aminujatto Abdulqahhar'
-            }
-          }
-        ],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: false,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState5, {
         type: types.ADD_MESSAGE,
         isAddingMessage: true,
       }));
   });
 
-  it('should call ADD_MESSAGE_SUCCESS reducer', () => {
+  it('should add message to group messages in store succesfully', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {
-          id: 6,
-          name: 'Search Engine',
-          desc: 'a google user group',
-          isArchived: '0',
-          updatedAt: '2017-10-24T11:28:25.840Z',
-          createdAt: '2017-10-24T11:28:25.840Z'
-        },
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [
-          {
-            id: 6,
-            text: 'hello people',
-            userId: 14,
-            groupId: 6,
-            priority: 'Normal',
-            readBy: [
-              'jattoade'
-            ],
-            createdAt: '2017-10-24T12:03:27.836Z',
-            user: {
-              id: 14,
-              username: 'jattoade',
-              fullName: 'Aminujatto Abdulqahhar'
-            }
-          }
-        ],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: true,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState5, {
         type: types.ADD_MESSAGE_SUCCESS,
         isAddingMessage: false,
-        message: {
-          isArchived: '0',
-          id: 7,
-          userId: 14,
-          groupId: 6,
-          text: 'newest message',
-          priority: 'Normal',
-          readBy: [
-            'jattoade'
-          ],
-          updatedAt: '2017-10-24T15:11:18.188Z',
-          createdAt: '2017-10-24T15:11:18.188Z'
-        }
+        message: mockTestData.messageItem
       }));
   });
 
-  it('should call ADD_MESSAGE_FAIL reducer', () => {
+  it('should call fail to add message to store', () => {
     expect(
-      groupData({
-        userGroups: [],
-        currentGroup: {
-          id: 6,
-          name: 'Search Engine',
-          desc: 'a google user group',
-          isArchived: '0',
-          updatedAt: '2017-10-24T11:28:25.840Z',
-          createdAt: '2017-10-24T11:28:25.840Z'
-        },
-        matchedUsers: [],
-        groupError: {},
-        addError: {},
-        addMsgErr: {},
-        message: {},
-        groupMessages: [
-          {
-            id: 6,
-            text: 'hello people',
-            userId: 14,
-            groupId: 6,
-            priority: 'Normal',
-            readBy: [
-              'jattoade'
-            ],
-            createdAt: '2017-10-24T12:03:27.836Z',
-            user: {
-              id: 14,
-              username: 'jattoade',
-              fullName: 'Aminujatto Abdulqahhar'
-            }
-          }
-        ],
-        currentGroupMembers: [],
-        isLoadingMessages: false,
-        isAddingMessage: true,
-        isLoadingGroups: false,
-        userAdded: false
-      }, {
+      groupData(mockTestData.groupReducerState5, {
         type: types.ADD_MESSAGE_FAIL,
         isAddingMessage: false,
         assMsgErr: {

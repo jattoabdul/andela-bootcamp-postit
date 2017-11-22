@@ -9,30 +9,18 @@ import * as groupData from './../../client/src/js/actions/groupAction';
 
 // import mock data
 import mockData from '../__mock__/dummy';
+import mockTestData from '../__mock__/testDummy';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 chai.use(chaiFetchMock);
 const expects = chai.expect;
 
-describe('Group Actions', () => {
-  const initialState = {
-    userGroups: [],
-    currentGroup: {},
-    matchedUsers: [],
-    groupError: {},
-    addError: {},
-    addMsgErr: {},
-    message: {},
-    groupMessages: [],
-    currentGroupMembers: [],
-    isLoadingMessages: false,
-    isAddingMessage: false,
-    isLoadingGroups: false,
-    userAdded: false
-  };
-  describe('Get Group Actions', () => {
-    it('should dispatch getGroup', () => {
+describe('Actions', () => {
+  const initialState = mockTestData.groupReducerState;
+  describe('Group Actions', () => {
+    it('should create an action' +
+     'and getGroups when action type GET_GROUPS is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData.getGroup());
@@ -44,7 +32,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch getGroupSuccess', () => {
+    it('should create an action and getGroup Successfully ' +
+    'when action type GET_GROUPS_SUCCESS is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData.getGroupSuccess(mockData.userGroups));
@@ -57,7 +46,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch getGroupFail', () => {
+    it('should create an action and Fail to getGroup ' +
+    'when action type GET_GROUPS_FAIL is dispatched', () => {
       const store = mockStore(initialState);
       store.dispatch(groupData.getGroupFail(mockData.groupError));
 
@@ -69,7 +59,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch setCurrentGroup', () => {
+    it('should create an action and set Current Group ' +
+    'when action type SET_CURRENT_GROUP is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData.setCurrentGroup(mockData.currentGroup));
@@ -82,7 +73,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch setcurrentGroupUsersSuccess', () => {
+    it('should create an action and set current GroupUsers Successfully ' +
+    'when action type GET_GROUP_MEMBERS_SUCCESS is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData
@@ -96,7 +88,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch setcurrentGroupUsersFail', () => {
+    it('should create an action and fail to set currentGroup Users ' +
+    'when action type GET_GROUP_MEMBERS_FAIL is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData
@@ -110,7 +103,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch removeCurrentGroup', () => {
+    it('should create an action and remove Current Group ' +
+    'when action type REMOVE_CURRENT_GROUP is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData
@@ -123,7 +117,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch addGroupFail', () => {
+    it('should create an action and fail to add Group' +
+    'when action type ADD_GROUP_FAIL is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData
@@ -137,7 +132,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch removeGroupMember', () => {
+    it('should create an action and remove Group Member' +
+    'when action type REMOVE_GROUP_MEMBER_SUCCESS is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData
@@ -152,14 +148,15 @@ describe('Group Actions', () => {
     });
   });
 
-  describe('Group Messages Action', () => {
+  describe('Group Message Actions', () => {
     // mock fetch api calls
     before(() => fetchMock.get(
       `/api/v1/groups/${mockData.groupId}/messages`,
       mockData.messagesArray)
     );
 
-    it('should dispatch getGroupMessages action', () => {
+    it('should create an action and get Group Messages' +
+    'when action type RECEIVE_MESSAGES is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData
@@ -172,7 +169,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch getGroupMessagesSuccess action', () => {
+    it('should create an action and Successfully get Group Messages' +
+    'when action type RECEIVE_MESSAGES_SUCCESS is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData
@@ -186,7 +184,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch addMessage action', () => {
+    it('should create an action and start the messageAddition process' +
+    'when action type ADD_MESSAGE is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData
@@ -199,7 +198,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch addMessageSuccess action', () => {
+    it('should create an action and add Message Successfully' +
+    'when action type ADD_MESSAGE_SUCCESS is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData
@@ -213,7 +213,8 @@ describe('Group Actions', () => {
       expect(actions).toEqual([expectedPayload]);
     });
 
-    it('should dispatch addMessageFail action', () => {
+    it('should create an action and fail to add Message' +
+    'when action type ADD_MESSAGE_FAIL is dispatched', () => {
       const store = mockStore(initialState);
 
       store.dispatch(groupData
