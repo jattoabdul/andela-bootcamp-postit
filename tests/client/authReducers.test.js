@@ -28,7 +28,7 @@ describe('Auth Reducer', () => {
     }
   };
 
-  it('should handle login success', () => {
+  it('should handle login success and set token to store', () => {
     expect(
       authData({
         isAuthenticated: false,
@@ -41,7 +41,7 @@ describe('Auth Reducer', () => {
       }));
   });
 
-  it('should handle login fail', () => {
+  it('should handle login fail and return authentication state', () => {
     expect(
       authData({
         isAuthenticated: false,
@@ -63,39 +63,13 @@ describe('Auth Reducer', () => {
         currentUserData: '{}'
       }, {
         type: types.SET_CURRENT_USER,
-        isAuthenticated: true,
-        user: '{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxNCwidXNlcm5hbWUiOiJqYXR0b2FkZSIsImVtYWlsIjoiamF0dG9hZGVAZ21haWwuY29tIiwiZnVsbE5hbWUiOiJBbWludWphdHRvIEFiZHVscWFoaGFyIiwicGhvbmVOdW1iZXIiOiIwODE2Mjc0MDg1MCJ9LCJpYXQiOjE1MDg3NTk5OTcsImV4cCI6MTUwODg0NjM5N30.ygHMGgxYAemIrTiPUClq_iTVFlcUiEvCAYIaC0G_NuQ","message":"jattoade has successfully logged in"}',
-        currentUserData: {
-          data: {
-            id: 14,
-            username: 'jattoade',
-            email: 'jattoade@gmail.com',
-            fullName: 'Aminujatto Abdulqahhar',
-            phoneNumber: '08162740850'
-          },
-          iat: 1508759997,
-          exp: 1508846397
-        }
+        ...userDataInStore
       }));
   });
 
-  it('should handle logout user', () => {
+  it('should handle logout user and set authentication state', () => {
     expect(
-      authData({
-        isAuthenticated: true,
-        user: '{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxNCwidXNlcm5hbWUiOiJqYXR0b2FkZSIsImVtYWlsIjoiamF0dG9hZGVAZ21haWwuY29tIiwiZnVsbE5hbWUiOiJBbWludWphdHRvIEFiZHVscWFoaGFyIiwicGhvbmVOdW1iZXIiOiIwODE2Mjc0MDg1MCJ9LCJpYXQiOjE1MDg3NTk5OTcsImV4cCI6MTUwODg0NjM5N30.ygHMGgxYAemIrTiPUClq_iTVFlcUiEvCAYIaC0G_NuQ","message":"jattoade has successfully logged in"}',
-        currentUserData: {
-          data: {
-            id: 14,
-            username: 'jattoade',
-            email: 'jattoade@gmail.com',
-            fullName: 'Aminujatto Abdulqahhar',
-            phoneNumber: '08162740850'
-          },
-          iat: 1508759997,
-          exp: 1508846397
-        }
-      }, {
+      authData(userDataInStore, {
         type: types.LOGOUT_USER,
         isAuthenticated: false,
         user: '',
@@ -113,7 +87,7 @@ describe('Auth Reducer', () => {
       }));
   });
 
-  it('should remove current user', () => {
+  it('should remove current user from store', () => {
     expect(
       authData({
         isAuthenticated: false,

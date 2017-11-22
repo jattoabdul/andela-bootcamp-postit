@@ -3,6 +3,7 @@ import chaiHttp from 'chai-http';
 
 // import mock data
 import mockData from '../../__mock__/dummy';
+import mockTestData from '../../__mock__/testDummy';
 
 // import app
 import app from '../../../server/app';
@@ -40,12 +41,7 @@ describe('Group Controllers Tests', () => {
       chai.request(app)
         .post('/api/v1/groups/')
         .type('form')
-        .send({
-          name: mockData.groupName,
-          desc: mockData.groupDesc,
-          isArchived: mockData.isArchived,
-          UsersId: mockData.usersId
-        })
+        .send(mockTestData.newGroup)
         .end((err, res) => {
           res.should.have.status(401);
           assert.strictEqual(
@@ -61,12 +57,7 @@ describe('Group Controllers Tests', () => {
         .post('/api/v1/groups/')
         .set('x-access-token', authToken)
         .type('form')
-        .send({
-          name: mockData.groupName,
-          desc: mockData.groupDesc,
-          isArchived: mockData.isArchived,
-          UsersId: mockData.usersId
-        })
+        .send(mockTestData.newGroup)
         .end((err, res) => {
           res.should.have.status(201);
           expect(res.body.group).to.be.an('object');
@@ -86,11 +77,7 @@ describe('Group Controllers Tests', () => {
           .post('/api/v1/groups/')
           .set('x-access-token', authToken)
           .type('form')
-          .send({
-            desc: mockData.groupDesc,
-            isArchived: mockData.isArchived,
-            UsersId: mockData.usersId
-          })
+          .send(mockTestData.noGroupName)
           .end((err, res) => {
             res.should.have.status(400);
             assert.strictEqual(
@@ -115,12 +102,12 @@ describe('Group Controllers Tests', () => {
         .set('x-access-token', authToken)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.should.be.an('array');
-          assert.isAtLeast(res.body.length, 1, 'length of group >= 1');
-          expect(res.body[0]).to.be.an('object');
-          expect(res.body[0])
+          res.body.allGroups.should.be.an('array');
+          assert.isAtLeast(res.body.allGroups.length, 1, 'length of group >= 1');
+          expect(res.body.allGroups[0]).to.be.an('object');
+          expect(res.body.allGroups[0])
             .to.have.property('name', mockData.groupName);
-          expect(res.body[0])
+          expect(res.body.allGroups[0])
             .to.have.property('desc', mockData.groupDesc);
           done();
         });

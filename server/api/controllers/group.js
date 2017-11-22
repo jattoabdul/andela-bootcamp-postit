@@ -5,6 +5,7 @@
 
 // importing services
 import models from '../models';
+import paginate from '../utils/paginate';
 
 let userID = 0;
 export const groups = {
@@ -77,10 +78,14 @@ export const groups = {
    * @return {object} groups
    */
   viewUserGroups(req, res) {
+    const limitValue = req.query.limit || 5;
+    const pageValue = (req.query.page - 1) || 0;
     const userId = req.authToken.data.id;
     return models.Groups
-      .findAll(
-        { include: [{
+      .findAndCountAll({
+        limit: limitValue,
+        offset: pageValue * limitValue,
+        include: [{
           model: models.Users,
           where: { id: userId },
           attributes: { exclude: ['password'] },
@@ -89,10 +94,13 @@ export const groups = {
           },
           as: 'users'
         }]
-        }
-      )
+      })
       .then((allGroups) => {
-        res.status(200).send(allGroups);
+        const size = allGroups.rows.length;
+        return res.status(200).send({
+          pagination: paginate(allGroups.count, limitValue, pageValue, size),
+          allGroups: allGroups.rows
+        });
       })
       .catch(error => res.status(404).send(error));
   }

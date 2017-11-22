@@ -171,5 +171,267 @@ export default {
   dashboardProps: {
     username: mockData.validUsername,
     fullName: mockData.validFullName
+  },
+  signupData: {
+    username: mockData.validUsername,
+    email: mockData.validEmail,
+    password: mockData.validPassword,
+    fullName: mockData.validFullName,
+    phoneNumber: mockData.validPhoneNumber
+  },
+  signupData2: {
+    username: mockData.validUsernameTwo,
+    email: mockData.validEmailTwo,
+    password: mockData.validPasswordTwo,
+    fullName: mockData.validFullNameTwo,
+    phoneNumber: mockData.validPhoneNumberTwo
+  },
+  invalidSignupData: {
+    username: mockData.username,
+    email: mockData.email,
+    fullName: mockData.fullName,
+    phoneNumber: mockData.phoneNumber
+  },
+  invalidSignupData2: {
+    email: mockData.email,
+    password: mockData.password,
+    fullName: mockData.fullName,
+    phoneNumber: mockData.phoneNumber
+  },
+  invalidSignupData3: {
+    username: mockData.username,
+    password: mockData.password,
+    fullName: mockData.fullName,
+    phoneNumber: mockData.phoneNumber
+  },
+  invalidSignupData4: {
+    username: mockData.username,
+    email: mockData.email,
+    password: mockData.password,
+    fullName: mockData.fullName
+  },
+  invalidSignupData5: {
+    username: mockData.username,
+    email: mockData.validEmail,
+    password: mockData.password,
+    fullName: mockData.fullName,
+    phoneNumber: mockData.phoneNumber
+  },
+  invalidSignupData6: {
+    username: mockData.validUsername,
+    email: mockData.email,
+    password: mockData.password,
+    fullName: mockData.fullName,
+    phoneNumber: mockData.phoneNumber
+  },
+  invalidSignupData7: {
+    username: mockData.username,
+    email: mockData.inValidEmail,
+    password: mockData.password,
+    fullName: mockData.fullName,
+    phoneNumber: mockData.phoneNumber
+  },
+  invalidSignupData8: {
+    username: mockData.username,
+    email: mockData.email,
+    password: '  ',
+    fullName: mockData.fullName,
+    phoneNumber: mockData.phoneNumber
+  },
+  invalidSignupData9: {
+    username: '  ',
+    email: mockData.email,
+    password: mockData.password,
+    fullName: mockData.fullName,
+    phoneNumber: mockData.phoneNumber
+  },
+  invalidSignupData10: {
+    username: mockData.username,
+    email: '  ',
+    password: mockData.password,
+    fullName: mockData.fullName,
+    phoneNumber: mockData.phoneNumber
+  },
+  invalidSignupData11: {
+    username: mockData.username,
+    email: mockData.email,
+    password: mockData.password,
+    fullName: mockData.fullName,
+    phoneNumber: '  '
+  },
+  newGroup: {
+    name: mockData.groupName,
+    desc: mockData.groupDesc,
+    isArchived: mockData.isArchived,
+    UsersId: mockData.usersId
+  },
+  noGroupName: {
+    desc: mockData.groupDesc,
+    isArchived: mockData.isArchived,
+    UsersId: mockData.usersId
+  },
+  groupReducerState: {
+    userGroups: [],
+    currentGroup: {},
+    matchedUsers: [],
+    groupError: {},
+    addError: {},
+    addMsgErr: {},
+    message: {},
+    groupMessages: [],
+    currentGroupMembers: [],
+    isLoadingMessages: false,
+    isAddingMessage: false,
+    isLoadingGroups: false,
+    userAdded: false
+  },
+  groupReducerState2: {
+    userGroups: [],
+    currentGroup: {},
+    matchedUsers: [],
+    groupError: {},
+    addError: {},
+    addMsgErr: {},
+    message: {},
+    groupMessages: [],
+    currentGroupMembers: [],
+    isLoadingMessages: false,
+    isAddingMessage: false,
+    isLoadingGroups: true,
+    userAdded: false
+  },
+  groupReducerState3: {
+    userGroups: [],
+    currentGroup: {
+      id: 6,
+      name: 'Search Engine',
+      desc: 'a google user group',
+      isArchived: '0',
+      updatedAt: '2017-10-24T11:28:25.840Z',
+      createdAt: '2017-10-24T11:28:25.840Z'
+    },
+    matchedUsers: [],
+    groupError: {},
+    addError: {},
+    addMsgErr: {},
+    message: {},
+    groupMessages: [],
+    currentGroupMembers: [],
+    isLoadingMessages: false,
+    isAddingMessage: false,
+    isLoadingGroups: false,
+    userAdded: false
+  },
+  groupReducerState4: {
+    userGroups: [],
+    currentGroup: {
+      id: 6,
+      name: 'Search Engine',
+      desc: 'a google user group',
+      isArchived: '0',
+      updatedAt: '2017-10-24T11:28:25.840Z',
+      createdAt: '2017-10-24T11:28:25.840Z'
+    },
+    matchedUsers: [],
+    groupError: {},
+    addError: {},
+    addMsgErr: {},
+    message: {},
+    groupMessages: [],
+    currentGroupMembers: [
+      {
+        id: 14,
+        username: 'jattoade',
+        password: '$2a$05$yE3V3lcy4IofbD4gDA7qs.edYXWn3A2rRf2RiVh.vVfzv43vKn/Hu',
+        fullName: 'Aminujatto Abdulqahhar',
+        lastLogin: '2017-10-20T12:45:12.430Z',
+        email: 'jattoade@gmail.com',
+        phoneNumber: '08162740850',
+        createdAt: '2017-10-20T12:45:12.398Z',
+        updatedAt: '2017-10-20T12:45:12.398Z',
+        GroupsUsers: {}
+      }
+    ],
+    isLoadingMessages: false,
+    isAddingMessage: false,
+    isLoadingGroups: false,
+    userAdded: false
+  },
+  groupReducerState5: {
+    userGroups: [],
+    currentGroup: {
+      id: 6,
+      name: 'Search Engine',
+      desc: 'a google user group',
+      isArchived: '0',
+      updatedAt: '2017-10-24T11:28:25.840Z',
+      createdAt: '2017-10-24T11:28:25.840Z'
+    },
+    matchedUsers: [],
+    groupError: {},
+    addError: {},
+    addMsgErr: {},
+    message: {},
+    groupMessages: [
+      {
+        id: 6,
+        text: 'hello people',
+        userId: 14,
+        groupId: 6,
+        priority: 'Normal',
+        readBy: [
+          'jattoade'
+        ],
+        createdAt: '2017-10-24T12:03:27.836Z',
+        user: {
+          id: 14,
+          username: 'jattoade',
+          fullName: 'Aminujatto Abdulqahhar'
+        }
+      }
+    ],
+    currentGroupMembers: [],
+    isLoadingMessages: false,
+    isAddingMessage: false,
+    isLoadingGroups: false,
+    userAdded: false
+  },
+  currentGroupMembers: [
+    {
+      id: 14,
+      username: 'jattoade',
+      password: '$2a$05$yE3V3lcy4IofbD4gDA7qs.edYXWn3A2rRf2RiVh.vVfzv43vKn/Hu',
+      fullName: 'Aminujatto Abdulqahhar',
+      lastLogin: '2017-10-20T12:45:12.430Z',
+      email: 'jattoade@gmail.com',
+      phoneNumber: '08162740850',
+      createdAt: '2017-10-20T12:45:12.398Z',
+      updatedAt: '2017-10-20T12:45:12.398Z',
+      GroupsUsers: {}
+    }
+  ],
+  messageItem: {
+    isArchived: '0',
+    id: 7,
+    userId: 14,
+    groupId: 6,
+    text: 'newest message',
+    priority: 'Normal',
+    readBy: [
+      'jattoade'
+    ],
+    updatedAt: '2017-10-24T15:11:18.188Z',
+    createdAt: '2017-10-24T15:11:18.188Z'
+  },
+  currentUserData: {
+    data: {
+      email: mockData.validEmail,
+      fullName: mockData.validFullName,
+      id: mockData.usersId,
+      phoneNumber: mockData.validPhoneNumber,
+      username: mockData.validUsername
+    },
+    exp: 1508589912,
+    iat: 1508503512
   }
 };

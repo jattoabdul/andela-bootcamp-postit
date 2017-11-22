@@ -3,6 +3,7 @@ import chaiHttp from 'chai-http';
 
 // import mock data
 import mockData from '../../__mock__/dummy';
+import mockTestData from '../../__mock__/testDummy';
 
 // import app
 import app from '../../../server/app';
@@ -25,13 +26,7 @@ describe('GroupUsers Controllers Tests', () => {
       .request(app)
       .post('/api/v1/users/signup')
       .type('form')
-      .send({
-        username: mockData.validUsernameTwo,
-        email: mockData.validEmailTwo,
-        password: mockData.validPasswordTwo,
-        fullName: mockData.validFullNameTwo,
-        phoneNumber: mockData.validPhoneNumberTwo
-      })
+      .send(mockTestData.signupData2)
       .end((err, res) => {
         res.should.have.status(201);
         chai.request(app)
@@ -167,11 +162,11 @@ describe('GroupUsers Controllers Tests', () => {
         .set('x-access-token', authToken)
         .end((err, res) => {
           res.should.have.status(200);
-          expect(res.body).to.be.an('array');
-          expect(res.body).to.have.lengthOf.above(1);
-          expect(res.body[0])
+          expect(res.body.groupMembers).to.be.an('array');
+          expect(res.body.groupMembers).to.have.lengthOf.above(1);
+          expect(res.body.groupMembers[0])
             .to.have.property('userId', mockData.usersId);
-          expect(res.body[1])
+          expect(res.body.groupMembers[1])
             .to.have.property('userId', mockData.userTwoId);
           done();
         });

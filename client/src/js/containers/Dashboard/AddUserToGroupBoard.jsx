@@ -44,6 +44,7 @@ export class AddUserToGroupBoard extends React.Component {
       error: '',
       currentGroup: null,
       selectedUsers: [],
+      searchQuery: '',
       isSelected: [],
       totalPageCount: 0,
       currentGroupId: null
@@ -94,6 +95,9 @@ export class AddUserToGroupBoard extends React.Component {
     const id = `${this.props.match.params.groupId}`;
     const searchText = this.selectedUser.value;
     const page = 1;
+    this.setState({
+      searchQuery: searchText
+    });
     if (!searchText) {
       this.setState({
         selectedUsers: [],
@@ -169,7 +173,14 @@ export class AddUserToGroupBoard extends React.Component {
     const selectedPage = Math.ceil(page.selected * 2);
     const id = `${this.props.match.params.groupId}`;
     const searchText = this.state.searchQuery;
-    this.props.onSearchUser(id, searchText, selectedPage);
+    this.props.onSearchUser(id, searchText, selectedPage).then(
+      (searchItem) => {
+        this.setState({
+          selectedUsers: searchItem.rows,
+          totalPageCount: searchItem.count
+        });
+      }
+    );
   }
 
   /**
@@ -198,8 +209,7 @@ export class AddUserToGroupBoard extends React.Component {
                       className="validate"
                       ref={(input) => {
                         this.selectedUser = input;
-                      }
-                      }
+                      }}
                       onKeyUp={this.onSearchUserInGroup}
                     />
                     <label htmlFor="add_users">Users</label>
@@ -237,7 +247,7 @@ export class AddUserToGroupBoard extends React.Component {
                   {
                     this.state.selectedUsers.length > 0 ?
                       <Pagination
-                        pageCount={this.state.totalPageCount}
+                        pageCount={parseInt(this.state.totalPageCount, 10)}
                         handlePageClick={this.handlePageClick}
                       /> : null
                   }

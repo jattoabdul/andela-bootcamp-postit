@@ -4,6 +4,7 @@
  */
 
 import models from '../models';
+import paginate from '../utils/paginate';
 
 export const groupUsers = {
   /**
@@ -77,7 +78,8 @@ export const groupUsers = {
         }]
       })
       .then((members) => {
-        res.status(200).send(members[0].users);
+        const groupMembers = members[0].users;
+        res.status(200).send(groupMembers);
       })
       .catch((error) => {
         res.status(400).send(error);
@@ -93,9 +95,20 @@ export const groupUsers = {
    * @return {object} groupMembers
    */
   viewAllGroupMembers(req, res) {
+    const limitValue = req.query.limit || 5;
+    const pageValue = (req.query.page - 1) || 0;
     return models.GroupsUsers
-      .findAll()
-      .then(groupMembers => res.status(200).send(groupMembers))
+      .findAndCountAll({
+        limit: limitValue,
+        offset: pageValue * limitValue
+      })
+      .then((groupMembers) => {
+        const size = groupMembers.rows.length;
+        return res.status(200).send({
+          pagination: paginate(groupMembers.count, limitValue, pageValue, size),
+          groupMembers: groupMembers.rows
+        });
+      })
       .catch(error => res.status(400).send(error));
   },
 
@@ -175,10 +188,10 @@ export const groupUsers = {
           }]
         })
         .then((searchItems) => {
-          const data = {
+          const searchResult = {
             searchItemResult: searchItems
           };
-          res.status(200).send(data);
+          res.status(200).send(searchResult);
         }).catch(error => res.status(400).send(error));
     }
   }
