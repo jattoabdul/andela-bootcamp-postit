@@ -17,8 +17,8 @@ import {
 
 
 /**
- * @param {*} void
- * @return {*} empty
+ * @param {null} void
+ * @return {object} type
  */
 export function getGroup() {
   return {
@@ -27,8 +27,8 @@ export function getGroup() {
 }
 
 /**
- * @param {*} userGroups
- * @return {*} empty
+ * @param {object} userGroups
+ * @return {object} type & userGroups
  */
 export function getGroupSuccess(userGroups) {
   return {
@@ -38,8 +38,8 @@ export function getGroupSuccess(userGroups) {
 }
 
 /**
- * @param {*} groupError
- * @return {*} empty
+ * @param {object} groupError
+ * @return {object} type & groupError
  */
 export function getGroupFail(groupError) {
   return {
@@ -49,8 +49,8 @@ export function getGroupFail(groupError) {
 }
 
 /**
- * @param {*} currentGroup
- * @return {*} empty
+ * @param {object} currentGroup
+ * @return {object} type and currentGroup
  */
 export function setCurrentGroup(currentGroup) {
   return {
@@ -60,8 +60,8 @@ export function setCurrentGroup(currentGroup) {
 }
 
 /**
- * @param {*} currentGroupMembers
- * @return {*} empty
+ * @param {object} currentGroupMembers
+ * @return {object} empty
  */
 export function setCurrentGroupUsersSuccess(currentGroupMembers) {
   return {
@@ -71,8 +71,8 @@ export function setCurrentGroupUsersSuccess(currentGroupMembers) {
 }
 
 /**
- * @param {*} groupMembersError
- * @return {*} empty
+ * @param {object} groupMembersError
+ * @return {object} empty
  */
 export function setCurrentGroupUsersFail(groupMembersError) {
   return {
@@ -84,7 +84,7 @@ export function setCurrentGroupUsersFail(groupMembersError) {
 
 /**
  * @param {*} void
- * @return {*} empty
+ * @return {object} empty
  */
 export function removeCurrentGroup() {
   return {
@@ -171,10 +171,11 @@ export function removeGroupMember(userId) {
  */
 export const fetchUserGroups = () => (dispatch) => {
   dispatch(getGroup());
+
   // making call to the get all groups API endpoint
-  return Api(null, '/api/v1/groups/', 'GET').then(
-    (userGroups) => {
-      dispatch(getGroupSuccess(userGroups));
+  return Api(null, '/api/v1/groups/?limit=20', 'GET').then(
+    (response) => {
+      dispatch(getGroupSuccess(response.allGroups));
     }
   ).catch((groupError) => {
     dispatch(getGroupFail(groupError));
@@ -189,10 +190,12 @@ export const fetchUserGroups = () => (dispatch) => {
  */
 export const createGroup = (name, desc) => (dispatch) => {
   const groupCreateParams = `name=${name}&desc=${desc}`;
+
   // making calls to the create group API endpoint
   return Api(groupCreateParams, '/api/v1/groups/', 'POST').then(
     (createGroupResponse) => {
       const group = createGroupResponse.group;
+
       // setting current group to store
       dispatch(setCurrentGroup(group));
       return group;
@@ -203,30 +206,32 @@ export const createGroup = (name, desc) => (dispatch) => {
   });
 };
 
-
-  // onSearchUserInGroup Method
   /**
+   * onSearchUserInGroup Method
    * 
-   * @param {*} id 
+   * @param {*} id
    * @param {*} searchText
+   * @param {string} page
+   * 
    * @return {void}
    */
-export const onSearchUser = (id, searchText) => () => Api(
+export const onSearchUser = (id, searchText, page) => () => Api(
   null,
-  `/api/v1/groups/${id}/usersearch?search=${searchText}`,
+  `/api/v1/groups/${id}/${page}/usersearch?search=${searchText}`,
   'GET')
   .then(
     userSearchResult => userSearchResult.searchItemResult
   );
 
-  // TODO: fix users in a group and deleting user from group UI & backend
   /**
    * 
    * @param {*} groupId
+   * 
    * @return {void}
    */
 export const setSelectedGroupMembers = groupId => dispatch =>
-  // TODO: make API call to get users of a group from the server
+
+  // make API call to get users of a group from the server
   Api(null, `/api/v1/groups/${groupId}/users/`, 'GET').then(
     (currentGroupMembers) => {
       // setting current group members response from server to store
@@ -241,25 +246,29 @@ export const setSelectedGroupMembers = groupId => dispatch =>
     })
 ;
 
-// onAddUserToGroup Method
 /**
+   * onAddUserToGroup Method
    * 
    * @param {*} userId 
    * @param {*} groupId
+   * 
    * @return {object} addUserToGroupResponse
    */
-export const onAddUser = (userId, groupId) => () => {
+export const onAddUser = (userId, groupId) => (dispatch) => {
   const addUserParams = `userId=${userId}`;
   return Api(addUserParams, `/api/v1/groups/${groupId}/user/`, 'POST').then(
-    addUserToGroupResponse => addUserToGroupResponse
+    () => {
+      dispatch(setSelectedGroupMembers(groupId));
+    }
   );
 };
 
-// onAddUserToGroup Method
 /**
+ * onAddUserToGroup Method
  * 
  * @param {*} userId 
  * @param {*} groupId 
+ * 
  * @return {object} removeUserFromGroupResponse
  */
 export const onRemoveUser = (userId, groupId) => (dispatch) => {
@@ -274,6 +283,7 @@ export const onRemoveUser = (userId, groupId) => (dispatch) => {
           'User Is not an Admin' || 'You cannot remove yourself') {
           return removeUserFromGroupResponse;
         }
+
         // call remove groupmember action
         dispatch(removeGroupMember(userId));
         return removeUserFromGroupResponse;
@@ -282,8 +292,10 @@ export const onRemoveUser = (userId, groupId) => (dispatch) => {
 };
 
 /**
+ * setSelectedGroupAsCurrent
  * 
  * @param {*} group
+ * 
  * @return {void}
  */
 export const setSelectedGroupAsCurrent = group => (dispatch) => {
@@ -292,6 +304,10 @@ export const setSelectedGroupAsCurrent = group => (dispatch) => {
 };
 
 /**
+ * resetCurrentGroup
+ * 
+ * @param {empty} void
+ * 
  * @return {void}
  */
 export const resetCurrentGroup = () => (dispatch) => {
@@ -302,7 +318,8 @@ export const resetCurrentGroup = () => (dispatch) => {
 /**
  * 
  * @param {*} groupId 
- * @param {*} dispatch 
+ * @param {*} dispatch
+ * 
  * @return {object} groupMessages
  */
 const fetchTheMessages = (groupId, dispatch) => {
@@ -316,22 +333,27 @@ const fetchTheMessages = (groupId, dispatch) => {
 };
 
 /**
+ * fetchMessages
  * 
  * @param {*} groupId
+ * 
  * @return {object} messageResponse
  */
 export const fetchMessages = groupId => dispatch =>
   fetchTheMessages(groupId, dispatch);
 
 /**
+ * handleSendMessage
  * 
  * @param {*} groupId 
  * @param {*} priority 
- * @param {*} text 
+ * @param {*} text
+ * 
  * @return {object} messageResponse
  */
 export const handleSendMessage = (groupId, priority, text) => (dispatch) => {
   dispatch(addMessage());
+
   // make Api call to send msg here
   const messageParams = `text=${text}&&priority=${priority}`;
   return Api(messageParams, `/api/v1/groups/${groupId}/message/`, 'POST')
@@ -341,5 +363,3 @@ export const handleSendMessage = (groupId, priority, text) => (dispatch) => {
       return messageResponse;
     });
 };
-
-// TODO: abstract all other API calls in component

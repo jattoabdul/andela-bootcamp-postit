@@ -68,26 +68,17 @@ export function logoutSuccess() {
  */
 export const onLoginUser = user => (dispatch) => {
   const { username, password } = user;
-  // const username = user.username,
-  //   password = user.password;
   const userString = `username=${username}&password=${password}`;
   return Api(userString, '/api/v1/users/signin', 'POST', null).then(
     (loginRes) => {
-      if (loginRes.message === 'username does not exist') {
-        // dispatch a login error action
-        dispatch(loginFail(JSON.stringify(loginRes)));
-        return;
+      if (loginRes.error) {
+        return dispatch(loginFail(JSON.stringify(loginRes)));
       }
-      if (loginRes.message === 'invalid password') {
-        // dispatch a login error action
-        dispatch(loginFail(JSON.stringify(loginRes)));
-        return;
-      }
+
       // dispath a login success action
       dispatch(loginSuccess(JSON.stringify(loginRes)));
       sessionStorage.setItem('user', JSON.stringify(loginRes));
 
-      // window.location = '/#/dashboard';
       const token = loginRes.token;
       const decodedToken = jwt.decode(token);
       dispatch(setCurrentUser(decodedToken));

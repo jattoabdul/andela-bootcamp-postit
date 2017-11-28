@@ -3,8 +3,11 @@
   "extends": "airbnb",
   "env": {
     "node": true,
+    "browser": true,
     "es6": true,
-    "mocha": true
+    "mocha": true,
+    "commonjs": true,
+    "jquery": true
   },
   "rules": {
     "one-var": 0,
@@ -13,7 +16,12 @@
     "max-len": [1, 80, 2],
     "consistent-return": 0,
     "no-param-reassign": 0,
+    "no-useless-escape": 0,
+    "import/prefer-default-export": 0,
+    "import/no-named-as-default": 0,
     "comma-dangle": 0,
+    "no-unneeded-ternary": 0,
+    "react/no-did-mount-set-state": 0,
     "curly": ["error", "multi-line"],
     "import/no-unresolved": [2, { "commonjs": true }],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],

@@ -9,9 +9,10 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 });
 
-// const debug = process.env.NODE_ENV !== 'production';
+const debug = process.env.NODE_ENV !== 'production';
+
 module.exports = {
-  entry: ['./client/src/js/index.jsx'],
+  entry: ['whatwg-fetch', './client/src/js/index.jsx'],
   output: {
     path: path.resolve(__dirname, 'client/dist'),
     filename: 'bundle.js',
@@ -48,11 +49,18 @@ module.exports = {
           use: ['css-loader', 'sass-loader']
         })
       },
+      {
+        test: /\.(jpe?g|png|gif|svg|ico)$/i,
+        use: [
+          'url-loader?limit=10000',
+          'img-loader'
+        ]
+      },
       // > MATERIALIZE LOADERS
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader?limit=10000&mimetype=application/font-woff'
       },
-      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      { test: /\.(ttf|eot|svg|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader'
       }
     ] // loaders
@@ -62,9 +70,31 @@ module.exports = {
     modules: ['node_modules', 'client/src'],
     extensions: ['.js', '.jsx', '.json', '.css', '.scss']
   }, // modules
-  plugins: [
+  plugins: debug ? [
     HtmlWebpackPluginConfig,
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new ExtractTextPlugin({
+      filename: 'bundle.css',
+      allChunks: true
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Hammer: 'hammerjs/hammer',
+      createDayLabel: 'jquery',
+      createWeekdayLabel: 'jquery',
+      activateOption: 'jquery',
+      leftPosition: 'jquery'
+    })
+  ] : [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
+    HtmlWebpackPluginConfig,
     new ExtractTextPlugin({
       filename: 'bundle.css',
       allChunks: true
