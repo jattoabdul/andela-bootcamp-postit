@@ -1,24 +1,33 @@
 language: node_js
 branches:
   only:
-    - develop
-    - master
+  - develop
+  - master
 node_js:
-  - "6.10"
+- '6.10'
 install:
-  - npm install
+- npm install
 script:
-  - npm test
+- npm test
 services:
-  - postgresql
-cache: 
-  - npm install
+- postgresql
+cache:
+- npm install
 before_script:
-  - npm install sequelize-cli@2.8.0 -g
-  - sequelize db:migrate
-after_script: 
-  - nyc npm test && nyc report --reporter=text-lcov | coveralls
+- npm install sequelize-cli@2.8.0 -g
+- sequelize db:migrate
+after_script:
+- nyc npm test && nyc report --reporter=text-lcov | coveralls
 after_success:
-  - npm run coveralls
+- npm run coveralls
 notifications:
   webhooks: https://coveralls.io/webhook?repo_token=H9AhM6hCSE6BzPXk2XQRY420Ok1spAQ0f
+deploy:
+  provider: heroku
+  api_key:
+    secure: bbFQIPsTdmpXxVsSEb4e2LRWb0rN0VHfL3GjvnmZ+m7wDkCI/8iLJnzoMdsYRhU/CSvEPNiOQU5w0PZ6ub6G4Uh15RqVeqnpQeD0+0IfWApZYROW9MEqZdTissUJ18SNlBZ5OG+sHObPX8aRpMsvzjgXSviyFZpEFy32YSVHNOE8S8ZaCeXk3scTgoFqF4LfWsErdpa3T4bPUIH4X1tzWbtsypeCn7JuyVSH8XMCqWEhNJ/Pj03o7hONA9mZRL+bTDDG1CVOuSE2CtvgoACeYklxxAJwwf7SAp+I+6b/+8xS+TpgGKzVu78It1sNo5U0mwkfNevW3FQPG+clc6H56NjpHvW+MJ0qGT75t1vyrmKFfTDQ8YSMAbc3oE9OXehq4BxP6O6xAzaf92vOyTmU7OCmBcRWHdNweUw522CuUXXcIRwEKEt4Ig4XTwtn/b1JsxZ66pmGSsu+qsRlh1xuUPuGmVck8LKGLDOEXwZzOCFuGEXG63SFG2W8nACwWqPbXOWTafZu4VP7YX9JCH3IYBw6UAc/Qhopv7wXrKZUt39423w//EcmGz8fhYeeYqlrTKUvRwCgcXrWU1LfAiiiepzfkA9TScxq6XSyJhKyCNe4sO+GQ9lkoVakJMBmXiWG6128Av+Xb4IFtDCpeAEQgNs30ORJa06+yJ8Ix/mF5v0=
+  app:
+    develop: jatto-postit-app-staging
+    master: jatto-postit-app
+  on:
+    repo: jattoabdul/andela-bootcamp-postit
